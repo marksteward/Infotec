@@ -944,25 +944,14 @@ Disassembly of section .data:
      790:	c3                   	ret    
 
 
-     791:	fe 06 fe 06          	inc    BYTE PTR ds:0x6fe
-     795:	fe 06 e2 03          	inc    BYTE PTR ds:0x3e2
-     799:	e9 03 ef             	jmp    0xf69f
-     79c:	03 c1                	add    ax,cx
-     79e:	05 33 04             	add    ax,0x433
-     7a1:	33 04                	xor    ax,WORD PTR [si]
-     7a3:	3d 04 01             	cmp    ax,0x104
-     7a6:	05 03 04             	add    ax,0x403
-     7a9:	0f 04                	(bad)  
-     7ab:	09 04                	or     WORD PTR [si],ax
-     7ad:	2e                   	cs
-     7ae:	04 65                	add    al,0x65
-     7b0:	05 ff 05             	add    ax,0x5ff
-     7b3:	21 04                	and    WORD PTR [si],ax
-     7b5:	38 04                	cmp    BYTE PTR [si],al
-     7b7:	93                   	xchg   bx,ax
-     7b8:	04 15                	add    al,0x15
-     7ba:	04 1b                	add    al,0x1b
-     7bc:	04 53                	add    al,0x53
+.data
+00000791  06fe 06fe 06fe 03e2 03e9 03ef 05c1 0433  |..............3.|
+000007a1  0433 043d 0501 0403 040f 0409 042e 0565  |3.=...........e.|
+000007b1  05ff 0421 0438 0493 0415 041b            |..!.8.......|
+
+
+.code
+     7bd:	53                   	push   bx
      7be:	80 eb 30             	sub    bl,0x30
      7c1:	72 22                	jb     0x7e5
      7c3:	80 fb 09             	cmp    bl,0x9
@@ -1176,6 +1165,7 @@ Disassembly of section .data:
      992:	cb                   	retf   
 
 
+crazy_bcd:
      993:	8a c6                	mov    al,dh
      995:	e8 02 00             	call   0x99a
      998:	8a c2                	mov    al,dl
@@ -1662,37 +1652,14 @@ Disassembly of section .data:
      e2b:	c2 08 00             	ret    0x8
 
 
-     e2e:	91                   	xchg   cx,ax
-     e2f:	0a 7b 0a             	or     bh,BYTE PTR [bp+di+0xa]
-     e32:	c6                   	(bad)  
-     e33:	0a 86 0a f4          	or     al,BYTE PTR [bp-0xbf6]
-     e37:	0a 01                	or     al,BYTE PTR [bx+di]
-     e39:	0b 3f                	or     di,WORD PTR [bx]
-     e3b:	0b 46 0b             	or     ax,WORD PTR [bp+0xb]
-     e3e:	4b                   	dec    bx
-     e3f:	0b af 0a 74          	or     bp,WORD PTR [bx+0x740a]
-     e43:	0b 52 0b             	or     dx,WORD PTR [bp+si+0xb]
-     e46:	56                   	push   si
-     e47:	0b 5a 0b             	or     bx,WORD PTR [bp+si+0xb]
-     e4a:	d3 0b                	ror    WORD PTR [bp+di],cl
-     e4c:	80 0c 23             	or     BYTE PTR [si],0x23
-     e4f:	0c 43                	or     al,0x43
-     e51:	0c c2                	or     al,0xc2
-     e53:	0d fe 0d             	or     ax,0xdfe
-     e56:	fe 0d                	dec    BYTE PTR [di]
-     e58:	fe 0d                	dec    BYTE PTR [di]
-     e5a:	a1 0a a7             	mov    ax,ds:0xa70a
-     e5d:	0a ff                	or     bh,bh
-     e5f:	26                   	es
-     e60:	f4                   	hlt    
-     e61:	29 ff                	sub    di,di
-     e63:	26                   	es
-     e64:	f4                   	hlt    
-     e65:	29 ff                	sub    di,di
-     e67:	26 f6 29             	imul   BYTE PTR es:[bx+di]
-     e6a:	ff 26 f8 29          	jmp    WORD PTR ds:0x29f8
+.data
+00000e2e  0a91 0a7b 0ac6 0a86 0af4 0b01 0b3f 0b46  |..{.........?.F.|
+00000e3e  0b4b 0aaf 0b74 0b52 0b56 0b5a 0bd3 0c80  |K...t.R.V.Z.....|
+00000e4e  0c23 0c43 0dc2 0dfe 0dfe 0dfe 0aa1 0aa7  |#.C.............|
+00000e5e  26ff 29f4 26ff 29f4 26ff 29f6 26ff 29f8  |.&.).&.).&.).&.)|
 
 
+.code
      e6e:	55                   	push   bp
      e6f:	8b ec                	mov    bp,sp
      e71:	56                   	push   si
@@ -5765,21 +5732,14 @@ output_something10:
     34f8:	8b e5                	mov    sp,bp
     34fa:	5d                   	pop    bp
     34fb:	cb                   	retf   
-    34fc:	10 00                	adc    BYTE PTR [bx+si],al
-    34fe:	11 00                	adc    WORD PTR [bx+si],ax
-    3500:	21 00                	and    WORD PTR [bx+si],ax
-    3502:	22 00                	and    al,BYTE PTR [bx+si]
-    3504:	23 00                	and    ax,WORD PTR [bx+si]
-    3506:	30 00                	xor    BYTE PTR [bx+si],al
-    3508:	4d                   	dec    bp
-    3509:	1f                   	pop    ds
-    350a:	11 20                	adc    WORD PTR [bx+si],sp
-    350c:	d3 20                	shl    WORD PTR [bx+si],cl
-    350e:	0d 21 b1             	or     ax,0xb121
-    3511:	1f                   	pop    ds
-    3512:	75 20                	jne    0x3534
 
 
+.data
+000034fc  0010 0011 0021 0022 0023 0030 1f4d 2011  |....!.".#.0.M.. |
+0000350c  20d3 210d 1fb1 2075                      |. .!..u |
+
+
+.code
     3514:	55                   	push   bp
     3515:	8b ec                	mov    bp,sp
     3517:	83 ec 04             	sub    sp,0x4
@@ -5856,16 +5816,13 @@ output_something10:
     35d3:	8b e5                	mov    sp,bp
     35d5:	5d                   	pop    bp
     35d6:	cb                   	retf   
-    35d7:	10 00                	adc    BYTE PTR [bx+si],al
-    35d9:	11 00                	adc    WORD PTR [bx+si],ax
-    35db:	21 00                	and    WORD PTR [bx+si],ax
-    35dd:	22 00                	and    al,BYTE PTR [bx+si]
-    35df:	0c 22                	or     al,0x22
-    35e1:	27                   	daa    
-    35e2:	22 35                	and    dh,BYTE PTR [di]
-    35e4:	22 50 22             	and    dl,BYTE PTR [bx+si+0x22]
 
 
+.data
+000035d7  0010 0011 0021 0022 220c 2227 2235 2250  |....!.".."'"5"P"|
+
+
+.code
 output_something11:
     35e7:	55                   	push   bp
     35e8:	8b ec                	mov    bp,sp
@@ -7024,15 +6981,11 @@ output_something11:
     42d4:	cb                   	retf   
 
 
-    42d5:	6f                   	outs   dx,WORD PTR ds:[si]
-    42d6:	00 76 00             	add    BYTE PTR [bp+0x0],dh
-    42d9:	7d 00                	jge    0x42db
-    42db:	84 00                	test   BYTE PTR [bx+si],al
-    42dd:	8b 00                	mov    ax,WORD PTR [bx+si]
-    42df:	92                   	xchg   dx,ax
-    42e0:	00                   	.byte  0x0
+.data
+000042d5  006f 0076 007d 0084 008b 0092            |o.v.}.......|
 
 
+.code
     42e1:	55                   	push   bp
     42e2:	8b ec                	mov    bp,sp
     42e4:	83 ec 02             	sub    sp,0x2
@@ -9647,38 +9600,14 @@ init_something3:
     5d82:	cb                   	retf   
 
 
-    5d83:	f3 0c b4             	repz or al,0xb4
-    5d86:	0c c9                	or     al,0xc9
-    5d88:	0c de                	or     al,0xde
-    5d8a:	0c f6                	or     al,0xf6
-    5d8c:	0c 0c                	or     al,0xc
-    5d8e:	0d 1b 0d             	or     ax,0xd1b
-    5d91:	29 0d                	sub    WORD PTR [di],cx
-    5d93:	37                   	aaa    
-    5d94:	0d 45 0d             	or     ax,0xd45
-    5d97:	53                   	push   bx
-    5d98:	0d 61 0d             	or     ax,0xd61
-    5d9b:	6f                   	outs   dx,WORD PTR ds:[si]
-    5d9c:	0d 7d 0d             	or     ax,0xd7d
-    5d9f:	8d 0d                	lea    cx,[di]
-    5da1:	85 0c                	test   WORD PTR [si],cx
-    5da3:	9c                   	pushf  
-    5da4:	0c a7                	or     al,0xa7
-    5da6:	0d c2 0d             	or     ax,0xdc2
-    5da9:	dd 0d                	fisttp QWORD PTR [di]
-    5dab:	ef                   	out    dx,ax
-    5dac:	0d 06 0e             	or     ax,0xe06
-    5daf:	1d 0e 2f             	sbb    ax,0x2f0e
-    5db2:	0e                   	push   cs
-    5db3:	41                   	inc    cx
-    5db4:	0e                   	push   cs
-    5db5:	64                   	fs
-    5db6:	0e                   	push   cs
-    5db7:	66                   	data32
-    5db8:	0e                   	push   cs
-    5db9:	68 0e                	.word  0x0e68
+.data
+00005d83  0cf3 0cb4 0cc9 0cde 0cf6 0d0c 0d1b 0d29  |..............).|
+00005d93  0d37 0d45 0d53 0d61 0d6f 0d7d 0d8d 0c85  |7.E.S.a.o.}.....|
+00005da3  0c9c 0da7 0dc2 0ddd 0def 0e06 0e1d 0e2f  |............../.|
+00005db3  0e41 0e64 0e66 0e68                      |A.d.f.h.|
 
 
+.code
     5dbb:	55                   	push   bp
     5dbc:	8b ec                	mov    bp,sp
     5dbe:	83 ec 08             	sub    sp,0x8
@@ -10763,167 +10692,23 @@ init_something3:
     6833:	cb                   	retf   
 
 
-    6834:	01 00                	add    WORD PTR [bx+si],ax
-    6836:	04 00                	add    al,0x0
-    6838:	50                   	push   ax
-    6839:	00 51 00             	add    BYTE PTR [bx+di+0x0],dl
-    683c:	78 18                	js     0x6856
-    683e:	6c                   	ins    BYTE PTR es:[di],dx
-    683f:	18 83 18 8e          	sbb    BYTE PTR [bp+di-0x71e8],al
-    6843:	18 01                	sbb    BYTE PTR [bx+di],al
-    6845:	00 04                	add    BYTE PTR [si],al
-    6847:	00 50 00             	add    BYTE PTR [bx+si+0x0],dl
-    684a:	51                   	push   cx
-    684b:	00 f5                	add    ch,dh
-    684d:	17                   	pop    ss
-    684e:	01 18                	add    WORD PTR [bx+si],bx
-    6850:	0c 18                	or     al,0x18
-    6852:	17                   	pop    ss
-    6853:	18 24                	sbb    BYTE PTR [si],ah
-    6855:	15 39 16             	adc    ax,0x1639
-    6858:	9d                   	popf   
-    6859:	17                   	pop    ss
-    685a:	45                   	inc    bp
-    685b:	12 76 12             	adc    dh,BYTE PTR [bp+0x12]
-    685e:	60                   	pusha  
-    685f:	13 9e 16 9d          	adc    bx,WORD PTR [bp-0x62ea]
-    6863:	17                   	pop    ss
-    6864:	9d                   	popf   
-    6865:	17                   	pop    ss
-    6866:	9d                   	popf   
-    6867:	17                   	pop    ss
-    6868:	9d                   	popf   
-    6869:	17                   	pop    ss
-    686a:	9d                   	popf   
-    686b:	17                   	pop    ss
-    686c:	9d                   	popf   
-    686d:	17                   	pop    ss
-    686e:	9d                   	popf   
-    686f:	17                   	pop    ss
-    6870:	9d                   	popf   
-    6871:	17                   	pop    ss
-    6872:	9d                   	popf   
-    6873:	17                   	pop    ss
-    6874:	9d                   	popf   
-    6875:	17                   	pop    ss
-    6876:	9d                   	popf   
-    6877:	17                   	pop    ss
-    6878:	9d                   	popf   
-    6879:	17                   	pop    ss
-    687a:	9d                   	popf   
-    687b:	17                   	pop    ss
-    687c:	9d                   	popf   
-    687d:	17                   	pop    ss
-    687e:	9d                   	popf   
-    687f:	17                   	pop    ss
-    6880:	9d                   	popf   
-    6881:	17                   	pop    ss
-    6882:	9d                   	popf   
-    6883:	17                   	pop    ss
-    6884:	9d                   	popf   
-    6885:	17                   	pop    ss
-    6886:	9d                   	popf   
-    6887:	17                   	pop    ss
-    6888:	9d                   	popf   
-    6889:	17                   	pop    ss
-    688a:	9d                   	popf   
-    688b:	17                   	pop    ss
-    688c:	9d                   	popf   
-    688d:	17                   	pop    ss
-    688e:	9d                   	popf   
-    688f:	17                   	pop    ss
-    6890:	83 0f 16             	or     WORD PTR [bx],0x16
-    6893:	12 68 11             	adc    ch,BYTE PTR [bx+si+0x11]
-    6896:	00 12                	add    BYTE PTR [bp+si],dl
-    6898:	0b 12                	or     dx,WORD PTR [bp+si]
-    689a:	39 12                	cmp    WORD PTR [bp+si],dx
-    689c:	73 14                	jae    0x68b2
-    689e:	03 17                	add    dx,WORD PTR [bx]
-    68a0:	f8                   	clc    
-    68a1:	0f 32                	rdmsr  
-    68a3:	10 43 10             	adc    BYTE PTR [bp+di+0x10],al
-    68a6:	3b 12                	cmp    dx,WORD PTR [bp+si]
-    68a8:	9d                   	popf   
-    68a9:	17                   	pop    ss
-    68aa:	9d                   	popf   
-    68ab:	17                   	pop    ss
-    68ac:	9d                   	popf   
-    68ad:	17                   	pop    ss
-    68ae:	9d                   	popf   
-    68af:	17                   	pop    ss
-    68b0:	9d                   	popf   
-    68b1:	17                   	pop    ss
-    68b2:	9d                   	popf   
-    68b3:	17                   	pop    ss
-    68b4:	9d                   	popf   
-    68b5:	17                   	pop    ss
-    68b6:	9d                   	popf   
-    68b7:	17                   	pop    ss
-    68b8:	9d                   	popf   
-    68b9:	17                   	pop    ss
-    68ba:	9d                   	popf   
-    68bb:	17                   	pop    ss
-    68bc:	9d                   	popf   
-    68bd:	17                   	pop    ss
-    68be:	9d                   	popf   
-    68bf:	17                   	pop    ss
-    68c0:	9d                   	popf   
-    68c1:	17                   	pop    ss
-    68c2:	9d                   	popf   
-    68c3:	17                   	pop    ss
-    68c4:	9d                   	popf   
-    68c5:	17                   	pop    ss
-    68c6:	9d                   	popf   
-    68c7:	17                   	pop    ss
-    68c8:	9d                   	popf   
-    68c9:	17                   	pop    ss
-    68ca:	9d                   	popf   
-    68cb:	17                   	pop    ss
-    68cc:	9d                   	popf   
-    68cd:	17                   	pop    ss
-    68ce:	9d                   	popf   
-    68cf:	17                   	pop    ss
-    68d0:	ec                   	in     al,dx
-    68d1:	0f 14 11             	unpcklps xmm2,XMMWORD PTR [bx+di]
-    68d4:	50                   	push   ax
-    68d5:	11 5c 11             	adc    WORD PTR [si+0x11],bx
-    68d8:	9d                   	popf   
-    68d9:	17                   	pop    ss
-    68da:	9d                   	popf   
-    68db:	17                   	pop    ss
-    68dc:	9d                   	popf   
-    68dd:	17                   	pop    ss
-    68de:	9d                   	popf   
-    68df:	17                   	pop    ss
-    68e0:	9d                   	popf   
-    68e1:	17                   	pop    ss
-    68e2:	9d                   	popf   
-    68e3:	17                   	pop    ss
-    68e4:	9d                   	popf   
-    68e5:	17                   	pop    ss
-    68e6:	9d                   	popf   
-    68e7:	17                   	pop    ss
-    68e8:	9d                   	popf   
-    68e9:	17                   	pop    ss
-    68ea:	9d                   	popf   
-    68eb:	17                   	pop    ss
-    68ec:	9d                   	popf   
-    68ed:	17                   	pop    ss
-    68ee:	9d                   	popf   
-    68ef:	17                   	pop    ss
-    68f0:	9d                   	popf   
-    68f1:	17                   	pop    ss
-    68f2:	9d                   	popf   
-    68f3:	17                   	pop    ss
-    68f4:	2c 11                	sub    al,0x11
-    68f6:	38 11                	cmp    BYTE PTR [bx+di],dl
-    68f8:	44                   	inc    sp
-    68f9:	11 20                	adc    WORD PTR [bx+si],sp
-    68fb:	11 50 12             	adc    WORD PTR [bx+si+0x12],dx
-    68fe:	58                   	pop    ax
-    68ff:	12 69 12             	adc    ch,BYTE PTR [bx+di+0x12]
+.data
+00006834  0001 0004 0050 0051 1878 186c 1883 188e  |....P.Q.x.l.....|
+00006844  0001 0004 0050 0051 17f5 1801 180c 1817  |....P.Q.........|
+00006854  1524 1639 179d 1245 1276 1360 169e 179d  |$.9...E.v.`.....|
+00006864  179d 179d 179d 179d 179d 179d 179d 179d  |................|
+00006874  179d 179d 179d 179d 179d 179d 179d 179d  |................|
+00006884  179d 179d 179d 179d 179d 179d 0f83 1216  |................|
+00006894  1168 1200 120b 1239 1473 1703 0ff8 1032  |h.....9.s.....2.|
+000068a4  1043 123b 179d 179d 179d 179d 179d 179d  |C.;.............|
+000068b4  179d 179d 179d 179d 179d 179d 179d 179d  |................|
+000068c4  179d 179d 179d 179d 179d 179d 0fec 1114  |................|
+000068d4  1150 115c 179d 179d 179d 179d 179d 179d  |P.\.............|
+000068e4  179d 179d 179d 179d 179d 179d 179d 179d  |................|
+000068f4  112c 1138 1144 1120 1250 1258 1269       |,.8.D. .P.X.i.|
 
 
+.code
     6902:	55                   	push   bp
     6903:	8b ec                	mov    bp,sp
     6905:	83 ec 04             	sub    sp,0x4
@@ -11123,18 +10908,12 @@ init_something3:
     6b12:	cb                   	retf   
 
 
-    6b13:	10 00                	adc    BYTE PTR [bx+si],al
-    6b15:	11 00                	adc    WORD PTR [bx+si],ax
-    6b17:	21 00                	and    WORD PTR [bx+si],ax
-    6b19:	22 00                	and    al,BYTE PTR [bx+si]
-    6b1b:	23 00                	and    ax,WORD PTR [bx+si]
-    6b1d:	74 1a                	je     0x6b39
-    6b1f:	c3                   	ret    
-    6b20:	1a 94 1a c1          	sbb    dl,BYTE PTR [si-0x3ee6]
-    6b24:	1a c5                	sbb    al,ch
-    6b26:	1a                   	.byte  0x1a
+.data
+00006b13  0010 0011 0021 0022 0023 1a74 1ac3 1a94  |....!.".#.t.....|
+00006b23  1ac1 1ac5                                |....|
 
 
+.code
     6b27:	55                   	push   bp
     6b28:	8b ec                	mov    bp,sp
     6b2a:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
@@ -13819,55 +13598,17 @@ init_something3:
     8631:	cb                   	retf   
 
 
-    8632:	4a                   	dec    dx
-    8633:	10 53 10             	adc    BYTE PTR [bp+di+0x10],dl
-    8636:	a2 10 f1             	mov    ds:0xf110,al
-    8639:	10 40 11             	adc    BYTE PTR [bx+si+0x11],al
-    863c:	8f                   	(bad)  
-    863d:	11 de                	adc    si,bx
-    863f:	11 68 13             	adc    WORD PTR [bx+si+0x13],bp
-    8642:	2d 12 7c             	sub    ax,0x7c12
-    8645:	12 cb                	adc    cl,bl
-    8647:	12 1a                	adc    bl,BYTE PTR [bp+si]
-    8649:	13 08                	adc    cx,WORD PTR [bx+si]
-    864b:	0a 38                	or     bh,BYTE PTR [bx+si]
-    864d:	0a 3e 0a 44          	or     bh,BYTE PTR ds:0x440a
-    8651:	0a 4a 0a             	or     cl,BYTE PTR [bp+si+0xa]
-    8654:	50                   	push   ax
-    8655:	0a 56 0a             	or     dl,BYTE PTR [bp+0xa]
-    8658:	89 0a                	mov    WORD PTR [bp+si],cx
-    865a:	62 0a                	bound  cx,DWORD PTR [bp+si]
-    865c:	68 0a 73             	push   0x730a
-    865f:	0a 7e 0a             	or     bh,BYTE PTR [bp+0xa]
-    8662:	59                   	pop    cx
-    8663:	06                   	push   es
-    8664:	c6                   	(bad)  
-    8665:	14 34                	adc    al,0x34
-    8667:	0e                   	push   cs
-    8668:	bb 14 c6             	mov    bx,0xc614
-    866b:	14 c6                	adc    al,0xc6
-    866d:	14 c6                	adc    al,0xc6
-    866f:	14 c6                	adc    al,0xc6
-    8671:	14 c6                	adc    al,0xc6
-    8673:	14 c6                	adc    al,0xc6
-    8675:	14 c6                	adc    al,0xc6
-    8677:	14 c6                	adc    al,0xc6
-    8679:	14 c6                	adc    al,0xc6
-    867b:	14 c6                	adc    al,0xc6
-    867d:	14 c6                	adc    al,0xc6
-    867f:	14 c6                	adc    al,0xc6
-    8681:	14 c6                	adc    al,0xc6
-    8683:	14 e8                	adc    al,0xe8
-    8685:	08 c6                	or     dh,al
-    8687:	14 c6                	adc    al,0xc6
-    8689:	14 7d                	adc    al,0x7d
-    868b:	0b d0                	or     dx,ax
-    868d:	13 ee                	adc    bp,si
-    868f:	09 34                	or     WORD PTR [si],si
-    8691:	10 f7                	adc    bh,dh
-    8693:	0c                   	.byte  0xc
+.data
+00008632  104a 1053 10a2 10f1 1140 118f 11de 1368  |J.S.....@.....h.|
+00008642  122d 127c 12cb 131a 0a08 0a38 0a3e 0a44  |-.|.......8.>.D.|
+00008652  0a4a 0a50 0a56 0a89 0a62 0a68 0a73 0a7e  |J.P.V...b.h.s.~.|
+00008662  0659 14c6 0e34 14bb 14c6 14c6 14c6 14c6  |Y...4...........|
+00008672  14c6 14c6 14c6 14c6 14c6 14c6 14c6 14c6  |................|
+00008682  14c6 08e8 14c6 14c6 0b7d 13d0 09ee 1034  |........}.....4.|
+00008692  0cf7                                     |..|
 
 
+.code
     8694:	55                   	push   bp
     8695:	8b ec                	mov    bp,sp
     8697:	83 ec 02             	sub    sp,0x2
@@ -15476,52 +15217,17 @@ init_something3:
     9716:	cb                   	retf   
 
 
-    9717:	90                   	nop
-    9718:	20 99 20 f6          	and    BYTE PTR [bx+di-0x9e0],bl
-    971c:	20 53 21             	and    BYTE PTR [bp+di+0x21],dl
-    971f:	b0 21                	mov    al,0x21
-    9721:	0d 22 6a             	or     ax,0x6a22
-    9724:	22 3a                	and    bh,BYTE PTR [bp+si]
-    9726:	24 c7                	and    al,0xc7
-    9728:	22 24                	and    ah,BYTE PTR [si]
-    972a:	23 81 23 de          	and    ax,WORD PTR [bx+di-0x21dd]
-    972e:	23 b1 19 e1          	and    si,WORD PTR [bx+di-0x1ee7]
-    9732:	19 e7                	sbb    di,sp
-    9734:	19 ed                	sbb    bp,bp
-    9736:	19 f3                	sbb    bx,si
-    9738:	19 f9                	sbb    cx,di
-    973a:	19 ff                	sbb    di,di
-    973c:	19 34                	sbb    WORD PTR [si],si
-    973e:	1a 0b                	sbb    cl,BYTE PTR [bp+di]
-    9740:	1a 11                	sbb    dl,BYTE PTR [bx+di]
-    9742:	1a 1d                	sbb    bl,BYTE PTR [di]
-    9744:	1a 29                	sbb    ch,BYTE PTR [bx+di]
-    9746:	1a 6c 16             	sbb    ch,BYTE PTR [si+0x16]
-    9749:	ab                   	stos   WORD PTR es:[di],ax
-    974a:	25 48 1e             	and    ax,0x1e48
-    974d:	a5                   	movs   WORD PTR es:[di],WORD PTR ds:[si]
-    974e:	25 ab 25             	and    ax,0x25ab
-    9751:	ab                   	stos   WORD PTR es:[di],ax
-    9752:	25 ab 25             	and    ax,0x25ab
-    9755:	ab                   	stos   WORD PTR es:[di],ax
-    9756:	25 ab 25             	and    ax,0x25ab
-    9759:	ab                   	stos   WORD PTR es:[di],ax
-    975a:	25 ab 25             	and    ax,0x25ab
-    975d:	ab                   	stos   WORD PTR es:[di],ax
-    975e:	25 ab 25             	and    ax,0x25ab
-    9761:	ab                   	stos   WORD PTR es:[di],ax
-    9762:	25 ab 25             	and    ax,0x25ab
-    9765:	ab                   	stos   WORD PTR es:[di],ax
-    9766:	25 ab 25             	and    ax,0x25ab
-    9769:	8c 18                	mov    WORD PTR [bx+si],ds
-    976b:	ab                   	stos   WORD PTR es:[di],ax
-    976c:	25 ab 25             	and    ax,0x25ab
-    976f:	6a 1b                	push   0x1b
-    9771:	a2 24 97             	mov    ds:0x9724,al
-    9774:	19 7a 20             	sbb    WORD PTR [bp+si+0x20],di
-    9777:	01 1d                	add    WORD PTR [di],bx
+.data
+00009717  2090 2099 20f6 2153 21b0 220d 226a 243a  |. . . S!.!."j":$|
+00009727  22c7 2324 2381 23de 19b1 19e1 19e7 19ed  |."$#.#.#........|
+00009737  19f3 19f9 19ff 1a34 1a0b 1a11 1a1d 1a29  |......4.......).|
+00009747  166c 25ab 1e48 25a5 25ab 25ab 25ab 25ab  |l..%H..%.%.%.%.%|
+00009757  25ab 25ab 25ab 25ab 25ab 25ab 25ab 25ab  |.%.%.%.%.%.%.%.%|
+00009767  25ab 188c 25ab 25ab 1b6a 24a2 1997 207a  |.%...%.%j..$..z |
+00009777  1d01                                     |..|
 
 
+.code
     9779:	55                   	push   bp
     977a:	8b ec                	mov    bp,sp
     977c:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
@@ -15869,12 +15575,11 @@ init_something3:
     9ae9:	cb                   	retf   
 
 
-    9aea:	cf                   	iret   
-    9aeb:	28 0f                	sub    BYTE PTR [bx],cl
-    9aed:	29 18                	sub    WORD PTR [bx+si],bx
-    9aef:	29 4f 29             	sub    WORD PTR [bx+0x29],cx
+.data
+00009aea  28cf 290f 2918 294f                      |.(.).)O)|
 
 
+.code
     9af2:	55                   	push   bp
     9af3:	8b ec                	mov    bp,sp
     9af5:	83 ec 02             	sub    sp,0x2
@@ -17085,19 +16790,12 @@ init_something3:
     a6a9:	cb                   	retf   
 
 
-    a6aa:	00 00                	add    BYTE PTR [bx+si],al
-    a6ac:	02 00                	add    al,BYTE PTR [bx+si]
-    a6ae:	03 00                	add    ax,WORD PTR [bx+si]
-    a6b0:	11 00                	adc    WORD PTR [bx+si],ax
-    a6b2:	12 00                	adc    al,BYTE PTR [bx+si]
-    a6b4:	b1 2e                	mov    cl,0x2e
-    a6b6:	cb                   	retf   
-    a6b7:	34 24                	xor    al,0x24
-    a6b9:	35 79 2f             	xor    ax,0x2f79
-    a6bc:	c9                   	leave  
-    a6bd:	32                   	.byte  0x32
+.data
+0000a6aa  0000 0002 0003 0011 0012 2eb1 34cb 3524  |.............4$5|
+0000a6ba  2f79 32c9                                |y/.2|
 
 
+.code
     a6be:	55                   	push   bp
     a6bf:	8b ec                	mov    bp,sp
     a6c1:	83 ec 02             	sub    sp,0x2
@@ -19245,55 +18943,17 @@ init_something3:
     bc7a:	cb                   	retf   
 
 
-    bc7b:	60                   	pusha  
-    bc7c:	43                   	inc    bx
-    bc7d:	75 43                	jne    0xbcc2
-    bc7f:	92                   	xchg   dx,ax
-    bc80:	43                   	inc    bx
-    bc81:	b0 43                	mov    al,0x43
-    bc83:	fe 43 4c             	inc    BYTE PTR [bp+di+0x4c]
-    bc86:	44                   	inc    sp
-    bc87:	5a                   	pop    dx
-    bc88:	44                   	inc    sp
-    bc89:	e0 44                	loopne 0xbccf
-    bc8b:	78 44                	js     0xbcd1
-    bc8d:	86 44 a4             	xchg   BYTE PTR [si-0x5c],al
-    bc90:	44                   	inc    sp
-    bc91:	c2 44 88             	ret    0x8844
-    bc94:	38 bc 38 d9          	cmp    BYTE PTR [si-0x26c8],bh
-    bc98:	38 f7                	cmp    bh,dh
-    bc9a:	38 45 39             	cmp    BYTE PTR [di+0x39],al
-    bc9d:	93                   	xchg   bx,ax
-    bc9e:	39 b0 39 30          	cmp    WORD PTR [bx+si+0x3039],si
-    bca2:	3a be 39 cc          	cmp    bh,BYTE PTR [bp-0x33c7]
-    bca6:	39 e9                	cmp    cx,bp
-    bca8:	39 06 3a 50          	cmp    WORD PTR ds:0x503a,ax
-    bcac:	37                   	aaa    
-    bcad:	0f 4b df             	cmovnp bx,di
-    bcb0:	41                   	inc    cx
-    bcb1:	02 4b 0f             	add    cl,BYTE PTR [bp+di+0xf]
-    bcb4:	4b                   	dec    bx
-    bcb5:	0f 4b 0f             	cmovnp cx,WORD PTR [bx]
-    bcb8:	4b                   	dec    bx
-    bcb9:	0f 4b 0f             	cmovnp cx,WORD PTR [bx]
-    bcbc:	4b                   	dec    bx
-    bcbd:	0f 4b 0f             	cmovnp cx,WORD PTR [bx]
-    bcc0:	4b                   	dec    bx
-    bcc1:	0f 4b 0f             	cmovnp cx,WORD PTR [bx]
-    bcc4:	4b                   	dec    bx
-    bcc5:	0f 4b 0f             	cmovnp cx,WORD PTR [bx]
-    bcc8:	4b                   	dec    bx
-    bcc9:	0f 4b 0f             	cmovnp cx,WORD PTR [bx]
-    bccc:	4b                   	dec    bx
-    bccd:	bb 37 0f             	mov    bx,0xf37
-    bcd0:	4b                   	dec    bx
-    bcd1:	0f 4b 2c             	cmovnp bp,WORD PTR [si]
-    bcd4:	3d 7a 47             	cmp    ax,0x477a
-    bcd7:	6e                   	outs   dx,BYTE PTR ds:[si]
-    bcd8:	38 3e 43 e7          	cmp    BYTE PTR ds:0xe743,bh
-    bcdc:	40                   	inc    ax
+.data
+0000bc7b  4360 4375 4392 43b0 43fe 444c 445a 44e0  |`CuC.C.C.CLDZD.D|
+0000bc8b  4478 4486 44a4 44c2 3888 38bc 38d9 38f7  |xD.D.D.D.8.8.8.8|
+0000bc9b  3945 3993 39b0 3a30 39be 39cc 39e9 3a06  |E9.9.90:.9.9.9.:|
+0000bcab  3750 4b0f 41df 4b02 4b0f 4b0f 4b0f 4b0f  |P7.K.A.K.K.K.K.K|
+0000bcbb  4b0f 4b0f 4b0f 4b0f 4b0f 4b0f 4b0f 4b0f  |.K.K.K.K.K.K.K.K|
+0000bccb  4b0f 37bb 4b0f 4b0f 3d2c 477a 386e 433e  |.K.7.K.K,=zGn8>C|
+0000bcdb  40e7                                     |.@|
 
 
+.code
     bcdd:	55                   	push   bp
     bcde:	8b ec                	mov    bp,sp
     bce0:	83 ec 02             	sub    sp,0x2
@@ -20092,24 +19752,12 @@ init_something3:
     c4e8:	cb                   	retf   
 
 
-    c4e9:	c3                   	ret    
-    c4ea:	4b                   	dec    bx
-    c4eb:	e3 4b                	jcxz   0xc538
-    c4ed:	00 4c 1e             	add    BYTE PTR [si+0x1e],cl
-    c4f0:	4c                   	dec    sp
-    c4f1:	6c                   	ins    BYTE PTR es:[di],dx
-    c4f2:	4c                   	dec    sp
-    c4f3:	ba 4c c8             	mov    dx,0xc84c
-    c4f6:	4c                   	dec    sp
-    c4f7:	4e                   	dec    si
-    c4f8:	4d                   	dec    bp
-    c4f9:	e6 4c                	out    0x4c,al
-    c4fb:	f4                   	hlt    
-    c4fc:	4c                   	dec    sp
-    c4fd:	12 4d 30             	adc    cl,BYTE PTR [di+0x30]
-    c500:	4d                   	dec    bp
+.data
+0000c4e9  4bc3 4be3 4c00 4c1e 4c6c 4cba 4cc8 4d4e  |.K.K.L.LlL.L.LNM|
+0000c4f9  4ce6 4cf4 4d12 4d30                      |.L.L.M0M|
 
 
+.code
     c501:	55                   	push   bp
     c502:	8b ec                	mov    bp,sp
     c504:	83 ec 0a             	sub    sp,0xa
@@ -20380,21 +20028,12 @@ init_something3:
     c7bf:	cb                   	retf   
 
 
-    c7c0:	f7 53 2f             	not    WORD PTR [bp+di+0x2f]
-    c7c3:	54                   	push   sp
-    c7c4:	35 54 3b             	xor    ax,0x3b54
-    c7c7:	54                   	push   sp
-    c7c8:	41                   	inc    cx
-    c7c9:	54                   	push   sp
-    c7ca:	47                   	inc    di
-    c7cb:	54                   	push   sp
-    c7cc:	4d                   	dec    bp
-    c7cd:	54                   	push   sp
-    c7ce:	81 54 59 54 5f       	adc    WORD PTR [si+0x59],0x5f54
-    c7d3:	54                   	push   sp
-    c7d4:	6b 54 76 54          	imul   dx,WORD PTR [si+0x76],0x54
+.data
+0000c7c0  53f7 542f 5435 543b 5441 5447 544d 5481  |.S/T5T;TATGTMT.T|
+0000c7d0  5459 545f 546b 5476                      |YT_TkTvT|
 
 
+.code
     c7d8:	55                   	push   bp
     c7d9:	8b ec                	mov    bp,sp
     c7db:	83 ec 16             	sub    sp,0x16
@@ -21049,31 +20688,13 @@ init_something3:
     ce73:	cb                   	retf   
 
 
-    ce74:	24 00                	and    al,0x0
-    ce76:	43                   	inc    bx
-    ce77:	00 46 00             	add    BYTE PTR [bp+0x0],al
-    ce7a:	4b                   	dec    bx
-    ce7b:	00 4c 00             	add    BYTE PTR [si+0x0],cl
-    ce7e:	4d                   	dec    bp
-    ce7f:	00 4f 00             	add    BYTE PTR [bx+0x0],cl
-    ce82:	50                   	push   ax
-    ce83:	00 52 00             	add    BYTE PTR [bp+si+0x0],dl
-    ce86:	54                   	push   sp
-    ce87:	00 56 00             	add    BYTE PTR [bp+0x0],dl
-    ce8a:	57                   	push   di
-    ce8b:	00 d6                	add    dh,dl
-    ce8d:	03 d1                	add    dx,cx
-    ce8f:	04 31                	add    al,0x31
-    ce91:	04 63                	add    al,0x63
-    ce93:	05 61 05             	add    ax,0x561
-    ce96:	28 05                	sub    BYTE PTR [di],al
-    ce98:	e9 03 f9             	jmp    0xc79e
-    ce9b:	04 6e                	add    al,0x6e
-    ce9d:	04 3f                	add    al,0x3f
-    ce9f:	05 fc 03             	add    ax,0x3fc
-    cea2:	ff 03                	inc    WORD PTR [bp+di]
+.data
+0000ce74  0024 0043 0046 004b 004c 004d 004f 0050  |$.C.F.K.L.M.O.P.|
+0000ce84  0052 0054 0056 0057 03d6 04d1 0431 0563  |R.T.V.W.....1.c.|
+0000ce94  0561 0528 03e9 04f9 046e 053f 03fc 03ff  |a.(.....n.?.....|
 
 
+.code
     cea4:	55                   	push   bp
     cea5:	8b ec                	mov    bp,sp
     cea7:	83 ec 16             	sub    sp,0x16
@@ -21874,31 +21495,13 @@ init_something3:
     d6bc:	cb                   	retf   
 
 
-    d6bd:	24 00                	and    al,0x0
-    d6bf:	43                   	inc    bx
-    d6c0:	00 46 00             	add    BYTE PTR [bp+0x0],al
-    d6c3:	4b                   	dec    bx
-    d6c4:	00 4c 00             	add    BYTE PTR [si+0x0],cl
-    d6c7:	4f                   	dec    di
-    d6c8:	00 50 00             	add    BYTE PTR [bx+si+0x0],dl
-    d6cb:	52                   	push   dx
-    d6cc:	00 54 00             	add    BYTE PTR [si+0x0],dl
-    d6cf:	57                   	push   di
-    d6d0:	00 5e 00             	add    BYTE PTR [bp+0x0],bl
-    d6d3:	73 0c                	jae    0xd6e1
-    d6d5:	c7                   	(bad)  
-    d6d6:	0d ea 0c             	or     ax,0xcea
-    d6d9:	ee                   	out    dx,al
-    d6da:	0d a9 0d             	or     ax,0xda9
-    d6dd:	af                   	scas   ax,WORD PTR es:[di]
-    d6de:	0d 77 0d             	or     ax,0xd77
-    d6e1:	29 0d                	sub    WORD PTR [di],cx
-    d6e3:	8c 0c                	mov    WORD PTR [si],cs
-    d6e5:	b5 0c                	mov    ch,0xc
-    d6e7:	ec                   	in     al,dx
-    d6e8:	0d                   	.byte  0xd
+.data
+0000d6bd  0024 0043 0046 004b 004c 004f 0050 0052  |$.C.F.K.L.O.P.R.|
+0000d6cd  0054 0057 005e 0c73 0dc7 0cea 0dee 0da9  |T.W.^.s.........|
+0000d6dd  0daf 0d77 0d29 0c8c 0cb5 0dec            |..w.).......|
 
 
+.code
     d6e9:	55                   	push   bp
     d6ea:	8b ec                	mov    bp,sp
     d6ec:	83 ec 02             	sub    sp,0x2
@@ -24985,18 +24588,13 @@ init_something3:
     f5f4:	cb                   	retf   
 
 
-    f5f5:	00 00                	add    BYTE PTR [bx+si],al
-    f5f7:	11 00                	adc    WORD PTR [bx+si],ax
-    f5f9:	12 00                	adc    al,BYTE PTR [bx+si]
-    f5fb:	13 00                	adc    ax,WORD PTR [bx+si]
-    f5fd:	59                   	pop    cx
-    f5fe:	0e                   	push   cs
-    f5ff:	6a 14                	push   0x14
-    f601:	fc                   	cld    
-    f602:	17                   	pop    ss
-    f603:	52                   	push   dx
-    f604:	11 55 8b             	adc    WORD PTR [di-0x75],dx
-    f607:	ec                   	in     al,dx
+.data
+0000f5f5  0000 0011 0012 0013 0e59 146a 17fc 1152  |........Y.j...R.|
+
+
+.code
+    f605:	55                   	push   bp
+    f606:	8b ec                	mov    bp,sp
     f608:	83 ec 04             	sub    sp,0x4
     f60b:	c7 46 fe 00 00       	mov    WORD PTR [bp-0x2],0x0
     f610:	c7 46 fc 00 00       	mov    WORD PTR [bp-0x4],0x0
@@ -26139,45 +25737,16 @@ interesting:
    101c0:	cb                   	retf   
 
 
-   101c1:	f9                   	stc    
-   101c2:	08 5a 09             	or     BYTE PTR [bp+si+0x9],bl
-   101c5:	4e                   	dec    si
-   101c6:	09 42 09             	or     WORD PTR [bp+si+0x9],ax
-   101c9:	70 09                	jo     0x101d4
-   101cb:	80 09 91             	or     BYTE PTR [bx+di],0x91
-   101ce:	09 9d 09 a8          	or     WORD PTR [di-0x57f7],bx
-   101d2:	09 b3 09 be          	or     WORD PTR [bp+di-0x41f7],si
-   101d6:	09 c9                	or     cx,cx
-   101d8:	09 d4                	or     sp,dx
-   101da:	09 ed                	or     bp,bp
-   101dc:	09 f9                	or     cx,di
-   101de:	09 0d                	or     WORD PTR [di],cx
-   101e0:	0a 21                	or     ah,BYTE PTR [bx+di]
-   101e2:	0a 2d                	or     ch,BYTE PTR [di]
-   101e4:	0a 41 0a             	or     al,BYTE PTR [bx+di+0xa]
-   101e7:	4d                   	dec    bp
-   101e8:	0a 61 0a             	or     ah,BYTE PTR [bx+di+0xa]
-   101eb:	74 0a                	je     0x101f7
-   101ed:	a0 0a a8             	mov    al,ds:0xa80a
-   101f0:	0a b3 0a be          	or     dh,BYTE PTR [bp+di-0x41f6]
-   101f4:	0a c9                	or     cl,cl
-   101f6:	0a d4                	or     dl,ah
-   101f8:	0a df                	or     bl,bh
-   101fa:	0a 65 09             	or     ah,BYTE PTR [di+0x9]
-   101fd:	c9                   	leave  
-   101fe:	03 f2                	add    si,dx
-   10200:	03 00                	add    ax,WORD PTR [bx+si]
-   10202:	04 0e                	add    al,0xe
-   10204:	04 27                	add    al,0x27
-   10206:	04 39                	add    al,0x39
-   10208:	04 69                	add    al,0x69
-   1020a:	04 87                	add    al,0x87
-   1020c:	04 90                	add    al,0x90
-   1020e:	04 af                	add    al,0xaf
-   10210:	04 ce                	add    al,0xce
-   10212:	04                   	.byte  0x4
+.data
+000101c1  08f9 095a 094e 0942 0970 0980 0991 099d  |..Z.N.B.p.......|
+000101d1  09a8 09b3 09be 09c9 09d4 09ed 09f9 0a0d  |................|
+000101e1  0a21 0a2d 0a41 0a4d 0a61 0a74 0aa0 0aa8  |!.-.A.M.a.t.....|
+000101f1  0ab3 0abe 0ac9 0ad4 0adf 0965 03c9 03f2  |..........e.....|
+00010201  0400 040e 0427 0439 0469 0487 0490 04af  |....'.9.i.......|
+00010211  04ce                                     |..|
 
 
+.code
    10213:	55                   	push   bp
    10214:	8b ec                	mov    bp,sp
    10216:	81 ec 18 01          	sub    sp,0x118
@@ -29209,16 +28778,11 @@ init_something4:
    12081:	cb                   	retf   
 
 
-   12082:	00 00                	add    BYTE PTR [bx+si],al
-   12084:	02 00                	add    al,BYTE PTR [bx+si]
-   12086:	11 00                	adc    WORD PTR [bx+si],ax
-   12088:	13 00                	adc    ax,WORD PTR [bx+si]
-   1208a:	93                   	xchg   bx,ax
-   1208b:	0c 17                	or     al,0x17
-   1208d:	0f 5d 10             	minps  xmm2,XMMWORD PTR [bx+si]
-   12090:	c2 0f                	.word  0xfc2
+.data
+00012082  0000 0002 0011 0013 0c93 0f17 105d 0fc2  |............]...|
 
 
+.code
    12092:	55                   	push   bp
    12093:	8b ec                	mov    bp,sp
    12095:	83 ec 04             	sub    sp,0x4
@@ -29448,35 +29012,17 @@ init_something4:
    12324:	cb                   	retf   
 
 
-   12325:	09 00                	or     WORD PTR [bx+si],ax
-   12327:	89 00                	mov    WORD PTR [bx+si],ax
-   12329:	8a 00                	mov    al,BYTE PTR [bx+si]
-   1232b:	8b 00                	mov    ax,WORD PTR [bx+si]
-   1232d:	8c 00                	mov    WORD PTR [bx+si],es
-   1232f:	90                   	nop
-   12330:	00 91 00 f0          	add    BYTE PTR [bx+di-0x1000],dl
-   12334:	00 f1                	add    cl,dh
-   12336:	00 f2                	add    dl,dh
-   12338:	00 f3                	add    bl,dh
-   1233a:	00 f4                	add    ah,dh
-   1233c:	00 f5                	add    ch,dh
-   1233e:	00 f6                	add    dh,dh
-   12340:	00 f7                	add    bh,dh
-   12342:	00 f8                	add    al,bh
-   12344:	00 f9                	add    cl,bh
-   12346:	00 ae 00 a2          	add    BYTE PTR [bp-0x5e00],ch
-   1234a:	00 a5 00 a8          	add    BYTE PTR [di-0x5800],ah
-   1234e:	00 ab 00 cf          	add    BYTE PTR [bp+di-0x3100],ch
-   12352:	00 d2                	add    dl,dl
-   12354:	00 b1 00 b4          	add    BYTE PTR [bx+di-0x4c00],dh
-   12358:	00 b7 00 ba          	add    BYTE PTR [bx-0x4600],dh
-   1235c:	00 bd 00 c0          	add    BYTE PTR [di-0x4000],bh
-   12360:	00 c3                	add    bl,al
-   12362:	00 c6                	add    dh,al
-   12364:	00 c9                	add    cl,cl
-   12366:	00 cc                	add    ah,cl
-   12368:	00 55 8b             	add    BYTE PTR [di-0x75],dl
-   1236b:	ec                   	in     al,dx
+.data
+00012325  0009 0089 008a 008b 008c 0090 0091 00f0  |................|
+00012335  00f1 00f2 00f3 00f4 00f5 00f6 00f7 00f8  |................|
+00012345  00f9 00ae 00a2 00a5 00a8 00ab 00cf 00d2  |................|
+00012355  00b1 00b4 00b7 00ba 00bd 00c0 00c3 00c6  |................|
+00012365  00c9 00cc                                |....|
+
+
+.code
+   12369:	55                   	push   bp
+   1236a:	8b ec                	mov    bp,sp
    1236c:	81 ec 48 01          	sub    sp,0x148
    12370:	c7 46 fe fe ff       	mov    WORD PTR [bp-0x2],0xfffe
    12375:	c4 5e 06             	les    bx,DWORD PTR [bp+0x6]
@@ -30171,16 +29717,11 @@ compare_lizz:
    12ae7:	cb                   	retf   
 
 
-   12ae8:	02 01                	add    al,BYTE PTR [bx+di]
-   12aea:	2c 01                	sub    al,0x1
-   12aec:	56                   	push   si
-   12aed:	01 7f 01             	add    WORD PTR [bx+0x1],di
-   12af0:	89 01                	mov    WORD PTR [bx+di],ax
-   12af2:	a1 01 b4             	mov    ax,ds:0xb401
-   12af5:	01 cb                	add    bx,cx
-   12af7:	01                   	.byte  0x1
+.data
+00012ae8  0102 012c 0156 017f 0189 01a1 01b4 01cb  |..,.V...........|
 
 
+.code
    12af8:	55                   	push   bp
    12af9:	8b ec                	mov    bp,sp
    12afb:	83 ec 04             	sub    sp,0x4
@@ -31866,14 +31407,11 @@ compare_lizz:
    13949:	cb                   	retf   
 
 
-   1394a:	e9 0f 01             	jmp    0x13a5c
-   1394d:	10 16 10 2b          	adc    BYTE PTR ds:0x2b10,dl
-   13951:	10 3a                	adc    BYTE PTR [bp+si],bh
-   13953:	10 30                	adc    BYTE PTR [bx+si],dh
-   13955:	10 35                	adc    BYTE PTR [di],dh
-   13957:	10                   	.byte  0x10
+.data
+0001394a  0fe9 1001 1016 102b 103a 1030 1035       |......+.:.0.5.|
 
 
+.code
    13958:	55                   	push   bp
    13959:	8b ec                	mov    bp,sp
    1395a:	ec                   	in     al,dx
@@ -33062,13 +32600,11 @@ compare_lizz:
    144ef:	cb                   	retf   
 
 
-   144f0:	39 00                	cmp    WORD PTR [bx+si],ax
-   144f2:	da 00                	fiadd  DWORD PTR [bx+si]
-   144f4:	6a 01                	push   0x1
-   144f6:	fa                   	cli    
-   144f7:	01                   	.byte  0x1
+.data
+000144f0  0039 00da 016a 01fa                      |9...j...|
 
 
+.code
    144f8:	55                   	push   bp
    144f9:	8b ec                	mov    bp,sp
    144fb:	83 ec 06             	sub    sp,0x6
@@ -33333,15 +32869,11 @@ compare_lizz:
    147e0:	cb                   	retf   
 
 
-   147e1:	61                   	popa   
-   147e2:	04 91                	add    al,0x91
-   147e4:	04 c1                	add    al,0xc1
-   147e6:	04 f1                	add    al,0xf1
-   147e8:	04 20                	add    al,0x20
-   147ea:	05 3b 05             	add    ax,0x53b
-   147ed:	70 05                	jo     0x147f4
+.data
+000147e1  0461 0491 04c1 04f1 0520 053b 0570       |a....... .;.p.|
 
 
+.code
    147ef:	55                   	push   bp
    147f0:	8b ec                	mov    bp,sp
    147f2:	80 3e 1a 66 00       	cmp    BYTE PTR ds:0x661a,0x0
@@ -34200,162 +33732,31 @@ call_table:
    15114:	cb                   	retf   
 
 
-   15115:	00 00                	add    BYTE PTR [bx+si],al
-   15117:	01 00                	add    WORD PTR [bx+si],ax
-   15119:	02 00                	add    al,BYTE PTR [bx+si]
-   1511b:	03 00                	add    ax,WORD PTR [bx+si]
-   1511d:	04 00                	add    al,0x0
-   1511f:	05 00 06             	add    ax,0x600
-   15122:	00 07                	add    BYTE PTR [bx],al
-   15124:	00 08                	add    BYTE PTR [bx+si],cl
-   15126:	00 09                	add    BYTE PTR [bx+di],cl
-   15128:	00 0a                	add    BYTE PTR [bp+si],cl
-   1512a:	00 30                	add    BYTE PTR [bx+si],dh
-   1512c:	00 31                	add    BYTE PTR [bx+di],dh
-   1512e:	00 40 00             	add    BYTE PTR [bx+si+0x0],al
-   15131:	41                   	inc    cx
-   15132:	00 42 00             	add    BYTE PTR [bp+si+0x0],al
-   15135:	43                   	inc    bx
-   15136:	00 44 00             	add    BYTE PTR [si+0x0],al
-   15139:	45                   	inc    bp
-   1513a:	00 50 00             	add    BYTE PTR [bx+si+0x0],dl
-   1513d:	51                   	push   cx
-   1513e:	00 52 00             	add    BYTE PTR [bp+si+0x0],dl
-   15141:	53                   	push   bx
-   15142:	00 54 00             	add    BYTE PTR [si+0x0],dl
-   15145:	55                   	push   bp
-   15146:	00 56 00             	add    BYTE PTR [bp+0x0],dl
-   15149:	57                   	push   di
-   1514a:	00 58 00             	add    BYTE PTR [bx+si+0x0],bl
-   1514d:	59                   	pop    cx
-   1514e:	00 5a 00             	add    BYTE PTR [bp+si+0x0],bl
-   15151:	60                   	pusha  
-   15152:	00 61 00             	add    BYTE PTR [bx+di+0x0],ah
-   15155:	62 00                	bound  ax,DWORD PTR [bx+si]
-   15157:	63 00                	arpl   WORD PTR [bx+si],ax
-   15159:	64 00 70 00          	add    BYTE PTR fs:[bx+si+0x0],dh
-   1515d:	71 00                	jno    0x1515f
-   1515f:	72 00                	jb     0x15161
-   15161:	73 00                	jae    0x15163
-   15163:	74 00                	je     0x15165
-   15165:	75 00                	jne    0x15167
-   15167:	76 00                	jbe    0x15169
-   15169:	77 00                	ja     0x1516b
-   1516b:	78 00                	js     0x1516d
-   1516d:	80 00 81             	add    BYTE PTR [bx+si],0x81
-   15170:	00 82 00 83          	add    BYTE PTR [bp+si-0x7d00],al
-   15174:	00 84 00 85          	add    BYTE PTR [si-0x7b00],al
-   15178:	00 86 00 87          	add    BYTE PTR [bp-0x7900],al
-   1517c:	00 88 00 89          	add    BYTE PTR [bx+si-0x7700],cl
-   15180:	00 8a 00 8b          	add    BYTE PTR [bp+si-0x7500],cl
-   15184:	00 8c 00 8d          	add    BYTE PTR [si-0x7300],cl
-   15188:	00 8e 00 8f          	add    BYTE PTR [bp-0x7100],cl
-   1518c:	00 90 00 91          	add    BYTE PTR [bx+si-0x6f00],dl
-   15190:	00 92 00 93          	add    BYTE PTR [bp+si-0x6d00],dl
-   15194:	00 a0 00 a1          	add    BYTE PTR [bx+si-0x5f00],ah
-   15198:	00 a2 00 a3          	add    BYTE PTR [bp+si-0x5d00],ah
-   1519c:	00 a4 00 a5          	add    BYTE PTR [si-0x5b00],ah
-   151a0:	00 a6 00 f0          	add    BYTE PTR [bp-0x1000],ah
-   151a4:	00 f1                	add    cl,dh
-   151a6:	00 f2                	add    dl,dh
-   151a8:	00 f3                	add    bl,dh
-   151aa:	00 f4                	add    ah,dh
-   151ac:	00 f5                	add    ch,dh
-   151ae:	00 f6                	add    dh,dh
-   151b0:	00 f7                	add    bh,dh
-   151b2:	00 f8                	add    al,bh
-   151b4:	00 f9                	add    cl,bh
-   151b6:	00 1d                	add    BYTE PTR [di],bl
-   151b8:	0d 25 0d             	or     ax,0xd25
-   151bb:	2d 0d 35             	sub    ax,0x350d
-   151be:	0d 3d 0d             	or     ax,0xd3d
-   151c1:	45                   	inc    bp
-   151c2:	0d 4d 0d             	or     ax,0xd4d
-   151c5:	55                   	push   bp
-   151c6:	0d 5d 0d             	or     ax,0xd5d
-   151c9:	65                   	gs
-   151ca:	0d 6d 0d             	or     ax,0xd6d
-   151cd:	0f 0d                	(bad)  
-   151cf:	16                   	push   ss
-   151d0:	0d 75 0d             	or     ax,0xd75
-   151d3:	7d 0d                	jge    0x151e2
-   151d5:	85 0d                	test   WORD PTR [di],cx
-   151d7:	8d 0d                	lea    cx,[di]
-   151d9:	95                   	xchg   bp,ax
-   151da:	0d 9d 0d             	or     ax,0xd9d
-   151dd:	a5                   	movs   WORD PTR es:[di],WORD PTR ds:[si]
-   151de:	0d ad 0d             	or     ax,0xdad
-   151e1:	b5 0d                	mov    ch,0xd
-   151e3:	bd 0d c5             	mov    bp,0xc50d
-   151e6:	0d cd 0d             	or     ax,0xdcd
-   151e9:	d5 0d                	aad    0xd
-   151eb:	e5 0d                	in     ax,0xd
-   151ed:	ed                   	in     ax,dx
-   151ee:	0d f5 0d             	or     ax,0xdf5
-   151f1:	dd 0d                	fisttp QWORD PTR [di]
-   151f3:	fd                   	std    
-   151f4:	0d 05 0e             	or     ax,0xe05
-   151f7:	0d 0e 15             	or     ax,0x150e
-   151fa:	0e                   	push   cs
-   151fb:	1d 0e 75             	sbb    ax,0x750e
-   151fe:	0e                   	push   cs
-   151ff:	7d 0e                	jge    0x1520f
-   15201:	85 0e 8d 0e          	test   WORD PTR ds:0xe8d,cx
-   15205:	95                   	xchg   bp,ax
-   15206:	0e                   	push   cs
-   15207:	9d                   	popf   
-   15208:	0e                   	push   cs
-   15209:	a5                   	movs   WORD PTR es:[di],WORD PTR ds:[si]
-   1520a:	0e                   	push   cs
-   1520b:	ad                   	lods   ax,WORD PTR ds:[si]
-   1520c:	0e                   	push   cs
-   1520d:	b5 0e                	mov    ch,0xe
-   1520f:	9b                   	fwait
-   15210:	0c a6                	or     al,0xa6
-   15212:	0c ad                	or     al,0xad
-   15214:	0c b4                	or     al,0xb4
-   15216:	0c bb                	or     al,0xbb
-   15218:	0c c2                	or     al,0xc2
-   1521a:	0c c9                	or     al,0xc9
-   1521c:	0c d0                	or     al,0xd0
-   1521e:	0c d7                	or     al,0xd7
-   15220:	0c de                	or     al,0xde
-   15222:	0c e5                	or     al,0xe5
-   15224:	0c ec                	or     al,0xec
-   15226:	0c f3                	or     al,0xf3
-   15228:	0c fa                	or     al,0xfa
-   1522a:	0c 01                	or     al,0x1
-   1522c:	0d 08 0d             	or     ax,0xd08
-   1522f:	bd 0e c5             	mov    bp,0xc50e
-   15232:	0e                   	push   cs
-   15233:	cd 0e                	int    0xe
-   15235:	d5 0e                	aad    0xe
-   15237:	dd 0e e5 0e          	fisttp QWORD PTR ds:0xee5
-   1523b:	ed                   	in     ax,dx
-   1523c:	0e                   	push   cs
-   1523d:	f5                   	cmc    
-   1523e:	0e                   	push   cs
-   1523f:	fd                   	std    
-   15240:	0e                   	push   cs
-   15241:	05 0f 0d             	add    ax,0xd0f
-   15244:	0f 25                	(bad)  
-   15246:	0e                   	push   cs
-   15247:	2d 0e 35             	sub    ax,0x350e
-   1524a:	0e                   	push   cs
-   1524b:	3d 0e 45             	cmp    ax,0x450e
-   1524e:	0e                   	push   cs
-   1524f:	4d                   	dec    bp
-   15250:	0e                   	push   cs
-   15251:	55                   	push   bp
-   15252:	0e                   	push   cs
-   15253:	5d                   	pop    bp
-   15254:	0e                   	push   cs
-   15255:	65                   	gs
-   15256:	0e                   	push   cs
-   15257:	6d                   	ins    WORD PTR es:[di],dx
-   15258:	0e                   	push   cs
+.data
+00015115  0000 0001 0002 0003 0004 0005 0006 0007  |................|
+00015125  0008 0009 000a 0030 0031 0040 0041 0042  |......0.1.@.A.B.|
+00015135  0043 0044 0045 0050 0051 0052 0053 0054  |C.D.E.P.Q.R.S.T.|
+00015145  0055 0056 0057 0058 0059 005a 0060 0061  |U.V.W.X.Y.Z.`.a.|
+00015155  0062 0063 0064 0070 0071 0072 0073 0074  |b.c.d.p.q.r.s.t.|
+00015165  0075 0076 0077 0078 0080 0081 0082 0083  |u.v.w.x.........|
+00015175  0084 0085 0086 0087 0088 0089 008a 008b  |................|
+00015185  008c 008d 008e 008f 0090 0091 0092 0093  |................|
+00015195  00a0 00a1 00a2 00a3 00a4 00a5 00a6 00f0  |................|
+000151a5  00f1 00f2 00f3 00f4 00f5 00f6 00f7 00f8  |................|
+000151b5  00f9 0d1d 0d25 0d2d 0d35 0d3d 0d45 0d4d  |....%.-.5.=.E.M.|
+000151c5  0d55 0d5d 0d65 0d6d 0d0f 0d16 0d75 0d7d  |U.].e.m.....u.}.|
+000151d5  0d85 0d8d 0d95 0d9d 0da5 0dad 0db5 0dbd  |................|
+000151e5  0dc5 0dcd 0dd5 0de5 0ded 0df5 0ddd 0dfd  |................|
+000151f5  0e05 0e0d 0e15 0e1d 0e75 0e7d 0e85 0e8d  |........u.}.....|
+00015205  0e95 0e9d 0ea5 0ead 0eb5 0c9b 0ca6 0cad  |................|
+00015215  0cb4 0cbb 0cc2 0cc9 0cd0 0cd7 0cde 0ce5  |................|
+00015225  0cec 0cf3 0cfa 0d01 0d08 0ebd 0ec5 0ecd  |................|
+00015235  0ed5 0edd 0ee5 0eed 0ef5 0efd 0f05 0f0d  |................|
+00015245  0e25 0e2d 0e35 0e3d 0e45 0e4d 0e55 0e5d  |%.-.5.=.E.M.U.].|
+00015255  0e65 0e6d                                |e.m.|
 
 
+.code
    15259:	55                   	push   bp
    1525a:	8b ec                	mov    bp,sp
    1525c:	83 ec 02             	sub    sp,0x2
@@ -34706,17 +34107,11 @@ call_table:
    15645:	cb                   	retf   
 
 
-   15646:	00 00                	add    BYTE PTR [bx+si],al
-   15648:	01 00                	add    WORD PTR [bx+si],ax
-   1564a:	02 00                	add    al,BYTE PTR [bx+si]
-   1564c:	10 00                	adc    BYTE PTR [bx+si],al
-   1564e:	af                   	scas   ax,WORD PTR es:[di]
-   1564f:	12 46 13             	adc    al,BYTE PTR [bp+0x13]
-   15652:	f8                   	clc    
-   15653:	12                   	.byte  0x12
-   15654:	b2 13                	.word  0x13b2
+.data
+00015646  0000 0001 0002 0010 12af 1346 12f8 13b2  |..........F.....|
 
 
+.code
    15656:	55                   	push   bp
    15657:	8b ec                	mov    bp,sp
    15659:	5d                   	pop    bp
@@ -38467,8 +37862,6 @@ call_table:
    17d5d:	75 05                	jne    0x17d64
    17d5f:	8b 26 11 28          	mov    sp,WORD PTR ds:0x2811
    17d63:	cb                   	retf   
-
-
    17d64:	8b 46 fa             	mov    ax,WORD PTR [bp-0x6]
    17d67:	eb 00                	jmp    0x17d69
    17d69:	5e                   	pop    si
@@ -39691,18 +39084,24 @@ call_table:
    18960:	cb                   	retf   
 
 
-   18961:	00 89 26 11          	add    BYTE PTR [bx+di+0x1126],cl
-   18965:	28 8b 36 0d          	sub    BYTE PTR [bp+di+0xd36],cl
-   18969:	28 d1                	sub    cl,dl
-   1896b:	e6 d1                	out    0xd1,al
-   1896d:	e6 d1                	out    0xd1,al
-   1896f:	e6 d1                	out    0xd1,al
-   18971:	e6 8b                	out    0x8b,al
-   18973:	a4                   	movs   BYTE PTR es:[di],BYTE PTR ds:[si]
-   18974:	70 68                	jo     0x189de
+.align 2
+;.data
+; 00018961  00                                                |.|
+
+
+.code
+call_flash:
+   18962:	89 26 11 28          	mov    WORD PTR ds:0x2811,sp
+   18966:	8b 36 0d 28          	mov    si,WORD PTR ds:0x280d
+   1896a:	d1 e6                	shl    si,1
+   1896c:	d1 e6                	shl    si,1
+   1896e:	d1 e6                	shl    si,1
+   18970:	d1 e6                	shl    si,1
+   18972:	8b a4 70 68          	mov    sp,WORD PTR [si+0x6870]
    18976:	ff ac 74 68          	jmp    DWORD PTR [si+0x6874]
 
 
+return_flash:
    1897a:	55                   	push   bp
    1897b:	8b 36 0d 28          	mov    si,WORD PTR ds:0x280d
    1897f:	d1 e6                	shl    si,1
@@ -40746,12 +40145,11 @@ call_table:
    192df:	cb                   	retf   
 
 
-   192e0:	4a                   	dec    dx
-   192e1:	08 6b 08             	or     BYTE PTR [bp+di+0x8],ch
-   192e4:	7f 08                	jg     0x192ee
-   192e6:	b7 08                	mov    bh,0x8
+.data
+000192e0  084a 086b 087f 08b7                      |J.k.....|
 
 
+.code
    192e8:	55                   	push   bp
    192e9:	8b ec                	mov    bp,sp
    192eb:	83 ec 0a             	sub    sp,0xa
@@ -41394,4836 +40792,694 @@ call_table:
    19865:	cb                   	retf   
 
 
-.data
+unknown:
    19866:	8b ec                	mov    bp,sp
    19868:	80 3e 01 2a 01       	cmp    BYTE PTR ds:0x2a01,0x1
    1986d:	75 07                	jne    0x19876
-   1986f:	80 00 00             	add    BYTE PTR [bx+si],0x0
-	...
-   1987e:	00 00                	add    BYTE PTR [bx+si],al
-   19880:	01 01                	add    WORD PTR [bx+di],ax
-   19882:	02 00                	add    al,BYTE PTR [bx+si]
-   19884:	8b f5                	mov    si,bp
-   19886:	3e 01 00             	add    WORD PTR ds:[bx+si],ax
-	...
-   19895:	00 00                	add    BYTE PTR [bx+si],al
-   19897:	00 5e 1f             	add    BYTE PTR [bp+0x1f],bl
-   1989a:	07                   	pop    es
-   1989b:	5a                   	pop    dx
-   1989c:	59                   	pop    cx
-   1989d:	5b                   	pop    bx
-   1989e:	58                   	pop    ax
-   1989f:	cf                   	iret   
-   198a0:	aa                   	stos   BYTE PTR es:[di],al
-   198a1:	55                   	push   bp
-   198a2:	00 30                	add    BYTE PTR [bx+si],dh
-   198a4:	00 00                	add    BYTE PTR [bx+si],al
-   198a6:	01 02                	add    WORD PTR [bp+si],ax
-   198a8:	04 08                	add    al,0x8
-   198aa:	10 20                	adc    BYTE PTR [bx+si],ah
-   198ac:	40                   	inc    ax
-   198ad:	80 00 00             	add    BYTE PTR [bx+si],0x0
-   198b0:	11 18                	adc    WORD PTR [bx+si],bx
-   198b2:	01 19                	add    WORD PTR [bx+di],bx
-   198b4:	1d 02 1e             	sbb    ax,0x1e02
-   198b7:	23 02                	and    ax,WORD PTR [bp+si]
-   198b9:	24 26                	and    al,0x26
-   198bb:	03 27                	add    sp,WORD PTR [bx]
-   198bd:	2c 04                	sub    al,0x4
-   198bf:	2d 33 04             	sub    ax,0x433
-   198c2:	01 02                	add    WORD PTR [bp+si],ax
-   198c4:	04 08                	add    al,0x8
-   198c6:	0a 14                	or     dl,BYTE PTR [si]
-   198c8:	28 50 00             	sub    BYTE PTR [bx+si+0x0],dl
-   198cb:	00 00                	add    BYTE PTR [bx+si],al
-   198cd:	00 00                	add    BYTE PTR [bx+si],al
-   198cf:	04 00                	add    al,0x0
-	...
-   198fd:	3e                   	ds
-   198fe:	50                   	push   ax
-   198ff:	52                   	push   dx
-   19900:	23 30                	and    si,WORD PTR [bx+si]
-   19902:	23 30                	and    si,WORD PTR [bx+si]
-   19904:	30 23                	xor    BYTE PTR [bp+di],ah
-   19906:	25 30 32             	and    ax,0x3230
-   19909:	64                   	fs
-   1990a:	2c 25                	sub    al,0x25
-   1990c:	30 32                	xor    BYTE PTR [bp+si],dh
-   1990e:	64                   	fs
-   1990f:	2c 25                	sub    al,0x25
-   19911:	30 32                	xor    BYTE PTR [bp+si],dh
-   19913:	64 23 25             	and    sp,WORD PTR fs:[di]
-   19916:	30 32                	xor    BYTE PTR [bp+si],dh
-   19918:	64                   	fs
-   19919:	2c 25                	sub    al,0x25
-   1991b:	30 32                	xor    BYTE PTR [bp+si],dh
-   1991d:	64                   	fs
-   1991e:	2c 25                	sub    al,0x25
-   19920:	30 34                	xor    BYTE PTR [si],dh
-   19922:	64                   	fs
-   19923:	2c 25                	sub    al,0x25
-   19925:	64 23 00             	and    ax,WORD PTR fs:[bx+si]
-   19928:	25 30 32             	and    ax,0x3230
-   1992b:	58                   	pop    ax
-   1992c:	3c 00                	cmp    al,0x0
-   1992e:	25 73 25             	and    ax,0x2573
-   19931:	73 00                	jae    0x19933
-	...
-   1993b:	00 25                	add    BYTE PTR [di],ah
-   1993d:	30 32                	xor    BYTE PTR [bp+si],dh
-   1993f:	64 00 25             	add    BYTE PTR fs:[di],ah
-   19942:	30 32                	xor    BYTE PTR [bp+si],dh
-   19944:	64 00 25             	add    BYTE PTR fs:[di],ah
-   19947:	30 32                	xor    BYTE PTR [bp+si],dh
-   19949:	64 00 25             	add    BYTE PTR fs:[di],ah
-   1994c:	32 64 20             	xor    ah,BYTE PTR [si+0x20]
-   1994f:	25 30 32             	and    ax,0x3230
-   19952:	64                   	fs
-   19953:	5e                   	pop    si
-   19954:	54                   	push   sp
-   19955:	2e                   	cs
-   19956:	5e                   	pop    si
-   19957:	54                   	push   sp
-   19958:	25 30 32             	and    ax,0x3230
-   1995b:	64 00 56 34          	add    BYTE PTR fs:[bp+0x34],dl
-   1995f:	2e                   	cs
-   19960:	37                   	aaa    
-   19961:	31 00                	xor    WORD PTR [bx+si],ax
-   19963:	25 30 33             	and    ax,0x3330
-   19966:	64 00 2b             	add    BYTE PTR fs:[bp+di],ch
-   19969:	2b 2b                	sub    bp,WORD PTR [bp+di]
-   1996b:	00 25                	add    BYTE PTR [di],ah
-   1996d:	32 64 2f             	xor    ah,BYTE PTR [si+0x2f]
-   19970:	25 30 32             	and    ax,0x3230
-   19973:	64                   	fs
-   19974:	2f                   	das    
-   19975:	25 30 32             	and    ax,0x3230
-   19978:	64 00 25             	add    BYTE PTR fs:[di],ah
-   1997b:	32 64 3a             	xor    ah,BYTE PTR [si+0x3a]
-   1997e:	25 30 32             	and    ax,0x3230
-   19981:	64 00 25             	add    BYTE PTR fs:[di],ah
-   19984:	32 64 3a             	xor    ah,BYTE PTR [si+0x3a]
-   19987:	25 30 32             	and    ax,0x3230
-   1998a:	64                   	fs
-   1998b:	5e                   	pop    si
-   1998c:	54                   	push   sp
-   1998d:	2e                   	cs
-   1998e:	5e                   	pop    si
-   1998f:	54                   	push   sp
-   19990:	25 30 32             	and    ax,0x3230
-   19993:	64 00 25             	add    BYTE PTR fs:[di],ah
-   19996:	6c                   	ins    BYTE PTR es:[di],dx
-   19997:	64 00 25             	add    BYTE PTR fs:[di],ah
-   1999a:	30 32                	xor    BYTE PTR [bp+si],dh
-   1999c:	64 00 25             	add    BYTE PTR fs:[di],ah
-   1999f:	30 32                	xor    BYTE PTR [bp+si],dh
-   199a1:	64 00 25             	add    BYTE PTR fs:[di],ah
-   199a4:	30 32                	xor    BYTE PTR [bp+si],dh
-   199a6:	64 00 25             	add    BYTE PTR fs:[di],ah
-   199a9:	32 64 00             	xor    ah,BYTE PTR [si+0x0]
-   199ac:	25 32 64             	and    ax,0x6432
-   199af:	7e 43                	jle    0x199f4
-   199b1:	00 25                	add    BYTE PTR [di],ah
-   199b3:	32 64 7e             	xor    ah,BYTE PTR [si+0x7e]
-   199b6:	46                   	inc    si
-   199b7:	00 25                	add    BYTE PTR [di],ah
-   199b9:	32 64 00             	xor    ah,BYTE PTR [si+0x0]
-   199bc:	25 30 32             	and    ax,0x3230
-   199bf:	64 00 25             	add    BYTE PTR fs:[di],ah
-   199c2:	30 32                	xor    BYTE PTR [bp+si],dh
-   199c4:	64 00 25             	add    BYTE PTR fs:[di],ah
-   199c7:	30 32                	xor    BYTE PTR [bp+si],dh
-   199c9:	64 00 25             	add    BYTE PTR fs:[di],ah
-   199cc:	30 32                	xor    BYTE PTR [bp+si],dh
-   199ce:	64 00 25             	add    BYTE PTR fs:[di],ah
-   199d1:	30 32                	xor    BYTE PTR [bp+si],dh
-   199d3:	64 00 25             	add    BYTE PTR fs:[di],ah
-   199d6:	30 32                	xor    BYTE PTR [bp+si],dh
-   199d8:	64 00 25             	add    BYTE PTR fs:[di],ah
-   199db:	30 32                	xor    BYTE PTR [bp+si],dh
-   199dd:	64 00 25             	add    BYTE PTR fs:[di],ah
-   199e0:	2e 33 73 00          	xor    si,WORD PTR cs:[bp+di+0x0]
-   199e4:	25 73 00             	and    ax,0x73
-   199e7:	25 32 64             	and    ax,0x6432
-   199ea:	00 25                	add    BYTE PTR [di],ah
-   199ec:	73 00                	jae    0x199ee
-   199ee:	25 30 32             	and    ax,0x3230
-   199f1:	64 00 25             	add    BYTE PTR fs:[di],ah
-   199f4:	2e 33 73 00          	xor    si,WORD PTR cs:[bp+di+0x0]
-   199f8:	25 73 00             	and    ax,0x73
-   199fb:	25 30 32             	and    ax,0x3230
-   199fe:	64 00 25             	add    BYTE PTR fs:[di],ah
-   19a01:	30 32                	xor    BYTE PTR [bp+si],dh
-   19a03:	64 00 25             	add    BYTE PTR fs:[di],ah
-   19a06:	34 64                	xor    al,0x64
-   19a08:	00 25                	add    BYTE PTR [di],ah
-   19a0a:	30 32                	xor    BYTE PTR [bp+si],dh
-   19a0c:	64 00 25             	add    BYTE PTR fs:[di],ah
-   19a0f:	30 32                	xor    BYTE PTR [bp+si],dh
-   19a11:	64 00 25             	add    BYTE PTR fs:[di],ah
-   19a14:	30 32                	xor    BYTE PTR [bp+si],dh
-   19a16:	64 00 25             	add    BYTE PTR fs:[di],ah
-   19a19:	30 32                	xor    BYTE PTR [bp+si],dh
-   19a1b:	64 00 25             	add    BYTE PTR fs:[di],ah
-   19a1e:	30 32                	xor    BYTE PTR [bp+si],dh
-   19a20:	64 00 25             	add    BYTE PTR fs:[di],ah
-   19a23:	30 32                	xor    BYTE PTR [bp+si],dh
-   19a25:	64 00 00             	add    BYTE PTR fs:[bx+si],al
-	...
-   19adc:	00 01                	add    BYTE PTR [bx+di],al
-   19ade:	01 bc 07 02          	add    WORD PTR [si+0x207],di
-   19ae2:	00 00                	add    BYTE PTR [bx+si],al
-   19ae4:	00 00                	add    BYTE PTR [bx+si],al
-   19ae6:	ff 07                	inc    WORD PTR [bx]
-   19ae8:	06                   	push   es
-   19ae9:	05 04 02             	add    ax,0x204
-   19aec:	01 01                	add    WORD PTR [bx+di],ax
-   19aee:	00 56 34             	add    BYTE PTR [bp+0x34],dl
-   19af1:	2e                   	cs
-   19af2:	37                   	aaa    
-   19af3:	31 00                	xor    WORD PTR [bx+si],ax
-	...
-   19d09:	00 80 00 00          	add    BYTE PTR [bx+si+0x0],al
-   19d0d:	05 81 00             	add    ax,0x81
-   19d10:	00 01                	add    BYTE PTR [bx+di],al
-   19d12:	82                   	(bad)  
-   19d13:	02 00                	add    al,BYTE PTR [bx+si]
-   19d15:	02 83 01 00          	add    al,BYTE PTR [bp+di+0x1]
-   19d19:	01 84 01 00          	add    WORD PTR [si+0x1],ax
-   19d1d:	00 85 01 00          	add    BYTE PTR [di+0x1],al
-   19d21:	00 86 00 00          	add    BYTE PTR [bp+0x0],al
-   19d25:	00 87 00 00          	add    BYTE PTR [bx+0x0],al
-   19d29:	00 88 00 00          	add    BYTE PTR [bx+si+0x0],cl
-   19d2d:	01 89 00 00          	add    WORD PTR [bx+di+0x0],cx
-   19d31:	00 8a 00 00          	add    BYTE PTR [bp+si+0x0],cl
-   19d35:	00 8b 00 00          	add    BYTE PTR [bp+di+0x0],cl
-   19d39:	03 8c 00 00          	add    cx,WORD PTR [si+0x0]
-   19d3d:	03 8d 01 00          	add    cx,WORD PTR [di+0x1]
-   19d41:	01 8e 01 01          	add    WORD PTR [bp+0x101],cx
-   19d45:	00 8f 01 00          	add    BYTE PTR [bx+0x1],cl
-   19d49:	01 30                	add    WORD PTR [bx+si],si
-   19d4b:	00 01                	add    BYTE PTR [bx+di],al
-   19d4d:	01 31                	add    WORD PTR [bx+di],si
-   19d4f:	00 00                	add    BYTE PTR [bx+si],al
-   19d51:	00 00                	add    BYTE PTR [bx+si],al
-   19d53:	01 01                	add    WORD PTR [bx+di],ax
-   19d55:	03 01                	add    ax,WORD PTR [bx+di]
-   19d57:	01 01                	add    WORD PTR [bx+di],ax
-   19d59:	01 02                	add    WORD PTR [bp+si],ax
-   19d5b:	01 01                	add    WORD PTR [bx+di],ax
-   19d5d:	02 03                	add    al,BYTE PTR [bp+di]
-   19d5f:	01 01                	add    WORD PTR [bx+di],ax
-   19d61:	03 04                	add    ax,WORD PTR [si]
-   19d63:	01 00                	add    WORD PTR [bx+si],ax
-   19d65:	01 05                	add    WORD PTR [di],ax
-   19d67:	01 00                	add    WORD PTR [bx+si],ax
-   19d69:	01 06 01 00          	add    WORD PTR ds:0x1,ax
-   19d6d:	01 07                	add    WORD PTR [bx],ax
-   19d6f:	01 00                	add    WORD PTR [bx+si],ax
-   19d71:	01 08                	add    WORD PTR [bx+si],cx
-   19d73:	01 01                	add    WORD PTR [bx+di],ax
-   19d75:	01 09                	add    WORD PTR [bx+di],cx
-   19d77:	00 00                	add    BYTE PTR [bx+si],al
-   19d79:	01 0a                	add    WORD PTR [bp+si],cx
-   19d7b:	01 01                	add    WORD PTR [bx+di],ax
-   19d7d:	01 40 01             	add    WORD PTR [bx+si+0x1],ax
-   19d80:	01 01                	add    WORD PTR [bx+di],ax
-   19d82:	41                   	inc    cx
-   19d83:	01 01                	add    WORD PTR [bx+di],ax
-   19d85:	03 42 00             	add    ax,WORD PTR [bp+si+0x0]
-   19d88:	00 01                	add    BYTE PTR [bx+di],al
-   19d8a:	43                   	inc    bx
-   19d8b:	01 00                	add    WORD PTR [bx+si],ax
-   19d8d:	01 44 01             	add    WORD PTR [si+0x1],ax
-   19d90:	00 00                	add    BYTE PTR [bx+si],al
-   19d92:	45                   	inc    bp
-   19d93:	01 01                	add    WORD PTR [bx+di],ax
-   19d95:	01 50 01             	add    WORD PTR [bx+si+0x1],dx
-   19d98:	00 00                	add    BYTE PTR [bx+si],al
-   19d9a:	51                   	push   cx
-   19d9b:	01 00                	add    WORD PTR [bx+si],ax
-   19d9d:	00 52 01             	add    BYTE PTR [bp+si+0x1],dl
-   19da0:	00 00                	add    BYTE PTR [bx+si],al
-   19da2:	53                   	push   bx
-   19da3:	02 00                	add    al,BYTE PTR [bx+si]
-   19da5:	01 54 01             	add    WORD PTR [si+0x1],dx
-   19da8:	00 00                	add    BYTE PTR [bx+si],al
-   19daa:	55                   	push   bp
-   19dab:	01 00                	add    WORD PTR [bx+si],ax
-   19dad:	00 56 01             	add    BYTE PTR [bp+0x1],dl
-   19db0:	00 02                	add    BYTE PTR [bp+si],al
-   19db2:	57                   	push   di
-   19db3:	01 00                	add    WORD PTR [bx+si],ax
-   19db5:	00 58 01             	add    BYTE PTR [bx+si+0x1],bl
-   19db8:	00 02                	add    BYTE PTR [bp+si],al
-   19dba:	59                   	pop    cx
-   19dbb:	01 00                	add    WORD PTR [bx+si],ax
-   19dbd:	01 5a 01             	add    WORD PTR [bp+si+0x1],bx
-   19dc0:	00 02                	add    BYTE PTR [bp+si],al
-   19dc2:	60                   	pusha  
-   19dc3:	00 00                	add    BYTE PTR [bx+si],al
-   19dc5:	05 61 00             	add    ax,0x61
-   19dc8:	00 02                	add    BYTE PTR [bp+si],al
-   19dca:	62 00                	bound  ax,DWORD PTR [bx+si]
-   19dcc:	00 03                	add    BYTE PTR [bp+di],al
-   19dce:	63 00                	arpl   WORD PTR [bx+si],ax
-   19dd0:	00 03                	add    BYTE PTR [bp+di],al
-   19dd2:	64 00 00             	add    BYTE PTR fs:[bx+si],al
-   19dd5:	01 70 00             	add    WORD PTR [bx+si+0x0],si
-   19dd8:	00 03                	add    BYTE PTR [bp+di],al
-   19dda:	71 00                	jno    0x19ddc
-   19ddc:	00 02                	add    BYTE PTR [bp+si],al
-   19dde:	72 00                	jb     0x19de0
-   19de0:	00 01                	add    BYTE PTR [bx+di],al
-   19de2:	73 00                	jae    0x19de4
-   19de4:	00 01                	add    BYTE PTR [bx+di],al
-   19de6:	74 00                	je     0x19de8
-   19de8:	00 01                	add    BYTE PTR [bx+di],al
-   19dea:	75 00                	jne    0x19dec
-   19dec:	00 02                	add    BYTE PTR [bp+si],al
-   19dee:	76 00                	jbe    0x19df0
-   19df0:	00 03                	add    BYTE PTR [bp+di],al
-   19df2:	77 00                	ja     0x19df4
-   19df4:	00 03                	add    BYTE PTR [bp+di],al
-   19df6:	78 01                	js     0x19df9
-   19df8:	00 02                	add    BYTE PTR [bp+si],al
-   19dfa:	f0 00 00             	lock add BYTE PTR [bx+si],al
-   19dfd:	00 f1                	add    cl,dh
-   19dff:	01 00                	add    WORD PTR [bx+si],ax
-   19e01:	00 f2                	add    dl,dh
-   19e03:	02 00                	add    al,BYTE PTR [bx+si]
-   19e05:	01 f3                	add    bx,si
-   19e07:	00 00                	add    BYTE PTR [bx+si],al
-   19e09:	00 f4                	add    ah,dh
-   19e0b:	00 00                	add    BYTE PTR [bx+si],al
-   19e0d:	00 f5                	add    ch,dh
-   19e0f:	00 00                	add    BYTE PTR [bx+si],al
-   19e11:	00 f6                	add    dh,dh
-   19e13:	00 00                	add    BYTE PTR [bx+si],al
-   19e15:	00 f7                	add    bh,dh
-   19e17:	00 00                	add    BYTE PTR [bx+si],al
-   19e19:	00 f8                	add    al,bh
-   19e1b:	00 00                	add    BYTE PTR [bx+si],al
-   19e1d:	01 a0 00 01          	add    WORD PTR [bx+si+0x100],sp
-   19e21:	02 a1 00 01          	add    ah,BYTE PTR [bx+di+0x100]
-   19e25:	02 a2 00 00          	add    ah,BYTE PTR [bp+si+0x0]
-   19e29:	00 a3 00 00          	add    BYTE PTR [bp+di+0x0],ah
-   19e2d:	00 a4 00 00          	add    BYTE PTR [si+0x0],ah
-   19e31:	01 a5 00 00          	add    WORD PTR [di+0x0],sp
-   19e35:	02 a6 00 00          	add    ah,BYTE PTR [bp+0x0]
-   19e39:	03 90 00 00          	add    dx,WORD PTR [bx+si+0x0]
-   19e3d:	00 91 00 00          	add    BYTE PTR [bx+di+0x0],dl
-   19e41:	00 92 00 00          	add    BYTE PTR [bp+si+0x0],dl
-   19e45:	00 93 00 00          	add    BYTE PTR [bp+di+0x0],dl
-   19e49:	00 00                	add    BYTE PTR [bx+si],al
-   19e4b:	10 00                	adc    BYTE PTR [bx+si],al
-   19e4d:	02 00                	add    al,BYTE PTR [bx+si]
-   19e4f:	0b 00                	or     ax,WORD PTR [bx+si]
-   19e51:	06                   	push   es
-   19e52:	00 0b                	add    BYTE PTR [bp+di],cl
-   19e54:	00 05                	add    BYTE PTR [di],al
-   19e56:	00 09                	add    BYTE PTR [bx+di],cl
-   19e58:	00 09                	add    BYTE PTR [bx+di],cl
-   19e5a:	00 04                	add    BYTE PTR [si],al
-   19e5c:	00 07                	add    BYTE PTR [bx],al
-	...
-   19e7a:	00 00                	add    BYTE PTR [bx+si],al
-   19e7c:	25 30 32             	and    ax,0x3230
-   19e7f:	58                   	pop    ax
-   19e80:	00 25                	add    BYTE PTR [di],ah
-   19e82:	30 32                	xor    BYTE PTR [bp+si],dh
-   19e84:	58                   	pop    ax
-   19e85:	2c 00                	sub    al,0x0
-   19e87:	3e                   	ds
-   19e88:	25 30 32             	and    ax,0x3230
-   19e8b:	58                   	pop    ax
-   19e8c:	23 25                	and    sp,WORD PTR [di]
-   19e8e:	30 32                	xor    BYTE PTR [bp+si],dh
-   19e90:	58                   	pop    ax
-   19e91:	23 25                	and    sp,WORD PTR [di]
-   19e93:	30 32                	xor    BYTE PTR [bp+si],dh
-   19e95:	58                   	pop    ax
-   19e96:	23 25                	and    sp,WORD PTR [di]
-   19e98:	73 23                	jae    0x19ebd
-   19e9a:	00 25                	add    BYTE PTR [di],ah
-   19e9c:	73 25                	jae    0x19ec3
-   19e9e:	30 32                	xor    BYTE PTR [bp+si],dh
-   19ea0:	58                   	pop    ax
-   19ea1:	3c 00                	cmp    al,0x0
-   19ea3:	00 05                	add    BYTE PTR [di],al
-   19ea5:	08 20                	or     BYTE PTR [bx+si],ah
-   19ea7:	7f 00                	jg     0x19ea9
-   19ea9:	01 05                	add    WORD PTR [di],ax
-   19eab:	00 00                	add    BYTE PTR [bx+si],al
-   19ead:	00 00                	add    BYTE PTR [bx+si],al
-   19eaf:	00 03                	add    BYTE PTR [bp+di],al
-   19eb1:	00 00                	add    BYTE PTR [bx+si],al
-   19eb3:	be 00 00             	mov    si,0x0
-   19eb6:	04 00                	add    al,0x0
-   19eb8:	06                   	push   es
-   19eb9:	00 06 00 05          	add    BYTE PTR ds:0x500,al
-   19ebd:	28 7c 28             	sub    BYTE PTR [si+0x28],bh
-   19ec0:	7c 28                	jl     0x19eea
-   19ec2:	05 90 fc             	add    ax,0xfc90
-   19ec5:	92                   	xchg   dx,ax
-   19ec6:	92                   	xchg   dx,ax
-   19ec7:	84 05                	test   BYTE PTR [di],al
-   19ec9:	44                   	inc    sp
-   19eca:	20 10                	and    BYTE PTR [bx+si],dl
-   19ecc:	08 44 05             	or     BYTE PTR [si+0x5],al
-   19ecf:	74 8a                	je     0x19e5b
-   19ed1:	9a 64 90 03 00       	call   0x3:0x9064
-   19ed6:	00 06 00 00          	add    BYTE PTR ds:0x0,al
-   19eda:	04 00                	add    al,0x0
-   19edc:	38 44 82             	cmp    BYTE PTR [si-0x7e],al
-   19edf:	00 04                	add    BYTE PTR [si],al
-   19ee1:	00 82 44 38          	add    BYTE PTR [bp+si+0x3844],al
-   19ee5:	00 05                	add    BYTE PTR [di],al
-   19ee7:	54                   	push   sp
-   19ee8:	38 fe                	cmp    dh,bh
-   19eea:	38 54 05             	cmp    BYTE PTR [si+0x5],dl
-   19eed:	10 10                	adc    BYTE PTR [bx+si],dl
-   19eef:	7c 10                	jl     0x19f01
-   19ef1:	10 02                	adc    BYTE PTR [bp+si],al
-   19ef3:	80 60 00 00          	and    BYTE PTR [bx+si+0x0],0x0
-   19ef7:	00 05                	add    BYTE PTR [di],al
-   19ef9:	10 10                	adc    BYTE PTR [bx+si],dl
-   19efb:	10 10                	adc    BYTE PTR [bx+si],dl
-   19efd:	10 03                	adc    BYTE PTR [bp+di],al
-   19eff:	00 00                	add    BYTE PTR [bx+si],al
-   19f01:	80 00 00             	add    BYTE PTR [bx+si],0x0
-   19f04:	05 40 20             	add    ax,0x2040
-   19f07:	10 08                	adc    BYTE PTR [bx+si],cl
-   19f09:	04 05                	add    al,0x5
-   19f0b:	7c 82                	jl     0x19e8f
-   19f0d:	82                   	(bad)  
-   19f0e:	82                   	(bad)  
-   19f0f:	7c 04                	jl     0x19f15
-   19f11:	00 84 fe 80          	add    BYTE PTR [si-0x7f02],al
-   19f15:	00 05                	add    BYTE PTR [di],al
-   19f17:	84 c2                	test   dl,al
-   19f19:	a2 92 8c             	mov    ds:0x8c92,al
-   19f1c:	05 44 82             	add    ax,0x8244
-   19f1f:	92                   	xchg   dx,ax
-   19f20:	92                   	xchg   dx,ax
-   19f21:	6c                   	ins    BYTE PTR es:[di],dx
-   19f22:	05 30 28             	add    ax,0x2830
-   19f25:	24 fe                	and    al,0xfe
-   19f27:	20 05                	and    BYTE PTR [di],al
-   19f29:	4e                   	dec    si
-   19f2a:	8a 8a 8a 72          	mov    cl,BYTE PTR [bp+si+0x728a]
-   19f2e:	05 7c 92             	add    ax,0x927c
-   19f31:	92                   	xchg   dx,ax
-   19f32:	92                   	xchg   dx,ax
-   19f33:	64                   	fs
-   19f34:	05 02 02             	add    ax,0x202
-   19f37:	f2 0a 06 05 6c       	repnz or al,BYTE PTR ds:0x6c05
-   19f3c:	92                   	xchg   dx,ax
-   19f3d:	92                   	xchg   dx,ax
-   19f3e:	92                   	xchg   dx,ax
-   19f3f:	6c                   	ins    BYTE PTR es:[di],dx
-   19f40:	05 4c 92             	add    ax,0x924c
-   19f43:	92                   	xchg   dx,ax
-   19f44:	92                   	xchg   dx,ax
-   19f45:	7c 03                	jl     0x19f4a
-   19f47:	00 00                	add    BYTE PTR [bx+si],al
-   19f49:	24 00                	and    al,0x0
-   19f4b:	00 03                	add    BYTE PTR [bp+di],al
-   19f4d:	00 80 64 00          	add    BYTE PTR [bx+si+0x64],al
-   19f51:	00 04                	add    BYTE PTR [si],al
-   19f53:	10 28                	adc    BYTE PTR [bx+si],ch
-   19f55:	44                   	inc    sp
-   19f56:	82                   	(bad)  
-   19f57:	00 04                	add    BYTE PTR [si],al
-   19f59:	28 28                	sub    BYTE PTR [bx+si],ch
-   19f5b:	28 28                	sub    BYTE PTR [bx+si],ch
-   19f5d:	00 04                	add    BYTE PTR [si],al
-   19f5f:	82                   	(bad)  
-   19f60:	44                   	inc    sp
-   19f61:	28 10                	sub    BYTE PTR [bx+si],dl
-   19f63:	00 05                	add    BYTE PTR [di],al
-   19f65:	04 02                	add    al,0x2
-   19f67:	b2 0a                	mov    dl,0xa
-   19f69:	04 05                	add    al,0x5
-   19f6b:	7c 82                	jl     0x19eef
-   19f6d:	ba aa bc             	mov    dx,0xbcaa
-   19f70:	05 fc 12             	add    ax,0x12fc
-   19f73:	12 12                	adc    dl,BYTE PTR [bp+si]
-   19f75:	fc                   	cld    
-   19f76:	05 fe 92             	add    ax,0x92fe
-   19f79:	92                   	xchg   dx,ax
-   19f7a:	92                   	xchg   dx,ax
-   19f7b:	6c                   	ins    BYTE PTR es:[di],dx
-   19f7c:	05 7c 82             	add    ax,0x827c
-   19f7f:	82                   	(bad)  
-   19f80:	82                   	(bad)  
-   19f81:	44                   	inc    sp
-   19f82:	05 fe 82             	add    ax,0x82fe
-   19f85:	82                   	(bad)  
-   19f86:	82                   	(bad)  
-   19f87:	7c 05                	jl     0x19f8e
-   19f89:	fe                   	(bad)  
-   19f8a:	92                   	xchg   dx,ax
-   19f8b:	92                   	xchg   dx,ax
-   19f8c:	92                   	xchg   dx,ax
-   19f8d:	82                   	(bad)  
-   19f8e:	05 fe 12             	add    ax,0x12fe
-   19f91:	12 12                	adc    dl,BYTE PTR [bp+si]
-   19f93:	02 05                	add    al,BYTE PTR [di]
-   19f95:	7c 82                	jl     0x19f19
-   19f97:	92                   	xchg   dx,ax
-   19f98:	92                   	xchg   dx,ax
-   19f99:	74 05                	je     0x19fa0
-   19f9b:	fe                   	(bad)  
-   19f9c:	10 10                	adc    BYTE PTR [bx+si],dl
-   19f9e:	10 fe                	adc    dh,bh
-   19fa0:	04 00                	add    al,0x0
-   19fa2:	82                   	(bad)  
-   19fa3:	fe 82 00 05          	inc    BYTE PTR [bp+si+0x500]
-   19fa7:	40                   	inc    ax
-   19fa8:	82                   	(bad)  
-   19fa9:	82                   	(bad)  
-   19faa:	7e 02                	jle    0x19fae
-   19fac:	05 fe 10             	add    ax,0x10fe
-   19faf:	28 44 82             	sub    BYTE PTR [si-0x7e],al
-   19fb2:	05 fe 80             	add    ax,0x80fe
-   19fb5:	80 80 80 05 fe       	add    BYTE PTR [bx+si+0x580],0xfe
-   19fba:	04 08                	add    al,0x8
-   19fbc:	04 fe                	add    al,0xfe
-   19fbe:	05 fe 04             	add    ax,0x4fe
-   19fc1:	08 10                	or     BYTE PTR [bx+si],dl
-   19fc3:	fe 05                	inc    BYTE PTR [di]
-   19fc5:	7c 82                	jl     0x19f49
-   19fc7:	82                   	(bad)  
-   19fc8:	82                   	(bad)  
-   19fc9:	7c 05                	jl     0x19fd0
-   19fcb:	fe                   	(bad)  
-   19fcc:	12 12                	adc    dl,BYTE PTR [bp+si]
-   19fce:	12 0c                	adc    cl,BYTE PTR [si]
-   19fd0:	05 7c 82             	add    ax,0x827c
-   19fd3:	a2 42 bc             	mov    ds:0xbc42,al
-   19fd6:	05 fe 12             	add    ax,0x12fe
-   19fd9:	32 52 8c             	xor    dl,BYTE PTR [bp+si-0x74]
-   19fdc:	05 4c 92             	add    ax,0x924c
-   19fdf:	92                   	xchg   dx,ax
-   19fe0:	92                   	xchg   dx,ax
-   19fe1:	64                   	fs
-   19fe2:	05 02 02             	add    ax,0x202
-   19fe5:	fe 02                	inc    BYTE PTR [bp+si]
-   19fe7:	02 05                	add    al,BYTE PTR [di]
-   19fe9:	7e 80                	jle    0x19f6b
-   19feb:	80 80 7e 05 3e       	add    BYTE PTR [bx+si+0x57e],0x3e
-   19ff0:	40                   	inc    ax
-   19ff1:	80 40 3e 05          	add    BYTE PTR [bx+si+0x3e],0x5
-   19ff5:	fe 40 30             	inc    BYTE PTR [bx+si+0x30]
-   19ff8:	40                   	inc    ax
-   19ff9:	fe 05                	inc    BYTE PTR [di]
-   19ffb:	c6                   	(bad)  
-   19ffc:	28 10                	sub    BYTE PTR [bx+si],dl
-   19ffe:	28 c6                	sub    dh,al
-   1a000:	05 06 08             	add    ax,0x806
-   1a003:	f0 08 06 05 c2       	lock or BYTE PTR ds:0xc205,al
-   1a008:	a2 92 8a             	mov    ds:0x8a92,al
-   1a00b:	86 04                	xchg   BYTE PTR [si],al
-   1a00d:	00 fe                	add    dh,bh
-   1a00f:	82                   	(bad)  
-   1a010:	82                   	(bad)  
-   1a011:	00 05                	add    BYTE PTR [di],al
-   1a013:	04 08                	add    al,0x8
-   1a015:	10 20                	adc    BYTE PTR [bx+si],ah
-   1a017:	40                   	inc    ax
-   1a018:	04 00                	add    al,0x0
-   1a01a:	82                   	(bad)  
-   1a01b:	82                   	(bad)  
-   1a01c:	fe 00                	inc    BYTE PTR [bx+si]
-   1a01e:	04 00                	add    al,0x0
-   1a020:	04 02                	add    al,0x2
-   1a022:	04 00                	add    al,0x0
-   1a024:	05 80 80             	add    ax,0x8080
-   1a027:	80 80 80 03 00       	add    BYTE PTR [bx+si+0x380],0x0
-   1a02c:	06                   	push   es
-   1a02d:	08 00                	or     BYTE PTR [bx+si],al
-   1a02f:	00 05                	add    BYTE PTR [di],al
-   1a031:	40                   	inc    ax
-   1a032:	a8 a8                	test   al,0xa8
-   1a034:	a8 f0                	test   al,0xf0
-   1a036:	05 fe 88             	add    ax,0x88fe
-   1a039:	88 88 70 05          	mov    BYTE PTR [bx+si+0x570],cl
-   1a03d:	70 88                	jo     0x19fc7
-   1a03f:	88 88 50 05          	mov    BYTE PTR [bx+si+0x550],cl
-   1a043:	70 88                	jo     0x19fcd
-   1a045:	88 88 fe 05          	mov    BYTE PTR [bx+si+0x5fe],cl
-   1a049:	70 a8                	jo     0x19ff3
-   1a04b:	a8 a8                	test   al,0xa8
-   1a04d:	30 04                	xor    BYTE PTR [si],al
-   1a04f:	10 fc                	adc    ah,bh
-   1a051:	12 04                	adc    al,BYTE PTR [si]
-   1a053:	00 05                	add    BYTE PTR [di],al
-   1a055:	90                   	nop
-   1a056:	a8 a8                	test   al,0xa8
-   1a058:	a8 70                	test   al,0x70
-   1a05a:	05 fe 08             	add    ax,0x8fe
-   1a05d:	08 08                	or     BYTE PTR [bx+si],cl
-   1a05f:	f0 04 00             	lock add al,0x0
-   1a062:	88 fa                	mov    dl,bh
-   1a064:	80 00 04             	add    BYTE PTR [bx+si],0x4
-   1a067:	00 80 80 7a          	add    BYTE PTR [bx+si+0x7a80],al
-   1a06b:	00 04                	add    BYTE PTR [si],al
-   1a06d:	fe                   	(bad)  
-   1a06e:	20 50 88             	and    BYTE PTR [bx+si-0x78],dl
-   1a071:	00 04                	add    BYTE PTR [si],al
-   1a073:	00 82 fe 80          	add    BYTE PTR [bp+si-0x7f02],al
-   1a077:	00 05                	add    BYTE PTR [di],al
-   1a079:	f0 08 30             	lock or BYTE PTR [bx+si],dh
-   1a07c:	08 f0                	or     al,dh
-   1a07e:	05 f8 08             	add    ax,0x8f8
-   1a081:	08 08                	or     BYTE PTR [bx+si],cl
-   1a083:	f0 05 70 88          	lock add ax,0x8870
-   1a087:	88 88 70 05          	mov    BYTE PTR [bx+si+0x570],cl
-   1a08b:	f8                   	clc    
-   1a08c:	28 48 48             	sub    BYTE PTR [bx+si+0x48],cl
-   1a08f:	30 05                	xor    BYTE PTR [di],al
-   1a091:	30 48 48             	xor    BYTE PTR [bx+si+0x48],cl
-   1a094:	28 f8                	sub    al,bh
-   1a096:	05 f8 10             	add    ax,0x10f8
-   1a099:	08 08                	or     BYTE PTR [bx+si],cl
-   1a09b:	10 05                	adc    BYTE PTR [di],al
-   1a09d:	90                   	nop
-   1a09e:	a8 a8                	test   al,0xa8
-   1a0a0:	a8 48                	test   al,0x48
-   1a0a2:	04 08                	add    al,0x8
-   1a0a4:	7e 88                	jle    0x1a02e
-   1a0a6:	80 00 05             	add    BYTE PTR [bx+si],0x5
-   1a0a9:	78 80                	js     0x1a02b
-   1a0ab:	80 80 78 05 38       	add    BYTE PTR [bx+si+0x578],0x38
-   1a0b0:	40                   	inc    ax
-   1a0b1:	80 40 38 05          	add    BYTE PTR [bx+si+0x38],0x5
-   1a0b5:	78 80                	js     0x1a037
-   1a0b7:	70 80                	jo     0x1a039
-   1a0b9:	78 05                	js     0x1a0c0
-   1a0bb:	88 50 20             	mov    BYTE PTR [bx+si+0x20],dl
-   1a0be:	50                   	push   ax
-   1a0bf:	88 05                	mov    BYTE PTR [di],al
-   1a0c1:	18 a0 a0 90          	sbb    BYTE PTR [bx+si-0x6f60],ah
-   1a0c5:	78 05                	js     0x1a0cc
-   1a0c7:	88 c8                	mov    al,cl
-   1a0c9:	a8 98                	test   al,0x98
-   1a0cb:	88 05                	mov    BYTE PTR [di],al
-   1a0cd:	ff                   	(bad)  
-   1a0ce:	ff                   	(bad)  
-   1a0cf:	ff                   	(bad)  
-   1a0d0:	ff                   	(bad)  
-   1a0d1:	ff 05                	inc    WORD PTR [di]
-   1a0d3:	7c aa                	jl     0x1a07f
-   1a0d5:	aa                   	stos   BYTE PTR es:[di],al
-   1a0d6:	82                   	(bad)  
-   1a0d7:	44                   	inc    sp
-   1a0d8:	04 00                	add    al,0x0
-   1a0da:	82                   	(bad)  
-   1a0db:	6c                   	ins    BYTE PTR es:[di],dx
-   1a0dc:	10 00                	adc    BYTE PTR [bx+si],al
-   1a0de:	03 0e 0a 0e          	add    cx,WORD PTR ds:0xe0a
-	...
-   1a0ea:	07                   	pop    es
-   1a0eb:	08 20                	or     BYTE PTR [bx+si],ah
-   1a0ed:	7f 01                	jg     0x1a0f0
-   1a0ef:	01 07                	add    WORD PTR [bx],ax
-   1a0f1:	00 00                	add    BYTE PTR [bx+si],al
-   1a0f3:	00 00                	add    BYTE PTR [bx+si],al
-   1a0f5:	00 00                	add    BYTE PTR [bx+si],al
-   1a0f7:	00 05                	add    BYTE PTR [di],al
-   1a0f9:	00 0c                	add    BYTE PTR [si],cl
-   1a0fb:	be be 0c             	mov    si,0xcbe
-   1a0fe:	00 00                	add    BYTE PTR [bx+si],al
-   1a100:	05 0e 0e             	add    ax,0xe0e
-   1a103:	00 0e 0e 00          	add    BYTE PTR ds:0xe,cl
-   1a107:	00 07                	add    BYTE PTR [bx],al
-   1a109:	28 fe                	sub    dh,bh
-   1a10b:	fe                   	(bad)  
-   1a10c:	28 fe                	sub    dh,bh
-   1a10e:	fe                   	(bad)  
-   1a10f:	28 07                	sub    BYTE PTR [bx],al
-   1a111:	90                   	nop
-   1a112:	fc                   	cld    
-   1a113:	fe                   	(bad)  
-   1a114:	92                   	xchg   dx,ax
-   1a115:	82                   	(bad)  
-   1a116:	86 84 07 46          	xchg   BYTE PTR [si+0x4607],al
-   1a11a:	e6 70                	out    0x70,al
-   1a11c:	38 1c                	cmp    BYTE PTR [si],bl
-   1a11e:	ce                   	into   
-   1a11f:	c4 07                	les    ax,DWORD PTR [bx]
-   1a121:	74 fe                	je     0x1a121
-   1a123:	9a ba ee 44 a0       	call   0xa044:0xeeba
-   1a128:	03 00                	add    ax,WORD PTR [bx+si]
-   1a12a:	0e                   	push   cs
-   1a12b:	0e                   	push   cs
-   1a12c:	00 00                	add    BYTE PTR [bx+si],al
-   1a12e:	00 00                	add    BYTE PTR [bx+si],al
-   1a130:	04 38                	add    al,0x38
-   1a132:	7c c6                	jl     0x1a0fa
-   1a134:	82                   	(bad)  
-   1a135:	00 00                	add    BYTE PTR [bx+si],al
-   1a137:	00 04                	add    BYTE PTR [si],al
-   1a139:	82                   	(bad)  
-   1a13a:	c6                   	(bad)  
-   1a13b:	7c 38                	jl     0x1a175
-   1a13d:	00 00                	add    BYTE PTR [bx+si],al
-   1a13f:	00 07                	add    BYTE PTR [bx],al
-   1a141:	10 54 38             	adc    BYTE PTR [si+0x38],dl
-   1a144:	fe                   	(bad)  
-   1a145:	38 54 10             	cmp    BYTE PTR [si+0x10],dl
-   1a148:	06                   	push   es
-   1a149:	10 10                	adc    BYTE PTR [bx+si],dl
-   1a14b:	7c 7c                	jl     0x1a1c9
-   1a14d:	10 10                	adc    BYTE PTR [bx+si],dl
-   1a14f:	00 03                	add    BYTE PTR [bp+di],al
-   1a151:	80 e0 60             	and    al,0x60
-   1a154:	00 00                	add    BYTE PTR [bx+si],al
-   1a156:	00 00                	add    BYTE PTR [bx+si],al
-   1a158:	06                   	push   es
-   1a159:	10 10                	adc    BYTE PTR [bx+si],dl
-   1a15b:	10 10                	adc    BYTE PTR [bx+si],dl
-   1a15d:	10 10                	adc    BYTE PTR [bx+si],dl
-   1a15f:	00 03                	add    BYTE PTR [bp+di],al
-   1a161:	00 c0                	add    al,al
-   1a163:	c0 00 00             	rol    BYTE PTR [bx+si],0x0
-   1a166:	00 00                	add    BYTE PTR [bx+si],al
-   1a168:	06                   	push   es
-   1a169:	40                   	inc    ax
-   1a16a:	60                   	pusha  
-   1a16b:	30 18                	xor    BYTE PTR [bx+si],bl
-   1a16d:	0c 04                	or     al,0x4
-   1a16f:	00 07                	add    BYTE PTR [bx],al
-   1a171:	7c fe                	jl     0x1a171
-   1a173:	82                   	(bad)  
-   1a174:	82                   	(bad)  
-   1a175:	82                   	(bad)  
-   1a176:	fe                   	(bad)  
-   1a177:	7c 06                	jl     0x1a17f
-   1a179:	00 00                	add    BYTE PTR [bx+si],al
-   1a17b:	84 fe                	test   dh,bh
-   1a17d:	fe 80 00 07          	inc    BYTE PTR [bx+si+0x700]
-   1a181:	e4 f6                	in     al,0xf6
-   1a183:	92                   	xchg   dx,ax
-   1a184:	92                   	xchg   dx,ax
-   1a185:	92                   	xchg   dx,ax
-   1a186:	9e                   	sahf   
-   1a187:	8c 07                	mov    WORD PTR [bx],es
-   1a189:	44                   	inc    sp
-   1a18a:	c6 82 92 92 fe       	mov    BYTE PTR [bp+si-0x6d6e],0xfe
-   1a18f:	6c                   	ins    BYTE PTR es:[di],dx
-   1a190:	07                   	pop    es
-   1a191:	20 30                	and    BYTE PTR [bx+si],dh
-   1a193:	38 2c                	cmp    BYTE PTR [si],ch
-   1a195:	26                   	es
-   1a196:	fe                   	(bad)  
-   1a197:	fe 07                	inc    BYTE PTR [bx]
-   1a199:	4e                   	dec    si
-   1a19a:	ce                   	into   
-   1a19b:	8a 8a 8a fa          	mov    cl,BYTE PTR [bp+si-0x576]
-   1a19f:	72 07                	jb     0x1a1a8
-   1a1a1:	7c fe                	jl     0x1a1a1
-   1a1a3:	92                   	xchg   dx,ax
-   1a1a4:	92                   	xchg   dx,ax
-   1a1a5:	92                   	xchg   dx,ax
-   1a1a6:	f6 64 07             	mul    BYTE PTR [si+0x7]
-   1a1a9:	02 02                	add    al,BYTE PTR [bp+si]
-   1a1ab:	e2 f2                	loop   0x1a19f
-   1a1ad:	1a 0e 06 07          	sbb    cl,BYTE PTR ds:0x706
-   1a1b1:	6c                   	ins    BYTE PTR es:[di],dx
-   1a1b2:	fe                   	(bad)  
-   1a1b3:	92                   	xchg   dx,ax
-   1a1b4:	92                   	xchg   dx,ax
-   1a1b5:	92                   	xchg   dx,ax
-   1a1b6:	fe                   	(bad)  
-   1a1b7:	6c                   	ins    BYTE PTR es:[di],dx
-   1a1b8:	07                   	pop    es
-   1a1b9:	4c                   	dec    sp
-   1a1ba:	de 92 92 92          	ficom  WORD PTR [bp+si-0x6d6e]
-   1a1be:	fe                   	(bad)  
-   1a1bf:	7c 03                	jl     0x1a1c4
-   1a1c1:	00 24                	add    BYTE PTR [si],ah
-   1a1c3:	24 00                	and    al,0x0
-   1a1c5:	00 00                	add    BYTE PTR [bx+si],al
-   1a1c7:	00 03                	add    BYTE PTR [bp+di],al
-   1a1c9:	00 54 34             	add    BYTE PTR [si+0x34],dl
-   1a1cc:	00 00                	add    BYTE PTR [bx+si],al
-   1a1ce:	00 00                	add    BYTE PTR [bx+si],al
-   1a1d0:	05 10 38             	add    ax,0x3810
-   1a1d3:	6c                   	ins    BYTE PTR es:[di],dx
-   1a1d4:	c6 82 00 00 06       	mov    BYTE PTR [bp+si+0x0],0x6
-   1a1d9:	28 28                	sub    BYTE PTR [bx+si],ch
-   1a1db:	28 28                	sub    BYTE PTR [bx+si],ch
-   1a1dd:	28 28                	sub    BYTE PTR [bx+si],ch
-   1a1df:	00 05                	add    BYTE PTR [di],al
-   1a1e1:	82                   	(bad)  
-   1a1e2:	c6                   	(bad)  
-   1a1e3:	6c                   	ins    BYTE PTR es:[di],dx
-   1a1e4:	38 10                	cmp    BYTE PTR [bx+si],dl
-   1a1e6:	00 00                	add    BYTE PTR [bx+si],al
-   1a1e8:	07                   	pop    es
-   1a1e9:	02 03                	add    al,BYTE PTR [bp+di]
-   1a1eb:	01 d9                	add    cx,bx
-   1a1ed:	dd 0f                	fisttp QWORD PTR [bx]
-   1a1ef:	06                   	push   es
-   1a1f0:	07                   	pop    es
-   1a1f1:	7c fe                	jl     0x1a1f1
-   1a1f3:	82                   	(bad)  
-   1a1f4:	9e                   	sahf   
-   1a1f5:	a2 be 1c             	mov    ds:0x1cbe,al
-   1a1f8:	07                   	pop    es
-   1a1f9:	fc                   	cld    
-   1a1fa:	fe                   	(bad)  
-   1a1fb:	12 12                	adc    dl,BYTE PTR [bp+si]
-   1a1fd:	12 fe                	adc    bh,dh
-   1a1ff:	fc                   	cld    
-   1a200:	07                   	pop    es
-   1a201:	fe                   	(bad)  
-   1a202:	fe                   	(bad)  
-   1a203:	92                   	xchg   dx,ax
-   1a204:	92                   	xchg   dx,ax
-   1a205:	92                   	xchg   dx,ax
-   1a206:	fe                   	(bad)  
-   1a207:	6c                   	ins    BYTE PTR es:[di],dx
-   1a208:	07                   	pop    es
-   1a209:	7c fe                	jl     0x1a209
-   1a20b:	82                   	(bad)  
-   1a20c:	82                   	(bad)  
-   1a20d:	82                   	(bad)  
-   1a20e:	c6 44 07 fe          	mov    BYTE PTR [si+0x7],0xfe
-   1a212:	fe 82 82 c6          	inc    BYTE PTR [bp+si-0x397e]
-   1a216:	7c 38                	jl     0x1a250
-   1a218:	07                   	pop    es
-   1a219:	fe                   	(bad)  
-   1a21a:	fe                   	(bad)  
-   1a21b:	92                   	xchg   dx,ax
-   1a21c:	92                   	xchg   dx,ax
-   1a21d:	92                   	xchg   dx,ax
-   1a21e:	92                   	xchg   dx,ax
-   1a21f:	82                   	(bad)  
-   1a220:	07                   	pop    es
-   1a221:	fe                   	(bad)  
-   1a222:	fe                   	(bad)  
-   1a223:	12 12                	adc    dl,BYTE PTR [bp+si]
-   1a225:	12 12                	adc    dl,BYTE PTR [bp+si]
-   1a227:	02 07                	add    al,BYTE PTR [bx]
-   1a229:	7c fe                	jl     0x1a229
-   1a22b:	82                   	(bad)  
-   1a22c:	92                   	xchg   dx,ax
-   1a22d:	92                   	xchg   dx,ax
-   1a22e:	f6 74 07             	div    BYTE PTR [si+0x7]
-   1a231:	fe                   	(bad)  
-   1a232:	fe                   	(bad)  
-   1a233:	10 10                	adc    BYTE PTR [bx+si],dl
-   1a235:	10 fe                	adc    dh,bh
-   1a237:	fe 06 82 82          	inc    BYTE PTR ds:0x8282
-   1a23b:	fe                   	(bad)  
-   1a23c:	fe 82 82 00          	inc    BYTE PTR [bp+si+0x82]
-   1a240:	07                   	pop    es
-   1a241:	40                   	inc    ax
-   1a242:	c0 80 82 82 fe       	rol    BYTE PTR [bx+si-0x7d7e],0xfe
-   1a247:	7e 07                	jle    0x1a250
-   1a249:	fe                   	(bad)  
-   1a24a:	fe                   	(bad)  
-   1a24b:	10 38                	adc    BYTE PTR [bx+si],bh
-   1a24d:	6c                   	ins    BYTE PTR es:[di],dx
-   1a24e:	c6 82 06 fe fe       	mov    BYTE PTR [bp+si-0x1fa],0xfe
-   1a253:	80 80 80 80 00       	add    BYTE PTR [bx+si-0x7f80],0x0
-   1a258:	07                   	pop    es
-   1a259:	fe                   	(bad)  
-   1a25a:	fe 0c                	dec    BYTE PTR [si]
-   1a25c:	18 0c                	sbb    BYTE PTR [si],cl
-   1a25e:	fe                   	(bad)  
-   1a25f:	fe 07                	inc    BYTE PTR [bx]
-   1a261:	fe                   	(bad)  
-   1a262:	fe 0c                	dec    BYTE PTR [si]
-   1a264:	18 30                	sbb    BYTE PTR [bx+si],dh
-   1a266:	fe                   	(bad)  
-   1a267:	fe 07                	inc    BYTE PTR [bx]
-   1a269:	7c fe                	jl     0x1a269
-   1a26b:	82                   	(bad)  
-   1a26c:	82                   	(bad)  
-   1a26d:	82                   	(bad)  
-   1a26e:	fe                   	(bad)  
-   1a26f:	7c 07                	jl     0x1a278
-   1a271:	fe                   	(bad)  
-   1a272:	fe                   	(bad)  
-   1a273:	12 12                	adc    dl,BYTE PTR [bp+si]
-   1a275:	12 1e 0c 07          	adc    bl,BYTE PTR ds:0x70c
-   1a279:	7c fe                	jl     0x1a279
-   1a27b:	82                   	(bad)  
-   1a27c:	82                   	(bad)  
-   1a27d:	c2 7e bc             	ret    0xbc7e
-   1a280:	07                   	pop    es
-   1a281:	fe                   	(bad)  
-   1a282:	fe                   	(bad)  
-   1a283:	12 12                	adc    dl,BYTE PTR [bp+si]
-   1a285:	32 fe                	xor    bh,dh
-   1a287:	ec                   	in     al,dx
-   1a288:	07                   	pop    es
-   1a289:	4c                   	dec    sp
-   1a28a:	de 92 92 92          	ficom  WORD PTR [bp+si-0x6d6e]
-   1a28e:	f6 64 06             	mul    BYTE PTR [si+0x6]
-   1a291:	02 02                	add    al,BYTE PTR [bp+si]
-   1a293:	fe                   	(bad)  
-   1a294:	fe 02                	inc    BYTE PTR [bp+si]
-   1a296:	02 00                	add    al,BYTE PTR [bx+si]
-   1a298:	07                   	pop    es
-   1a299:	7e fe                	jle    0x1a299
-   1a29b:	80 80 80 fe 7e       	add    BYTE PTR [bx+si-0x180],0x7e
-   1a2a0:	07                   	pop    es
-   1a2a1:	1e                   	push   ds
-   1a2a2:	3e                   	ds
-   1a2a3:	70 e0                	jo     0x1a285
-   1a2a5:	70 3e                	jo     0x1a2e5
-   1a2a7:	1e                   	push   ds
-   1a2a8:	07                   	pop    es
-   1a2a9:	fe                   	(bad)  
-   1a2aa:	fe                   	(bad)  
-   1a2ab:	60                   	pusha  
-   1a2ac:	30 60 fe             	xor    BYTE PTR [bx+si-0x2],ah
-   1a2af:	fe 07                	inc    BYTE PTR [bx]
-   1a2b1:	c6                   	(bad)  
-   1a2b2:	ee                   	out    dx,al
-   1a2b3:	38 10                	cmp    BYTE PTR [bx+si],dl
-   1a2b5:	38 ee                	cmp    dh,ch
-   1a2b7:	c6 06 0e 1e f0       	mov    BYTE PTR ds:0x1e0e,0xf0
-   1a2bc:	f0 1e                	lock push ds
-   1a2be:	0e                   	push   cs
-   1a2bf:	00 07                	add    BYTE PTR [bx],al
-   1a2c1:	c2 e2 b2             	ret    0xb2e2
-   1a2c4:	9a 8e 86 82 05       	call   0x582:0x868e
-   1a2c9:	fe                   	(bad)  
-   1a2ca:	fe 82 82 82          	inc    BYTE PTR [bp+si-0x7d7e]
-   1a2ce:	00 00                	add    BYTE PTR [bx+si],al
-   1a2d0:	06                   	push   es
-   1a2d1:	04 0c                	add    al,0xc
-   1a2d3:	18 30                	sbb    BYTE PTR [bx+si],dh
-   1a2d5:	60                   	pusha  
-   1a2d6:	40                   	inc    ax
-   1a2d7:	00 05                	add    BYTE PTR [di],al
-   1a2d9:	82                   	(bad)  
-   1a2da:	82                   	(bad)  
-   1a2db:	82                   	(bad)  
-   1a2dc:	fe                   	(bad)  
-   1a2dd:	fe 00                	inc    BYTE PTR [bx+si]
-   1a2df:	00 05                	add    BYTE PTR [di],al
-   1a2e1:	08 0c                	or     BYTE PTR [si],cl
-   1a2e3:	06                   	push   es
-   1a2e4:	0c 08                	or     al,0x8
-   1a2e6:	00 00                	add    BYTE PTR [bx+si],al
-   1a2e8:	07                   	pop    es
-   1a2e9:	80 80 80 80 80       	add    BYTE PTR [bx+si-0x7f80],0x80
-   1a2ee:	80 80 02 0e 16       	add    BYTE PTR [bx+si+0xe02],0x16
-   1a2f3:	00 00                	add    BYTE PTR [bx+si],al
-   1a2f5:	00 00                	add    BYTE PTR [bx+si],al
-   1a2f7:	00 07                	add    BYTE PTR [bx],al
-   1a2f9:	40                   	inc    ax
-   1a2fa:	e8 a8 a8             	call   0x14ba5
-   1a2fd:	a8 f8                	test   al,0xf8
-   1a2ff:	f0 07                	lock pop es
-   1a301:	fe                   	(bad)  
-   1a302:	fe 88 88 88          	dec    BYTE PTR [bx+si-0x7778]
-   1a306:	f8                   	clc    
-   1a307:	70 07                	jo     0x1a310
-   1a309:	70 f8                	jo     0x1a303
-   1a30b:	88 88 88 d8          	mov    BYTE PTR [bx+si-0x2778],cl
-   1a30f:	50                   	push   ax
-   1a310:	07                   	pop    es
-   1a311:	70 f8                	jo     0x1a30b
-   1a313:	88 88 88 fe          	mov    BYTE PTR [bx+si-0x178],cl
-   1a317:	fe 07                	inc    BYTE PTR [bx]
-   1a319:	70 f8                	jo     0x1a313
-   1a31b:	a8 a8                	test   al,0xa8
-   1a31d:	a8 b8                	test   al,0xb8
-   1a31f:	30 05                	xor    BYTE PTR [di],al
-   1a321:	08 fc                	or     ah,bh
-   1a323:	fe 0a                	dec    BYTE PTR [bp+si]
-   1a325:	02 00                	add    al,BYTE PTR [bx+si]
-   1a327:	00 07                	add    BYTE PTR [bx],al
-   1a329:	10 b8 a8 a8          	adc    BYTE PTR [bx+si-0x5758],bh
-   1a32d:	a8 f8                	test   al,0xf8
-   1a32f:	70 07                	jo     0x1a338
-   1a331:	fe                   	(bad)  
-   1a332:	fe 08                	dec    BYTE PTR [bx+si]
-   1a334:	08 08                	or     BYTE PTR [bx+si],cl
-   1a336:	f8                   	clc    
-   1a337:	f0 05 00 88          	lock add ax,0x8800
-   1a33b:	fa                   	cli    
-   1a33c:	fa                   	cli    
-   1a33d:	80 00 00             	add    BYTE PTR [bx+si],0x0
-   1a340:	06                   	push   es
-   1a341:	40                   	inc    ax
-   1a342:	c0 80 88 fa 7a       	rol    BYTE PTR [bx+si-0x578],0x7a
-   1a347:	00 06 fe fe          	add    BYTE PTR ds:0xfefe,al
-   1a34b:	20 70 d8             	and    BYTE PTR [bx+si-0x28],dh
-   1a34e:	88 00                	mov    BYTE PTR [bx+si],al
-   1a350:	05 00 82             	add    ax,0x8200
-   1a353:	fe                   	(bad)  
-   1a354:	fe 80 00 00          	inc    BYTE PTR [bx+si+0x0]
-   1a358:	07                   	pop    es
-   1a359:	f0 f8                	lock clc 
-   1a35b:	18 70 18             	sbb    BYTE PTR [bx+si+0x18],dh
-   1a35e:	f8                   	clc    
-   1a35f:	f0 07                	lock pop es
-   1a361:	f8                   	clc    
-   1a362:	f8                   	clc    
-   1a363:	10 18                	adc    BYTE PTR [bx+si],bl
-   1a365:	08 f8                	or     al,bh
-   1a367:	f0 07                	lock pop es
-   1a369:	70 f8                	jo     0x1a363
-   1a36b:	88 88 88 f8          	mov    BYTE PTR [bx+si-0x778],cl
-   1a36f:	70 07                	jo     0x1a378
-   1a371:	f8                   	clc    
-   1a372:	f8                   	clc    
-   1a373:	28 68 48             	sub    BYTE PTR [bx+si+0x48],ch
-   1a376:	78 30                	js     0x1a3a8
-   1a378:	07                   	pop    es
-   1a379:	30 78 48             	xor    BYTE PTR [bx+si+0x48],bh
-   1a37c:	68 28 f8             	push   0xf828
-   1a37f:	f8                   	clc    
-   1a380:	07                   	pop    es
-   1a381:	f8                   	clc    
-   1a382:	f8                   	clc    
-   1a383:	10 18                	adc    BYTE PTR [bx+si],bl
-   1a385:	08 18                	or     BYTE PTR [bx+si],bl
-   1a387:	10 07                	adc    BYTE PTR [bx],al
-   1a389:	10 b8 a8 a8          	adc    BYTE PTR [bx+si-0x5758],bh
-   1a38d:	a8 e8                	test   al,0xe8
-   1a38f:	40                   	inc    ax
-   1a390:	07                   	pop    es
-   1a391:	00 08                	add    BYTE PTR [bx+si],cl
-   1a393:	7e fe                	jle    0x1a393
-   1a395:	88 c0                	mov    al,al
-   1a397:	40                   	inc    ax
-   1a398:	07                   	pop    es
-   1a399:	78 f8                	js     0x1a393
-   1a39b:	80 80 80 f8 78       	add    BYTE PTR [bx+si-0x780],0x78
-   1a3a0:	07                   	pop    es
-   1a3a1:	18 38                	sbb    BYTE PTR [bx+si],bh
-   1a3a3:	60                   	pusha  
-   1a3a4:	c0 60 38 18          	shl    BYTE PTR [bx+si+0x38],0x18
-   1a3a8:	07                   	pop    es
-   1a3a9:	78 f8                	js     0x1a3a3
-   1a3ab:	c0 60 c0 f8          	shl    BYTE PTR [bx+si-0x40],0xf8
-   1a3af:	78 06                	js     0x1a3b7
-   1a3b1:	88 d8                	mov    al,bl
-   1a3b3:	70 70                	jo     0x1a425
-   1a3b5:	d8 88 00 07          	fmul   DWORD PTR [bx+si+0x700]
-   1a3b9:	18 b8 a0 a0          	sbb    BYTE PTR [bx+si-0x5f60],bh
-   1a3bd:	a0 f8 78             	mov    al,ds:0x78f8
-   1a3c0:	07                   	pop    es
-   1a3c1:	88 c8                	mov    al,cl
-   1a3c3:	e8 a8 b8             	call   0x15c6e
-   1a3c6:	98                   	cbw    
-   1a3c7:	88 07                	mov    BYTE PTR [bx],al
-   1a3c9:	ff                   	(bad)  
-   1a3ca:	ff                   	(bad)  
-   1a3cb:	ff                   	(bad)  
-   1a3cc:	ff                   	(bad)  
-   1a3cd:	ff                   	(bad)  
-   1a3ce:	ff                   	(bad)  
-   1a3cf:	ff 07                	inc    WORD PTR [bx]
-   1a3d1:	28 7c aa             	sub    BYTE PTR [si-0x56],bh
-   1a3d4:	aa                   	stos   BYTE PTR es:[di],al
-   1a3d5:	aa                   	stos   BYTE PTR es:[di],al
-   1a3d6:	82                   	(bad)  
-   1a3d7:	44                   	inc    sp
-   1a3d8:	05 00 82             	add    ax,0x8200
-   1a3db:	82                   	(bad)  
-   1a3dc:	6c                   	ins    BYTE PTR es:[di],dx
-   1a3dd:	10 00                	adc    BYTE PTR [bx+si],al
-   1a3df:	00 05                	add    BYTE PTR [di],al
-   1a3e1:	00 0c                	add    BYTE PTR [si],cl
-   1a3e3:	12 12                	adc    dl,BYTE PTR [bp+si]
-   1a3e5:	0c 00                	or     al,0x0
-	...
-   1a3ef:	00 0c                	add    BYTE PTR [si],cl
-   1a3f1:	10 20                	adc    BYTE PTR [bx+si],ah
-   1a3f3:	7f 01                	jg     0x1a3f6
-   1a3f5:	01 14                	add    WORD PTR [si],dx
-	...
-   1a40f:	0a 00                	or     al,BYTE PTR [bx+si]
-   1a411:	00 00                	add    BYTE PTR [bx+si],al
-   1a413:	00 ff                	add    bh,bh
-   1a415:	e7 ff                	out    0xff,ax
-   1a417:	e7 ff                	out    0xff,ax
-   1a419:	e7 00                	out    0x0,ax
-	...
-   1a427:	00 0e 0f 00          	add    BYTE PTR ds:0xf,cl
-   1a42b:	0f 00 0f             	str    WORD PTR [bx]
-   1a42e:	00 00                	add    BYTE PTR [bx+si],al
-   1a430:	00 0f                	add    BYTE PTR [bx],cl
-   1a432:	00 0f                	add    BYTE PTR [bx],cl
-   1a434:	00 0f                	add    BYTE PTR [bx],cl
-	...
-   1a43e:	00 00                	add    BYTE PTR [bx+si],al
-   1a440:	00 18                	add    BYTE PTR [bx+si],bl
-   1a442:	30 0c                	xor    BYTE PTR [si],cl
-   1a444:	30 0c                	xor    BYTE PTR [si],cl
-   1a446:	ff                   	(bad)  
-   1a447:	ff                   	(bad)  
-   1a448:	ff                   	(bad)  
-   1a449:	ff                   	(bad)  
-   1a44a:	ff                   	(bad)  
-   1a44b:	ff 30                	push   WORD PTR [bx+si]
-   1a44d:	0c 30                	or     al,0x30
-   1a44f:	0c ff                	or     al,0xff
-   1a451:	ff                   	(bad)  
-   1a452:	ff                   	(bad)  
-   1a453:	ff                   	(bad)  
-   1a454:	ff                   	(bad)  
-   1a455:	ff 30                	push   WORD PTR [bx+si]
-   1a457:	0c 30                	or     al,0x30
-   1a459:	0c 18                	or     al,0x18
-   1a45b:	c0 e1 dc             	shl    cl,0xdc
-   1a45e:	f1                   	icebp  
-   1a45f:	fe                   	(bad)  
-   1a460:	ff                   	(bad)  
-   1a461:	ff                   	(bad)  
-   1a462:	ff e7                	jmp    di
-   1a464:	ef                   	out    dx,ax
-   1a465:	c3                   	ret    
-   1a466:	e1 c3                	loope  0x1a42b
-   1a468:	e1 c3                	loope  0x1a42d
-   1a46a:	e1 c7                	loope  0x1a433
-   1a46c:	e1 0f                	loope  0x1a47d
-   1a46e:	e0 0e                	loopne 0x1a47e
-   1a470:	e0 0c                	loopne 0x1a47e
-   1a472:	e0 16                	loopne 0x1a48a
-   1a474:	0c 18                	or     al,0x18
-   1a476:	0c 1c                	or     al,0x1c
-   1a478:	00 0e 00 07          	add    BYTE PTR ds:0x700,cl
-   1a47c:	80 03 c0             	add    BYTE PTR [bp+di],0xc0
-   1a47f:	01 e0                	add    ax,sp
-   1a481:	00 70 00             	add    BYTE PTR [bx+si+0x0],dh
-   1a484:	38 00                	cmp    BYTE PTR [bx+si],al
-   1a486:	1c 18                	sbb    al,0x18
-   1a488:	0c 18                	or     al,0x18
-   1a48a:	00 00                	add    BYTE PTR [bx+si],al
-   1a48c:	16                   	push   ss
-   1a48d:	38 3e 7c 7f          	cmp    BYTE PTR ds:0x7f7c,bh
-   1a491:	ee                   	out    dx,al
-   1a492:	ff c6                	inc    si
-   1a494:	e3 c6                	jcxz   0x1a45c
-   1a496:	e3 ee                	jcxz   0x1a486
-   1a498:	77 7c                	ja     0x1a516
-   1a49a:	3f                   	aas    
-   1a49b:	38 7e 00             	cmp    BYTE PTR [bp+0x0],bh
-   1a49e:	f7 80 e7 80 c3 00    	test   WORD PTR [bx+si-0x7f19],0xc3
-   1a4a4:	00 06 00 00          	add    BYTE PTR ds:0x0,al
-   1a4a8:	0b 00                	or     ax,WORD PTR [bx+si]
-   1a4aa:	0f 00 00             	sldt   WORD PTR [bx+si]
-	...
-   1a4bd:	00 0c                	add    BYTE PTR [si],cl
-   1a4bf:	f0 0f fc 3f          	lock paddb mm7,QWORD PTR [bx]
-   1a4c3:	fe                   	(bad)  
-   1a4c4:	7f 0f                	jg     0x1a4d5
-   1a4c6:	f0 07                	lock pop es
-   1a4c8:	e0 07                	loopne 0x1a4d1
-   1a4ca:	e0 00                	loopne 0x1a4cc
-	...
-   1a4d4:	00 00                	add    BYTE PTR [bx+si],al
-   1a4d6:	00 0e 03 e0          	add    BYTE PTR ds:0xe003,cl
-   1a4da:	03 e0                	add    sp,ax
-   1a4dc:	07                   	pop    es
-   1a4dd:	e0 0f                	loopne 0x1a4ee
-   1a4df:	f0 fe                	lock (bad) 
-   1a4e1:	7f fc                	jg     0x1a4df
-   1a4e3:	3f                   	aas    
-   1a4e4:	f0 0f 00 00          	lock sldt WORD PTR [bx+si]
-	...
-   1a4f0:	18 80 01 98          	sbb    BYTE PTR [bx+si-0x67ff],al
-   1a4f4:	19 b8 1d f0          	sbb    WORD PTR [bx+si-0xfe3],di
-   1a4f8:	0f e0 07             	pavgb  mm0,QWORD PTR [bx]
-   1a4fb:	fc                   	cld    
-   1a4fc:	3f                   	aas    
-   1a4fd:	fc                   	cld    
-   1a4fe:	3f                   	aas    
-   1a4ff:	e0 07                	loopne 0x1a508
-   1a501:	f0 0f b8             	lock (bad) 
-   1a504:	1d 98 19             	sbb    ax,0x1998
-   1a507:	80 01 16             	add    BYTE PTR [bx+di],0x16
-   1a50a:	c0 01 c0             	rol    BYTE PTR [bx+di],0xc0
-   1a50d:	01 c0                	add    ax,ax
-   1a50f:	01 c0                	add    ax,ax
-   1a511:	01 fc                	add    sp,di
-   1a513:	1f                   	pop    ds
-   1a514:	fc                   	cld    
-   1a515:	1f                   	pop    ds
-   1a516:	fc                   	cld    
-   1a517:	1f                   	pop    ds
-   1a518:	c0 01 c0             	rol    BYTE PTR [bx+di],0xc0
-   1a51b:	01 c0                	add    ax,ax
-   1a51d:	01 c0                	add    ax,ax
-   1a51f:	01 00                	add    WORD PTR [bx+si],ax
-   1a521:	00 08                	add    BYTE PTR [bx+si],cl
-   1a523:	00 00                	add    BYTE PTR [bx+si],al
-   1a525:	00 b0 00 f0          	add    BYTE PTR [bx+si-0x1000],dh
-   1a529:	00 70 00             	add    BYTE PTR [bx+si+0x0],dh
-	...
-   1a538:	00 00                	add    BYTE PTR [bx+si],al
-   1a53a:	00 12                	add    BYTE PTR [bp+si],dl
-   1a53c:	80 03 80             	add    BYTE PTR [bp+di],0x80
-   1a53f:	03 80 03 80          	add    ax,WORD PTR [bx+si-0x7ffd]
-   1a543:	03 80 03 80          	add    ax,WORD PTR [bx+si-0x7ffd]
-   1a547:	03 80 03 80          	add    ax,WORD PTR [bx+si-0x7ffd]
-   1a54b:	03 80 03 00          	add    ax,WORD PTR [bx+si+0x3]
-   1a54f:	00 00                	add    BYTE PTR [bx+si],al
-   1a551:	00 00                	add    BYTE PTR [bx+si],al
-   1a553:	00 0a                	add    BYTE PTR [bp+si],cl
-   1a555:	00 00                	add    BYTE PTR [bx+si],al
-   1a557:	00 00                	add    BYTE PTR [bx+si],al
-   1a559:	00 38                	add    BYTE PTR [bx+si],bh
-   1a55b:	00 38                	add    BYTE PTR [bx+si],bh
-   1a55d:	00 38                	add    BYTE PTR [bx+si],bh
-	...
-   1a56b:	00 00                	add    BYTE PTR [bx+si],al
-   1a56d:	16                   	push   ss
-   1a56e:	00 18                	add    BYTE PTR [bx+si],bl
-   1a570:	00 1c                	add    BYTE PTR [si],bl
-   1a572:	00 0e 00 07          	add    BYTE PTR ds:0x700,cl
-   1a576:	80 03 c0             	add    BYTE PTR [bp+di],0xc0
-   1a579:	01 e0                	add    ax,sp
-   1a57b:	00 70 00             	add    BYTE PTR [bx+si+0x0],dh
-   1a57e:	38 00                	cmp    BYTE PTR [bx+si],al
-   1a580:	1c 00                	sbb    al,0x0
-   1a582:	0c 00                	or     al,0x0
-   1a584:	00 00                	add    BYTE PTR [bx+si],al
-   1a586:	16                   	push   ss
-   1a587:	fc                   	cld    
-   1a588:	3f                   	aas    
-   1a589:	fe                   	(bad)  
-   1a58a:	7f ff                	jg     0x1a58b
-   1a58c:	ff 0f                	dec    WORD PTR [bx]
-   1a58e:	f0 07                	lock pop es
-   1a590:	e0 07                	loopne 0x1a599
-   1a592:	e0 07                	loopne 0x1a59b
-   1a594:	e0 0f                	loopne 0x1a5a5
-   1a596:	f0 ff                	lock (bad) 
-   1a598:	ff                   	(bad)  
-   1a599:	fe                   	(bad)  
-   1a59a:	7f fc                	jg     0x1a598
-   1a59c:	3f                   	aas    
-   1a59d:	00 00                	add    BYTE PTR [bx+si],al
-   1a59f:	0e                   	push   cs
-   1a5a0:	00 00                	add    BYTE PTR [bx+si],al
-   1a5a2:	00 00                	add    BYTE PTR [bx+si],al
-   1a5a4:	18 00                	sbb    BYTE PTR [bx+si],al
-   1a5a6:	1c 00                	sbb    al,0x0
-   1a5a8:	ff                   	(bad)  
-   1a5a9:	ff                   	(bad)  
-   1a5aa:	ff                   	(bad)  
-   1a5ab:	ff                   	(bad)  
-   1a5ac:	ff                   	(bad)  
-   1a5ad:	ff 00                	inc    WORD PTR [bx+si]
-	...
-   1a5b7:	00 16 0c f0          	add    BYTE PTR ds:0xf00c,dl
-   1a5bb:	0e                   	push   cs
-   1a5bc:	f8                   	clc    
-   1a5bd:	0f fc 07             	paddb  mm0,QWORD PTR [bx]
-   1a5c0:	fe 07                	inc    BYTE PTR [bx]
-   1a5c2:	ef                   	out    dx,ax
-   1a5c3:	87 e7                	xchg   di,sp
-   1a5c5:	c7                   	(bad)  
-   1a5c6:	e3 ef                	jcxz   0x1a5b7
-   1a5c8:	e1 ff                	loope  0x1a5c9
-   1a5ca:	e0 7e                	loopne 0x1a64a
-   1a5cc:	e0 3c                	loopne 0x1a60a
-   1a5ce:	e0 00                	loopne 0x1a5d0
-   1a5d0:	00 16 0c 30          	add    BYTE PTR ds:0x300c,dl
-   1a5d4:	0e                   	push   cs
-   1a5d5:	70 0f                	jo     0x1a5e6
-   1a5d7:	f0 c7                	lock (bad) 
-   1a5d9:	e1 c7                	loope  0x1a5a2
-   1a5db:	e1 c7                	loope  0x1a5a4
-   1a5dd:	e1 c7                	loope  0x1a5a6
-   1a5df:	e1 ef                	loope  0x1a5d0
-   1a5e1:	f3 ff                	repz (bad) 
-   1a5e3:	ff                   	(bad)  
-   1a5e4:	fe                   	(bad)  
-   1a5e5:	7f 7c                	jg     0x1a663
-   1a5e7:	3e 00 00             	add    BYTE PTR ds:[bx+si],al
-   1a5ea:	16                   	push   ss
-   1a5eb:	80 0f c0             	or     BYTE PTR [bx],0xc0
-   1a5ee:	0f e0 0f             	pavgb  mm1,QWORD PTR [bx]
-   1a5f1:	f0 0e                	lock push cs
-   1a5f3:	78 0e                	js     0x1a603
-   1a5f5:	3c 0e                	cmp    al,0xe
-   1a5f7:	fe                   	(bad)  
-   1a5f8:	ff                   	(bad)  
-   1a5f9:	ff                   	(bad)  
-   1a5fa:	ff                   	(bad)  
-   1a5fb:	ff                   	(bad)  
-   1a5fc:	ff 00                	inc    WORD PTR [bx+si]
-   1a5fe:	0e                   	push   cs
-   1a5ff:	00 0e 00 00          	add    BYTE PTR ds:0x0,cl
-   1a603:	16                   	push   ss
-   1a604:	ff 30                	push   WORD PTR [bx+si]
-   1a606:	ff 70 ff             	push   WORD PTR [bx+si-0x1]
-   1a609:	f0 e7 e0             	lock out 0xe0,ax
-   1a60c:	e7 e0                	out    0xe0,ax
-   1a60e:	e7 e0                	out    0xe0,ax
-   1a610:	e7 e0                	out    0xe0,ax
-   1a612:	e7 f1                	out    0xf1,ax
-   1a614:	e7 ff                	out    0xff,ax
-   1a616:	c7                   	(bad)  
-   1a617:	7f 87                	jg     0x1a5a0
-   1a619:	3f                   	aas    
-   1a61a:	00 00                	add    BYTE PTR [bx+si],al
-   1a61c:	16                   	push   ss
-   1a61d:	fc                   	cld    
-   1a61e:	3f                   	aas    
-   1a61f:	fe                   	(bad)  
-   1a620:	7f ff                	jg     0x1a621
-   1a622:	ff cf                	dec    di
-   1a624:	f3 c7                	repz (bad) 
-   1a626:	e1 c7                	loope  0x1a5ef
-   1a628:	e1 c7                	loope  0x1a5f1
-   1a62a:	e1 c7                	loope  0x1a5f3
-   1a62c:	f3 cf                	repz iret 
-   1a62e:	ff 8e 7f 0c          	dec    WORD PTR [bp+0xc7f]
-   1a632:	3f                   	aas    
-   1a633:	00 00                	add    BYTE PTR [bx+si],al
-   1a635:	16                   	push   ss
-   1a636:	07                   	pop    es
-   1a637:	00 07                	add    BYTE PTR [bx],al
-   1a639:	00 07                	add    BYTE PTR [bx],al
-   1a63b:	00 07                	add    BYTE PTR [bx],al
-   1a63d:	00 07                	add    BYTE PTR [bx],al
-   1a63f:	fe c7                	inc    bh
-   1a641:	ff e7                	jmp    di
-   1a643:	ff f7                	push   di
-   1a645:	01 7f 00             	add    WORD PTR [bx+0x0],di
-   1a648:	3f                   	aas    
-   1a649:	00 1f                	add    BYTE PTR [bx],bl
-   1a64b:	00 00                	add    BYTE PTR [bx+si],al
-   1a64d:	00 16 1c 3f          	add    BYTE PTR ds:0x3f1c,dl
-   1a651:	be 7f ff             	mov    si,0xff7f
-   1a654:	ff ef                	jmp    <internal disassembler error>
-   1a656:	f3 c7                	repz (bad) 
-   1a658:	e1 c7                	loope  0x1a621
-   1a65a:	e1 c7                	loope  0x1a623
-   1a65c:	e1 ef                	loope  0x1a64d
-   1a65e:	f3 ff                	repz (bad) 
-   1a660:	ff                   	(bad)  
-   1a661:	be 7f 1c             	mov    si,0x1c7f
-   1a664:	3f                   	aas    
-   1a665:	00 00                	add    BYTE PTR [bx+si],al
-   1a667:	16                   	push   ss
-   1a668:	fc                   	cld    
-   1a669:	70 fe                	jo     0x1a669
-   1a66b:	f1                   	icebp  
-   1a66c:	ff f3                	push   bx
-   1a66e:	cf                   	iret   
-   1a66f:	e3 87                	jcxz   0x1a5f8
-   1a671:	e3 87                	jcxz   0x1a5fa
-   1a673:	e3 87                	jcxz   0x1a5fc
-   1a675:	e3 cf                	jcxz   0x1a646
-   1a677:	f3 ff                	repz (bad) 
-   1a679:	ff                   	(bad)  
-   1a67a:	fe                   	(bad)  
-   1a67b:	7f fc                	jg     0x1a679
-   1a67d:	3f                   	aas    
-   1a67e:	00 00                	add    BYTE PTR [bx+si],al
-   1a680:	0a 00                	or     al,BYTE PTR [bx+si]
-   1a682:	00 00                	add    BYTE PTR [bx+si],al
-   1a684:	00 70 1c             	add    BYTE PTR [bx+si+0x1c],dh
-   1a687:	70 1c                	jo     0x1a6a5
-   1a689:	70 1c                	jo     0x1a6a7
-	...
-   1a697:	00 00                	add    BYTE PTR [bx+si],al
-   1a699:	06                   	push   es
-   1a69a:	70 6c                	jo     0x1a708
-   1a69c:	70 7c                	jo     0x1a71a
-   1a69e:	70 3c                	jo     0x1a6dc
-	...
-   1a6b0:	00 00                	add    BYTE PTR [bx+si],al
-   1a6b2:	14 80                	adc    al,0x80
-   1a6b4:	00 c0                	add    al,al
-   1a6b6:	01 e0                	add    ax,sp
-   1a6b8:	03 f0                	add    si,ax
-   1a6ba:	07                   	pop    es
-   1a6bb:	78 0f                	js     0x1a6cc
-   1a6bd:	3c 1e                	cmp    al,0x1e
-   1a6bf:	1e                   	push   ds
-   1a6c0:	3c 0f                	cmp    al,0xf
-   1a6c2:	78 07                	js     0x1a6cb
-   1a6c4:	70 03                	jo     0x1a6c9
-   1a6c6:	60                   	pusha  
-   1a6c7:	00 00                	add    BYTE PTR [bx+si],al
-   1a6c9:	00 00                	add    BYTE PTR [bx+si],al
-   1a6cb:	10 70 1c             	adc    BYTE PTR [bx+si+0x1c],dh
-   1a6ce:	70 1c                	jo     0x1a6ec
-   1a6d0:	70 1c                	jo     0x1a6ee
-   1a6d2:	70 1c                	jo     0x1a6f0
-   1a6d4:	70 1c                	jo     0x1a6f2
-   1a6d6:	70 1c                	jo     0x1a6f4
-   1a6d8:	70 1c                	jo     0x1a6f6
-   1a6da:	70 1c                	jo     0x1a6f8
-	...
-   1a6e4:	12 07                	adc    al,BYTE PTR [bx]
-   1a6e6:	70 0f                	jo     0x1a6f7
-   1a6e8:	78 1e                	js     0x1a708
-   1a6ea:	3c 3c                	cmp    al,0x3c
-   1a6ec:	1e                   	push   ds
-   1a6ed:	78 0f                	js     0x1a6fe
-   1a6ef:	f0 07                	lock pop es
-   1a6f1:	e0 03                	loopne 0x1a6f6
-   1a6f3:	c0 01 80             	rol    BYTE PTR [bx+di],0x80
-   1a6f6:	00 00                	add    BYTE PTR [bx+si],al
-   1a6f8:	00 00                	add    BYTE PTR [bx+si],al
-   1a6fa:	00 00                	add    BYTE PTR [bx+si],al
-   1a6fc:	00 14                	add    BYTE PTR [si],dl
-   1a6fe:	0c 00                	or     al,0x0
-   1a700:	0e                   	push   cs
-   1a701:	00 0f                	add    BYTE PTR [bx],cl
-   1a703:	00 07                	add    BYTE PTR [bx],al
-   1a705:	00 87 e7 c7          	add    BYTE PTR [bx-0x3819],al
-   1a709:	e7 e7                	out    0xe7,ax
-   1a70b:	e7 ff                	out    0xff,ax
-   1a70d:	00 7e 00             	add    BYTE PTR [bp+0x0],bh
-   1a710:	3c 00                	cmp    al,0x0
-   1a712:	00 00                	add    BYTE PTR [bx+si],al
-   1a714:	00 00                	add    BYTE PTR [bx+si],al
-   1a716:	16                   	push   ss
-   1a717:	fc                   	cld    
-   1a718:	3f                   	aas    
-   1a719:	fe                   	(bad)  
-   1a71a:	7f ff                	jg     0x1a71b
-   1a71c:	ff 07                	inc    WORD PTR [bx]
-   1a71e:	e0 e7                	loopne 0x1a707
-   1a720:	e1 f7                	loope  0x1a719
-   1a722:	e3 37                	jcxz   0x1a75b
-   1a724:	e3 37                	jcxz   0x1a75d
-   1a726:	e3 ff                	jcxz   0x1a727
-   1a728:	f3 fe                	repz (bad) 
-   1a72a:	73 fc                	jae    0x1a728
-   1a72c:	31 00                	xor    WORD PTR [bx+si],ax
-   1a72e:	00 14                	add    BYTE PTR [si],dl
-   1a730:	fc                   	cld    
-   1a731:	ff                   	(bad)  
-   1a732:	fe                   	(bad)  
-   1a733:	ff                   	(bad)  
-   1a734:	ff                   	(bad)  
-   1a735:	ff 8f 03 87          	dec    WORD PTR [bx-0x78fd]
-   1a739:	03 87 03 8f          	add    ax,WORD PTR [bx-0x70fd]
-   1a73d:	03 ff                	add    di,di
-   1a73f:	ff                   	(bad)  
-   1a740:	fe                   	(bad)  
-   1a741:	ff                   	(bad)  
-   1a742:	fc                   	cld    
-   1a743:	ff 00                	inc    WORD PTR [bx+si]
-   1a745:	00 00                	add    BYTE PTR [bx+si],al
-   1a747:	00 14                	add    BYTE PTR [si],dl
-   1a749:	ff                   	(bad)  
-   1a74a:	ff                   	(bad)  
-   1a74b:	ff                   	(bad)  
-   1a74c:	ff                   	(bad)  
-   1a74d:	ff                   	(bad)  
-   1a74e:	ff c7                	inc    di
-   1a750:	e1 c7                	loope  0x1a719
-   1a752:	e1 c7                	loope  0x1a71b
-   1a754:	e1 ff                	loope  0x1a755
-   1a756:	e1 fe                	loope  0x1a756
-   1a758:	f3 dc 7f 80          	repz fdivr QWORD PTR [bx-0x80]
-   1a75c:	3f                   	aas    
-   1a75d:	00 00                	add    BYTE PTR [bx+si],al
-   1a75f:	00 00                	add    BYTE PTR [bx+si],al
-   1a761:	14 fc                	adc    al,0xfc
-   1a763:	3f                   	aas    
-   1a764:	fe                   	(bad)  
-   1a765:	7f ff                	jg     0x1a766
-   1a767:	ff 0f                	dec    WORD PTR [bx]
-   1a769:	f0 07                	lock pop es
-   1a76b:	e0 07                	loopne 0x1a774
-   1a76d:	e0 07                	loopne 0x1a776
-   1a76f:	e0 0f                	loopne 0x1a780
-   1a771:	f0 0e                	lock push cs
-   1a773:	70 0c                	jo     0x1a781
-   1a775:	30 00                	xor    BYTE PTR [bx+si],al
-   1a777:	00 00                	add    BYTE PTR [bx+si],al
-   1a779:	00 14                	add    BYTE PTR [si],dl
-   1a77b:	ff                   	(bad)  
-   1a77c:	ff                   	(bad)  
-   1a77d:	ff                   	(bad)  
-   1a77e:	ff                   	(bad)  
-   1a77f:	ff                   	(bad)  
-   1a780:	ff 07                	inc    WORD PTR [bx]
-   1a782:	e0 07                	loopne 0x1a78b
-   1a784:	e0 07                	loopne 0x1a78d
-   1a786:	e0 1f                	loopne 0x1a7a7
-   1a788:	f0 fe                	lock (bad) 
-   1a78a:	7f fc                	jg     0x1a788
-   1a78c:	3f                   	aas    
-   1a78d:	f0 0f 00 00          	lock sldt WORD PTR [bx+si]
-   1a791:	00 00                	add    BYTE PTR [bx+si],al
-   1a793:	12 ff                	adc    bh,bh
-   1a795:	ff                   	(bad)  
-   1a796:	ff                   	(bad)  
-   1a797:	ff                   	(bad)  
-   1a798:	ff                   	(bad)  
-   1a799:	ff c7                	inc    di
-   1a79b:	e1 c7                	loope  0x1a764
-   1a79d:	e1 c7                	loope  0x1a766
-   1a79f:	e1 c7                	loope  0x1a768
-   1a7a1:	e1 c7                	loope  0x1a76a
-   1a7a3:	e1 07                	loope  0x1a7ac
-   1a7a5:	e0 00                	loopne 0x1a7a7
-   1a7a7:	00 00                	add    BYTE PTR [bx+si],al
-   1a7a9:	00 00                	add    BYTE PTR [bx+si],al
-   1a7ab:	00 12                	add    BYTE PTR [bp+si],dl
-   1a7ad:	ff                   	(bad)  
-   1a7ae:	ff                   	(bad)  
-   1a7af:	ff                   	(bad)  
-   1a7b0:	ff                   	(bad)  
-   1a7b1:	ff                   	(bad)  
-   1a7b2:	ff c7                	inc    di
-   1a7b4:	01 c7                	add    di,ax
-   1a7b6:	01 c7                	add    di,ax
-   1a7b8:	01 c7                	add    di,ax
-   1a7ba:	01 07                	add    WORD PTR [bx],ax
-   1a7bc:	00 07                	add    BYTE PTR [bx],al
-   1a7be:	00 00                	add    BYTE PTR [bx+si],al
-   1a7c0:	00 00                	add    BYTE PTR [bx+si],al
-   1a7c2:	00 00                	add    BYTE PTR [bx+si],al
-   1a7c4:	00 14                	add    BYTE PTR [si],dl
-   1a7c6:	fc                   	cld    
-   1a7c7:	3f                   	aas    
-   1a7c8:	fe                   	(bad)  
-   1a7c9:	7f ff                	jg     0x1a7ca
-   1a7cb:	ff 0f                	dec    WORD PTR [bx]
-   1a7cd:	f0 07                	lock pop es
-   1a7cf:	e0 07                	loopne 0x1a7d8
-   1a7d1:	e3 07                	jcxz   0x1a7da
-   1a7d3:	f3 0f ff             	repz (bad) 
-   1a7d6:	0e                   	push   cs
-   1a7d7:	7f 0c                	jg     0x1a7e5
-   1a7d9:	3f                   	aas    
-   1a7da:	00 00                	add    BYTE PTR [bx+si],al
-   1a7dc:	00 00                	add    BYTE PTR [bx+si],al
-   1a7de:	14 ff                	adc    al,0xff
-   1a7e0:	ff                   	(bad)  
-   1a7e1:	ff                   	(bad)  
-   1a7e2:	ff                   	(bad)  
-   1a7e3:	ff                   	(bad)  
-   1a7e4:	ff c0                	inc    ax
-   1a7e6:	01 c0                	add    ax,ax
-   1a7e8:	01 c0                	add    ax,ax
-   1a7ea:	01 c0                	add    ax,ax
-   1a7ec:	01 ff                	add    di,di
-   1a7ee:	ff                   	(bad)  
-   1a7ef:	ff                   	(bad)  
-   1a7f0:	ff                   	(bad)  
-   1a7f1:	ff                   	(bad)  
-   1a7f2:	ff 00                	inc    WORD PTR [bx+si]
-   1a7f4:	00 00                	add    BYTE PTR [bx+si],al
-   1a7f6:	00 0c                	add    BYTE PTR [si],cl
-   1a7f8:	00 00                	add    BYTE PTR [bx+si],al
-   1a7fa:	07                   	pop    es
-   1a7fb:	e0 ff                	loopne 0x1a7fc
-   1a7fd:	ff                   	(bad)  
-   1a7fe:	ff                   	(bad)  
-   1a7ff:	ff                   	(bad)  
-   1a800:	ff                   	(bad)  
-   1a801:	ff 07                	inc    WORD PTR [bx]
-   1a803:	e0 00                	loopne 0x1a805
-	...
-   1a80d:	00 00                	add    BYTE PTR [bx+si],al
-   1a80f:	00 14                	add    BYTE PTR [si],dl
-   1a811:	00 38                	add    BYTE PTR [bx+si],bh
-   1a813:	07                   	pop    es
-   1a814:	78 07                	js     0x1a81d
-   1a816:	f0 07                	lock pop es
-   1a818:	e0 07                	loopne 0x1a821
-   1a81a:	f0 ff                	lock (bad) 
-   1a81c:	ff                   	(bad)  
-   1a81d:	ff                   	(bad)  
-   1a81e:	7f ff                	jg     0x1a81f
-   1a820:	3f                   	aas    
-   1a821:	07                   	pop    es
-   1a822:	00 07                	add    BYTE PTR [bx],al
-   1a824:	00 00                	add    BYTE PTR [bx+si],al
-   1a826:	00 00                	add    BYTE PTR [bx+si],al
-   1a828:	00 14                	add    BYTE PTR [si],dl
-   1a82a:	ff                   	(bad)  
-   1a82b:	ff                   	(bad)  
-   1a82c:	ff                   	(bad)  
-   1a82d:	ff                   	(bad)  
-   1a82e:	ff                   	(bad)  
-   1a82f:	ff e0                	jmp    ax
-   1a831:	07                   	pop    es
-   1a832:	f0 0f 78 1e 3c 3c    	lock vmread DWORD PTR ds:0x3c3c,ebx
-   1a838:	1e                   	push   ds
-   1a839:	78 0f                	js     0x1a84a
-   1a83b:	f0 07                	lock pop es
-   1a83d:	e0 00                	loopne 0x1a83f
-   1a83f:	00 00                	add    BYTE PTR [bx+si],al
-   1a841:	00 12                	add    BYTE PTR [bp+si],dl
-   1a843:	ff                   	(bad)  
-   1a844:	ff                   	(bad)  
-   1a845:	ff                   	(bad)  
-   1a846:	ff                   	(bad)  
-   1a847:	ff                   	(bad)  
-   1a848:	ff 00                	inc    WORD PTR [bx+si]
-   1a84a:	e0 00                	loopne 0x1a84c
-   1a84c:	e0 00                	loopne 0x1a84e
-   1a84e:	e0 00                	loopne 0x1a850
-   1a850:	e0 00                	loopne 0x1a852
-   1a852:	e0 00                	loopne 0x1a854
-   1a854:	e0 00                	loopne 0x1a856
-   1a856:	00 00                	add    BYTE PTR [bx+si],al
-   1a858:	00 00                	add    BYTE PTR [bx+si],al
-   1a85a:	00 16 ff ff          	add    BYTE PTR ds:0xffff,dl
-   1a85e:	ff                   	(bad)  
-   1a85f:	ff                   	(bad)  
-   1a860:	fe                   	(bad)  
-   1a861:	ff                   	(bad)  
-   1a862:	7c 00                	jl     0x1a864
-   1a864:	f8                   	clc    
-   1a865:	00 f0                	add    al,dh
-   1a867:	01 f8                	add    ax,di
-   1a869:	00 7c 00             	add    BYTE PTR [si+0x0],bh
-   1a86c:	fe                   	(bad)  
-   1a86d:	ff                   	(bad)  
-   1a86e:	ff                   	(bad)  
-   1a86f:	ff                   	(bad)  
-   1a870:	ff                   	(bad)  
-   1a871:	ff 00                	inc    WORD PTR [bx+si]
-   1a873:	00 14                	add    BYTE PTR [si],dl
-   1a875:	ff                   	(bad)  
-   1a876:	ff                   	(bad)  
-   1a877:	ff                   	(bad)  
-   1a878:	ff                   	(bad)  
-   1a879:	fe                   	(bad)  
-   1a87a:	ff                   	(bad)  
-   1a87b:	3c 00                	cmp    al,0x0
-   1a87d:	78 00                	js     0x1a87f
-   1a87f:	f0 00 e0             	lock add al,ah
-   1a882:	01 ff                	add    di,di
-   1a884:	ff                   	(bad)  
-   1a885:	ff                   	(bad)  
-   1a886:	ff                   	(bad)  
-   1a887:	ff                   	(bad)  
-   1a888:	ff 00                	inc    WORD PTR [bx+si]
-   1a88a:	00 00                	add    BYTE PTR [bx+si],al
-   1a88c:	00 14                	add    BYTE PTR [si],dl
-   1a88e:	fc                   	cld    
-   1a88f:	3f                   	aas    
-   1a890:	fe                   	(bad)  
-   1a891:	7f ff                	jg     0x1a892
-   1a893:	ff 0f                	dec    WORD PTR [bx]
-   1a895:	f0 07                	lock pop es
-   1a897:	e0 07                	loopne 0x1a8a0
-   1a899:	e0 0f                	loopne 0x1a8aa
-   1a89b:	f0 ff                	lock (bad) 
-   1a89d:	ff                   	(bad)  
-   1a89e:	fe                   	(bad)  
-   1a89f:	7f fc                	jg     0x1a89d
-   1a8a1:	3f                   	aas    
-   1a8a2:	00 00                	add    BYTE PTR [bx+si],al
-   1a8a4:	00 00                	add    BYTE PTR [bx+si],al
-   1a8a6:	14 ff                	adc    al,0xff
-   1a8a8:	ff                   	(bad)  
-   1a8a9:	ff                   	(bad)  
-   1a8aa:	ff                   	(bad)  
-   1a8ab:	ff                   	(bad)  
-   1a8ac:	ff 87 03 87          	inc    WORD PTR [bx-0x78fd]
-   1a8b0:	03 87 03 cf          	add    ax,WORD PTR [bx-0x30fd]
-   1a8b4:	03 ff                	add    di,di
-   1a8b6:	03 fe                	add    di,si
-   1a8b8:	01 fc                	add    sp,di
-   1a8ba:	00 00                	add    BYTE PTR [bx+si],al
-   1a8bc:	00 00                	add    BYTE PTR [bx+si],al
-   1a8be:	00 16 fc 3f          	add    BYTE PTR ds:0x3ffc,dl
-   1a8c2:	fe                   	(bad)  
-   1a8c3:	7f ff                	jg     0x1a8c4
-   1a8c5:	ff 0f                	dec    WORD PTR [bx]
-   1a8c7:	e0 07                	loopne 0x1a8d0
-   1a8c9:	e6 07                	out    0x7,al
-   1a8cb:	fe 0f                	dec    BYTE PTR [bx]
-   1a8cd:	7c ff                	jl     0x1a8ce
-   1a8cf:	7f fe                	jg     0x1a8cf
-   1a8d1:	ff                   	(bad)  
-   1a8d2:	fc                   	cld    
-   1a8d3:	e7 00                	out    0x0,ax
-   1a8d5:	c0 00 00             	rol    BYTE PTR [bx+si],0x0
-   1a8d8:	14 ff                	adc    al,0xff
-   1a8da:	ff                   	(bad)  
-   1a8db:	ff                   	(bad)  
-   1a8dc:	ff                   	(bad)  
-   1a8dd:	ff                   	(bad)  
-   1a8de:	ff 87 03 87          	inc    WORD PTR [bx-0x78fd]
-   1a8e2:	03 87 07 cf          	add    ax,WORD PTR [bx-0x30f9]
-   1a8e6:	0f ff                	(bad)  
-   1a8e8:	fe                   	(bad)  
-   1a8e9:	7e fc                	jle    0x1a8e7
-   1a8eb:	3c f8                	cmp    al,0xf8
-   1a8ed:	00 00                	add    BYTE PTR [bx+si],al
-   1a8ef:	00 00                	add    BYTE PTR [bx+si],al
-   1a8f1:	14 7c                	adc    al,0x7c
-   1a8f3:	30 fe                	xor    dh,bh
-   1a8f5:	70 ff                	jo     0x1a8f6
-   1a8f7:	f0 ef                	lock out dx,ax
-   1a8f9:	e1 c7                	loope  0x1a8c2
-   1a8fb:	e1 c7                	loope  0x1a8c4
-   1a8fd:	e1 c7                	loope  0x1a8c6
-   1a8ff:	f3 cf                	repz iret 
-   1a901:	ff 8e 7f 0c          	dec    WORD PTR [bp+0xc7f]
-   1a905:	3f                   	aas    
-   1a906:	00 00                	add    BYTE PTR [bx+si],al
-   1a908:	00 00                	add    BYTE PTR [bx+si],al
-   1a90a:	16                   	push   ss
-   1a90b:	07                   	pop    es
-   1a90c:	00 07                	add    BYTE PTR [bx],al
-   1a90e:	00 07                	add    BYTE PTR [bx],al
-   1a910:	00 07                	add    BYTE PTR [bx],al
-   1a912:	00 ff                	add    bh,bh
-   1a914:	ff                   	(bad)  
-   1a915:	ff                   	(bad)  
-   1a916:	ff                   	(bad)  
-   1a917:	ff                   	(bad)  
-   1a918:	ff 07                	inc    WORD PTR [bx]
-   1a91a:	00 07                	add    BYTE PTR [bx],al
-   1a91c:	00 07                	add    BYTE PTR [bx],al
-   1a91e:	00 07                	add    BYTE PTR [bx],al
-   1a920:	00 00                	add    BYTE PTR [bx+si],al
-   1a922:	00 14                	add    BYTE PTR [si],dl
-   1a924:	ff                   	(bad)  
-   1a925:	3f                   	aas    
-   1a926:	ff                   	(bad)  
-   1a927:	7f ff                	jg     0x1a928
-   1a929:	ff 00                	inc    WORD PTR [bx+si]
-   1a92b:	f0 00 e0             	lock add al,ah
-   1a92e:	00 e0                	add    al,ah
-   1a930:	00 f0                	add    al,dh
-   1a932:	ff                   	(bad)  
-   1a933:	ff                   	(bad)  
-   1a934:	ff                   	(bad)  
-   1a935:	7f ff                	jg     0x1a936
-   1a937:	3f                   	aas    
-   1a938:	00 00                	add    BYTE PTR [bx+si],al
-   1a93a:	00 00                	add    BYTE PTR [bx+si],al
-   1a93c:	16                   	push   ss
-   1a93d:	ff 07                	inc    WORD PTR [bx]
-   1a93f:	ff 0f                	dec    WORD PTR [bx]
-   1a941:	ff 1f                	call   DWORD PTR [bx]
-   1a943:	00 3e 00 7c          	add    BYTE PTR ds:0x7c00,bh
-   1a947:	00 f8                	add    al,bh
-   1a949:	00 7c 00             	add    BYTE PTR [si+0x0],bh
-   1a94c:	3e ff 1f             	call   DWORD PTR ds:[bx]
-   1a94f:	ff 0f                	dec    WORD PTR [bx]
-   1a951:	ff 07                	inc    WORD PTR [bx]
-   1a953:	00 00                	add    BYTE PTR [bx+si],al
-   1a955:	16                   	push   ss
-   1a956:	ff                   	(bad)  
-   1a957:	ff                   	(bad)  
-   1a958:	ff                   	(bad)  
-   1a959:	ff                   	(bad)  
-   1a95a:	ff                   	(bad)  
-   1a95b:	7f 00                	jg     0x1a95d
-   1a95d:	3c 00                	cmp    al,0x0
-   1a95f:	1e                   	push   ds
-   1a960:	00 0f                	add    BYTE PTR [bx],cl
-   1a962:	00 1e 00 3c          	add    BYTE PTR ds:0x3c00,bl
-   1a966:	ff                   	(bad)  
-   1a967:	7f ff                	jg     0x1a968
-   1a969:	ff                   	(bad)  
-   1a96a:	ff                   	(bad)  
-   1a96b:	ff 00                	inc    WORD PTR [bx+si]
-   1a96d:	00 14                	add    BYTE PTR [si],dl
-   1a96f:	1f                   	pop    ds
-   1a970:	fc                   	cld    
-   1a971:	3f                   	aas    
-   1a972:	fe                   	(bad)  
-   1a973:	7f ff                	jg     0x1a974
-   1a975:	f0 0f e0 07          	lock pavgb mm0,QWORD PTR [bx]
-   1a979:	e0 07                	loopne 0x1a982
-   1a97b:	f0 0f ff             	lock (bad) 
-   1a97e:	fe                   	(bad)  
-   1a97f:	7f fc                	jg     0x1a97d
-   1a981:	3f                   	aas    
-   1a982:	f8                   	clc    
-   1a983:	00 00                	add    BYTE PTR [bx+si],al
-   1a985:	00 00                	add    BYTE PTR [bx+si],al
-   1a987:	16                   	push   ss
-   1a988:	1f                   	pop    ds
-   1a989:	00 3f                	add    BYTE PTR [bx],bh
-   1a98b:	00 7f 00             	add    BYTE PTR [bx+0x0],bh
-   1a98e:	f0 00 e0             	lock add al,ah
-   1a991:	ff c0                	inc    ax
-   1a993:	ff e0                	jmp    ax
-   1a995:	ff f0                	push   ax
-   1a997:	00 7f 00             	add    BYTE PTR [bx+0x0],bh
-   1a99a:	3f                   	aas    
-   1a99b:	00 1f                	add    BYTE PTR [bx],bl
-   1a99d:	00 00                	add    BYTE PTR [bx+si],al
-   1a99f:	00 16 07 fc          	add    BYTE PTR ds:0xfc07,dl
-   1a9a3:	07                   	pop    es
-   1a9a4:	fe 07                	inc    BYTE PTR [bx]
-   1a9a6:	ff 87 e7 c7          	inc    WORD PTR [bx-0x3819]
-   1a9aa:	e3 e7                	jcxz   0x1a993
-   1a9ac:	e1 f7                	loope  0x1a9a5
-   1a9ae:	e0 7f                	loopne 0x1aa2f
-   1a9b0:	e0 3f                	loopne 0x1a9f1
-   1a9b2:	e0 1f                	loopne 0x1a9d3
-   1a9b4:	e0 0f                	loopne 0x1a9c5
-   1a9b6:	e0 00                	loopne 0x1a9b8
-   1a9b8:	00 0c                	add    BYTE PTR [si],cl
-   1a9ba:	ff                   	(bad)  
-   1a9bb:	ff                   	(bad)  
-   1a9bc:	ff                   	(bad)  
-   1a9bd:	ff                   	(bad)  
-   1a9be:	ff                   	(bad)  
-   1a9bf:	ff 03                	inc    WORD PTR [bp+di]
-   1a9c1:	c0 03 c0             	rol    BYTE PTR [bp+di],0xc0
-   1a9c4:	03 c0                	add    ax,ax
-	...
-   1a9d2:	14 1c                	adc    al,0x1c
-   1a9d4:	00 3c                	add    BYTE PTR [si],bh
-   1a9d6:	00 78 00             	add    BYTE PTR [bx+si+0x0],bh
-   1a9d9:	f0 00 e0             	lock add al,ah
-   1a9dc:	01 c0                	add    ax,ax
-   1a9de:	03 80 07 00          	add    ax,WORD PTR [bx+si+0x7]
-   1a9e2:	0f 00 1e 00 1c       	ltr    WORD PTR ds:0x1c00
-   1a9e7:	00 00                	add    BYTE PTR [bx+si],al
-   1a9e9:	00 00                	add    BYTE PTR [bx+si],al
-   1a9eb:	0c 03                	or     al,0x3
-   1a9ed:	c0 03 c0             	rol    BYTE PTR [bp+di],0xc0
-   1a9f0:	03 c0                	add    ax,ax
-   1a9f2:	ff                   	(bad)  
-   1a9f3:	ff                   	(bad)  
-   1a9f4:	ff                   	(bad)  
-   1a9f5:	ff                   	(bad)  
-   1a9f6:	ff                   	(bad)  
-   1a9f7:	ff 00                	inc    WORD PTR [bx+si]
-	...
-   1aa01:	00 00                	add    BYTE PTR [bx+si],al
-   1aa03:	00 12                	add    BYTE PTR [bp+si],dl
-   1aa05:	70 00                	jo     0x1aa07
-   1aa07:	38 00                	cmp    BYTE PTR [bx+si],al
-   1aa09:	1c 00                	sbb    al,0x0
-   1aa0b:	0e                   	push   cs
-   1aa0c:	00 07                	add    BYTE PTR [bx],al
-   1aa0e:	00 0e 00 1c          	add    BYTE PTR ds:0x1c00,cl
-   1aa12:	00 38                	add    BYTE PTR [bx+si],bh
-   1aa14:	00 70 00             	add    BYTE PTR [bx+si+0x0],dh
-   1aa17:	00 00                	add    BYTE PTR [bx+si],al
-   1aa19:	00 00                	add    BYTE PTR [bx+si],al
-   1aa1b:	00 00                	add    BYTE PTR [bx+si],al
-   1aa1d:	16                   	push   ss
-   1aa1e:	00 e0                	add    al,ah
-   1aa20:	00 e0                	add    al,ah
-   1aa22:	00 e0                	add    al,ah
-   1aa24:	00 e0                	add    al,ah
-   1aa26:	00 e0                	add    al,ah
-   1aa28:	00 e0                	add    al,ah
-   1aa2a:	00 e0                	add    al,ah
-   1aa2c:	00 e0                	add    al,ah
-   1aa2e:	00 e0                	add    al,ah
-   1aa30:	00 e0                	add    al,ah
-   1aa32:	00 e0                	add    al,ah
-   1aa34:	00 00                	add    BYTE PTR [bx+si],al
-   1aa36:	06                   	push   es
-   1aa37:	0f 00 1f             	ltr    WORD PTR [bx]
-   1aa3a:	00 18                	add    BYTE PTR [bx+si],bl
-	...
-   1aa4c:	00 00                	add    BYTE PTR [bx+si],al
-   1aa4e:	00 14                	add    BYTE PTR [si],dl
-   1aa50:	c0 0f f0             	ror    BYTE PTR [bx],0xf0
-   1aa53:	1f                   	pop    ds
-   1aa54:	f8                   	clc    
-   1aa55:	3f                   	aas    
-   1aa56:	38 38                	cmp    BYTE PTR [bx+si],bh
-   1aa58:	18 30                	sbb    BYTE PTR [bx+si],dh
-   1aa5a:	18 30                	sbb    BYTE PTR [bx+si],dh
-   1aa5c:	38 18                	cmp    BYTE PTR [bx+si],bl
-   1aa5e:	f0 3f                	lock aas 
-   1aa60:	f8                   	clc    
-   1aa61:	3f                   	aas    
-   1aa62:	f8                   	clc    
-   1aa63:	3f                   	aas    
-   1aa64:	00 00                	add    BYTE PTR [bx+si],al
-   1aa66:	00 00                	add    BYTE PTR [bx+si],al
-   1aa68:	14 ff                	adc    al,0xff
-   1aa6a:	3f                   	aas    
-   1aa6b:	ff                   	(bad)  
-   1aa6c:	3f                   	aas    
-   1aa6d:	ff                   	(bad)  
-   1aa6e:	3f                   	aas    
-   1aa6f:	30 18                	xor    BYTE PTR [bx+si],bl
-   1aa71:	18 30                	sbb    BYTE PTR [bx+si],dh
-   1aa73:	18 30                	sbb    BYTE PTR [bx+si],dh
-   1aa75:	38 38                	cmp    BYTE PTR [bx+si],bh
-   1aa77:	f8                   	clc    
-   1aa78:	3f                   	aas    
-   1aa79:	f0 1f                	lock pop ds
-   1aa7b:	e0 0f                	loopne 0x1aa8c
-   1aa7d:	00 00                	add    BYTE PTR [bx+si],al
-   1aa7f:	00 00                	add    BYTE PTR [bx+si],al
-   1aa81:	14 e0                	adc    al,0xe0
-   1aa83:	0f f0                	(bad)  
-   1aa85:	1f                   	pop    ds
-   1aa86:	f8                   	clc    
-   1aa87:	3f                   	aas    
-   1aa88:	38 38                	cmp    BYTE PTR [bx+si],bh
-   1aa8a:	18 30                	sbb    BYTE PTR [bx+si],dh
-   1aa8c:	18 30                	sbb    BYTE PTR [bx+si],dh
-   1aa8e:	38 38                	cmp    BYTE PTR [bx+si],bh
-   1aa90:	78 3c                	js     0x1aace
-   1aa92:	70 1c                	jo     0x1aab0
-   1aa94:	60                   	pusha  
-   1aa95:	0c 00                	or     al,0x0
-   1aa97:	00 00                	add    BYTE PTR [bx+si],al
-   1aa99:	00 14                	add    BYTE PTR [si],dl
-   1aa9b:	e0 0f                	loopne 0x1aaac
-   1aa9d:	f0 1f                	lock pop ds
-   1aa9f:	f8                   	clc    
-   1aaa0:	3f                   	aas    
-   1aaa1:	38 38                	cmp    BYTE PTR [bx+si],bh
-   1aaa3:	18 30                	sbb    BYTE PTR [bx+si],dh
-   1aaa5:	18 30                	sbb    BYTE PTR [bx+si],dh
-   1aaa7:	30 18                	xor    BYTE PTR [bx+si],bl
-   1aaa9:	ff                   	(bad)  
-   1aaaa:	3f                   	aas    
-   1aaab:	ff                   	(bad)  
-   1aaac:	3f                   	aas    
-   1aaad:	ff                   	(bad)  
-   1aaae:	3f                   	aas    
-   1aaaf:	00 00                	add    BYTE PTR [bx+si],al
-   1aab1:	00 00                	add    BYTE PTR [bx+si],al
-   1aab3:	14 e0                	adc    al,0xe0
-   1aab5:	0f f0                	(bad)  
-   1aab7:	1f                   	pop    ds
-   1aab8:	f8                   	clc    
-   1aab9:	3f                   	aas    
-   1aaba:	b8 39 98             	mov    ax,0x9839
-   1aabd:	31 98 31 b8          	xor    WORD PTR [bx+si-0x47cf],bx
-   1aac1:	31 f8                	xor    ax,di
-   1aac3:	39 f0                	cmp    ax,si
-   1aac5:	19 e0                	sbb    ax,sp
-   1aac7:	08 00                	or     BYTE PTR [bx+si],al
-   1aac9:	00 00                	add    BYTE PTR [bx+si],al
-   1aacb:	00 12                	add    BYTE PTR [bp+si],dl
-   1aacd:	80 01 80             	add    BYTE PTR [bx+di],0x80
-   1aad0:	01 fc                	add    sp,di
-   1aad2:	ff                   	(bad)  
-   1aad3:	fe                   	(bad)  
-   1aad4:	ff                   	(bad)  
-   1aad5:	ff                   	(bad)  
-   1aad6:	ff 87 01 87          	inc    WORD PTR [bx-0x78ff]
-   1aada:	01 0e 00 0c          	add    WORD PTR ds:0xc00,cx
-   1aade:	00 00                	add    BYTE PTR [bx+si],al
-   1aae0:	00 00                	add    BYTE PTR [bx+si],al
-   1aae2:	00 00                	add    BYTE PTR [bx+si],al
-   1aae4:	00 14                	add    BYTE PTR [si],dl
-   1aae6:	e0 63                	loopne 0x1ab4b
-   1aae8:	f0 e7 f8             	lock out 0xf8,ax
-   1aaeb:	cf                   	iret   
-   1aaec:	38 ce                	cmp    dh,cl
-   1aaee:	18 cc                	sbb    ah,cl
-   1aaf0:	18 cc                	sbb    ah,cl
-   1aaf2:	38 ce                	cmp    dh,cl
-   1aaf4:	f0 ff                	lock (bad) 
-   1aaf6:	f8                   	clc    
-   1aaf7:	7f f8                	jg     0x1aaf1
-   1aaf9:	3f                   	aas    
-   1aafa:	00 00                	add    BYTE PTR [bx+si],al
-   1aafc:	00 00                	add    BYTE PTR [bx+si],al
-   1aafe:	14 ff                	adc    al,0xff
-   1ab00:	3f                   	aas    
-   1ab01:	ff                   	(bad)  
-   1ab02:	3f                   	aas    
-   1ab03:	ff                   	(bad)  
-   1ab04:	3f                   	aas    
-   1ab05:	30 00                	xor    BYTE PTR [bx+si],al
-   1ab07:	18 00                	sbb    BYTE PTR [bx+si],al
-   1ab09:	18 00                	sbb    BYTE PTR [bx+si],al
-   1ab0b:	38 00                	cmp    BYTE PTR [bx+si],al
-   1ab0d:	f8                   	clc    
-   1ab0e:	3f                   	aas    
-   1ab0f:	f0 3f                	lock aas 
-   1ab11:	e0 3f                	loopne 0x1ab52
-   1ab13:	00 00                	add    BYTE PTR [bx+si],al
-   1ab15:	00 00                	add    BYTE PTR [bx+si],al
-   1ab17:	0c 00                	or     al,0x0
-   1ab19:	00 08                	add    BYTE PTR [bx+si],cl
-   1ab1b:	20 fb                	and    bl,bh
-   1ab1d:	3f                   	aas    
-   1ab1e:	fb                   	sti    
-   1ab1f:	3f                   	aas    
-   1ab20:	fb                   	sti    
-   1ab21:	3f                   	aas    
-   1ab22:	00 20                	add    BYTE PTR [bx+si],ah
-	...
-   1ab30:	0e                   	push   cs
-   1ab31:	00 60 00             	add    BYTE PTR [bx+si+0x0],ah
-   1ab34:	e0 00                	loopne 0x1ab36
-   1ab36:	c0 18 e0             	rcr    BYTE PTR [bx+si],0xe0
-   1ab39:	fb                   	sti    
-   1ab3a:	ff                   	(bad)  
-   1ab3b:	fb                   	sti    
-   1ab3c:	7f fb                	jg     0x1ab39
-   1ab3e:	3f                   	aas    
-	...
-   1ab47:	00 00                	add    BYTE PTR [bx+si],al
-   1ab49:	14 ff                	adc    al,0xff
-   1ab4b:	3f                   	aas    
-   1ab4c:	ff                   	(bad)  
-   1ab4d:	3f                   	aas    
-   1ab4e:	ff                   	(bad)  
-   1ab4f:	3f                   	aas    
-   1ab50:	c0 03 e0             	rol    BYTE PTR [bp+di],0xe0
-   1ab53:	07                   	pop    es
-   1ab54:	f0 0f 78 1e 3c 3c    	lock vmread DWORD PTR ds:0x3c3c,ebx
-   1ab5a:	1c 38                	sbb    al,0x38
-   1ab5c:	0c 30                	or     al,0x30
-   1ab5e:	00 00                	add    BYTE PTR [bx+si],al
-   1ab60:	00 00                	add    BYTE PTR [bx+si],al
-   1ab62:	0a 03                	or     al,BYTE PTR [bp+di]
-   1ab64:	30 ff                	xor    bh,bh
-   1ab66:	3f                   	aas    
-   1ab67:	ff                   	(bad)  
-   1ab68:	3f                   	aas    
-   1ab69:	ff                   	(bad)  
-   1ab6a:	3f                   	aas    
-   1ab6b:	00 30                	add    BYTE PTR [bx+si],dh
-	...
-   1ab79:	00 00                	add    BYTE PTR [bx+si],al
-   1ab7b:	14 f8                	adc    al,0xf8
-   1ab7d:	3f                   	aas    
-   1ab7e:	f8                   	clc    
-   1ab7f:	3f                   	aas    
-   1ab80:	f0 3f                	lock aas 
-   1ab82:	38 00                	cmp    BYTE PTR [bx+si],al
-   1ab84:	f8                   	clc    
-   1ab85:	07                   	pop    es
-   1ab86:	f0 07                	lock pop es
-   1ab88:	38 00                	cmp    BYTE PTR [bx+si],al
-   1ab8a:	f8                   	clc    
-   1ab8b:	3f                   	aas    
-   1ab8c:	f8                   	clc    
-   1ab8d:	3f                   	aas    
-   1ab8e:	f0 3f                	lock aas 
-   1ab90:	00 00                	add    BYTE PTR [bx+si],al
-   1ab92:	00 00                	add    BYTE PTR [bx+si],al
-   1ab94:	14 f8                	adc    al,0xf8
-   1ab96:	3f                   	aas    
-   1ab97:	f8                   	clc    
-   1ab98:	3f                   	aas    
-   1ab99:	f0 3f                	lock aas 
-   1ab9b:	38 00                	cmp    BYTE PTR [bx+si],al
-   1ab9d:	18 00                	sbb    BYTE PTR [bx+si],al
-   1ab9f:	18 00                	sbb    BYTE PTR [bx+si],al
-   1aba1:	38 00                	cmp    BYTE PTR [bx+si],al
-   1aba3:	f8                   	clc    
-   1aba4:	3f                   	aas    
-   1aba5:	f0 3f                	lock aas 
-   1aba7:	e0 3f                	loopne 0x1abe8
-   1aba9:	00 00                	add    BYTE PTR [bx+si],al
-   1abab:	00 00                	add    BYTE PTR [bx+si],al
-   1abad:	14 e0                	adc    al,0xe0
-   1abaf:	0f f0                	(bad)  
-   1abb1:	1f                   	pop    ds
-   1abb2:	f8                   	clc    
-   1abb3:	3f                   	aas    
-   1abb4:	38 38                	cmp    BYTE PTR [bx+si],bh
-   1abb6:	18 30                	sbb    BYTE PTR [bx+si],dh
-   1abb8:	18 30                	sbb    BYTE PTR [bx+si],dh
-   1abba:	38 38                	cmp    BYTE PTR [bx+si],bh
-   1abbc:	f8                   	clc    
-   1abbd:	3f                   	aas    
-   1abbe:	f0 1f                	lock pop ds
-   1abc0:	e0 0f                	loopne 0x1abd1
-   1abc2:	00 00                	add    BYTE PTR [bx+si],al
-   1abc4:	00 00                	add    BYTE PTR [bx+si],al
-   1abc6:	14 f8                	adc    al,0xf8
-   1abc8:	ff                   	(bad)  
-   1abc9:	f8                   	clc    
-   1abca:	ff                   	(bad)  
-   1abcb:	f8                   	clc    
-   1abcc:	ff 30                	push   WORD PTR [bx+si]
-   1abce:	18 18                	sbb    BYTE PTR [bx+si],bl
-   1abd0:	30 18                	xor    BYTE PTR [bx+si],bl
-   1abd2:	30 38                	xor    BYTE PTR [bx+si],bh
-   1abd4:	38 f8                	cmp    al,bh
-   1abd6:	3f                   	aas    
-   1abd7:	f0 1f                	lock pop ds
-   1abd9:	e0 0f                	loopne 0x1abea
-   1abdb:	00 00                	add    BYTE PTR [bx+si],al
-   1abdd:	00 00                	add    BYTE PTR [bx+si],al
-   1abdf:	14 e0                	adc    al,0xe0
-   1abe1:	0f f0                	(bad)  
-   1abe3:	1f                   	pop    ds
-   1abe4:	f8                   	clc    
-   1abe5:	3f                   	aas    
-   1abe6:	38 38                	cmp    BYTE PTR [bx+si],bh
-   1abe8:	18 30                	sbb    BYTE PTR [bx+si],dh
-   1abea:	18 30                	sbb    BYTE PTR [bx+si],dh
-   1abec:	30 18                	xor    BYTE PTR [bx+si],bl
-   1abee:	f8                   	clc    
-   1abef:	ff                   	(bad)  
-   1abf0:	f8                   	clc    
-   1abf1:	ff                   	(bad)  
-   1abf2:	f8                   	clc    
-   1abf3:	ff 00                	inc    WORD PTR [bx+si]
-   1abf5:	00 00                	add    BYTE PTR [bx+si],al
-   1abf7:	00 14                	add    BYTE PTR [si],dl
-   1abf9:	f8                   	clc    
-   1abfa:	3f                   	aas    
-   1abfb:	f8                   	clc    
-   1abfc:	3f                   	aas    
-   1abfd:	f0 3f                	lock aas 
-   1abff:	38 00                	cmp    BYTE PTR [bx+si],al
-   1ac01:	18 00                	sbb    BYTE PTR [bx+si],al
-   1ac03:	18 00                	sbb    BYTE PTR [bx+si],al
-   1ac05:	38 00                	cmp    BYTE PTR [bx+si],al
-   1ac07:	78 00                	js     0x1ac09
-   1ac09:	70 00                	jo     0x1ac0b
-   1ac0b:	60                   	pusha  
-   1ac0c:	00 00                	add    BYTE PTR [bx+si],al
-   1ac0e:	00 00                	add    BYTE PTR [bx+si],al
-   1ac10:	00 14                	add    BYTE PTR [si],dl
-   1ac12:	f0 18 f8             	lock sbb al,bh
-   1ac15:	39 f8                	cmp    ax,di
-   1ac17:	39 98 31 98          	cmp    WORD PTR [bx+si-0x67cf],bx
-   1ac1b:	31 98 31 98          	xor    WORD PTR [bx+si-0x67cf],bx
-   1ac1f:	31 b8 3f b8          	xor    WORD PTR [bx+si-0x47c1],di
-   1ac23:	3f                   	aas    
-   1ac24:	30 1f                	xor    BYTE PTR [bx],bl
-   1ac26:	00 00                	add    BYTE PTR [bx+si],al
-   1ac28:	00 00                	add    BYTE PTR [bx+si],al
-   1ac2a:	12 18                	adc    bl,BYTE PTR [bx+si]
-   1ac2c:	00 18                	add    BYTE PTR [bx+si],bl
-   1ac2e:	00 ff                	add    bh,bh
-   1ac30:	1f                   	pop    ds
-   1ac31:	ff                   	(bad)  
-   1ac32:	3f                   	aas    
-   1ac33:	ff                   	(bad)  
-   1ac34:	3f                   	aas    
-   1ac35:	18 30                	sbb    BYTE PTR [bx+si],dh
-   1ac37:	18 30                	sbb    BYTE PTR [bx+si],dh
-   1ac39:	00 38                	add    BYTE PTR [bx+si],bh
-   1ac3b:	00 18                	add    BYTE PTR [bx+si],bl
-   1ac3d:	00 00                	add    BYTE PTR [bx+si],al
-   1ac3f:	00 00                	add    BYTE PTR [bx+si],al
-   1ac41:	00 00                	add    BYTE PTR [bx+si],al
-   1ac43:	14 f8                	adc    al,0xf8
-   1ac45:	0f f8 1f             	psubb  mm3,QWORD PTR [bx]
-   1ac48:	f8                   	clc    
-   1ac49:	3f                   	aas    
-   1ac4a:	00 38                	add    BYTE PTR [bx+si],bh
-   1ac4c:	00 30                	add    BYTE PTR [bx+si],dh
-   1ac4e:	00 30                	add    BYTE PTR [bx+si],dh
-   1ac50:	00 38                	add    BYTE PTR [bx+si],bh
-   1ac52:	f8                   	clc    
-   1ac53:	3f                   	aas    
-   1ac54:	f8                   	clc    
-   1ac55:	1f                   	pop    ds
-   1ac56:	f8                   	clc    
-   1ac57:	0f 00 00             	sldt   WORD PTR [bx+si]
-   1ac5a:	00 00                	add    BYTE PTR [bx+si],al
-   1ac5c:	14 f8                	adc    al,0xf8
-   1ac5e:	03 f8                	add    di,ax
-   1ac60:	07                   	pop    es
-   1ac61:	f8                   	clc    
-   1ac62:	0f 00 1e 00 3c       	ltr    WORD PTR ds:0x3c00
-   1ac67:	00 3c                	add    BYTE PTR [si],bh
-   1ac69:	00 1e f8 0f          	add    BYTE PTR ds:0xff8,bl
-   1ac6d:	f8                   	clc    
-   1ac6e:	07                   	pop    es
-   1ac6f:	f8                   	clc    
-   1ac70:	03 00                	add    ax,WORD PTR [bx+si]
-   1ac72:	00 00                	add    BYTE PTR [bx+si],al
-   1ac74:	00 14                	add    BYTE PTR [si],dl
-   1ac76:	f8                   	clc    
-   1ac77:	1f                   	pop    ds
-   1ac78:	f8                   	clc    
-   1ac79:	3f                   	aas    
-   1ac7a:	f8                   	clc    
-   1ac7b:	3f                   	aas    
-   1ac7c:	00 38                	add    BYTE PTR [bx+si],bh
-   1ac7e:	c0 1f c0             	rcr    BYTE PTR [bx],0xc0
-   1ac81:	1f                   	pop    ds
-   1ac82:	00 38                	add    BYTE PTR [bx+si],bh
-   1ac84:	f8                   	clc    
-   1ac85:	3f                   	aas    
-   1ac86:	f8                   	clc    
-   1ac87:	3f                   	aas    
-   1ac88:	f8                   	clc    
-   1ac89:	1f                   	pop    ds
-   1ac8a:	00 00                	add    BYTE PTR [bx+si],al
-   1ac8c:	00 00                	add    BYTE PTR [bx+si],al
-   1ac8e:	14 38                	adc    al,0x38
-   1ac90:	38 78 3c             	cmp    BYTE PTR [bx+si+0x3c],bh
-   1ac93:	f0 1e                	lock push ds
-   1ac95:	e0 0f                	loopne 0x1aca6
-   1ac97:	c0 07 c0             	rol    BYTE PTR [bx],0xc0
-   1ac9a:	07                   	pop    es
-   1ac9b:	e0 0f                	loopne 0x1acac
-   1ac9d:	f0 1e                	lock push ds
-   1ac9f:	78 3c                	js     0x1acdd
-   1aca1:	38 38                	cmp    BYTE PTR [bx+si],bh
-   1aca3:	00 00                	add    BYTE PTR [bx+si],al
-   1aca5:	00 00                	add    BYTE PTR [bx+si],al
-   1aca7:	14 f8                	adc    al,0xf8
-   1aca9:	63 f8                	arpl   ax,di
-   1acab:	e7 f8                	out    0xf8,ax
-   1acad:	ef                   	out    dx,ax
-   1acae:	00 ce                	add    dh,cl
-   1acb0:	00 cc                	add    ah,cl
-   1acb2:	00 cc                	add    ah,cl
-   1acb4:	00 ce                	add    dh,cl
-   1acb6:	f8                   	clc    
-   1acb7:	ff                   	(bad)  
-   1acb8:	f8                   	clc    
-   1acb9:	ff                   	(bad)  
-   1acba:	f8                   	clc    
-   1acbb:	7f 00                	jg     0x1acbd
-   1acbd:	00 00                	add    BYTE PTR [bx+si],al
-   1acbf:	00 14                	add    BYTE PTR [si],dl
-   1acc1:	38 38                	cmp    BYTE PTR [bx+si],bh
-   1acc3:	38 3c                	cmp    BYTE PTR [si],bh
-   1acc5:	38 3e 38 3f          	cmp    BYTE PTR ds:0x3f38,bh
-   1acc9:	b8 3f f8             	mov    ax,0xf83f
-   1accc:	3b f8                	cmp    di,ax
-   1acce:	39 f8                	cmp    ax,di
-   1acd0:	38 78 38             	cmp    BYTE PTR [bx+si+0x38],bh
-   1acd3:	38 38                	cmp    BYTE PTR [bx+si],bh
-   1acd5:	00 00                	add    BYTE PTR [bx+si],al
-   1acd7:	00 00                	add    BYTE PTR [bx+si],al
-   1acd9:	18 ff                	sbb    bh,bh
-   1acdb:	ff                   	(bad)  
-   1acdc:	ff                   	(bad)  
-   1acdd:	ff                   	(bad)  
-   1acde:	ff                   	(bad)  
-   1acdf:	ff                   	(bad)  
-   1ace0:	ff                   	(bad)  
-   1ace1:	ff                   	(bad)  
-   1ace2:	ff                   	(bad)  
-   1ace3:	ff                   	(bad)  
-   1ace4:	ff                   	(bad)  
-   1ace5:	ff                   	(bad)  
-   1ace6:	ff                   	(bad)  
-   1ace7:	ff                   	(bad)  
-   1ace8:	ff                   	(bad)  
-   1ace9:	ff                   	(bad)  
-   1acea:	ff                   	(bad)  
-   1aceb:	ff                   	(bad)  
-   1acec:	ff                   	(bad)  
-   1aced:	ff                   	(bad)  
-   1acee:	ff                   	(bad)  
-   1acef:	ff                   	(bad)  
-   1acf0:	ff                   	(bad)  
-   1acf1:	ff 18                	call   DWORD PTR [bx+si]
-   1acf3:	f8                   	clc    
-   1acf4:	1f                   	pop    ds
-   1acf5:	fe                   	(bad)  
-   1acf6:	7f fe                	jg     0x1acf6
-   1acf8:	7f 6f                	jg     0x1ad69
-   1acfa:	f6 67 e6             	mul    BYTE PTR [bx-0x1a]
-   1acfd:	67 e6 67             	addr32 out 0x67,al
-   1ad00:	e6 67                	out    0x67,al
-   1ad02:	e6 07                	out    0x7,al
-   1ad04:	e0 0f                	loopne 0x1ad15
-   1ad06:	f0 1e                	lock push ds
-   1ad08:	78 1c                	js     0x1ad26
-   1ad0a:	38 0e 03 c0          	cmp    BYTE PTR ds:0xc003,cl
-   1ad0e:	07                   	pop    es
-   1ad0f:	e0 07                	loopne 0x1ad18
-   1ad11:	e0 7f                	loopne 0x1ad92
-   1ad13:	fe                   	(bad)  
-   1ad14:	fe                   	(bad)  
-   1ad15:	7f fc                	jg     0x1ad13
-   1ad17:	3f                   	aas    
-   1ad18:	80 01 00             	add    BYTE PTR [bx+di],0x0
-	...
-   1ad23:	00 10                	add    BYTE PTR [bx+si],dl
-   1ad25:	3c 00                	cmp    al,0x0
-   1ad27:	7e 00                	jle    0x1ad29
-   1ad29:	e7 00                	out    0x0,ax
-   1ad2b:	c3                   	ret    
-   1ad2c:	00 c3                	add    bl,al
-   1ad2e:	00 e7                	add    bh,ah
-   1ad30:	00 7e 00             	add    BYTE PTR [bp+0x0],bh
-   1ad33:	3c 00                	cmp    al,0x0
-	...
-   1ad55:	00 0f                	add    BYTE PTR [bx],cl
-   1ad57:	18 20                	sbb    BYTE PTR [bx+si],ah
-   1ad59:	7f 01                	jg     0x1ad5c
-   1ad5b:	02 2d                	add    ch,BYTE PTR [di]
-	...
-   1ad89:	00 18                	add    BYTE PTR [bx+si],bl
-   1ad8b:	00 00                	add    BYTE PTR [bx+si],al
-   1ad8d:	00 00                	add    BYTE PTR [bx+si],al
-   1ad8f:	00 00                	add    BYTE PTR [bx+si],al
-   1ad91:	fe 01                	inc    BYTE PTR [bx+di]
-   1ad93:	00 ff                	add    bh,bh
-   1ad95:	ff 61 ff             	jmp    WORD PTR [bx+di-0x1]
-   1ad98:	ff f3                	push   bx
-   1ad9a:	ff                   	(bad)  
-   1ad9b:	ff f3                	push   bx
-   1ad9d:	ff                   	(bad)  
-   1ad9e:	ff 61 fe             	jmp    WORD PTR [bx+di-0x2]
-   1ada1:	01 00                	add    WORD PTR [bx+si],ax
-	...
-   1adb7:	00 15                	add    BYTE PTR [di],dl
-   1adb9:	78 00                	js     0x1adbb
-   1adbb:	00 7c 00             	add    BYTE PTR [si+0x0],bh
-   1adbe:	00 3e 00 00          	add    BYTE PTR ds:0x0,bh
-   1adc2:	1f                   	pop    ds
-   1adc3:	00 00                	add    BYTE PTR [bx+si],al
-   1adc5:	0f 00 00             	sldt   WORD PTR [bx+si]
-   1adc8:	07                   	pop    es
-   1adc9:	00 00                	add    BYTE PTR [bx+si],al
-   1adcb:	03 00                	add    ax,WORD PTR [bx+si]
-	...
-   1ade5:	00 2d                	add    BYTE PTR [di],ch
-   1ade7:	c0 c3 03             	rol    bl,0x3
-   1adea:	c0 c3 03             	rol    bl,0x3
-   1aded:	fc                   	cld    
-   1adee:	ff                   	(bad)  
-   1adef:	3f                   	aas    
-   1adf0:	fc                   	cld    
-   1adf1:	ff                   	(bad)  
-   1adf2:	3f                   	aas    
-   1adf3:	fc                   	cld    
-   1adf4:	ff                   	(bad)  
-   1adf5:	3f                   	aas    
-   1adf6:	fc                   	cld    
-   1adf7:	ff                   	(bad)  
-   1adf8:	3f                   	aas    
-   1adf9:	c0 c3 03             	rol    bl,0x3
-   1adfc:	c0 c3 03             	rol    bl,0x3
-   1adff:	c0 c3 03             	rol    bl,0x3
-   1ae02:	fc                   	cld    
-   1ae03:	ff                   	(bad)  
-   1ae04:	3f                   	aas    
-   1ae05:	fc                   	cld    
-   1ae06:	ff                   	(bad)  
-   1ae07:	3f                   	aas    
-   1ae08:	fc                   	cld    
-   1ae09:	ff                   	(bad)  
-   1ae0a:	3f                   	aas    
-   1ae0b:	fc                   	cld    
-   1ae0c:	ff                   	(bad)  
-   1ae0d:	3f                   	aas    
-   1ae0e:	c0 c3 03             	rol    bl,0x3
-   1ae11:	c0 c3 03             	rol    bl,0x3
-   1ae14:	2d 00 0e             	sub    ax,0xe00
-   1ae17:	f0 00 0e f8 f0       	lock add BYTE PTR ds:0xf0f8,cl
-   1ae1c:	7f fc                	jg     0x1ae1a
-   1ae1e:	fc                   	cld    
-   1ae1f:	ff                   	(bad)  
-   1ae20:	ff                   	(bad)  
-   1ae21:	fe                   	(bad)  
-   1ae22:	ff                   	(bad)  
-   1ae23:	ff                   	(bad)  
-   1ae24:	ff                   	(bad)  
-   1ae25:	ff                   	(bad)  
-   1ae26:	ff 1f                	call   DWORD PTR [bx]
-   1ae28:	ce                   	into   
-   1ae29:	f7                   	(bad)  
-   1ae2a:	0f 0e                	femms  
-   1ae2c:	f0 0f 0e             	lock femms 
-   1ae2f:	f0 0f 0e             	lock femms 
-   1ae32:	f0 1f                	lock pop ds
-   1ae34:	0e                   	push   cs
-   1ae35:	f0 1e                	lock push ds
-   1ae37:	00 f0                	add    al,dh
-   1ae39:	1e                   	push   ds
-   1ae3a:	00 f0                	add    al,dh
-   1ae3c:	1c 00                	sbb    al,0x0
-   1ae3e:	f0 00 00             	lock add BYTE PTR [bx+si],al
-   1ae41:	e0 2d                	loopne 0x1ae70
-   1ae43:	60                   	pusha  
-   1ae44:	00 1e f0 00          	add    BYTE PTR ds:0xf0,bl
-   1ae48:	1f                   	pop    ds
-   1ae49:	f0 80 0f 60          	lock or BYTE PTR [bx],0x60
-   1ae4d:	c0 07 00             	rol    BYTE PTR [bx],0x0
-   1ae50:	e0 03                	loopne 0x1ae55
-   1ae52:	00 f0                	add    al,dh
-   1ae54:	01 00                	add    WORD PTR [bx+si],ax
-   1ae56:	f8                   	clc    
-   1ae57:	00 00                	add    BYTE PTR [bx+si],al
-   1ae59:	7c 00                	jl     0x1ae5b
-   1ae5b:	00 3e 00 00          	add    BYTE PTR ds:0x0,bh
-   1ae5f:	1f                   	pop    ds
-   1ae60:	00 80 0f 00          	add    BYTE PTR [bx+si+0xf],al
-   1ae64:	c0 07 0c             	rol    BYTE PTR [bx],0xc
-   1ae67:	e0 03                	loopne 0x1ae6c
-   1ae69:	1e                   	push   ds
-   1ae6a:	f0 01 1e f0 00       	lock add WORD PTR ds:0xf0,bx
-   1ae6f:	0c 2d                	or     al,0x2d
-   1ae71:	c0                   	(bad)  
-   1ae72:	f1                   	icebp  
-   1ae73:	0f f0                	(bad)  
-   1ae75:	fb                   	sti    
-   1ae76:	1f                   	pop    ds
-   1ae77:	f8                   	clc    
-   1ae78:	ff                   	(bad)  
-   1ae79:	3f                   	aas    
-   1ae7a:	f8                   	clc    
-   1ae7b:	7f 3c                	jg     0x1aeb9
-   1ae7d:	7c 3c                	jl     0x1aebb
-   1ae7f:	38 3c                	cmp    BYTE PTR [si],bh
-   1ae81:	38 38                	cmp    BYTE PTR [bx+si],bh
-   1ae83:	3c 7c                	cmp    al,0x7c
-   1ae85:	3c 78                	cmp    al,0x78
-   1ae87:	fe                   	(bad)  
-   1ae88:	3e                   	ds
-   1ae89:	f8                   	clc    
-   1ae8a:	ef                   	out    dx,ax
-   1ae8b:	3f                   	aas    
-   1ae8c:	f0 c7                	lock (bad) 
-   1ae8e:	1f                   	pop    ds
-   1ae8f:	e0 83                	loopne 0x1ae14
-   1ae91:	0f 00 80 1f 00       	sldt   WORD PTR [bx+si+0x1f]
-   1ae96:	c0 3f 00             	sar    BYTE PTR [bx],0x0
-   1ae99:	e0 39                	loopne 0x1aed4
-   1ae9b:	00 e0                	add    al,ah
-   1ae9d:	30 15                	xor    BYTE PTR [di],dl
-   1ae9f:	00 00                	add    BYTE PTR [bx+si],al
-   1aea1:	00 00                	add    BYTE PTR [bx+si],al
-   1aea3:	00 00                	add    BYTE PTR [bx+si],al
-   1aea5:	c0 00 00             	rol    BYTE PTR [bx+si],0x0
-   1aea8:	ef                   	out    dx,ax
-   1aea9:	00 00                	add    BYTE PTR [bx+si],al
-   1aeab:	ff 00                	inc    WORD PTR [bx+si]
-   1aead:	00 7f 00             	add    BYTE PTR [bx+0x0],bh
-   1aeb0:	00 3e 00 00          	add    BYTE PTR ds:0x0,bh
-	...
-   1aecc:	1e                   	push   ds
-   1aecd:	00 00                	add    BYTE PTR [bx+si],al
-   1aecf:	00 00                	add    BYTE PTR [bx+si],al
-   1aed1:	00 00                	add    BYTE PTR [bx+si],al
-   1aed3:	c0 ff 03             	sar    bh,0x3
-   1aed6:	f0 ff 0f             	lock dec WORD PTR [bx]
-   1aed9:	fc                   	cld    
-   1aeda:	ff                   	(bad)  
-   1aedb:	3f                   	aas    
-   1aedc:	fe                   	(bad)  
-   1aedd:	ff                   	(bad)  
-   1aede:	7f 3f                	jg     0x1af1f
-   1aee0:	00 fc                	add    ah,bh
-   1aee2:	0f 00                	(bad)  
-   1aee4:	f0 07                	lock pop es
-   1aee6:	00 e0                	add    al,ah
-   1aee8:	03 00                	add    ax,WORD PTR [bx+si]
-   1aeea:	c0 00 00             	rol    BYTE PTR [bx+si],0x0
-	...
-   1aef9:	00 1e 00 00          	add    BYTE PTR ds:0x0,bl
-   1aefd:	00 00                	add    BYTE PTR [bx+si],al
-   1aeff:	00 00                	add    BYTE PTR [bx+si],al
-   1af01:	03 00                	add    ax,WORD PTR [bx+si]
-   1af03:	c0 07 00             	rol    BYTE PTR [bx],0x0
-   1af06:	e0 0f                	loopne 0x1af17
-   1af08:	00 f8                	add    al,bh
-   1af0a:	3f                   	aas    
-   1af0b:	00 fe                	add    dh,bh
-   1af0d:	fe                   	(bad)  
-   1af0e:	ff                   	(bad)  
-   1af0f:	7f fc                	jg     0x1af0d
-   1af11:	ff                   	(bad)  
-   1af12:	3f                   	aas    
-   1af13:	f0 ff 07             	lock inc WORD PTR [bx]
-   1af16:	c0 ff 01             	sar    bh,0x1
-	...
-   1af25:	00 00                	add    BYTE PTR [bx+si],al
-   1af27:	00 2d                	add    BYTE PTR [di],ch
-   1af29:	00 38                	add    BYTE PTR [bx+si],bh
-   1af2b:	00 80 38 02          	add    BYTE PTR [bx+si+0x238],al
-   1af2f:	c0 39 07             	sar    BYTE PTR [bx+di],0x7
-   1af32:	c0 bb 07 80 ff       	sar    BYTE PTR [bp+di-0x7ff9],0xff
-   1af37:	03 00                	add    ax,WORD PTR [bx+si]
-   1af39:	ff 01                	inc    WORD PTR [bx+di]
-   1af3b:	f0 ff 1f             	lock call DWORD PTR [bx]
-   1af3e:	f0 ff 1f             	lock call DWORD PTR [bx]
-   1af41:	f0 ff 1f             	lock call DWORD PTR [bx]
-   1af44:	00 ff                	add    bh,bh
-   1af46:	01 80 ff 03          	add    WORD PTR [bx+si+0x3ff],ax
-   1af4a:	c0 bb 07 c0 39       	sar    BYTE PTR [bp+di-0x3ff9],0x39
-   1af4f:	07                   	pop    es
-   1af50:	80 38 02             	cmp    BYTE PTR [bx+si],0x2
-   1af53:	00 38                	add    BYTE PTR [bx+si],bh
-   1af55:	00 2a                	add    BYTE PTR [bp+si],ch
-   1af57:	00 3c                	add    BYTE PTR [si],bh
-   1af59:	00 00                	add    BYTE PTR [bx+si],al
-   1af5b:	3c 00                	cmp    al,0x0
-   1af5d:	00 3c                	add    BYTE PTR [si],bh
-   1af5f:	00 00                	add    BYTE PTR [bx+si],al
-   1af61:	3c 00                	cmp    al,0x0
-   1af63:	00 3c                	add    BYTE PTR [si],bh
-   1af65:	00 f0                	add    al,dh
-   1af67:	ff 0f                	dec    WORD PTR [bx]
-   1af69:	f0 ff 0f             	lock dec WORD PTR [bx]
-   1af6c:	f0 ff 0f             	lock dec WORD PTR [bx]
-   1af6f:	f0 ff 0f             	lock dec WORD PTR [bx]
-   1af72:	00 3c                	add    BYTE PTR [si],bh
-   1af74:	00 00                	add    BYTE PTR [bx+si],al
-   1af76:	3c 00                	cmp    al,0x0
-   1af78:	00 3c                	add    BYTE PTR [si],bh
-   1af7a:	00 00                	add    BYTE PTR [bx+si],al
-   1af7c:	3c 00                	cmp    al,0x0
-   1af7e:	00 3c                	add    BYTE PTR [si],bh
-   1af80:	00 00                	add    BYTE PTR [bx+si],al
-   1af82:	00 00                	add    BYTE PTR [bx+si],al
-   1af84:	12 00                	adc    al,BYTE PTR [bx+si]
-   1af86:	00 00                	add    BYTE PTR [bx+si],al
-   1af88:	00 00                	add    BYTE PTR [bx+si],al
-   1af8a:	c0 00 00             	rol    BYTE PTR [bx+si],0x0
-   1af8d:	ef                   	out    dx,ax
-   1af8e:	00 00                	add    BYTE PTR [bx+si],al
-   1af90:	ff 00                	inc    WORD PTR [bx+si]
-   1af92:	00 7f 00             	add    BYTE PTR [bx+0x0],bh
-   1af95:	00 3e 00 00          	add    BYTE PTR ds:0x0,bh
-	...
-   1afb1:	00 2a                	add    BYTE PTR [bp+si],ch
-   1afb3:	00 3c                	add    BYTE PTR [si],bh
-   1afb5:	00 00                	add    BYTE PTR [bx+si],al
-   1afb7:	3c 00                	cmp    al,0x0
-   1afb9:	00 3c                	add    BYTE PTR [si],bh
-   1afbb:	00 00                	add    BYTE PTR [bx+si],al
-   1afbd:	3c 00                	cmp    al,0x0
-   1afbf:	00 3c                	add    BYTE PTR [si],bh
-   1afc1:	00 00                	add    BYTE PTR [bx+si],al
-   1afc3:	3c 00                	cmp    al,0x0
-   1afc5:	00 3c                	add    BYTE PTR [si],bh
-   1afc7:	00 00                	add    BYTE PTR [bx+si],al
-   1afc9:	3c 00                	cmp    al,0x0
-   1afcb:	00 3c                	add    BYTE PTR [si],bh
-   1afcd:	00 00                	add    BYTE PTR [bx+si],al
-   1afcf:	3c 00                	cmp    al,0x0
-   1afd1:	00 3c                	add    BYTE PTR [si],bh
-   1afd3:	00 00                	add    BYTE PTR [bx+si],al
-   1afd5:	3c 00                	cmp    al,0x0
-   1afd7:	00 3c                	add    BYTE PTR [si],bh
-   1afd9:	00 00                	add    BYTE PTR [bx+si],al
-   1afdb:	3c 00                	cmp    al,0x0
-   1afdd:	00 00                	add    BYTE PTR [bx+si],al
-   1afdf:	00 0f                	add    BYTE PTR [bx],cl
-   1afe1:	00 00                	add    BYTE PTR [bx+si],al
-   1afe3:	00 00                	add    BYTE PTR [bx+si],al
-   1afe5:	00 18                	add    BYTE PTR [bx+si],bl
-   1afe7:	00 00                	add    BYTE PTR [bx+si],al
-   1afe9:	3c 00                	cmp    al,0x0
-   1afeb:	00 3c                	add    BYTE PTR [si],bh
-   1afed:	00 00                	add    BYTE PTR [bx+si],al
-   1afef:	18 00                	sbb    BYTE PTR [bx+si],al
-	...
-   1b00d:	00 2d                	add    BYTE PTR [di],ch
-   1b00f:	00 00                	add    BYTE PTR [bx+si],al
-   1b011:	1e                   	push   ds
-   1b012:	00 00                	add    BYTE PTR [bx+si],al
-   1b014:	1f                   	pop    ds
-   1b015:	00 80 0f 00          	add    BYTE PTR [bx+si+0xf],al
-   1b019:	c0 07 00             	rol    BYTE PTR [bx],0x0
-   1b01c:	e0 03                	loopne 0x1b021
-   1b01e:	00 f0                	add    al,dh
-   1b020:	01 00                	add    WORD PTR [bx+si],ax
-   1b022:	f8                   	clc    
-   1b023:	00 00                	add    BYTE PTR [bx+si],al
-   1b025:	7c 00                	jl     0x1b027
-   1b027:	00 3e 00 00          	add    BYTE PTR ds:0x0,bh
-   1b02b:	1f                   	pop    ds
-   1b02c:	00 80 0f 00          	add    BYTE PTR [bx+si+0xf],al
-   1b030:	c0 07 00             	rol    BYTE PTR [bx],0x0
-   1b033:	e0 03                	loopne 0x1b038
-   1b035:	00 f0                	add    al,dh
-   1b037:	01 00                	add    WORD PTR [bx+si],ax
-   1b039:	f0 00 00             	lock add BYTE PTR [bx+si],al
-   1b03c:	2d f0 ff             	sub    ax,0xfff0
-   1b03f:	0f fc ff             	paddb  mm7,mm7
-   1b042:	3f                   	aas    
-   1b043:	fe                   	(bad)  
-   1b044:	ff                   	(bad)  
-   1b045:	7f fe                	jg     0x1b045
-   1b047:	ff                   	(bad)  
-   1b048:	7f 1f                	jg     0x1b069
-   1b04a:	00 f8                	add    al,bh
-   1b04c:	0f 00                	(bad)  
-   1b04e:	f0 0f 00             	lock (bad) 
-   1b051:	f0 0f 00             	lock (bad) 
-   1b054:	f0 0f 00             	lock (bad) 
-   1b057:	f0 0f 00             	lock (bad) 
-   1b05a:	f0 1f                	lock pop ds
-   1b05c:	00 f8                	add    al,bh
-   1b05e:	fe                   	(bad)  
-   1b05f:	ff                   	(bad)  
-   1b060:	7f fe                	jg     0x1b060
-   1b062:	ff                   	(bad)  
-   1b063:	7f fc                	jg     0x1b061
-   1b065:	ff                   	(bad)  
-   1b066:	3f                   	aas    
-   1b067:	f0 ff 0f             	lock dec WORD PTR [bx]
-   1b06a:	24 00                	and    al,0x0
-	...
-   1b074:	e0 01                	loopne 0x1b077
-   1b076:	00 e0                	add    al,ah
-   1b078:	01 00                	add    WORD PTR [bx+si],ax
-   1b07a:	f0 01 00             	lock add WORD PTR [bx+si],ax
-   1b07d:	f8                   	clc    
-   1b07e:	00 00                	add    BYTE PTR [bx+si],al
-   1b080:	7c 00                	jl     0x1b082
-   1b082:	00 ff                	add    bh,bh
-   1b084:	ff                   	(bad)  
-   1b085:	ff                   	(bad)  
-   1b086:	ff                   	(bad)  
-   1b087:	ff                   	(bad)  
-   1b088:	ff                   	(bad)  
-   1b089:	ff                   	(bad)  
-   1b08a:	ff                   	(bad)  
-   1b08b:	ff                   	(bad)  
-   1b08c:	ff                   	(bad)  
-   1b08d:	ff                   	(bad)  
-   1b08e:	ff 00                	inc    WORD PTR [bx+si]
-	...
-   1b098:	2d 38 00             	sub    ax,0x38
-   1b09b:	ff                   	(bad)  
-   1b09c:	3e                   	ds
-   1b09d:	c0 ff 3e             	sar    bh,0x3e
-   1b0a0:	e0 ff                	loopne 0x1b0a1
-   1b0a2:	1f                   	pop    ds
-   1b0a3:	f0 ff 0f             	lock dec WORD PTR [bx]
-   1b0a6:	f0 f3 0f f8 f0       	lock repz psubb mm6,mm0
-   1b0ab:	0f 78 f0             	vmread eax,esi
-   1b0ae:	0f 7c                	(bad)  
-   1b0b0:	f0 0f 3c             	lock (bad) 
-   1b0b3:	f0 0f 3e             	lock (bad) 
-   1b0b6:	f0 9f                	lock lahf 
-   1b0b8:	1f                   	pop    ds
-   1b0b9:	f0 ff 1f             	lock call DWORD PTR [bx]
-   1b0bc:	f0 fe 0f             	lock dec BYTE PTR [bx]
-   1b0bf:	f0 fe 07             	lock inc BYTE PTR [bx]
-   1b0c2:	f0 f8                	lock clc 
-   1b0c4:	01 f0                	add    ax,si
-   1b0c6:	2d 3c 00             	sub    ax,0x3c
-   1b0c9:	3c 3e                	cmp    al,0x3e
-   1b0cb:	00 7c 3f             	add    BYTE PTR [si+0x3f],bh
-   1b0ce:	00 fc                	add    ah,bh
-   1b0d0:	1f                   	pop    ds
-   1b0d1:	00 f8                	add    al,bh
-   1b0d3:	0f 0c                	(bad)  
-   1b0d5:	f0 0f 1e f0          	lock nop ax
-   1b0d9:	0f 1e f0             	nop    ax
-   1b0dc:	0f 1e f0             	nop    ax
-   1b0df:	0f 1e f0             	nop    ax
-   1b0e2:	0f 1e f0             	nop    ax
-   1b0e5:	1f                   	pop    ds
-   1b0e6:	3f                   	aas    
-   1b0e7:	f8                   	clc    
-   1b0e8:	ff                   	(bad)  
-   1b0e9:	ff                   	(bad)  
-   1b0ea:	ff                   	(bad)  
-   1b0eb:	fe                   	(bad)  
-   1b0ec:	ff                   	(bad)  
-   1b0ed:	7f fe                	jg     0x1b0ed
-   1b0ef:	f3 7f f8             	repz jg 0x1b0ea
-   1b0f2:	e1 1f                	loope  0x1b113
-   1b0f4:	2d 00 f8             	sub    ax,0xf800
-   1b0f7:	01 00                	add    WORD PTR [bx+si],ax
-   1b0f9:	fc                   	cld    
-   1b0fa:	01 00                	add    WORD PTR [bx+si],ax
-   1b0fc:	fe 01                	inc    BYTE PTR [bx+di]
-   1b0fe:	00 ff                	add    bh,bh
-   1b100:	01 80 ef 01          	add    WORD PTR [bx+si+0x1ef],ax
-   1b104:	c0 e7 01             	shl    bh,0x1
-   1b107:	e0 e3                	loopne 0x1b0ec
-   1b109:	01 f0                	add    ax,si
-   1b10b:	e1 01                	loope  0x1b10e
-   1b10d:	fc                   	cld    
-   1b10e:	e0 01                	loopne 0x1b111
-   1b110:	7f e0                	jg     0x1b0f2
-   1b112:	01 ff                	add    di,di
-   1b114:	ff                   	(bad)  
-   1b115:	ff                   	(bad)  
-   1b116:	ff                   	(bad)  
-   1b117:	ff                   	(bad)  
-   1b118:	ff                   	(bad)  
-   1b119:	ff                   	(bad)  
-   1b11a:	ff                   	(bad)  
-   1b11b:	ff                   	(bad)  
-   1b11c:	ff                   	(bad)  
-   1b11d:	ff                   	(bad)  
-   1b11e:	ff 00                	inc    WORD PTR [bx+si]
-   1b120:	e0 01                	loopne 0x1b123
-   1b122:	2d ff 0f             	sub    ax,0xfff
-   1b125:	1c ff                	sbb    al,0xff
-   1b127:	1f                   	pop    ds
-   1b128:	7c ff                	jl     0x1b129
-   1b12a:	1f                   	pop    ds
-   1b12b:	7c ff                	jl     0x1b12c
-   1b12d:	1f                   	pop    ds
-   1b12e:	f8                   	clc    
-   1b12f:	0f 1e f0             	nop    ax
-   1b132:	0f                   	(bad)  
-   1b133:	0f f0                	(bad)  
-   1b135:	0f                   	(bad)  
-   1b136:	0f f0                	(bad)  
-   1b138:	0f                   	(bad)  
-   1b139:	0f f0                	(bad)  
-   1b13b:	0f                   	(bad)  
-   1b13c:	0f f0                	(bad)  
-   1b13e:	0f                   	(bad)  
-   1b13f:	0f f0                	(bad)  
-   1b141:	0f 1f f8             	nop    ax
-   1b144:	0f ff                	(bad)  
-   1b146:	ff 0f                	dec    WORD PTR [bx]
-   1b148:	fe                   	(bad)  
-   1b149:	7f 0f                	jg     0x1b15a
-   1b14b:	fe                   	(bad)  
-   1b14c:	7f 0f                	jg     0x1b15d
-   1b14e:	f8                   	clc    
-   1b14f:	1f                   	pop    ds
-   1b150:	2d f8 ff             	sub    ax,0xfff8
-   1b153:	1f                   	pop    ds
-   1b154:	fe                   	(bad)  
-   1b155:	ff                   	(bad)  
-   1b156:	7f fe                	jg     0x1b156
-   1b158:	ff                   	(bad)  
-   1b159:	7f ff                	jg     0x1b15a
-   1b15b:	ff                   	(bad)  
-   1b15c:	ff 1f                	call   DWORD PTR [bx]
-   1b15e:	1e                   	push   ds
-   1b15f:	f8                   	clc    
-   1b160:	0f                   	(bad)  
-   1b161:	0f f0                	(bad)  
-   1b163:	0f                   	(bad)  
-   1b164:	0f f0                	(bad)  
-   1b166:	0f                   	(bad)  
-   1b167:	0f f0                	(bad)  
-   1b169:	0f                   	(bad)  
-   1b16a:	0f f0                	(bad)  
-   1b16c:	0f                   	(bad)  
-   1b16d:	0f f0                	(bad)  
-   1b16f:	0f 1f f8             	nop    ax
-   1b172:	1f                   	pop    ds
-   1b173:	fe                   	(bad)  
-   1b174:	ff                   	(bad)  
-   1b175:	3e                   	ds
-   1b176:	fe                   	(bad)  
-   1b177:	7f 3e                	jg     0x1b1b7
-   1b179:	fc                   	cld    
-   1b17a:	7f 38                	jg     0x1b1b4
-   1b17c:	f0 1f                	lock pop ds
-   1b17e:	2d 0f 00             	sub    ax,0xf
-   1b181:	00 0f                	add    BYTE PTR [bx],cl
-   1b183:	00 00                	add    BYTE PTR [bx+si],al
-   1b185:	0f 00 00             	sldt   WORD PTR [bx+si]
-   1b188:	0f 00 00             	sldt   WORD PTR [bx+si]
-   1b18b:	0f 00 00             	sldt   WORD PTR [bx+si]
-   1b18e:	0f e0 ff             	pavgb  mm7,mm7
-   1b191:	0f fc ff             	paddb  mm7,mm7
-   1b194:	0f ff                	(bad)  
-   1b196:	ff 8f ff ff          	dec    WORD PTR [bx-0x1]
-   1b19a:	cf                   	iret   
-   1b19b:	3f                   	aas    
-   1b19c:	00 ef                	add    bh,ch
-   1b19e:	07                   	pop    es
-   1b19f:	00 ff                	add    bh,bh
-   1b1a1:	01 00                	add    WORD PTR [bx+si],ax
-   1b1a3:	ff 00                	inc    WORD PTR [bx+si]
-   1b1a5:	00 7f 00             	add    BYTE PTR [bx+0x0],bh
-   1b1a8:	00 3f                	add    BYTE PTR [bx],bh
-   1b1aa:	00 00                	add    BYTE PTR [bx+si],al
-   1b1ac:	2d f8 e3             	sub    ax,0xe3f8
-   1b1af:	3f                   	aas    
-   1b1b0:	fe                   	(bad)  
-   1b1b1:	f7 7f fe             	idiv   WORD PTR [bx-0x2]
-   1b1b4:	ff                   	(bad)  
-   1b1b5:	ff                   	(bad)  
-   1b1b6:	ff                   	(bad)  
-   1b1b7:	ff                   	(bad)  
-   1b1b8:	ff 1f                	call   DWORD PTR [bx]
-   1b1ba:	3f                   	aas    
-   1b1bb:	f8                   	clc    
-   1b1bc:	0f 1e f0             	nop    ax
-   1b1bf:	0f 1e f0             	nop    ax
-   1b1c2:	0f 1e f0             	nop    ax
-   1b1c5:	0f 1e f0             	nop    ax
-   1b1c8:	0f 1e f0             	nop    ax
-   1b1cb:	1f                   	pop    ds
-   1b1cc:	3f                   	aas    
-   1b1cd:	f8                   	clc    
-   1b1ce:	ff                   	(bad)  
-   1b1cf:	ff                   	(bad)  
-   1b1d0:	ff                   	(bad)  
-   1b1d1:	fe                   	(bad)  
-   1b1d2:	ff                   	(bad)  
-   1b1d3:	ff                   	(bad)  
-   1b1d4:	fe                   	(bad)  
-   1b1d5:	f7 7f f8             	idiv   WORD PTR [bx-0x8]
-   1b1d8:	e3 3f                	jcxz   0x1b219
-   1b1da:	2d f8 03             	sub    ax,0x3f8
-   1b1dd:	1c fe                	sbb    al,0xfe
-   1b1df:	0f 7c                	(bad)  
-   1b1e1:	fe                   	(bad)  
-   1b1e2:	1f                   	pop    ds
-   1b1e3:	7c ff                	jl     0x1b1e4
-   1b1e5:	1f                   	pop    ds
-   1b1e6:	f8                   	clc    
-   1b1e7:	1f                   	pop    ds
-   1b1e8:	3e                   	ds
-   1b1e9:	f0 0f 3c             	lock (bad) 
-   1b1ec:	f0 0f 3c             	lock (bad) 
-   1b1ef:	f0 0f 3c             	lock (bad) 
-   1b1f2:	f0 0f 3c             	lock (bad) 
-   1b1f5:	f0 0f 3c             	lock (bad) 
-   1b1f8:	f0 1f                	lock pop ds
-   1b1fa:	1e                   	push   ds
-   1b1fb:	f8                   	clc    
-   1b1fc:	ff                   	(bad)  
-   1b1fd:	ff                   	(bad)  
-   1b1fe:	ff                   	(bad)  
-   1b1ff:	fe                   	(bad)  
-   1b200:	ff                   	(bad)  
-   1b201:	7f fe                	jg     0x1b201
-   1b203:	ff                   	(bad)  
-   1b204:	7f f8                	jg     0x1b1fe
-   1b206:	ff 1f                	call   DWORD PTR [bx]
-   1b208:	0f 00 00             	sldt   WORD PTR [bx+si]
-   1b20b:	00 80 01 06          	add    BYTE PTR [bx+si+0x601],al
-   1b20f:	c0 03 0f             	rol    BYTE PTR [bp+di],0xf
-   1b212:	c0 03 0f             	rol    BYTE PTR [bp+di],0xf
-   1b215:	80 01 06             	add    BYTE PTR [bx+di],0x6
-	...
-   1b234:	00 00                	add    BYTE PTR [bx+si],al
-   1b236:	12 00                	adc    al,BYTE PTR [bx+si]
-   1b238:	00 00                	add    BYTE PTR [bx+si],al
-   1b23a:	00 00                	add    BYTE PTR [bx+si],al
-   1b23c:	c0 00 03             	rol    BYTE PTR [bx+si],0x3
-   1b23f:	e6 80                	out    0x80,al
-   1b241:	07                   	pop    es
-   1b242:	ff 80 07 7f          	inc    WORD PTR [bx+si+0x7f07]
-   1b246:	00 03                	add    BYTE PTR [bp+di],al
-   1b248:	3e 00 00             	add    BYTE PTR ds:[bx+si],al
-	...
-   1b263:	00 2d                	add    BYTE PTR [di],ch
-   1b265:	00 18                	add    BYTE PTR [bx+si],bl
-   1b267:	00 00                	add    BYTE PTR [bx+si],al
-   1b269:	3c 00                	cmp    al,0x0
-   1b26b:	00 7e 00             	add    BYTE PTR [bp+0x0],bh
-   1b26e:	00 ff                	add    bh,bh
-   1b270:	00 80 ff 01          	add    BYTE PTR [bx+si+0x1ff],al
-   1b274:	c0 e7 03             	shl    bh,0x3
-   1b277:	e0 c3                	loopne 0x1b23c
-   1b279:	07                   	pop    es
-   1b27a:	f0 81 0f f8 00       	lock or WORD PTR [bx],0xf8
-   1b27f:	1f                   	pop    ds
-   1b280:	7c 00                	jl     0x1b282
-   1b282:	3e 3e 00 7c 1f       	add    BYTE PTR ds:[si+0x1f],bh
-   1b287:	00 f8                	add    al,bh
-   1b289:	0f 00                	(bad)  
-   1b28b:	f0 07                	lock pop es
-   1b28d:	00 e0                	add    al,ah
-   1b28f:	03 00                	add    ax,WORD PTR [bx+si]
-   1b291:	c0 2a c0             	shr    BYTE PTR [bp+si],0xc0
-   1b294:	c3                   	ret    
-   1b295:	03 c0                	add    ax,ax
-   1b297:	c3                   	ret    
-   1b298:	03 c0                	add    ax,ax
-   1b29a:	c3                   	ret    
-   1b29b:	03 c0                	add    ax,ax
-   1b29d:	c3                   	ret    
-   1b29e:	03 c0                	add    ax,ax
-   1b2a0:	c3                   	ret    
-   1b2a1:	03 c0                	add    ax,ax
-   1b2a3:	c3                   	ret    
-   1b2a4:	03 c0                	add    ax,ax
-   1b2a6:	c3                   	ret    
-   1b2a7:	03 c0                	add    ax,ax
-   1b2a9:	c3                   	ret    
-   1b2aa:	03 c0                	add    ax,ax
-   1b2ac:	c3                   	ret    
-   1b2ad:	03 c0                	add    ax,ax
-   1b2af:	c3                   	ret    
-   1b2b0:	03 c0                	add    ax,ax
-   1b2b2:	c3                   	ret    
-   1b2b3:	03 c0                	add    ax,ax
-   1b2b5:	c3                   	ret    
-   1b2b6:	03 c0                	add    ax,ax
-   1b2b8:	c3                   	ret    
-   1b2b9:	03 c0                	add    ax,ax
-   1b2bb:	c3                   	ret    
-   1b2bc:	03 00                	add    ax,WORD PTR [bx+si]
-   1b2be:	00 00                	add    BYTE PTR [bx+si],al
-   1b2c0:	2d 03 00             	sub    ax,0x3
-   1b2c3:	c0 07 00             	rol    BYTE PTR [bx],0x0
-   1b2c6:	e0 0f                	loopne 0x1b2d7
-   1b2c8:	00 f0                	add    al,dh
-   1b2ca:	1f                   	pop    ds
-   1b2cb:	00 f8                	add    al,bh
-   1b2cd:	3e 00 7c 7c          	add    BYTE PTR ds:[si+0x7c],bh
-   1b2d1:	00 3e f8 00          	add    BYTE PTR ds:0xf8,bh
-   1b2d5:	1f                   	pop    ds
-   1b2d6:	f0 81 0f e0 c3       	lock or WORD PTR [bx],0xc3e0
-   1b2db:	07                   	pop    es
-   1b2dc:	c0 e7 03             	shl    bh,0x3
-   1b2df:	80 ff 01             	cmp    bh,0x1
-   1b2e2:	00 ff                	add    bh,bh
-   1b2e4:	00 00                	add    BYTE PTR [bx+si],al
-   1b2e6:	7e 00                	jle    0x1b2e8
-   1b2e8:	00 3c                	add    BYTE PTR [si],bh
-   1b2ea:	00 00                	add    BYTE PTR [bx+si],al
-   1b2ec:	18 00                	sbb    BYTE PTR [bx+si],al
-   1b2ee:	2d 70 00             	sub    ax,0x70
-   1b2f1:	00 7c 00             	add    BYTE PTR [si+0x0],bh
-   1b2f4:	00 3e 00 00          	add    BYTE PTR ds:0x0,bh
-   1b2f8:	1e                   	push   ds
-   1b2f9:	00 00                	add    BYTE PTR [bx+si],al
-   1b2fb:	0f 00 00             	sldt   WORD PTR [bx+si]
-   1b2fe:	0f 00 00             	sldt   WORD PTR [bx+si]
-   1b301:	0f e0 63 0f          	pavgb  mm4,QWORD PTR [bp+di+0xf]
-   1b305:	f8                   	clc    
-   1b306:	f3 0f fc f3          	repz paddb mm6,mm3
-   1b30a:	0f fe 63 1f          	paddd  mm4,QWORD PTR [bp+di+0x1f]
-   1b30e:	3f                   	aas    
-   1b30f:	00 fe                	add    dh,bh
-   1b311:	0f 00                	(bad)  
-   1b313:	fc                   	cld    
-   1b314:	07                   	pop    es
-   1b315:	00 f8                	add    al,bh
-   1b317:	03 00                	add    ax,WORD PTR [bx+si]
-   1b319:	e0 00                	loopne 0x1b31b
-   1b31b:	00 2d                	add    BYTE PTR [di],ch
-   1b31d:	f0 ff 0f             	lock dec WORD PTR [bx]
-   1b320:	fc                   	cld    
-   1b321:	ff                   	(bad)  
-   1b322:	3f                   	aas    
-   1b323:	fe                   	(bad)  
-   1b324:	ff                   	(bad)  
-   1b325:	7f fe                	jg     0x1b325
-   1b327:	ff                   	(bad)  
-   1b328:	7f 1f                	jg     0x1b349
-   1b32a:	00 f8                	add    al,bh
-   1b32c:	0f 00                	(bad)  
-   1b32e:	f0 8f                	lock (bad) 
-   1b330:	ff f0                	push   ax
-   1b332:	cf                   	iret   
-   1b333:	ff f1                	push   cx
-   1b335:	cf                   	iret   
-   1b336:	ff f3                	push   bx
-   1b338:	cf                   	iret   
-   1b339:	e3 f3                	jcxz   0x1b32e
-   1b33b:	9f                   	lahf   
-   1b33c:	c3                   	ret    
-   1b33d:	f3 fe c7             	repz inc bh
-   1b340:	f1                   	icebp  
-   1b341:	fe                   	(bad)  
-   1b342:	ff                   	(bad)  
-   1b343:	79 fc                	jns    0x1b341
-   1b345:	ff                   	(bad)  
-   1b346:	78 f0                	js     0x1b338
-   1b348:	3f                   	aas    
-   1b349:	38 2d                	cmp    BYTE PTR [di],ch
-   1b34b:	e0 ff                	loopne 0x1b34c
-   1b34d:	ff                   	(bad)  
-   1b34e:	fc                   	cld    
-   1b34f:	ff                   	(bad)  
-   1b350:	ff                   	(bad)  
-   1b351:	fe                   	(bad)  
-   1b352:	ff                   	(bad)  
-   1b353:	ff                   	(bad)  
-   1b354:	ff                   	(bad)  
-   1b355:	ff                   	(bad)  
-   1b356:	ff                   	(bad)  
-   1b357:	7f 3c                	jg     0x1b395
-   1b359:	00 1f                	add    BYTE PTR [bx],bl
-   1b35b:	3c 00                	cmp    al,0x0
-   1b35d:	0f 3c                	(bad)  
-   1b35f:	00 0f                	add    BYTE PTR [bx],cl
-   1b361:	3c 00                	cmp    al,0x0
-   1b363:	0f 3c                	(bad)  
-   1b365:	00 1f                	add    BYTE PTR [bx],bl
-   1b367:	3c 00                	cmp    al,0x0
-   1b369:	7f 3c                	jg     0x1b3a7
-   1b36b:	00 ff                	add    bh,bh
-   1b36d:	ff                   	(bad)  
-   1b36e:	ff                   	(bad)  
-   1b36f:	fe                   	(bad)  
-   1b370:	ff                   	(bad)  
-   1b371:	ff                   	(bad)  
-   1b372:	fc                   	cld    
-   1b373:	ff                   	(bad)  
-   1b374:	ff e0                	jmp    ax
-   1b376:	ff                   	(bad)  
-   1b377:	ff 2d                	jmp    DWORD PTR [di]
-   1b379:	ff                   	(bad)  
-   1b37a:	ff                   	(bad)  
-   1b37b:	ff                   	(bad)  
-   1b37c:	ff                   	(bad)  
-   1b37d:	ff                   	(bad)  
-   1b37e:	ff                   	(bad)  
-   1b37f:	ff                   	(bad)  
-   1b380:	ff                   	(bad)  
-   1b381:	ff                   	(bad)  
-   1b382:	ff                   	(bad)  
-   1b383:	ff                   	(bad)  
-   1b384:	ff 0f                	dec    WORD PTR [bx]
-   1b386:	1e                   	push   ds
-   1b387:	f0 0f 1e f0          	lock nop ax
-   1b38b:	0f 1e f0             	nop    ax
-   1b38e:	0f 1e f0             	nop    ax
-   1b391:	0f 1e f0             	nop    ax
-   1b394:	1f                   	pop    ds
-   1b395:	3f                   	aas    
-   1b396:	f8                   	clc    
-   1b397:	fe                   	(bad)  
-   1b398:	ff                   	(bad)  
-   1b399:	fe                   	(bad)  
-   1b39a:	fe                   	(bad)  
-   1b39b:	ff                   	(bad)  
-   1b39c:	ff                   	(bad)  
-   1b39d:	fc                   	cld    
-   1b39e:	f7 7f f8             	idiv   WORD PTR [bx-0x8]
-   1b3a1:	e3 3f                	jcxz   0x1b3e2
-   1b3a3:	00 80 0f 2d          	add    BYTE PTR [bx+si+0x2d0f],al
-   1b3a7:	f0 ff 0f             	lock dec WORD PTR [bx]
-   1b3aa:	fc                   	cld    
-   1b3ab:	ff                   	(bad)  
-   1b3ac:	3f                   	aas    
-   1b3ad:	fe                   	(bad)  
-   1b3ae:	ff                   	(bad)  
-   1b3af:	7f fe                	jg     0x1b3af
-   1b3b1:	ff                   	(bad)  
-   1b3b2:	7f 7f                	jg     0x1b433
-   1b3b4:	00 fe                	add    dh,bh
-   1b3b6:	1f                   	pop    ds
-   1b3b7:	00 f8                	add    al,bh
-   1b3b9:	0f 00                	(bad)  
-   1b3bb:	f0 0f 00             	lock (bad) 
-   1b3be:	f0 0f 00             	lock (bad) 
-   1b3c1:	f0 1f                	lock pop ds
-   1b3c3:	00 f8                	add    al,bh
-   1b3c5:	3f                   	aas    
-   1b3c6:	00 fc                	add    ah,bh
-   1b3c8:	fe 00                	inc    BYTE PTR [bx+si]
-   1b3ca:	7f fe                	jg     0x1b3ca
-   1b3cc:	00 7f fc             	add    BYTE PTR [bx-0x4],bh
-   1b3cf:	00 3f                	add    BYTE PTR [bx],bh
-   1b3d1:	f0 00 0f             	lock add BYTE PTR [bx],cl
-   1b3d4:	2d ff ff             	sub    ax,0xffff
-   1b3d7:	ff                   	(bad)  
-   1b3d8:	ff                   	(bad)  
-   1b3d9:	ff                   	(bad)  
-   1b3da:	ff                   	(bad)  
-   1b3db:	ff                   	(bad)  
-   1b3dc:	ff                   	(bad)  
-   1b3dd:	ff                   	(bad)  
-   1b3de:	ff                   	(bad)  
-   1b3df:	ff                   	(bad)  
-   1b3e0:	ff 0f                	dec    WORD PTR [bx]
-   1b3e2:	00 f0                	add    al,dh
-   1b3e4:	0f 00                	(bad)  
-   1b3e6:	f0 0f 00             	lock (bad) 
-   1b3e9:	f0 1f                	lock pop ds
-   1b3eb:	00 f8                	add    al,bh
-   1b3ed:	1f                   	pop    ds
-   1b3ee:	00 f8                	add    al,bh
-   1b3f0:	3f                   	aas    
-   1b3f1:	00 fc                	add    ah,bh
-   1b3f3:	fe 00                	inc    BYTE PTR [bx+si]
-   1b3f5:	7f fe                	jg     0x1b3f5
-   1b3f7:	ff                   	(bad)  
-   1b3f8:	7f fc                	jg     0x1b3f6
-   1b3fa:	ff                   	(bad)  
-   1b3fb:	3f                   	aas    
-   1b3fc:	f8                   	clc    
-   1b3fd:	ff 1f                	call   DWORD PTR [bx]
-   1b3ff:	e0 ff                	loopne 0x1b400
-   1b401:	07                   	pop    es
-   1b402:	2d ff ff             	sub    ax,0xffff
-   1b405:	ff                   	(bad)  
-   1b406:	ff                   	(bad)  
-   1b407:	ff                   	(bad)  
-   1b408:	ff                   	(bad)  
-   1b409:	ff                   	(bad)  
-   1b40a:	ff                   	(bad)  
-   1b40b:	ff                   	(bad)  
-   1b40c:	ff                   	(bad)  
-   1b40d:	ff                   	(bad)  
-   1b40e:	ff 0f                	dec    WORD PTR [bx]
-   1b410:	3c f0                	cmp    al,0xf0
-   1b412:	0f 3c                	(bad)  
-   1b414:	f0 0f 3c             	lock (bad) 
-   1b417:	f0 0f 3c             	lock (bad) 
-   1b41a:	f0 0f 3c             	lock (bad) 
-   1b41d:	f0 0f 3c             	lock (bad) 
-   1b420:	f0 0f 3c             	lock (bad) 
-   1b423:	f0 0f 00             	lock (bad) 
-   1b426:	f0 0f 00             	lock (bad) 
-   1b429:	f0 0f 00             	lock (bad) 
-   1b42c:	f0 0f 00             	lock (bad) 
-   1b42f:	f0 2d ff ff          	lock sub ax,0xffff
-   1b433:	ff                   	(bad)  
-   1b434:	ff                   	(bad)  
-   1b435:	ff                   	(bad)  
-   1b436:	ff                   	(bad)  
-   1b437:	ff                   	(bad)  
-   1b438:	ff                   	(bad)  
-   1b439:	ff                   	(bad)  
-   1b43a:	ff                   	(bad)  
-   1b43b:	ff                   	(bad)  
-   1b43c:	ff 0f                	dec    WORD PTR [bx]
-   1b43e:	3c 00                	cmp    al,0x0
-   1b440:	0f 3c                	(bad)  
-   1b442:	00 0f                	add    BYTE PTR [bx],cl
-   1b444:	3c 00                	cmp    al,0x0
-   1b446:	0f 3c                	(bad)  
-   1b448:	00 0f                	add    BYTE PTR [bx],cl
-   1b44a:	3c 00                	cmp    al,0x0
-   1b44c:	0f 3c                	(bad)  
-   1b44e:	00 0f                	add    BYTE PTR [bx],cl
-   1b450:	3c 00                	cmp    al,0x0
-   1b452:	0f 00 00             	sldt   WORD PTR [bx+si]
-   1b455:	0f 00 00             	sldt   WORD PTR [bx+si]
-   1b458:	0f 00 00             	sldt   WORD PTR [bx+si]
-   1b45b:	0f 00 00             	sldt   WORD PTR [bx+si]
-   1b45e:	2d f0 ff             	sub    ax,0xfff0
-   1b461:	0f fc ff             	paddb  mm7,mm7
-   1b464:	3f                   	aas    
-   1b465:	fe                   	(bad)  
-   1b466:	ff                   	(bad)  
-   1b467:	7f fe                	jg     0x1b467
-   1b469:	ff                   	(bad)  
-   1b46a:	7f 3f                	jg     0x1b4ab
-   1b46c:	00 fc                	add    ah,bh
-   1b46e:	1f                   	pop    ds
-   1b46f:	00 f8                	add    al,bh
-   1b471:	0f 00                	(bad)  
-   1b473:	f0 0f 78 f0          	lock vmread eax,esi
-   1b477:	0f 78 f0             	vmread eax,esi
-   1b47a:	0f 78 f0             	vmread eax,esi
-   1b47d:	1f                   	pop    ds
-   1b47e:	78 f8                	js     0x1b478
-   1b480:	3e                   	ds
-   1b481:	f8                   	clc    
-   1b482:	7f 7e                	jg     0x1b502
-   1b484:	f8                   	clc    
-   1b485:	7f 7c                	jg     0x1b503
-   1b487:	f8                   	clc    
-   1b488:	3f                   	aas    
-   1b489:	70 f0                	jo     0x1b47b
-   1b48b:	0f 2d ff             	cvtps2pi mm7,xmm7
-   1b48e:	ff                   	(bad)  
-   1b48f:	ff                   	(bad)  
-   1b490:	ff                   	(bad)  
-   1b491:	ff                   	(bad)  
-   1b492:	ff                   	(bad)  
-   1b493:	ff                   	(bad)  
-   1b494:	ff                   	(bad)  
-   1b495:	ff                   	(bad)  
-   1b496:	ff                   	(bad)  
-   1b497:	ff                   	(bad)  
-   1b498:	ff 00                	inc    WORD PTR [bx+si]
-   1b49a:	3c 00                	cmp    al,0x0
-   1b49c:	00 3c                	add    BYTE PTR [si],bh
-   1b49e:	00 00                	add    BYTE PTR [bx+si],al
-   1b4a0:	3c 00                	cmp    al,0x0
-   1b4a2:	00 3c                	add    BYTE PTR [si],bh
-   1b4a4:	00 00                	add    BYTE PTR [bx+si],al
-   1b4a6:	3c 00                	cmp    al,0x0
-   1b4a8:	00 3c                	add    BYTE PTR [si],bh
-   1b4aa:	00 00                	add    BYTE PTR [bx+si],al
-   1b4ac:	3c 00                	cmp    al,0x0
-   1b4ae:	ff                   	(bad)  
-   1b4af:	ff                   	(bad)  
-   1b4b0:	ff                   	(bad)  
-   1b4b1:	ff                   	(bad)  
-   1b4b2:	ff                   	(bad)  
-   1b4b3:	ff                   	(bad)  
-   1b4b4:	ff                   	(bad)  
-   1b4b5:	ff                   	(bad)  
-   1b4b6:	ff                   	(bad)  
-   1b4b7:	ff                   	(bad)  
-   1b4b8:	ff                   	(bad)  
-   1b4b9:	ff 24                	jmp    WORD PTR [si]
-   1b4bb:	00 00                	add    BYTE PTR [bx+si],al
-   1b4bd:	00 00                	add    BYTE PTR [bx+si],al
-   1b4bf:	00 00                	add    BYTE PTR [bx+si],al
-   1b4c1:	07                   	pop    es
-   1b4c2:	00 e0                	add    al,ah
-   1b4c4:	07                   	pop    es
-   1b4c5:	00 e0                	add    al,ah
-   1b4c7:	07                   	pop    es
-   1b4c8:	00 e0                	add    al,ah
-   1b4ca:	ff                   	(bad)  
-   1b4cb:	ff                   	(bad)  
-   1b4cc:	ff                   	(bad)  
-   1b4cd:	ff                   	(bad)  
-   1b4ce:	ff                   	(bad)  
-   1b4cf:	ff                   	(bad)  
-   1b4d0:	ff                   	(bad)  
-   1b4d1:	ff                   	(bad)  
-   1b4d2:	ff                   	(bad)  
-   1b4d3:	ff                   	(bad)  
-   1b4d4:	ff                   	(bad)  
-   1b4d5:	ff 07                	inc    WORD PTR [bx]
-   1b4d7:	00 e0                	add    al,ah
-   1b4d9:	07                   	pop    es
-   1b4da:	00 e0                	add    al,ah
-   1b4dc:	07                   	pop    es
-   1b4dd:	00 e0                	add    al,ah
-	...
-   1b4e7:	00 2d                	add    BYTE PTR [di],ch
-   1b4e9:	0f 00 1e 0f 00       	ltr    WORD PTR ds:0xf
-   1b4ee:	7e 0f                	jle    0x1b4ff
-   1b4f0:	00 7e 0f             	add    BYTE PTR [bp+0xf],bh
-   1b4f3:	00 f8                	add    al,bh
-   1b4f5:	0f 00                	(bad)  
-   1b4f7:	f0 0f 00             	lock (bad) 
-   1b4fa:	f0 0f 00             	lock (bad) 
-   1b4fd:	f0 0f 00             	lock (bad) 
-   1b500:	f8                   	clc    
-   1b501:	0f 00                	(bad)  
-   1b503:	fc                   	cld    
-   1b504:	ff                   	(bad)  
-   1b505:	ff                   	(bad)  
-   1b506:	7f ff                	jg     0x1b507
-   1b508:	ff                   	(bad)  
-   1b509:	7f ff                	jg     0x1b50a
-   1b50b:	ff                   	(bad)  
-   1b50c:	3f                   	aas    
-   1b50d:	ff                   	(bad)  
-   1b50e:	ff 0f                	dec    WORD PTR [bx]
-   1b510:	0f 00 00             	sldt   WORD PTR [bx+si]
-   1b513:	0f 00 00             	sldt   WORD PTR [bx+si]
-   1b516:	2d ff ff             	sub    ax,0xffff
-   1b519:	ff                   	(bad)  
-   1b51a:	ff                   	(bad)  
-   1b51b:	ff                   	(bad)  
-   1b51c:	ff                   	(bad)  
-   1b51d:	ff                   	(bad)  
-   1b51e:	ff                   	(bad)  
-   1b51f:	ff                   	(bad)  
-   1b520:	ff                   	(bad)  
-   1b521:	ff                   	(bad)  
-   1b522:	ff 80 ff 00          	inc    WORD PTR [bx+si+0xff]
-   1b526:	c0 ff 01             	sar    bh,0x1
-   1b529:	e0 f7                	loopne 0x1b522
-   1b52b:	03 f0                	add    si,ax
-   1b52d:	e3 07                	jcxz   0x1b536
-   1b52f:	f8                   	clc    
-   1b530:	c1 0f fc             	ror    WORD PTR [bx],0xfc
-   1b533:	80 1f 7e             	sbb    BYTE PTR [bx],0x7e
-   1b536:	00 3f                	add    BYTE PTR [bx],bh
-   1b538:	3f                   	aas    
-   1b539:	00 7e 1f             	add    BYTE PTR [bp+0x1f],bh
-   1b53c:	00 fc                	add    ah,bh
-   1b53e:	0f 00                	(bad)  
-   1b540:	f8                   	clc    
-   1b541:	07                   	pop    es
-   1b542:	00 f0                	add    al,dh
-   1b544:	2d ff ff             	sub    ax,0xffff
-   1b547:	ff                   	(bad)  
-   1b548:	ff                   	(bad)  
-   1b549:	ff                   	(bad)  
-   1b54a:	ff                   	(bad)  
-   1b54b:	ff                   	(bad)  
-   1b54c:	ff                   	(bad)  
-   1b54d:	ff                   	(bad)  
-   1b54e:	ff                   	(bad)  
-   1b54f:	ff                   	(bad)  
-   1b550:	ff 00                	inc    WORD PTR [bx+si]
-   1b552:	00 f0                	add    al,dh
-   1b554:	00 00                	add    BYTE PTR [bx+si],al
-   1b556:	f0 00 00             	lock add BYTE PTR [bx+si],al
-   1b559:	f0 00 00             	lock add BYTE PTR [bx+si],al
-   1b55c:	f0 00 00             	lock add BYTE PTR [bx+si],al
-   1b55f:	f0 00 00             	lock add BYTE PTR [bx+si],al
-   1b562:	f0 00 00             	lock add BYTE PTR [bx+si],al
-   1b565:	f0 00 00             	lock add BYTE PTR [bx+si],al
-   1b568:	f0 00 00             	lock add BYTE PTR [bx+si],al
-   1b56b:	f0 00 00             	lock add BYTE PTR [bx+si],al
-   1b56e:	f0 00 00             	lock add BYTE PTR [bx+si],al
-   1b571:	f0 2d ff ff          	lock sub ax,0xffff
-   1b575:	ff                   	(bad)  
-   1b576:	ff                   	(bad)  
-   1b577:	ff                   	(bad)  
-   1b578:	ff                   	(bad)  
-   1b579:	ff                   	(bad)  
-   1b57a:	ff                   	(bad)  
-   1b57b:	ff                   	(bad)  
-   1b57c:	fe                   	(bad)  
-   1b57d:	ff                   	(bad)  
-   1b57e:	ff                   	(bad)  
-   1b57f:	fc                   	cld    
-   1b580:	01 00                	add    WORD PTR [bx+si],ax
-   1b582:	f8                   	clc    
-   1b583:	03 00                	add    ax,WORD PTR [bx+si]
-   1b585:	f0 07                	lock pop es
-   1b587:	00 e0                	add    al,ah
-   1b589:	0f 00                	(bad)  
-   1b58b:	f0 07                	lock pop es
-   1b58d:	00 f8                	add    al,bh
-   1b58f:	03 00                	add    ax,WORD PTR [bx+si]
-   1b591:	fc                   	cld    
-   1b592:	01 00                	add    WORD PTR [bx+si],ax
-   1b594:	fe                   	(bad)  
-   1b595:	ff                   	(bad)  
-   1b596:	ff                   	(bad)  
-   1b597:	ff                   	(bad)  
-   1b598:	ff                   	(bad)  
-   1b599:	ff                   	(bad)  
-   1b59a:	ff                   	(bad)  
-   1b59b:	ff                   	(bad)  
-   1b59c:	ff                   	(bad)  
-   1b59d:	ff                   	(bad)  
-   1b59e:	ff                   	(bad)  
-   1b59f:	ff 2d                	jmp    DWORD PTR [di]
-   1b5a1:	ff                   	(bad)  
-   1b5a2:	ff                   	(bad)  
-   1b5a3:	ff                   	(bad)  
-   1b5a4:	ff                   	(bad)  
-   1b5a5:	ff                   	(bad)  
-   1b5a6:	ff                   	(bad)  
-   1b5a7:	ff                   	(bad)  
-   1b5a8:	ff                   	(bad)  
-   1b5a9:	ff                   	(bad)  
-   1b5aa:	ff                   	(bad)  
-   1b5ab:	ff                   	(bad)  
-   1b5ac:	ff                   	(bad)  
-   1b5ad:	fe 00                	inc    BYTE PTR [bx+si]
-   1b5af:	00 fc                	add    ah,bh
-   1b5b1:	01 00                	add    WORD PTR [bx+si],ax
-   1b5b3:	f8                   	clc    
-   1b5b4:	03 00                	add    ax,WORD PTR [bx+si]
-   1b5b6:	f0 07                	lock pop es
-   1b5b8:	00 e0                	add    al,ah
-   1b5ba:	0f 00 c0             	sldt   ax
-   1b5bd:	1f                   	pop    ds
-   1b5be:	00 80 3f 00          	add    BYTE PTR [bx+si+0x3f],al
-   1b5c2:	ff                   	(bad)  
-   1b5c3:	ff                   	(bad)  
-   1b5c4:	ff                   	(bad)  
-   1b5c5:	ff                   	(bad)  
-   1b5c6:	ff                   	(bad)  
-   1b5c7:	ff                   	(bad)  
-   1b5c8:	ff                   	(bad)  
-   1b5c9:	ff                   	(bad)  
-   1b5ca:	ff                   	(bad)  
-   1b5cb:	ff                   	(bad)  
-   1b5cc:	ff                   	(bad)  
-   1b5cd:	ff 2d                	jmp    DWORD PTR [di]
-   1b5cf:	fc                   	cld    
-   1b5d0:	ff                   	(bad)  
-   1b5d1:	3f                   	aas    
-   1b5d2:	fe                   	(bad)  
-   1b5d3:	ff                   	(bad)  
-   1b5d4:	7f ff                	jg     0x1b5d5
-   1b5d6:	ff                   	(bad)  
-   1b5d7:	ff                   	(bad)  
-   1b5d8:	ff                   	(bad)  
-   1b5d9:	ff                   	(bad)  
-   1b5da:	ff 1f                	call   DWORD PTR [bx]
-   1b5dc:	00 f8                	add    al,bh
-   1b5de:	0f 00                	(bad)  
-   1b5e0:	f0 0f 00             	lock (bad) 
-   1b5e3:	f0 0f 00             	lock (bad) 
-   1b5e6:	f0 0f 00             	lock (bad) 
-   1b5e9:	f0 0f 00             	lock (bad) 
-   1b5ec:	f0 1f                	lock pop ds
-   1b5ee:	00 f8                	add    al,bh
-   1b5f0:	ff                   	(bad)  
-   1b5f1:	ff                   	(bad)  
-   1b5f2:	ff                   	(bad)  
-   1b5f3:	ff                   	(bad)  
-   1b5f4:	ff                   	(bad)  
-   1b5f5:	ff                   	(bad)  
-   1b5f6:	fe                   	(bad)  
-   1b5f7:	ff                   	(bad)  
-   1b5f8:	7f fc                	jg     0x1b5f6
-   1b5fa:	ff                   	(bad)  
-   1b5fb:	3f                   	aas    
-   1b5fc:	2d ff ff             	sub    ax,0xffff
-   1b5ff:	ff                   	(bad)  
-   1b600:	ff                   	(bad)  
-   1b601:	ff                   	(bad)  
-   1b602:	ff                   	(bad)  
-   1b603:	ff                   	(bad)  
-   1b604:	ff                   	(bad)  
-   1b605:	ff                   	(bad)  
-   1b606:	ff                   	(bad)  
-   1b607:	ff                   	(bad)  
-   1b608:	ff 0f                	dec    WORD PTR [bx]
-   1b60a:	f0 00 0f             	lock add BYTE PTR [bx],cl
-   1b60d:	f0 00 0f             	lock add BYTE PTR [bx],cl
-   1b610:	f0 00 0f             	lock add BYTE PTR [bx],cl
-   1b613:	f0 00 0f             	lock add BYTE PTR [bx],cl
-   1b616:	f0 00 0f             	lock add BYTE PTR [bx],cl
-   1b619:	f0 00 1f             	lock add BYTE PTR [bx],bl
-   1b61c:	f8                   	clc    
-   1b61d:	00 ff                	add    bh,bh
-   1b61f:	ff 00                	inc    WORD PTR [bx+si]
-   1b621:	ff                   	(bad)  
-   1b622:	ff 00                	inc    WORD PTR [bx+si]
-   1b624:	fe                   	(bad)  
-   1b625:	7f 00                	jg     0x1b627
-   1b627:	f8                   	clc    
-   1b628:	1f                   	pop    ds
-   1b629:	00 2d                	add    BYTE PTR [di],ch
-   1b62b:	fc                   	cld    
-   1b62c:	ff                   	(bad)  
-   1b62d:	3f                   	aas    
-   1b62e:	fe                   	(bad)  
-   1b62f:	ff                   	(bad)  
-   1b630:	7f ff                	jg     0x1b631
-   1b632:	ff                   	(bad)  
-   1b633:	ff                   	(bad)  
-   1b634:	ff                   	(bad)  
-   1b635:	ff                   	(bad)  
-   1b636:	ff 1f                	call   DWORD PTR [bx]
-   1b638:	00 f8                	add    al,bh
-   1b63a:	0f 00                	(bad)  
-   1b63c:	f0 0f c0 f1          	lock xadd cl,dh
-   1b640:	0f c0 fb             	xadd   bl,bh
-   1b643:	0f c0 ff             	xadd   bh,bh
-   1b646:	0f 80 7f 1f          	jo     0x1d5c9
-   1b64a:	00 3f                	add    BYTE PTR [bx],bh
-   1b64c:	ff                   	(bad)  
-   1b64d:	ff                   	(bad)  
-   1b64e:	7f ff                	jg     0x1b64f
-   1b650:	ff                   	(bad)  
-   1b651:	ff                   	(bad)  
-   1b652:	fe                   	(bad)  
-   1b653:	ff                   	(bad)  
-   1b654:	ff                   	(bad)  
-   1b655:	fc                   	cld    
-   1b656:	ff f3                	push   bx
-   1b658:	2d ff ff             	sub    ax,0xffff
-   1b65b:	ff                   	(bad)  
-   1b65c:	ff                   	(bad)  
-   1b65d:	ff                   	(bad)  
-   1b65e:	ff                   	(bad)  
-   1b65f:	ff                   	(bad)  
-   1b660:	ff                   	(bad)  
-   1b661:	ff                   	(bad)  
-   1b662:	ff                   	(bad)  
-   1b663:	ff                   	(bad)  
-   1b664:	ff 0f                	dec    WORD PTR [bx]
-   1b666:	7e 00                	jle    0x1b668
-   1b668:	0f 7e 00             	movd   DWORD PTR [bx+si],mm0
-   1b66b:	0f 7e 00             	movd   DWORD PTR [bx+si],mm0
-   1b66e:	0f fe 00             	paddd  mm0,QWORD PTR [bx+si]
-   1b671:	0f fe 03             	paddd  mm0,QWORD PTR [bp+di]
-   1b674:	0f fe 0f             	paddd  mm1,QWORD PTR [bx]
-   1b677:	1f                   	pop    ds
-   1b678:	ff                   	(bad)  
-   1b679:	ff                   	(bad)  
-   1b67a:	ff df                	call   <internal disassembler error>
-   1b67c:	ff                   	(bad)  
-   1b67d:	ff 0f                	dec    WORD PTR [bx]
-   1b67f:	ff                   	(bad)  
-   1b680:	fe 07                	inc    BYTE PTR [bx]
-   1b682:	fc                   	cld    
-   1b683:	f8                   	clc    
-   1b684:	01 e0                	add    ax,sp
-   1b686:	2d f0 03             	sub    ax,0x3f0
-   1b689:	3c fc                	cmp    al,0xfc
-   1b68b:	0f 7c                	(bad)  
-   1b68d:	fe 0f                	dec    BYTE PTR [bx]
-   1b68f:	fc                   	cld    
-   1b690:	fe                   	(bad)  
-   1b691:	1f                   	pop    ds
-   1b692:	f8                   	clc    
-   1b693:	1f                   	pop    ds
-   1b694:	1f                   	pop    ds
-   1b695:	f0 0f 1e f0          	lock nop ax
-   1b699:	0f 1e f0             	nop    ax
-   1b69c:	0f 1e f0             	nop    ax
-   1b69f:	0f 1e f0             	nop    ax
-   1b6a2:	0f 1e f0             	nop    ax
-   1b6a5:	0f 3e                	(bad)  
-   1b6a7:	f8                   	clc    
-   1b6a8:	1f                   	pop    ds
-   1b6a9:	fc                   	cld    
-   1b6aa:	7f 3f                	jg     0x1b6eb
-   1b6ac:	fc                   	cld    
-   1b6ad:	7f 3e                	jg     0x1b6ed
-   1b6af:	f8                   	clc    
-   1b6b0:	3f                   	aas    
-   1b6b1:	3c f0                	cmp    al,0xf0
-   1b6b3:	0f 2d 0f             	cvtps2pi mm1,QWORD PTR [bx]
-   1b6b6:	00 00                	add    BYTE PTR [bx+si],al
-   1b6b8:	0f 00 00             	sldt   WORD PTR [bx+si]
-   1b6bb:	0f 00 00             	sldt   WORD PTR [bx+si]
-   1b6be:	0f 00 00             	sldt   WORD PTR [bx+si]
-   1b6c1:	0f 00 00             	sldt   WORD PTR [bx+si]
-   1b6c4:	ff                   	(bad)  
-   1b6c5:	ff                   	(bad)  
-   1b6c6:	ff                   	(bad)  
-   1b6c7:	ff                   	(bad)  
-   1b6c8:	ff                   	(bad)  
-   1b6c9:	ff                   	(bad)  
-   1b6ca:	ff                   	(bad)  
-   1b6cb:	ff                   	(bad)  
-   1b6cc:	ff                   	(bad)  
-   1b6cd:	ff                   	(bad)  
-   1b6ce:	ff                   	(bad)  
-   1b6cf:	ff                   	(bad)  
-   1b6d0:	ff                   	(bad)  
-   1b6d1:	ff                   	(bad)  
-   1b6d2:	ff 0f                	dec    WORD PTR [bx]
-   1b6d4:	00 00                	add    BYTE PTR [bx+si],al
-   1b6d6:	0f 00 00             	sldt   WORD PTR [bx+si]
-   1b6d9:	0f 00 00             	sldt   WORD PTR [bx+si]
-   1b6dc:	0f 00 00             	sldt   WORD PTR [bx+si]
-   1b6df:	0f 00 00             	sldt   WORD PTR [bx+si]
-   1b6e2:	2d ff ff             	sub    ax,0xffff
-   1b6e5:	0f ff                	(bad)  
-   1b6e7:	ff                   	(bad)  
-   1b6e8:	3f                   	aas    
-   1b6e9:	ff                   	(bad)  
-   1b6ea:	ff                   	(bad)  
-   1b6eb:	7f ff                	jg     0x1b6ec
-   1b6ed:	ff                   	(bad)  
-   1b6ee:	7f 00                	jg     0x1b6f0
-   1b6f0:	00 fc                	add    ah,bh
-   1b6f2:	00 00                	add    BYTE PTR [bx+si],al
-   1b6f4:	f8                   	clc    
-   1b6f5:	00 00                	add    BYTE PTR [bx+si],al
-   1b6f7:	f0 00 00             	lock add BYTE PTR [bx+si],al
-   1b6fa:	f0 00 00             	lock add BYTE PTR [bx+si],al
-   1b6fd:	f0 00 00             	lock add BYTE PTR [bx+si],al
-   1b700:	f8                   	clc    
-   1b701:	00 00                	add    BYTE PTR [bx+si],al
-   1b703:	fc                   	cld    
-   1b704:	ff                   	(bad)  
-   1b705:	ff                   	(bad)  
-   1b706:	7f ff                	jg     0x1b707
-   1b708:	ff                   	(bad)  
-   1b709:	7f ff                	jg     0x1b70a
-   1b70b:	ff                   	(bad)  
-   1b70c:	3f                   	aas    
-   1b70d:	ff                   	(bad)  
-   1b70e:	ff 0f                	dec    WORD PTR [bx]
-   1b710:	2d ff 07             	sub    ax,0x7ff
-   1b713:	00 ff                	add    bh,bh
-   1b715:	1f                   	pop    ds
-   1b716:	00 ff                	add    bh,bh
-   1b718:	7f 00                	jg     0x1b71a
-   1b71a:	ff                   	(bad)  
-   1b71b:	ff 01                	inc    WORD PTR [bx+di]
-   1b71d:	00 f8                	add    al,bh
-   1b71f:	07                   	pop    es
-   1b720:	00 e0                	add    al,ah
-   1b722:	1f                   	pop    ds
-   1b723:	00 80 7f 00          	add    BYTE PTR [bx+si+0x7f],al
-   1b727:	00 fe                	add    dh,bh
-   1b729:	00 80 7f 00          	add    BYTE PTR [bx+si+0x7f],al
-   1b72d:	e0 1f                	loopne 0x1b74e
-   1b72f:	00 f8                	add    al,bh
-   1b731:	07                   	pop    es
-   1b732:	ff                   	(bad)  
-   1b733:	ff 01                	inc    WORD PTR [bx+di]
-   1b735:	ff                   	(bad)  
-   1b736:	7f 00                	jg     0x1b738
-   1b738:	ff 1f                	call   DWORD PTR [bx]
-   1b73a:	00 ff                	add    bh,bh
-   1b73c:	07                   	pop    es
-   1b73d:	00 2d                	add    BYTE PTR [di],ch
-   1b73f:	ff                   	(bad)  
-   1b740:	ff                   	(bad)  
-   1b741:	ff                   	(bad)  
-   1b742:	ff                   	(bad)  
-   1b743:	ff                   	(bad)  
-   1b744:	ff                   	(bad)  
-   1b745:	ff                   	(bad)  
-   1b746:	ff                   	(bad)  
-   1b747:	ff                   	(bad)  
-   1b748:	ff                   	(bad)  
-   1b749:	ff                   	(bad)  
-   1b74a:	7f 00                	jg     0x1b74c
-   1b74c:	00 3f                	add    BYTE PTR [bx],bh
-   1b74e:	00 80 1f 00          	add    BYTE PTR [bx+si+0x1f],al
-   1b752:	c0 0f 00             	ror    BYTE PTR [bx],0x0
-   1b755:	e0 07                	loopne 0x1b75e
-   1b757:	00 c0                	add    al,al
-   1b759:	0f 00 80 1f 00       	sldt   WORD PTR [bx+si+0x1f]
-   1b75e:	00 3f                	add    BYTE PTR [bx],bh
-   1b760:	ff                   	(bad)  
-   1b761:	ff                   	(bad)  
-   1b762:	7f ff                	jg     0x1b763
-   1b764:	ff                   	(bad)  
-   1b765:	ff                   	(bad)  
-   1b766:	ff                   	(bad)  
-   1b767:	ff                   	(bad)  
-   1b768:	ff                   	(bad)  
-   1b769:	ff                   	(bad)  
-   1b76a:	ff                   	(bad)  
-   1b76b:	ff 2d                	jmp    DWORD PTR [di]
-   1b76d:	7f 00                	jg     0x1b76f
-   1b76f:	fe                   	(bad)  
-   1b770:	ff 00                	inc    WORD PTR [bx+si]
-   1b772:	ff                   	(bad)  
-   1b773:	ff 81 ff ff          	inc    WORD PTR [bx+di-0x1]
-   1b777:	c3                   	ret    
-   1b778:	ff c0                	inc    ax
-   1b77a:	e7 03                	out    0x3,ax
-   1b77c:	80 ff 01             	cmp    bh,0x1
-   1b77f:	00 ff                	add    bh,bh
-   1b781:	00 00                	add    BYTE PTR [bx+si],al
-   1b783:	7e 00                	jle    0x1b785
-   1b785:	00 ff                	add    bh,bh
-   1b787:	00 80 ff 01          	add    BYTE PTR [bx+si+0x1ff],al
-   1b78b:	c0 e7 03             	shl    bh,0x3
-   1b78e:	ff c3                	inc    bx
-   1b790:	ff                   	(bad)  
-   1b791:	ff 81 ff ff          	inc    WORD PTR [bx+di-0x1]
-   1b795:	00 ff                	add    bh,bh
-   1b797:	7f 00                	jg     0x1b799
-   1b799:	fe                   	(bad)  
-   1b79a:	2d ff 03             	sub    ax,0x3ff
-   1b79d:	00 ff                	add    bh,bh
-   1b79f:	07                   	pop    es
-   1b7a0:	00 ff                	add    bh,bh
-   1b7a2:	0f 00                	(bad)  
-   1b7a4:	ff 1f                	call   DWORD PTR [bx]
-   1b7a6:	00 00                	add    BYTE PTR [bx+si],al
-   1b7a8:	3f                   	aas    
-   1b7a9:	00 00                	add    BYTE PTR [bx+si],al
-   1b7ab:	fe                   	(bad)  
-   1b7ac:	ff 00                	inc    WORD PTR [bx+si]
-   1b7ae:	fc                   	cld    
-   1b7af:	ff 00                	inc    WORD PTR [bx+si]
-   1b7b1:	f8                   	clc    
-   1b7b2:	ff 00                	inc    WORD PTR [bx+si]
-   1b7b4:	fc                   	cld    
-   1b7b5:	ff 00                	inc    WORD PTR [bx+si]
-   1b7b7:	fe                   	(bad)  
-   1b7b8:	ff 00                	inc    WORD PTR [bx+si]
-   1b7ba:	3f                   	aas    
-   1b7bb:	00 ff                	add    bh,bh
-   1b7bd:	1f                   	pop    ds
-   1b7be:	00 ff                	add    bh,bh
-   1b7c0:	0f 00                	(bad)  
-   1b7c2:	ff 07                	inc    WORD PTR [bx]
-   1b7c4:	00 ff                	add    bh,bh
-   1b7c6:	03 00                	add    ax,WORD PTR [bx+si]
-   1b7c8:	2d 0f 00             	sub    ax,0xf
-   1b7cb:	ff 0f                	dec    WORD PTR [bx]
-   1b7cd:	80 ff 0f             	cmp    bh,0xf
-   1b7d0:	c0 ff 0f             	sar    bh,0xf
-   1b7d3:	e0 ff                	loopne 0x1b7d4
-   1b7d5:	0f f0                	(bad)  
-   1b7d7:	f3 0f f8 f1          	repz psubb mm6,mm1
-   1b7db:	0f fc f0             	paddb  mm6,mm0
-   1b7de:	0f 7e f0             	movd   eax,mm6
-   1b7e1:	0f 3f                	(bad)  
-   1b7e3:	f0 8f                	lock (bad) 
-   1b7e5:	1f                   	pop    ds
-   1b7e6:	f0 cf                	lock iret 
-   1b7e8:	0f f0                	(bad)  
-   1b7ea:	ff 07                	inc    WORD PTR [bx]
-   1b7ec:	f0 ff 03             	lock inc WORD PTR [bp+di]
-   1b7ef:	f0 ff 01             	lock inc WORD PTR [bx+di]
-   1b7f2:	f0 ff 00             	lock inc WORD PTR [bx+si]
-   1b7f5:	f0 24 00             	lock and al,0x0
-   1b7f8:	00 00                	add    BYTE PTR [bx+si],al
-   1b7fa:	00 00                	add    BYTE PTR [bx+si],al
-   1b7fc:	00 ff                	add    bh,bh
-   1b7fe:	ff                   	(bad)  
-   1b7ff:	ff                   	(bad)  
-   1b800:	ff                   	(bad)  
-   1b801:	ff                   	(bad)  
-   1b802:	ff                   	(bad)  
-   1b803:	ff                   	(bad)  
-   1b804:	ff                   	(bad)  
-   1b805:	ff                   	(bad)  
-   1b806:	ff                   	(bad)  
-   1b807:	ff                   	(bad)  
-   1b808:	ff 07                	inc    WORD PTR [bx]
-   1b80a:	00 e0                	add    al,ah
-   1b80c:	07                   	pop    es
-   1b80d:	00 e0                	add    al,ah
-   1b80f:	07                   	pop    es
-   1b810:	00 e0                	add    al,ah
-   1b812:	07                   	pop    es
-   1b813:	00 e0                	add    al,ah
-   1b815:	07                   	pop    es
-   1b816:	00 e0                	add    al,ah
-   1b818:	07                   	pop    es
-   1b819:	00 e0                	add    al,ah
-	...
-   1b823:	00 2d                	add    BYTE PTR [di],ch
-   1b825:	c0 00 00             	rol    BYTE PTR [bx+si],0x0
-   1b828:	e0 01                	loopne 0x1b82b
-   1b82a:	00 e0                	add    al,ah
-   1b82c:	03 00                	add    ax,WORD PTR [bx+si]
-   1b82e:	c0 07 00             	rol    BYTE PTR [bx],0x0
-   1b831:	80 0f 00             	or     BYTE PTR [bx],0x0
-   1b834:	00 1f                	add    BYTE PTR [bx],bl
-   1b836:	00 00                	add    BYTE PTR [bx+si],al
-   1b838:	3e 00 00             	add    BYTE PTR ds:[bx+si],al
-   1b83b:	7c 00                	jl     0x1b83d
-   1b83d:	00 f8                	add    al,bh
-   1b83f:	00 00                	add    BYTE PTR [bx+si],al
-   1b841:	f0 01 00             	lock add WORD PTR [bx+si],ax
-   1b844:	e0 03                	loopne 0x1b849
-   1b846:	00 c0                	add    al,al
-   1b848:	07                   	pop    es
-   1b849:	00 80 0f 00          	add    BYTE PTR [bx+si+0xf],al
-   1b84d:	00 0f                	add    BYTE PTR [bx],cl
-   1b84f:	00 00                	add    BYTE PTR [bx+si],al
-   1b851:	06                   	push   es
-   1b852:	24 00                	and    al,0x0
-   1b854:	00 00                	add    BYTE PTR [bx+si],al
-   1b856:	00 00                	add    BYTE PTR [bx+si],al
-   1b858:	00 07                	add    BYTE PTR [bx],al
-   1b85a:	00 e0                	add    al,ah
-   1b85c:	07                   	pop    es
-   1b85d:	00 e0                	add    al,ah
-   1b85f:	07                   	pop    es
-   1b860:	00 e0                	add    al,ah
-   1b862:	07                   	pop    es
-   1b863:	00 e0                	add    al,ah
-   1b865:	07                   	pop    es
-   1b866:	00 e0                	add    al,ah
-   1b868:	07                   	pop    es
-   1b869:	00 e0                	add    al,ah
-   1b86b:	ff                   	(bad)  
-   1b86c:	ff                   	(bad)  
-   1b86d:	ff                   	(bad)  
-   1b86e:	ff                   	(bad)  
-   1b86f:	ff                   	(bad)  
-   1b870:	ff                   	(bad)  
-   1b871:	ff                   	(bad)  
-   1b872:	ff                   	(bad)  
-   1b873:	ff                   	(bad)  
-   1b874:	ff                   	(bad)  
-   1b875:	ff                   	(bad)  
-   1b876:	ff 00                	inc    WORD PTR [bx+si]
-	...
-   1b880:	2a 00                	sub    al,BYTE PTR [bx+si]
-   1b882:	00 00                	add    BYTE PTR [bx+si],al
-   1b884:	40                   	inc    ax
-   1b885:	00 00                	add    BYTE PTR [bx+si],al
-   1b887:	60                   	pusha  
-   1b888:	00 00                	add    BYTE PTR [bx+si],al
-   1b88a:	70 00                	jo     0x1b88c
-   1b88c:	00 78 00             	add    BYTE PTR [bx+si+0x0],bh
-   1b88f:	00 3c                	add    BYTE PTR [si],bh
-   1b891:	00 00                	add    BYTE PTR [bx+si],al
-   1b893:	1e                   	push   ds
-   1b894:	00 00                	add    BYTE PTR [bx+si],al
-   1b896:	0f 00 00             	sldt   WORD PTR [bx+si]
-   1b899:	1e                   	push   ds
-   1b89a:	00 00                	add    BYTE PTR [bx+si],al
-   1b89c:	3c 00                	cmp    al,0x0
-   1b89e:	00 78 00             	add    BYTE PTR [bx+si+0x0],bh
-   1b8a1:	00 70 00             	add    BYTE PTR [bx+si+0x0],dh
-   1b8a4:	00 60 00             	add    BYTE PTR [bx+si+0x0],ah
-   1b8a7:	00 40 00             	add    BYTE PTR [bx+si+0x0],al
-   1b8aa:	00 00                	add    BYTE PTR [bx+si],al
-   1b8ac:	00 00                	add    BYTE PTR [bx+si],al
-   1b8ae:	2d 00 00             	sub    ax,0x0
-   1b8b1:	f0 00 00             	lock add BYTE PTR [bx+si],al
-   1b8b4:	f0 00 00             	lock add BYTE PTR [bx+si],al
-   1b8b7:	f0 00 00             	lock add BYTE PTR [bx+si],al
-   1b8ba:	f0 00 00             	lock add BYTE PTR [bx+si],al
-   1b8bd:	f0 00 00             	lock add BYTE PTR [bx+si],al
-   1b8c0:	f0 00 00             	lock add BYTE PTR [bx+si],al
-   1b8c3:	f0 00 00             	lock add BYTE PTR [bx+si],al
-   1b8c6:	f0 00 00             	lock add BYTE PTR [bx+si],al
-   1b8c9:	f0 00 00             	lock add BYTE PTR [bx+si],al
-   1b8cc:	f0 00 00             	lock add BYTE PTR [bx+si],al
-   1b8cf:	f0 00 00             	lock add BYTE PTR [bx+si],al
-   1b8d2:	f0 00 00             	lock add BYTE PTR [bx+si],al
-   1b8d5:	f0 00 00             	lock add BYTE PTR [bx+si],al
-   1b8d8:	f0 00 00             	lock add BYTE PTR [bx+si],al
-   1b8db:	f0 2d ff ff          	lock sub ax,0xffff
-   1b8df:	1f                   	pop    ds
-   1b8e0:	ff                   	(bad)  
-   1b8e1:	ff 1f                	call   DWORD PTR [bx]
-   1b8e3:	ff                   	(bad)  
-   1b8e4:	ff 1f                	call   DWORD PTR [bx]
-   1b8e6:	ff                   	(bad)  
-   1b8e7:	ff 1f                	call   DWORD PTR [bx]
-   1b8e9:	c0 03 0f             	rol    BYTE PTR [bp+di],0xf
-   1b8ec:	e0 01                	loopne 0x1b8ef
-   1b8ee:	1e                   	push   ds
-   1b8ef:	f0 00 1e f0 00       	lock add BYTE PTR ds:0xf0,bl
-   1b8f4:	1e                   	push   ds
-   1b8f5:	f0 00 1e f0 00       	lock add BYTE PTR ds:0xf0,bl
-   1b8fa:	1e                   	push   ds
-   1b8fb:	f0 01 1f             	lock add WORD PTR [bx],bx
-   1b8fe:	f0 ff 1f             	lock call DWORD PTR [bx]
-   1b901:	f0 ff 1f             	lock call DWORD PTR [bx]
-   1b904:	e0 ff                	loopne 0x1b905
-   1b906:	0f 80 ff 03          	jo     0x1bd09
-   1b90a:	2d 00 c0             	sub    ax,0xc000
-   1b90d:	03 80 f1 0f          	add    ax,WORD PTR [bx+si+0xff1]
-   1b911:	c0 f9 1f             	sar    cl,0x1f
-   1b914:	e0 f9                	loopne 0x1b90f
-   1b916:	1f                   	pop    ds
-   1b917:	e0 3c                	loopne 0x1b955
-   1b919:	1e                   	push   ds
-   1b91a:	e0 1c                	loopne 0x1b938
-   1b91c:	1c e0                	sbb    al,0xe0
-   1b91e:	1c 1c                	sbb    al,0x1c
-   1b920:	e0 1c                	loopne 0x1b93e
-   1b922:	1c e0                	sbb    al,0xe0
-   1b924:	1c 1c                	sbb    al,0x1c
-   1b926:	e0 3c                	loopne 0x1b964
-   1b928:	1e                   	push   ds
-   1b929:	e0 f9                	loopne 0x1b924
-   1b92b:	0f e0 ff             	pavgb  mm7,mm7
-   1b92e:	07                   	pop    es
-   1b92f:	e0 ff                	loopne 0x1b930
-   1b931:	1f                   	pop    ds
-   1b932:	c0 ff 1f             	sar    bh,0x1f
-   1b935:	00 ff                	add    bh,bh
-   1b937:	1f                   	pop    ds
-   1b938:	2d ff ff             	sub    ax,0xffff
-   1b93b:	1f                   	pop    ds
-   1b93c:	ff                   	(bad)  
-   1b93d:	ff 1f                	call   DWORD PTR [bx]
-   1b93f:	ff                   	(bad)  
-   1b940:	ff 1f                	call   DWORD PTR [bx]
-   1b942:	ff                   	(bad)  
-   1b943:	ff 1f                	call   DWORD PTR [bx]
-   1b945:	80 03 0e             	add    BYTE PTR [bp+di],0xe
-   1b948:	c0 01 1c             	rol    BYTE PTR [bx+di],0x1c
-   1b94b:	e0 00                	loopne 0x1b94d
-   1b94d:	1c e0                	sbb    al,0xe0
-   1b94f:	00 1c                	add    BYTE PTR [si],bl
-   1b951:	e0 00                	loopne 0x1b953
-   1b953:	1c e0                	sbb    al,0xe0
-   1b955:	00 1c                	add    BYTE PTR [si],bl
-   1b957:	e0 01                	loopne 0x1b95a
-   1b959:	1e                   	push   ds
-   1b95a:	e0 ff                	loopne 0x1b95b
-   1b95c:	1f                   	pop    ds
-   1b95d:	c0 ff 1f             	sar    bh,0x1f
-   1b960:	80 ff 0f             	cmp    bh,0xf
-   1b963:	00 fe                	add    dh,bh
-   1b965:	03 2d                	add    bp,WORD PTR [di]
-   1b967:	00 ff                	add    bh,bh
-   1b969:	03 c0                	add    ax,ax
-   1b96b:	ff 0f                	dec    WORD PTR [bx]
-   1b96d:	e0 ff                	loopne 0x1b96e
-   1b96f:	1f                   	pop    ds
-   1b970:	e0 ff                	loopne 0x1b971
-   1b972:	1f                   	pop    ds
-   1b973:	e0 01                	loopne 0x1b976
-   1b975:	1e                   	push   ds
-   1b976:	e0 00                	loopne 0x1b978
-   1b978:	1c e0                	sbb    al,0xe0
-   1b97a:	00 1c                	add    BYTE PTR [si],bl
-   1b97c:	e0 00                	loopne 0x1b97e
-   1b97e:	1c e0                	sbb    al,0xe0
-   1b980:	00 1c                	add    BYTE PTR [si],bl
-   1b982:	e0 00                	loopne 0x1b984
-   1b984:	1c e0                	sbb    al,0xe0
-   1b986:	00 1c                	add    BYTE PTR [si],bl
-   1b988:	e0 01                	loopne 0x1b98b
-   1b98a:	1e                   	push   ds
-   1b98b:	e0 03                	loopne 0x1b990
-   1b98d:	1f                   	pop    ds
-   1b98e:	c0 03 0f             	rol    BYTE PTR [bp+di],0xf
-   1b991:	00 03                	add    BYTE PTR [bp+di],al
-   1b993:	03 2d                	add    bp,WORD PTR [di]
-   1b995:	00 fe                	add    dh,bh
-   1b997:	03 80 ff 0f          	add    ax,WORD PTR [bx+si+0xfff]
-   1b99b:	c0 ff 1f             	sar    bh,0x1f
-   1b99e:	e0 ff                	loopne 0x1b99f
-   1b9a0:	1f                   	pop    ds
-   1b9a1:	e0 01                	loopne 0x1b9a4
-   1b9a3:	1e                   	push   ds
-   1b9a4:	e0 00                	loopne 0x1b9a6
-   1b9a6:	1c e0                	sbb    al,0xe0
-   1b9a8:	00 1c                	add    BYTE PTR [si],bl
-   1b9aa:	e0 00                	loopne 0x1b9ac
-   1b9ac:	1c e0                	sbb    al,0xe0
-   1b9ae:	00 1c                	add    BYTE PTR [si],bl
-   1b9b0:	c0 01 1c             	rol    BYTE PTR [bx+di],0x1c
-   1b9b3:	80 03 0f             	add    BYTE PTR [bp+di],0xf
-   1b9b6:	ff                   	(bad)  
-   1b9b7:	ff 1f                	call   DWORD PTR [bx]
-   1b9b9:	ff                   	(bad)  
-   1b9ba:	ff 1f                	call   DWORD PTR [bx]
-   1b9bc:	ff                   	(bad)  
-   1b9bd:	ff 1f                	call   DWORD PTR [bx]
-   1b9bf:	ff                   	(bad)  
-   1b9c0:	ff 1f                	call   DWORD PTR [bx]
-   1b9c2:	2d 00 fe             	sub    ax,0xfe00
-   1b9c5:	01 80 ff 07          	add    WORD PTR [bx+si+0x7ff],ax
-   1b9c9:	c0 ff 0f             	sar    bh,0xf
-   1b9cc:	c0 ff 0f             	sar    bh,0xf
-   1b9cf:	e0 39                	loopne 0x1ba0a
-   1b9d1:	1f                   	pop    ds
-   1b9d2:	e0 38                	loopne 0x1ba0c
-   1b9d4:	1e                   	push   ds
-   1b9d5:	e0 38                	loopne 0x1ba0f
-   1b9d7:	1c e0                	sbb    al,0xe0
-   1b9d9:	38 1c                	cmp    BYTE PTR [si],bl
-   1b9db:	e0 38                	loopne 0x1ba15
-   1b9dd:	1c e0                	sbb    al,0xe0
-   1b9df:	38 1c                	cmp    BYTE PTR [si],bl
-   1b9e1:	e0 39                	loopne 0x1ba1c
-   1b9e3:	1c c0                	sbb    al,0xc0
-   1b9e5:	3f                   	aas    
-   1b9e6:	0e                   	push   cs
-   1b9e7:	c0 3f 0f             	sar    BYTE PTR [bx],0xf
-   1b9ea:	80 1f 07             	sbb    BYTE PTR [bx],0x7
-   1b9ed:	00 0e 03 21          	add    BYTE PTR ds:0x2103,cl
-   1b9f1:	00 00                	add    BYTE PTR [bx+si],al
-   1b9f3:	00 80 03 00          	add    BYTE PTR [bx+si+0x3],al
-   1b9f7:	80 03 00             	add    BYTE PTR [bp+di],0x0
-   1b9fa:	f8                   	clc    
-   1b9fb:	ff 1f                	call   DWORD PTR [bx]
-   1b9fd:	fc                   	cld    
-   1b9fe:	ff 1f                	call   DWORD PTR [bx]
-   1ba00:	fe                   	(bad)  
-   1ba01:	ff 1f                	call   DWORD PTR [bx]
-   1ba03:	ff                   	(bad)  
-   1ba04:	ff 1f                	call   DWORD PTR [bx]
-   1ba06:	8f 03                	pop    WORD PTR [bp+di]
-   1ba08:	00 87 03 00          	add    BYTE PTR [bx+0x3],al
-   1ba0c:	87 03                	xchg   WORD PTR [bp+di],ax
-   1ba0e:	00 87 03 00          	add    BYTE PTR [bx+0x3],al
-	...
-   1ba1e:	2d 00 3e             	sub    ax,0x3e00
-   1ba21:	18 80 ff 38          	sbb    BYTE PTR [bx+si+0x38ff],al
-   1ba25:	c0 ff 79             	sar    bh,0x79
-   1ba28:	c0 ff 71             	sar    bh,0x71
-   1ba2b:	e0 c1                	loopne 0x1b9ee
-   1ba2d:	e3 e0                	jcxz   0x1ba0f
-   1ba2f:	80 e3 e0             	and    bl,0xe0
-   1ba32:	80 e3 e0             	and    bl,0xe0
-   1ba35:	80 e3 e0             	and    bl,0xe0
-   1ba38:	80 e3 e0             	and    bl,0xe0
-   1ba3b:	81 e3 c0 c3          	and    bx,0xc3c0
-   1ba3f:	f1                   	icebp  
-   1ba40:	80 ff 7f             	cmp    bh,0x7f
-   1ba43:	e0 ff                	loopne 0x1ba44
-   1ba45:	7f e0                	jg     0x1ba27
-   1ba47:	ff                   	(bad)  
-   1ba48:	3f                   	aas    
-   1ba49:	e0 ff                	loopne 0x1ba4a
-   1ba4b:	0f 2d ff             	cvtps2pi mm7,xmm7
-   1ba4e:	ff 1f                	call   DWORD PTR [bx]
-   1ba50:	ff                   	(bad)  
-   1ba51:	ff 1f                	call   DWORD PTR [bx]
-   1ba53:	ff                   	(bad)  
-   1ba54:	ff 1f                	call   DWORD PTR [bx]
-   1ba56:	ff                   	(bad)  
-   1ba57:	ff 1f                	call   DWORD PTR [bx]
-   1ba59:	80 07 00             	add    BYTE PTR [bx],0x0
-   1ba5c:	c0 03 00             	rol    BYTE PTR [bp+di],0x0
-   1ba5f:	e0 01                	loopne 0x1ba62
-   1ba61:	00 e0                	add    al,ah
-   1ba63:	00 00                	add    BYTE PTR [bx+si],al
-   1ba65:	e0 00                	loopne 0x1ba67
-   1ba67:	00 e0                	add    al,ah
-   1ba69:	00 00                	add    BYTE PTR [bx+si],al
-   1ba6b:	e0 01                	loopne 0x1ba6e
-   1ba6d:	00 e0                	add    al,ah
-   1ba6f:	ff 1f                	call   DWORD PTR [bx]
-   1ba71:	e0 ff                	loopne 0x1ba72
-   1ba73:	1f                   	pop    ds
-   1ba74:	c0 ff 1f             	sar    bh,0x1f
-   1ba77:	00 ff                	add    bh,bh
-   1ba79:	1f                   	pop    ds
-   1ba7a:	1b 00                	sbb    ax,WORD PTR [bx+si]
-   1ba7c:	00 00                	add    BYTE PTR [bx+si],al
-   1ba7e:	00 00                	add    BYTE PTR [bx+si],al
-   1ba80:	1c e0                	sbb    al,0xe0
-   1ba82:	00 1c                	add    BYTE PTR [si],bl
-   1ba84:	e7 ff                	out    0xff,ax
-   1ba86:	1f                   	pop    ds
-   1ba87:	e7 ff                	out    0xff,ax
-   1ba89:	1f                   	pop    ds
-   1ba8a:	e7 ff                	out    0xff,ax
-   1ba8c:	1f                   	pop    ds
-   1ba8d:	e7 ff                	out    0xff,ax
-   1ba8f:	1f                   	pop    ds
-   1ba90:	00 00                	add    BYTE PTR [bx+si],al
-   1ba92:	1c 00                	sbb    al,0x0
-   1ba94:	00 1c                	add    BYTE PTR [si],bl
-	...
-   1baa6:	00 00                	add    BYTE PTR [bx+si],al
-   1baa8:	1b 00                	sbb    ax,WORD PTR [bx+si]
-   1baaa:	00 e0                	add    al,ah
-   1baac:	00 00                	add    BYTE PTR [bx+si],al
-   1baae:	e0 00                	loopne 0x1bab0
-   1bab0:	00 e0                	add    al,ah
-   1bab2:	00 00                	add    BYTE PTR [bx+si],al
-   1bab4:	e0 e0                	loopne 0x1ba96
-   1bab6:	00 f0                	add    al,dh
-   1bab8:	e7 ff                	out    0xff,ax
-   1baba:	7f e7                	jg     0x1baa3
-   1babc:	ff                   	(bad)  
-   1babd:	7f e7                	jg     0x1baa6
-   1babf:	ff                   	(bad)  
-   1bac0:	3f                   	aas    
-   1bac1:	e7 ff                	out    0xff,ax
-   1bac3:	0f 00 00             	sldt   WORD PTR [bx+si]
-	...
-   1bad6:	2a ff                	sub    bh,bh
-   1bad8:	ff 1f                	call   DWORD PTR [bx]
-   1bada:	ff                   	(bad)  
-   1badb:	ff 1f                	call   DWORD PTR [bx]
-   1badd:	ff                   	(bad)  
-   1bade:	ff 1f                	call   DWORD PTR [bx]
-   1bae0:	ff                   	(bad)  
-   1bae1:	ff 1f                	call   DWORD PTR [bx]
-   1bae3:	00 7e 00             	add    BYTE PTR [bp+0x0],bh
-   1bae6:	00 ff                	add    bh,bh
-   1bae8:	00 80 ff 01          	add    BYTE PTR [bx+si+0x1ff],al
-   1baec:	c0 ff 03             	sar    bh,0x3
-   1baef:	e0 e7                	loopne 0x1bad8
-   1baf1:	07                   	pop    es
-   1baf2:	e0 c3                	loopne 0x1bab7
-   1baf4:	0f e0 81 1f e0       	pavgb  mm0,QWORD PTR [bx+di-0x1fe1]
-   1baf9:	00 1f                	add    BYTE PTR [bx],bl
-   1bafb:	00 00                	add    BYTE PTR [bx+si],al
-   1bafd:	1e                   	push   ds
-   1bafe:	00 00                	add    BYTE PTR [bx+si],al
-   1bb00:	1c 00                	sbb    al,0x0
-   1bb02:	00 00                	add    BYTE PTR [bx+si],al
-   1bb04:	1b 00                	sbb    ax,WORD PTR [bx+si]
-   1bb06:	00 00                	add    BYTE PTR [bx+si],al
-   1bb08:	00 00                	add    BYTE PTR [bx+si],al
-   1bb0a:	1c 07                	sbb    al,0x7
-   1bb0c:	00 1c                	add    BYTE PTR [si],bl
-   1bb0e:	ff                   	(bad)  
-   1bb0f:	ff 1f                	call   DWORD PTR [bx]
-   1bb11:	ff                   	(bad)  
-   1bb12:	ff 1f                	call   DWORD PTR [bx]
-   1bb14:	ff                   	(bad)  
-   1bb15:	ff 1f                	call   DWORD PTR [bx]
-   1bb17:	ff                   	(bad)  
-   1bb18:	ff 1f                	call   DWORD PTR [bx]
-   1bb1a:	00 00                	add    BYTE PTR [bx+si],al
-   1bb1c:	1c 00                	sbb    al,0x0
-   1bb1e:	00 1c                	add    BYTE PTR [si],bl
-	...
-   1bb30:	00 00                	add    BYTE PTR [bx+si],al
-   1bb32:	2d e0 ff             	sub    ax,0xffe0
-   1bb35:	1f                   	pop    ds
-   1bb36:	e0 ff                	loopne 0x1bb37
-   1bb38:	1f                   	pop    ds
-   1bb39:	e0 ff                	loopne 0x1bb3a
-   1bb3b:	1f                   	pop    ds
-   1bb3c:	80 03 00             	add    BYTE PTR [bp+di],0x0
-   1bb3f:	c0 01 00             	rol    BYTE PTR [bx+di],0x0
-   1bb42:	e0 03                	loopne 0x1bb47
-   1bb44:	00 e0                	add    al,ah
-   1bb46:	ff 1f                	call   DWORD PTR [bx]
-   1bb48:	c0 ff 1f             	sar    bh,0x1f
-   1bb4b:	80 ff 1f             	cmp    bh,0x1f
-   1bb4e:	c0 03 00             	rol    BYTE PTR [bp+di],0x0
-   1bb51:	e0 01                	loopne 0x1bb54
-   1bb53:	00 e0                	add    al,ah
-   1bb55:	03 00                	add    ax,WORD PTR [bx+si]
-   1bb57:	e0 ff                	loopne 0x1bb58
-   1bb59:	1f                   	pop    ds
-   1bb5a:	c0 ff 1f             	sar    bh,0x1f
-   1bb5d:	80 ff 1f             	cmp    bh,0x1f
-   1bb60:	2d e0 ff             	sub    ax,0xffe0
-   1bb63:	1f                   	pop    ds
-   1bb64:	e0 ff                	loopne 0x1bb65
-   1bb66:	1f                   	pop    ds
-   1bb67:	e0 ff                	loopne 0x1bb68
-   1bb69:	1f                   	pop    ds
-   1bb6a:	e0 ff                	loopne 0x1bb6b
-   1bb6c:	1f                   	pop    ds
-   1bb6d:	80 07 00             	add    BYTE PTR [bx],0x0
-   1bb70:	c0 03 00             	rol    BYTE PTR [bp+di],0x0
-   1bb73:	e0 01                	loopne 0x1bb76
-   1bb75:	00 e0                	add    al,ah
-   1bb77:	00 00                	add    BYTE PTR [bx+si],al
-   1bb79:	e0 00                	loopne 0x1bb7b
-   1bb7b:	00 e0                	add    al,ah
-   1bb7d:	01 00                	add    WORD PTR [bx+si],ax
-   1bb7f:	e0 03                	loopne 0x1bb84
-   1bb81:	00 c0                	add    al,al
-   1bb83:	ff 1f                	call   DWORD PTR [bx]
-   1bb85:	c0 ff 1f             	sar    bh,0x1f
-   1bb88:	80 ff 1f             	cmp    bh,0x1f
-   1bb8b:	00 fe                	add    dh,bh
-   1bb8d:	1f                   	pop    ds
-   1bb8e:	2d 00 fe             	sub    ax,0xfe00
-   1bb91:	01 80 ff 07          	add    WORD PTR [bx+si+0x7ff],ax
-   1bb95:	c0 ff 0f             	sar    bh,0xf
-   1bb98:	c0 ff 0f             	sar    bh,0xf
-   1bb9b:	e0 03                	loopne 0x1bba0
-   1bb9d:	1f                   	pop    ds
-   1bb9e:	e0 01                	loopne 0x1bba1
-   1bba0:	1e                   	push   ds
-   1bba1:	e0 00                	loopne 0x1bba3
-   1bba3:	1c e0                	sbb    al,0xe0
-   1bba5:	00 1c                	add    BYTE PTR [si],bl
-   1bba7:	e0 00                	loopne 0x1bba9
-   1bba9:	1c e0                	sbb    al,0xe0
-   1bbab:	01 1e e0 03          	add    WORD PTR ds:0x3e0,bx
-   1bbaf:	1f                   	pop    ds
-   1bbb0:	c0 ff 0f             	sar    bh,0xf
-   1bbb3:	c0 ff 0f             	sar    bh,0xf
-   1bbb6:	80 ff 07             	cmp    bh,0x7
-   1bbb9:	00 fe                	add    dh,bh
-   1bbbb:	01 2d                	add    WORD PTR [di],bp
-   1bbbd:	e0 ff                	loopne 0x1bbbe
-   1bbbf:	ff e0                	jmp    ax
-   1bbc1:	ff                   	(bad)  
-   1bbc2:	ff e0                	jmp    ax
-   1bbc4:	ff                   	(bad)  
-   1bbc5:	ff e0                	jmp    ax
-   1bbc7:	ff                   	(bad)  
-   1bbc8:	ff 80 03 07          	inc    WORD PTR [bx+si+0x703]
-   1bbcc:	c0 01 0e             	rol    BYTE PTR [bx+di],0xe
-   1bbcf:	e0 00                	loopne 0x1bbd1
-   1bbd1:	1c e0                	sbb    al,0xe0
-   1bbd3:	00 1c                	add    BYTE PTR [si],bl
-   1bbd5:	e0 00                	loopne 0x1bbd7
-   1bbd7:	1c e0                	sbb    al,0xe0
-   1bbd9:	00 1c                	add    BYTE PTR [si],bl
-   1bbdb:	e0 01                	loopne 0x1bbde
-   1bbdd:	1e                   	push   ds
-   1bbde:	c0 ff 0f             	sar    bh,0xf
-   1bbe1:	c0 ff 0f             	sar    bh,0xf
-   1bbe4:	80 ff 07             	cmp    bh,0x7
-   1bbe7:	00 fe                	add    dh,bh
-   1bbe9:	01 2d                	add    WORD PTR [di],bp
-   1bbeb:	00 ff                	add    bh,bh
-   1bbed:	01 c0                	add    ax,ax
-   1bbef:	ff 07                	inc    WORD PTR [bx]
-   1bbf1:	e0 ff                	loopne 0x1bbf2
-   1bbf3:	0f e0 ff             	pavgb  mm7,mm7
-   1bbf6:	0f e0 01             	pavgb  mm0,QWORD PTR [bx+di]
-   1bbf9:	1e                   	push   ds
-   1bbfa:	e0 00                	loopne 0x1bbfc
-   1bbfc:	1c e0                	sbb    al,0xe0
-   1bbfe:	00 1c                	add    BYTE PTR [si],bl
-   1bc00:	e0 00                	loopne 0x1bc02
-   1bc02:	1c e0                	sbb    al,0xe0
-   1bc04:	00 0e c0 01          	add    BYTE PTR ds:0x1c0,cl
-   1bc08:	07                   	pop    es
-   1bc09:	80 ff ff             	cmp    bh,0xff
-   1bc0c:	e0 ff                	loopne 0x1bc0d
-   1bc0e:	ff e0                	jmp    ax
-   1bc10:	ff                   	(bad)  
-   1bc11:	ff e0                	jmp    ax
-   1bc13:	ff                   	(bad)  
-   1bc14:	7f 00                	jg     0x1bc16
-   1bc16:	00 30                	add    BYTE PTR [bx+si],dh
-   1bc18:	2d e0 ff             	sub    ax,0xffe0
-   1bc1b:	1f                   	pop    ds
-   1bc1c:	e0 ff                	loopne 0x1bc1d
-   1bc1e:	1f                   	pop    ds
-   1bc1f:	e0 ff                	loopne 0x1bc20
-   1bc21:	1f                   	pop    ds
-   1bc22:	e0 ff                	loopne 0x1bc23
-   1bc24:	1f                   	pop    ds
-   1bc25:	80 07 00             	add    BYTE PTR [bx],0x0
-   1bc28:	c0 03 00             	rol    BYTE PTR [bp+di],0x0
-   1bc2b:	c0 01 00             	rol    BYTE PTR [bx+di],0x0
-   1bc2e:	e0 01                	loopne 0x1bc31
-   1bc30:	00 e0                	add    al,ah
-   1bc32:	00 00                	add    BYTE PTR [bx+si],al
-   1bc34:	e0 00                	loopne 0x1bc36
-   1bc36:	00 e0                	add    al,ah
-   1bc38:	00 00                	add    BYTE PTR [bx+si],al
-   1bc3a:	e0 01                	loopne 0x1bc3d
-   1bc3c:	00 e0                	add    al,ah
-   1bc3e:	03 00                	add    ax,WORD PTR [bx+si]
-   1bc40:	c0 03 00             	rol    BYTE PTR [bp+di],0x0
-   1bc43:	80 03 00             	add    BYTE PTR [bp+di],0x0
-   1bc46:	2d 00 00             	sub    ax,0x0
-   1bc49:	06                   	push   es
-   1bc4a:	00 07                	add    BYTE PTR [bx],al
-   1bc4c:	0e                   	push   cs
-   1bc4d:	c0 1f 1e             	rcr    BYTE PTR [bx],0x1e
-   1bc50:	c0 1f 1c             	rcr    BYTE PTR [bx],0x1c
-   1bc53:	e0 3f                	loopne 0x1bc94
-   1bc55:	1c e0                	sbb    al,0xe0
-   1bc57:	3d 1c e0             	cmp    ax,0xe01c
-   1bc5a:	38 1c                	cmp    BYTE PTR [si],bl
-   1bc5c:	e0 38                	loopne 0x1bc96
-   1bc5e:	1c e0                	sbb    al,0xe0
-   1bc60:	38 1c                	cmp    BYTE PTR [si],bl
-   1bc62:	e0 38                	loopne 0x1bc9c
-   1bc64:	1c e0                	sbb    al,0xe0
-   1bc66:	78 1e                	js     0x1bc86
-   1bc68:	e0 f9                	loopne 0x1bc63
-   1bc6a:	1f                   	pop    ds
-   1bc6b:	c0                   	(bad)  
-   1bc6c:	f1                   	icebp  
-   1bc6d:	0f 80 f1 0f          	jo     0x1cc62
-   1bc71:	00 c0                	add    al,al
-   1bc73:	03 24                	add    sp,WORD PTR [si]
-   1bc75:	f0 00 00             	lock add BYTE PTR [bx+si],al
-   1bc78:	f0 00 00             	lock add BYTE PTR [bx+si],al
-   1bc7b:	f0 00 00             	lock add BYTE PTR [bx+si],al
-   1bc7e:	ff                   	(bad)  
-   1bc7f:	ff 03                	inc    WORD PTR [bp+di]
-   1bc81:	ff                   	(bad)  
-   1bc82:	ff 07                	inc    WORD PTR [bx]
-   1bc84:	ff                   	(bad)  
-   1bc85:	ff 0f                	dec    WORD PTR [bx]
-   1bc87:	ff                   	(bad)  
-   1bc88:	ff 0f                	dec    WORD PTR [bx]
-   1bc8a:	f0 00 1e f0 00       	lock add BYTE PTR ds:0xf0,bl
-   1bc8f:	1c f0                	sbb    al,0xf0
-   1bc91:	00 1c                	add    BYTE PTR [si],bl
-   1bc93:	00 00                	add    BYTE PTR [bx+si],al
-   1bc95:	1c 00                	sbb    al,0x0
-   1bc97:	00 1c                	add    BYTE PTR [si],bl
-	...
-   1bca1:	00 2d                	add    BYTE PTR [di],ch
-   1bca3:	e0 ff                	loopne 0x1bca4
-   1bca5:	01 e0                	add    ax,sp
-   1bca7:	ff 07                	inc    WORD PTR [bx]
-   1bca9:	e0 ff                	loopne 0x1bcaa
-   1bcab:	0f e0 ff             	pavgb  mm7,mm7
-   1bcae:	1f                   	pop    ds
-   1bcaf:	00 00                	add    BYTE PTR [bx+si],al
-   1bcb1:	1f                   	pop    ds
-   1bcb2:	00 00                	add    BYTE PTR [bx+si],al
-   1bcb4:	1e                   	push   ds
-   1bcb5:	00 00                	add    BYTE PTR [bx+si],al
-   1bcb7:	1c 00                	sbb    al,0x0
-   1bcb9:	00 1c                	add    BYTE PTR [si],bl
-   1bcbb:	00 00                	add    BYTE PTR [bx+si],al
-   1bcbd:	1c 00                	sbb    al,0x0
-   1bcbf:	00 1e 00 00          	add    BYTE PTR ds:0x0,bl
-   1bcc3:	1f                   	pop    ds
-   1bcc4:	e0 ff                	loopne 0x1bcc5
-   1bcc6:	1f                   	pop    ds
-   1bcc7:	e0 ff                	loopne 0x1bcc8
-   1bcc9:	0f e0 ff             	pavgb  mm7,mm7
-   1bccc:	07                   	pop    es
-   1bccd:	e0 ff                	loopne 0x1bcce
-   1bccf:	01 2d                	add    WORD PTR [di],bp
-   1bcd1:	e0 3f                	loopne 0x1bd12
-   1bcd3:	00 e0                	add    al,ah
-   1bcd5:	7f 00                	jg     0x1bcd7
-   1bcd7:	e0 ff                	loopne 0x1bcd8
-   1bcd9:	00 e0                	add    al,ah
-   1bcdb:	ff 01                	inc    WORD PTR [bx+di]
-   1bcdd:	00 f0                	add    al,dh
-   1bcdf:	03 00                	add    ax,WORD PTR [bx+si]
-   1bce1:	e0 07                	loopne 0x1bcea
-   1bce3:	00 c0                	add    al,al
-   1bce5:	0f 00 80 1f 00       	sldt   WORD PTR [bx+si+0x1f]
-   1bcea:	c0 0f 00             	ror    BYTE PTR [bx],0x0
-   1bced:	e0 07                	loopne 0x1bcf6
-   1bcef:	00 f0                	add    al,dh
-   1bcf1:	03 e0                	add    sp,ax
-   1bcf3:	ff 01                	inc    WORD PTR [bx+di]
-   1bcf5:	e0 ff                	loopne 0x1bcf6
-   1bcf7:	00 e0                	add    al,ah
-   1bcf9:	7f 00                	jg     0x1bcfb
-   1bcfb:	e0 3f                	loopne 0x1bd3c
-   1bcfd:	00 2d                	add    BYTE PTR [di],ch
-   1bcff:	e0 ff                	loopne 0x1bd00
-   1bd01:	1f                   	pop    ds
-   1bd02:	e0 ff                	loopne 0x1bd03
-   1bd04:	1f                   	pop    ds
-   1bd05:	e0 ff                	loopne 0x1bd06
-   1bd07:	0f e0 ff             	pavgb  mm7,mm7
-   1bd0a:	07                   	pop    es
-   1bd0b:	00 e0                	add    al,ah
-   1bd0d:	03 00                	add    ax,WORD PTR [bx+si]
-   1bd0f:	f0 01 00             	lock add WORD PTR [bx+si],ax
-   1bd12:	f8                   	clc    
-   1bd13:	00 00                	add    BYTE PTR [bx+si],al
-   1bd15:	7c 00                	jl     0x1bd17
-   1bd17:	00 f8                	add    al,bh
-   1bd19:	00 00                	add    BYTE PTR [bx+si],al
-   1bd1b:	f0 01 00             	lock add WORD PTR [bx+si],ax
-   1bd1e:	e0 03                	loopne 0x1bd23
-   1bd20:	e0 ff                	loopne 0x1bd21
-   1bd22:	07                   	pop    es
-   1bd23:	e0 ff                	loopne 0x1bd24
-   1bd25:	0f e0 ff             	pavgb  mm7,mm7
-   1bd28:	1f                   	pop    ds
-   1bd29:	e0 ff                	loopne 0x1bd2a
-   1bd2b:	1f                   	pop    ds
-   1bd2c:	2d e0 00             	sub    ax,0xe0
-   1bd2f:	1c e0                	sbb    al,0xe0
-   1bd31:	01 1e e0 03          	add    WORD PTR ds:0x3e0,bx
-   1bd35:	1f                   	pop    ds
-   1bd36:	c0 87 0f 80 cf       	rol    BYTE PTR [bx-0x7ff1],0xcf
-   1bd3b:	07                   	pop    es
-   1bd3c:	00 ff                	add    bh,bh
-   1bd3e:	03 00                	add    ax,WORD PTR [bx+si]
-   1bd40:	fe 01                	inc    BYTE PTR [bx+di]
-   1bd42:	00 fc                	add    ah,bh
-   1bd44:	00 00                	add    BYTE PTR [bx+si],al
-   1bd46:	fe 01                	inc    BYTE PTR [bx+di]
-   1bd48:	00 ff                	add    bh,bh
-   1bd4a:	03 80 cf 07          	add    ax,WORD PTR [bx+si+0x7cf]
-   1bd4e:	c0 87 0f e0 03       	rol    BYTE PTR [bx-0x1ff1],0x3
-   1bd53:	1f                   	pop    ds
-   1bd54:	e0 01                	loopne 0x1bd57
-   1bd56:	1e                   	push   ds
-   1bd57:	e0 00                	loopne 0x1bd59
-   1bd59:	1c 2d                	sbb    al,0x2d
-   1bd5b:	e0 3f                	loopne 0x1bd9c
-   1bd5d:	18 e0                	sbb    al,ah
-   1bd5f:	ff                   	(bad)  
-   1bd60:	38 e0                	cmp    al,ah
-   1bd62:	ff                   	(bad)  
-   1bd63:	79 e0                	jns    0x1bd45
-   1bd65:	ff 71 00             	push   WORD PTR [bx+di+0x0]
-   1bd68:	c0 e3 00             	shl    bl,0x0
-   1bd6b:	80 e3 00             	and    bl,0x0
-   1bd6e:	80 e3 00             	and    bl,0x0
-   1bd71:	80 e3 00             	and    bl,0x0
-   1bd74:	80 e3 00             	and    bl,0x0
-   1bd77:	c0 e1 00             	shl    cl,0x0
-   1bd7a:	e0 f0                	loopne 0x1bd6c
-   1bd7c:	e0 ff                	loopne 0x1bd7d
-   1bd7e:	7f e0                	jg     0x1bd60
-   1bd80:	ff                   	(bad)  
-   1bd81:	7f e0                	jg     0x1bd63
-   1bd83:	ff                   	(bad)  
-   1bd84:	3f                   	aas    
-   1bd85:	e0 ff                	loopne 0x1bd86
-   1bd87:	0f 2a e0             	cvtpi2ps xmm4,mm0
-   1bd8a:	01 1e e0 01          	add    WORD PTR ds:0x1e0,bx
-   1bd8e:	1f                   	pop    ds
-   1bd8f:	e0 81                	loopne 0x1bd12
-   1bd91:	1f                   	pop    ds
-   1bd92:	e0 c1                	loopne 0x1bd55
-   1bd94:	1f                   	pop    ds
-   1bd95:	e0 e1                	loopne 0x1bd78
-   1bd97:	1f                   	pop    ds
-   1bd98:	e0 f1                	loopne 0x1bd8b
-   1bd9a:	1f                   	pop    ds
-   1bd9b:	e0 f9                	loopne 0x1bd96
-   1bd9d:	1e                   	push   ds
-   1bd9e:	e0 7d                	loopne 0x1be1d
-   1bda0:	1e                   	push   ds
-   1bda1:	e0 3f                	loopne 0x1bde2
-   1bda3:	1e                   	push   ds
-   1bda4:	e0 1f                	loopne 0x1bdc5
-   1bda6:	1e                   	push   ds
-   1bda7:	e0 0f                	loopne 0x1bdb8
-   1bda9:	1e                   	push   ds
-   1bdaa:	e0 07                	loopne 0x1bdb3
-   1bdac:	1e                   	push   ds
-   1bdad:	e0 03                	loopne 0x1bdb2
-   1bdaf:	1e                   	push   ds
-   1bdb0:	e0 01                	loopne 0x1bdb3
-   1bdb2:	1e                   	push   ds
-   1bdb3:	00 00                	add    BYTE PTR [bx+si],al
-   1bdb5:	00 2d                	add    BYTE PTR [di],ch
-   1bdb7:	ff                   	(bad)  
-   1bdb8:	ff                   	(bad)  
-   1bdb9:	ff                   	(bad)  
-   1bdba:	ff                   	(bad)  
-   1bdbb:	ff                   	(bad)  
-   1bdbc:	ff                   	(bad)  
-   1bdbd:	ff                   	(bad)  
-   1bdbe:	ff                   	(bad)  
-   1bdbf:	ff                   	(bad)  
-   1bdc0:	ff                   	(bad)  
-   1bdc1:	ff                   	(bad)  
-   1bdc2:	ff                   	(bad)  
-   1bdc3:	ff                   	(bad)  
-   1bdc4:	ff                   	(bad)  
-   1bdc5:	ff                   	(bad)  
-   1bdc6:	ff                   	(bad)  
-   1bdc7:	ff                   	(bad)  
-   1bdc8:	ff                   	(bad)  
-   1bdc9:	ff                   	(bad)  
-   1bdca:	ff                   	(bad)  
-   1bdcb:	ff                   	(bad)  
-   1bdcc:	ff                   	(bad)  
-   1bdcd:	ff                   	(bad)  
-   1bdce:	ff                   	(bad)  
-   1bdcf:	ff                   	(bad)  
-   1bdd0:	ff                   	(bad)  
-   1bdd1:	ff                   	(bad)  
-   1bdd2:	ff                   	(bad)  
-   1bdd3:	ff                   	(bad)  
-   1bdd4:	ff                   	(bad)  
-   1bdd5:	ff                   	(bad)  
-   1bdd6:	ff                   	(bad)  
-   1bdd7:	ff                   	(bad)  
-   1bdd8:	ff                   	(bad)  
-   1bdd9:	ff                   	(bad)  
-   1bdda:	ff                   	(bad)  
-   1bddb:	ff                   	(bad)  
-   1bddc:	ff                   	(bad)  
-   1bddd:	ff                   	(bad)  
-   1bdde:	ff                   	(bad)  
-   1bddf:	ff                   	(bad)  
-   1bde0:	ff                   	(bad)  
-   1bde1:	ff                   	(bad)  
-   1bde2:	ff                   	(bad)  
-   1bde3:	ff 2d                	jmp    DWORD PTR [di]
-   1bde5:	c0 ff 03             	sar    bh,0x3
-   1bde8:	f0 ff 0f             	lock dec WORD PTR [bx]
-   1bdeb:	f8                   	clc    
-   1bdec:	ff 1f                	call   DWORD PTR [bx]
-   1bdee:	78 66                	js     0x1be56
-   1bdf0:	1e                   	push   ds
-   1bdf1:	3c 66                	cmp    al,0x66
-   1bdf3:	3c 1c                	cmp    al,0x1c
-   1bdf5:	66                   	data32
-   1bdf6:	38 1c                	cmp    BYTE PTR [si],bl
-   1bdf8:	66                   	data32
-   1bdf9:	38 1c                	cmp    BYTE PTR [si],bl
-   1bdfb:	66                   	data32
-   1bdfc:	38 1c                	cmp    BYTE PTR [si],bl
-   1bdfe:	66                   	data32
-   1bdff:	38 1c                	cmp    BYTE PTR [si],bl
-   1be01:	66                   	data32
-   1be02:	38 1c                	cmp    BYTE PTR [si],bl
-   1be04:	66                   	data32
-   1be05:	38 3c                	cmp    BYTE PTR [si],bh
-   1be07:	66                   	data32
-   1be08:	3c 7c                	cmp    al,0x7c
-   1be0a:	00 3e 78 00          	add    BYTE PTR ds:0x78,bh
-   1be0e:	1e                   	push   ds
-   1be0f:	70 00                	jo     0x1be11
-   1be11:	0e                   	push   cs
-	...
-   1be3e:	00 00                	add    BYTE PTR [bx+si],al
-   1be40:	21 fc                	and    sp,di
-   1be42:	01 00                	add    WORD PTR [bx+si],ax
-   1be44:	fe 03                	inc    BYTE PTR [bp+di]
-   1be46:	00 ff                	add    bh,bh
-   1be48:	07                   	pop    es
-   1be49:	00 8f 07 00          	add    BYTE PTR [bx+0x7],cl
-   1be4d:	07                   	pop    es
-   1be4e:	07                   	pop    es
-   1be4f:	00 07                	add    BYTE PTR [bx],al
-   1be51:	07                   	pop    es
-   1be52:	00 07                	add    BYTE PTR [bx],al
-   1be54:	07                   	pop    es
-   1be55:	00 8f 07 00          	add    BYTE PTR [bx+0x7],cl
-   1be59:	ff 07                	inc    WORD PTR [bx]
-   1be5b:	00 fe                	add    dh,bh
-   1be5d:	03 00                	add    ax,WORD PTR [bx+si]
-   1be5f:	fc                   	cld    
-   1be60:	01 00                	add    WORD PTR [bx+si],ax
-	...
-   1be9e:	00 00                	add    BYTE PTR [bx+si],al
-   1bea0:	01 01                	add    WORD PTR [bx+di],ax
-   1bea2:	d0 07                	rol    BYTE PTR [bx],1
-   1bea4:	00 00                	add    BYTE PTR [bx+si],al
-   1bea6:	00 20                	add    BYTE PTR [bx+si],ah
-   1bea8:	20 20                	and    BYTE PTR [bx+si],ah
-   1beaa:	20 20                	and    BYTE PTR [bx+si],ah
-   1beac:	20 20                	and    BYTE PTR [bx+si],ah
-   1beae:	20 20                	and    BYTE PTR [bx+si],ah
-   1beb0:	21 21                	and    WORD PTR [bx+di],sp
-   1beb2:	21 21                	and    WORD PTR [bx+di],sp
-   1beb4:	21 20                	and    WORD PTR [bx+si],sp
-   1beb6:	20 20                	and    BYTE PTR [bx+si],ah
-   1beb8:	20 20                	and    BYTE PTR [bx+si],ah
-   1beba:	20 20                	and    BYTE PTR [bx+si],ah
-   1bebc:	20 20                	and    BYTE PTR [bx+si],ah
-   1bebe:	20 20                	and    BYTE PTR [bx+si],ah
-   1bec0:	20 20                	and    BYTE PTR [bx+si],ah
-   1bec2:	20 20                	and    BYTE PTR [bx+si],ah
-   1bec4:	20 20                	and    BYTE PTR [bx+si],ah
-   1bec6:	20 01                	and    BYTE PTR [bx+di],al
-   1bec8:	40                   	inc    ax
-   1bec9:	40                   	inc    ax
-   1beca:	40                   	inc    ax
-   1becb:	40                   	inc    ax
-   1becc:	40                   	inc    ax
-   1becd:	40                   	inc    ax
-   1bece:	40                   	inc    ax
-   1becf:	40                   	inc    ax
-   1bed0:	40                   	inc    ax
-   1bed1:	40                   	inc    ax
-   1bed2:	40                   	inc    ax
-   1bed3:	40                   	inc    ax
-   1bed4:	40                   	inc    ax
-   1bed5:	40                   	inc    ax
-   1bed6:	40                   	inc    ax
-   1bed7:	02 02                	add    al,BYTE PTR [bp+si]
-   1bed9:	02 02                	add    al,BYTE PTR [bp+si]
-   1bedb:	02 02                	add    al,BYTE PTR [bp+si]
-   1bedd:	02 02                	add    al,BYTE PTR [bp+si]
-   1bedf:	02 02                	add    al,BYTE PTR [bp+si]
-   1bee1:	40                   	inc    ax
-   1bee2:	40                   	inc    ax
-   1bee3:	40                   	inc    ax
-   1bee4:	40                   	inc    ax
-   1bee5:	40                   	inc    ax
-   1bee6:	40                   	inc    ax
-   1bee7:	40                   	inc    ax
-   1bee8:	14 14                	adc    al,0x14
-   1beea:	14 14                	adc    al,0x14
-   1beec:	14 14                	adc    al,0x14
-   1beee:	04 04                	add    al,0x4
-   1bef0:	04 04                	add    al,0x4
-   1bef2:	04 04                	add    al,0x4
-   1bef4:	04 04                	add    al,0x4
-   1bef6:	04 04                	add    al,0x4
-   1bef8:	04 04                	add    al,0x4
-   1befa:	04 04                	add    al,0x4
-   1befc:	04 04                	add    al,0x4
-   1befe:	04 04                	add    al,0x4
-   1bf00:	04 04                	add    al,0x4
-   1bf02:	40                   	inc    ax
-   1bf03:	40                   	inc    ax
-   1bf04:	40                   	inc    ax
-   1bf05:	40                   	inc    ax
-   1bf06:	40                   	inc    ax
-   1bf07:	40                   	inc    ax
-   1bf08:	18 18                	sbb    BYTE PTR [bx+si],bl
-   1bf0a:	18 18                	sbb    BYTE PTR [bx+si],bl
-   1bf0c:	18 18                	sbb    BYTE PTR [bx+si],bl
-   1bf0e:	08 08                	or     BYTE PTR [bx+si],cl
-   1bf10:	08 08                	or     BYTE PTR [bx+si],cl
-   1bf12:	08 08                	or     BYTE PTR [bx+si],cl
-   1bf14:	08 08                	or     BYTE PTR [bx+si],cl
-   1bf16:	08 08                	or     BYTE PTR [bx+si],cl
-   1bf18:	08 08                	or     BYTE PTR [bx+si],cl
-   1bf1a:	08 08                	or     BYTE PTR [bx+si],cl
-   1bf1c:	08 08                	or     BYTE PTR [bx+si],cl
-   1bf1e:	08 08                	or     BYTE PTR [bx+si],cl
-   1bf20:	08 08                	or     BYTE PTR [bx+si],cl
-   1bf22:	40                   	inc    ax
-   1bf23:	40                   	inc    ax
-   1bf24:	40                   	inc    ax
-   1bf25:	40                   	inc    ax
-   1bf26:	20 00                	and    BYTE PTR [bx+si],al
-	...
-   1bfa8:	00 02                	add    BYTE PTR [bp+si],al
-   1bfaa:	02 02                	add    al,BYTE PTR [bp+si]
-   1bfac:	02 02                	add    al,BYTE PTR [bp+si]
-   1bfae:	02 02                	add    al,BYTE PTR [bp+si]
-   1bfb0:	02 01                	add    al,BYTE PTR [bx+di]
-   1bfb2:	01 01                	add    WORD PTR [bx+di],ax
-   1bfb4:	01 01                	add    WORD PTR [bx+di],ax
-   1bfb6:	02 02                	add    al,BYTE PTR [bp+si]
-   1bfb8:	02 02                	add    al,BYTE PTR [bp+si]
-   1bfba:	02 02                	add    al,BYTE PTR [bp+si]
-   1bfbc:	02 02                	add    al,BYTE PTR [bp+si]
-   1bfbe:	02 02                	add    al,BYTE PTR [bp+si]
-   1bfc0:	02 02                	add    al,BYTE PTR [bp+si]
-   1bfc2:	02 02                	add    al,BYTE PTR [bp+si]
-   1bfc4:	02 02                	add    al,BYTE PTR [bp+si]
-   1bfc6:	02 02                	add    al,BYTE PTR [bp+si]
-   1bfc8:	01 02                	add    WORD PTR [bp+si],ax
-   1bfca:	02 02                	add    al,BYTE PTR [bp+si]
-   1bfcc:	02 03                	add    al,BYTE PTR [bp+di]
-   1bfce:	02 02                	add    al,BYTE PTR [bp+si]
-   1bfd0:	02 02                	add    al,BYTE PTR [bp+si]
-   1bfd2:	04 02                	add    al,0x2
-   1bfd4:	02 02                	add    al,BYTE PTR [bp+si]
-   1bfd6:	02 02                	add    al,BYTE PTR [bp+si]
-   1bfd8:	05 05 05             	add    ax,0x505
-   1bfdb:	05 05 05             	add    ax,0x505
-   1bfde:	05 05 05             	add    ax,0x505
-   1bfe1:	05 02 02             	add    ax,0x202
-   1bfe4:	02 02                	add    al,BYTE PTR [bp+si]
-   1bfe6:	02 02                	add    al,BYTE PTR [bp+si]
-   1bfe8:	02 02                	add    al,BYTE PTR [bp+si]
-   1bfea:	02 02                	add    al,BYTE PTR [bp+si]
-   1bfec:	07                   	pop    es
-   1bfed:	0a 15                	or     dl,BYTE PTR [di]
-   1bfef:	0a 0c                	or     cl,BYTE PTR [si]
-   1bff1:	09 02                	or     WORD PTR [bp+si],ax
-   1bff3:	02 0b                	add    cl,BYTE PTR [bp+di]
-   1bff5:	02 14                	add    dl,BYTE PTR [si]
-   1bff7:	0e                   	push   cs
-   1bff8:	02 02                	add    al,BYTE PTR [bp+si]
-   1bffa:	02 02                	add    al,BYTE PTR [bp+si]
-   1bffc:	02 08                	add    cl,BYTE PTR [bx+si]
-   1bffe:	02 02                	add    al,BYTE PTR [bp+si]
-   1c000:	12 02                	adc    al,BYTE PTR [bp+si]
-   1c002:	02 10                	add    dl,BYTE PTR [bx+si]
-   1c004:	02 10                	add    dl,BYTE PTR [bx+si]
-   1c006:	02 02                	add    al,BYTE PTR [bp+si]
-   1c008:	02 02                	add    al,BYTE PTR [bp+si]
-   1c00a:	02 06 07 0a          	add    al,BYTE PTR ds:0xa07
-   1c00e:	0a 0a                	or     cl,BYTE PTR [bp+si]
-   1c010:	0c 09                	or     al,0x9
-   1c012:	02 02                	add    al,BYTE PTR [bp+si]
-   1c014:	0d 02 11             	or     ax,0x1102
-   1c017:	0e                   	push   cs
-   1c018:	13 02                	adc    ax,WORD PTR [bp+si]
-   1c01a:	02 0f                	add    cl,BYTE PTR [bx]
-   1c01c:	02 08                	add    cl,BYTE PTR [bx+si]
-   1c01e:	02 02                	add    al,BYTE PTR [bp+si]
-   1c020:	12 02                	adc    al,BYTE PTR [bp+si]
-   1c022:	02 02                	add    al,BYTE PTR [bp+si]
-   1c024:	02 02                	add    al,BYTE PTR [bp+si]
-   1c026:	02 02                	add    al,BYTE PTR [bp+si]
-   1c028:	28 6e 75             	sub    BYTE PTR [bp+0x75],ch
-   1c02b:	6c                   	ins    BYTE PTR es:[di],dx
-   1c02c:	6c                   	ins    BYTE PTR es:[di],dx
-   1c02d:	29 00                	sub    WORD PTR [bx+si],ax
-   1c02f:	00 14                	add    BYTE PTR [si],dl
-   1c031:	14 01                	adc    al,0x1
-   1c033:	14 15                	adc    al,0x15
-   1c035:	14 14                	adc    al,0x14
-   1c037:	14 14                	adc    al,0x14
-   1c039:	02 00                	add    al,BYTE PTR [bx+si]
-   1c03b:	14 03                	adc    al,0x3
-   1c03d:	04 14                	add    al,0x14
-   1c03f:	09 05                	or     WORD PTR [di],ax
-   1c041:	05 05 05             	add    ax,0x505
-   1c044:	05 05 05             	add    ax,0x505
-   1c047:	05 05 14             	add    ax,0x1405
-   1c04a:	14 14                	adc    al,0x14
-   1c04c:	14 14                	adc    al,0x14
-   1c04e:	14 14                	adc    al,0x14
-   1c050:	14 14                	adc    al,0x14
-   1c052:	14 14                	adc    al,0x14
-   1c054:	0f 17 0f             	movhps QWORD PTR [bx],xmm1
-   1c057:	08 14                	or     BYTE PTR [si],dl
-   1c059:	14 14                	adc    al,0x14
-   1c05b:	07                   	pop    es
-   1c05c:	14 16                	adc    al,0x16
-   1c05e:	14 14                	adc    al,0x14
-   1c060:	14 14                	adc    al,0x14
-   1c062:	14 14                	adc    al,0x14
-   1c064:	14 14                	adc    al,0x14
-   1c066:	14 0d                	adc    al,0xd
-   1c068:	14 14                	adc    al,0x14
-   1c06a:	14 14                	adc    al,0x14
-   1c06c:	14 14                	adc    al,0x14
-   1c06e:	14 14                	adc    al,0x14
-   1c070:	14 14                	adc    al,0x14
-   1c072:	10 0a                	adc    BYTE PTR [bp+si],cl
-   1c074:	0f                   	(bad)  
-   1c075:	0f                   	(bad)  
-   1c076:	0f 08                	invd   
-   1c078:	0a 14                	or     dl,BYTE PTR [si]
-   1c07a:	14 06                	adc    al,0x6
-   1c07c:	14 12                	adc    al,0x12
-   1c07e:	0b 0e 14 14          	or     cx,WORD PTR ds:0x1414
-   1c082:	11 14                	adc    WORD PTR [si],dx
-   1c084:	0c 14                	or     al,0x14
-   1c086:	14 0d                	adc    al,0xd
-   1c088:	14 14                	adc    al,0x14
-   1c08a:	14 14                	adc    al,0x14
-   1c08c:	14 14                	adc    al,0x14
-   1c08e:	14 00                	adc    al,0x0
-	...
-   1c09c:	00 04                	add    BYTE PTR [si],al
-   1c09e:	00 04                	add    BYTE PTR [si],al
-   1c0a0:	00 04                	add    BYTE PTR [si],al
-   1c0a2:	00 00                	add    BYTE PTR [bx+si],al
-   1c0a4:	02 00                	add    al,BYTE PTR [bx+si]
-	...
-   1c0b2:	00 01                	add    BYTE PTR [bx+di],al
-   1c0b4:	00 49 6e             	add    BYTE PTR [bx+di+0x6e],cl
-   1c0b7:	66 6f                	outs   dx,DWORD PTR ds:[si]
-   1c0b9:	74 65                	je     0x1c120
-   1c0bb:	63 20                	arpl   WORD PTR [bx+si],sp
-   1c0bd:	4b                   	dec    bx
-   1c0be:	33 20                	xor    sp,WORD PTR [bx+si]
-   1c0c0:	3a 20                	cmp    ah,BYTE PTR [bx+si]
-   1c0c2:	56                   	push   si
-   1c0c3:	31 2e 39 00          	xor    WORD PTR ds:0x39,bp
-   1c0c7:	49                   	dec    cx
-   1c0c8:	6e                   	outs   dx,BYTE PTR ds:[si]
-   1c0c9:	66 6f                	outs   dx,DWORD PTR ds:[si]
-   1c0cb:	74 65                	je     0x1c132
-   1c0cd:	63 20                	arpl   WORD PTR [bx+si],sp
-   1c0cf:	4b                   	dec    bx
-   1c0d0:	33 20                	xor    sp,WORD PTR [bx+si]
-   1c0d2:	3a 20                	cmp    ah,BYTE PTR [bx+si]
-   1c0d4:	56                   	push   si
-   1c0d5:	31 2e 39 00          	xor    WORD PTR ds:0x39,bp
-   1c0d9:	00 14                	add    BYTE PTR [si],dl
-   1c0db:	00 08                	add    BYTE PTR [bx+si],cl
-   1c0dd:	00 20                	add    BYTE PTR [bx+si],ah
-   1c0df:	00 40 00             	add    BYTE PTR [bx+si+0x0],al
-   1c0e2:	60                   	pusha  
-   1c0e3:	00 80 00 a0          	add    BYTE PTR [bx+si-0x6000],al
-   1c0e7:	00 c0                	add    al,al
-   1c0e9:	00 e0                	add    al,ah
-   1c0eb:	00 58 02             	add    BYTE PTR [bx+si+0x2],bl
-   1c0ee:	b0 04                	mov    al,0x4
-   1c0f0:	60                   	pusha  
-   1c0f1:	09 c0                	or     ax,ax
-   1c0f3:	12 80 25 00          	adc    al,BYTE PTR [bx+si+0x25]
-   1c0f7:	4b                   	dec    bx
-   1c0f8:	00 96 00 00          	add    BYTE PTR [bp+0x0],dl
-   1c0fc:	53                   	push   bx
-   1c0fd:	75 6e                	jne    0x1c16d
-   1c0ff:	64                   	fs
-   1c100:	61                   	popa   
-   1c101:	79 00                	jns    0x1c103
-   1c103:	00 00                	add    BYTE PTR [bx+si],al
-   1c105:	00 4d 6f             	add    BYTE PTR [di+0x6f],cl
-   1c108:	6e                   	outs   dx,BYTE PTR ds:[si]
-   1c109:	64                   	fs
-   1c10a:	61                   	popa   
-   1c10b:	79 00                	jns    0x1c10d
-   1c10d:	00 00                	add    BYTE PTR [bx+si],al
-   1c10f:	00 54 75             	add    BYTE PTR [si+0x75],dl
-   1c112:	65                   	gs
-   1c113:	73 64                	jae    0x1c179
-   1c115:	61                   	popa   
-   1c116:	79 00                	jns    0x1c118
-   1c118:	00 00                	add    BYTE PTR [bx+si],al
-   1c11a:	57                   	push   di
-   1c11b:	65 64 6e             	outs   dx,BYTE PTR fs:gs:[si]
-   1c11e:	65                   	gs
-   1c11f:	73 64                	jae    0x1c185
-   1c121:	61                   	popa   
-   1c122:	79 00                	jns    0x1c124
-   1c124:	54                   	push   sp
-   1c125:	68 75 72             	push   0x7275
-   1c128:	73 64                	jae    0x1c18e
-   1c12a:	61                   	popa   
-   1c12b:	79 00                	jns    0x1c12d
-   1c12d:	00 46 72             	add    BYTE PTR [bp+0x72],al
-   1c130:	69 64 61 79 00       	imul   sp,WORD PTR [si+0x61],0x79
-   1c135:	00 00                	add    BYTE PTR [bx+si],al
-   1c137:	00 53 61             	add    BYTE PTR [bp+di+0x61],dl
-   1c13a:	74 75                	je     0x1c1b1
-   1c13c:	72 64                	jb     0x1c1a2
-   1c13e:	61                   	popa   
-   1c13f:	79 00                	jns    0x1c141
-	...
-   1c149:	00 00                	add    BYTE PTR [bx+si],al
-   1c14b:	00 4a 61             	add    BYTE PTR [bp+si+0x61],cl
-   1c14e:	6e                   	outs   dx,BYTE PTR ds:[si]
-   1c14f:	75 61                	jne    0x1c1b2
-   1c151:	72 79                	jb     0x1c1cc
-   1c153:	00 00                	add    BYTE PTR [bx+si],al
-   1c155:	00 46 65             	add    BYTE PTR [bp+0x65],al
-   1c158:	62 72 75             	bound  si,DWORD PTR [bp+si+0x75]
-   1c15b:	61                   	popa   
-   1c15c:	72 79                	jb     0x1c1d7
-   1c15e:	00 00                	add    BYTE PTR [bx+si],al
-   1c160:	4d                   	dec    bp
-   1c161:	61                   	popa   
-   1c162:	72 63                	jb     0x1c1c7
-   1c164:	68 00 00             	push   0x0
-   1c167:	00 00                	add    BYTE PTR [bx+si],al
-   1c169:	00 41 70             	add    BYTE PTR [bx+di+0x70],al
-   1c16c:	72 69                	jb     0x1c1d7
-   1c16e:	6c                   	ins    BYTE PTR es:[di],dx
-   1c16f:	00 00                	add    BYTE PTR [bx+si],al
-   1c171:	00 00                	add    BYTE PTR [bx+si],al
-   1c173:	00 4d 61             	add    BYTE PTR [di+0x61],cl
-   1c176:	79 00                	jns    0x1c178
-   1c178:	00 00                	add    BYTE PTR [bx+si],al
-   1c17a:	00 00                	add    BYTE PTR [bx+si],al
-   1c17c:	00 00                	add    BYTE PTR [bx+si],al
-   1c17e:	4a                   	dec    dx
-   1c17f:	75 6e                	jne    0x1c1ef
-   1c181:	65 00 00             	add    BYTE PTR gs:[bx+si],al
-   1c184:	00 00                	add    BYTE PTR [bx+si],al
-   1c186:	00 00                	add    BYTE PTR [bx+si],al
-   1c188:	4a                   	dec    dx
-   1c189:	75 6c                	jne    0x1c1f7
-   1c18b:	79 00                	jns    0x1c18d
-   1c18d:	00 00                	add    BYTE PTR [bx+si],al
-   1c18f:	00 00                	add    BYTE PTR [bx+si],al
-   1c191:	00 41 75             	add    BYTE PTR [bx+di+0x75],al
-   1c194:	67 75 73             	addr32 jne 0x1c20a
-   1c197:	74 00                	je     0x1c199
-   1c199:	00 00                	add    BYTE PTR [bx+si],al
-   1c19b:	00 53 65             	add    BYTE PTR [bp+di+0x65],dl
-   1c19e:	70 74                	jo     0x1c214
-   1c1a0:	65                   	gs
-   1c1a1:	6d                   	ins    WORD PTR es:[di],dx
-   1c1a2:	62 65 72             	bound  sp,DWORD PTR [di+0x72]
-   1c1a5:	00 4f 63             	add    BYTE PTR [bx+0x63],cl
-   1c1a8:	74 6f                	je     0x1c219
-   1c1aa:	62 65 72             	bound  sp,DWORD PTR [di+0x72]
-   1c1ad:	00 00                	add    BYTE PTR [bx+si],al
-   1c1af:	00 4e 6f             	add    BYTE PTR [bp+0x6f],cl
-   1c1b2:	76 65                	jbe    0x1c219
-   1c1b4:	6d                   	ins    WORD PTR es:[di],dx
-   1c1b5:	62 65 72             	bound  sp,DWORD PTR [di+0x72]
-   1c1b8:	00 00                	add    BYTE PTR [bx+si],al
-   1c1ba:	44                   	inc    sp
-   1c1bb:	65 63 65 6d          	arpl   WORD PTR gs:[di+0x6d],sp
-   1c1bf:	62 65 72             	bound  sp,DWORD PTR [di+0x72]
-   1c1c2:	00 00                	add    BYTE PTR [bx+si],al
-   1c1c4:	00 00                	add    BYTE PTR [bx+si],al
-   1c1c6:	00 73 74             	add    BYTE PTR [bp+di+0x74],dh
-   1c1c9:	00 6e 64             	add    BYTE PTR [bp+0x64],ch
-   1c1cc:	00 72 64             	add    BYTE PTR [bp+si+0x64],dh
-   1c1cf:	00 74 68             	add    BYTE PTR [si+0x68],dh
-   1c1d2:	00 74 68             	add    BYTE PTR [si+0x68],dh
-   1c1d5:	00 74 68             	add    BYTE PTR [si+0x68],dh
-   1c1d8:	00 74 68             	add    BYTE PTR [si+0x68],dh
-   1c1db:	00 74 68             	add    BYTE PTR [si+0x68],dh
-   1c1de:	00 74 68             	add    BYTE PTR [si+0x68],dh
-   1c1e1:	00 74 68             	add    BYTE PTR [si+0x68],dh
-   1c1e4:	00 74 68             	add    BYTE PTR [si+0x68],dh
-   1c1e7:	00 74 68             	add    BYTE PTR [si+0x68],dh
-   1c1ea:	00 74 68             	add    BYTE PTR [si+0x68],dh
-   1c1ed:	00 74 68             	add    BYTE PTR [si+0x68],dh
-   1c1f0:	00 74 68             	add    BYTE PTR [si+0x68],dh
-   1c1f3:	00 74 68             	add    BYTE PTR [si+0x68],dh
-   1c1f6:	00 74 68             	add    BYTE PTR [si+0x68],dh
-   1c1f9:	00 74 68             	add    BYTE PTR [si+0x68],dh
-   1c1fc:	00 74 68             	add    BYTE PTR [si+0x68],dh
-   1c1ff:	00 74 68             	add    BYTE PTR [si+0x68],dh
-   1c202:	00 73 74             	add    BYTE PTR [bp+di+0x74],dh
-   1c205:	00 6e 64             	add    BYTE PTR [bp+0x64],ch
-   1c208:	00 72 64             	add    BYTE PTR [bp+si+0x64],dh
-   1c20b:	00 74 68             	add    BYTE PTR [si+0x68],dh
-   1c20e:	00 74 68             	add    BYTE PTR [si+0x68],dh
-   1c211:	00 74 68             	add    BYTE PTR [si+0x68],dh
-   1c214:	00 74 68             	add    BYTE PTR [si+0x68],dh
-   1c217:	00 74 68             	add    BYTE PTR [si+0x68],dh
-   1c21a:	00 74 68             	add    BYTE PTR [si+0x68],dh
-   1c21d:	00 74 68             	add    BYTE PTR [si+0x68],dh
-   1c220:	00 73 74             	add    BYTE PTR [bp+di+0x74],dh
-   1c223:	00 00                	add    BYTE PTR [bx+si],al
-   1c225:	00 40 02             	add    BYTE PTR [bx+si+0x2],al
-   1c228:	00 00                	add    BYTE PTR [bx+si],al
-   1c22a:	00 00                	add    BYTE PTR [bx+si],al
-   1c22c:	00 00                	add    BYTE PTR [bx+si],al
-   1c22e:	00 01                	add    BYTE PTR [bx+di],al
-   1c230:	01 d0                	add    ax,dx
-   1c232:	07                   	pop    es
-   1c233:	00 1f                	add    BYTE PTR [bx],bl
-   1c235:	00 1c                	add    BYTE PTR [si],bl
-   1c237:	00 1f                	add    BYTE PTR [bx],bl
-   1c239:	00 1e 00 1f          	add    BYTE PTR ds:0x1f00,bl
-   1c23d:	00 1e 00 1f          	add    BYTE PTR ds:0x1f00,bl
-   1c241:	00 1f                	add    BYTE PTR [bx],bl
-   1c243:	00 1e 00 1f          	add    BYTE PTR ds:0x1f00,bl
-   1c247:	00 1e 00 1f          	add    BYTE PTR ds:0x1f00,bl
-   1c24b:	00 25                	add    BYTE PTR [di],ah
-   1c24d:	32 64 3a             	xor    ah,BYTE PTR [si+0x3a]
-   1c250:	25 30 32             	and    ax,0x3230
-   1c253:	64                   	fs
-   1c254:	2e                   	cs
-   1c255:	25 30 32             	and    ax,0x3230
-   1c258:	64 00 25             	add    BYTE PTR fs:[di],ah
-   1c25b:	64                   	fs
-   1c25c:	5c                   	pop    sp
-   1c25d:	25 64 5c             	and    ax,0x5c64
-   1c260:	25 30 32             	and    ax,0x3230
-   1c263:	64 00 25             	add    BYTE PTR fs:[di],ah
-   1c266:	64                   	fs
-   1c267:	5c                   	pop    sp
-   1c268:	25 64 5c             	and    ax,0x5c64
-   1c26b:	25 30 32             	and    ax,0x3230
-   1c26e:	64 00 25             	add    BYTE PTR fs:[di],ah
-   1c271:	73 20                	jae    0x1c293
-   1c273:	25 64 25             	and    ax,0x2564
-   1c276:	73 20                	jae    0x1c298
-   1c278:	25 73 20             	and    ax,0x2073
-   1c27b:	25 64 00             	and    ax,0x64
-   1c27e:	25 2e 33             	and    ax,0x332e
-   1c281:	73 20                	jae    0x1c2a3
-   1c283:	25 32 64             	and    ax,0x6432
-   1c286:	25 73 20             	and    ax,0x2073
-   1c289:	25 2e 33             	and    ax,0x332e
-   1c28c:	73 20                	jae    0x1c2ae
-   1c28e:	25 34 64             	and    ax,0x6434
-   1c291:	00 40 00             	add    BYTE PTR [bx+si+0x0],al
-   1c294:	68 00 74             	push   0x7400
-   1c297:	68 00 74             	push   0x7400
-   1c29a:	68 00 74             	push   0x7400
-   1c29d:	68 00 74             	push   0x7400
-	...
+
+
+.data
+0001986f  80                                                |.|
+00019870  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+00019880  0101 0002 f58b 013e 0000 0000 0000 0000  |......>.........|
+00019890  0000 0000 0000 0000 1f5e 5a07 5b59 cf58  |........^..ZY[X.|
+000198a0  55aa 3000 0000 0201 0804 2010 8040 0000  |.U.0....... @...|
+000198b0  1811 1901 021d 231e 2402 0326 2c27 2d04  |.......#.$&.',.-|
+000198c0  0433 0201 0804 140a 5028 0000 0000 0400  |3.......(P......|
+000198d0  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+000198e0  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+000198f0  0000 0000 0000 0000 0000 0000 3e00 5250  |.............>PR|
+00019900  3023 3023 2330 3025 6432 252c 3230 2c64  |#0#00#%02d,%02d,|
+00019910  3025 6432 2523 3230 2c64 3025 6432 252c  |%02d#%02d,%02d,%|
+00019920  3430 2c64 6425 0023 3025 5832 003c 7325  |04d,%d#.%02X<.%s|
+00019930  7325 0000 0000 0000 0000 0000 3025 6432  |%s..........%02d|
+00019940  2500 3230 0064 3025 6432 2500 6432 2520  |.%02d.%02d.%2d %|
+00019950  3230 5e64 2e54 545e 3025 6432 5600 2e34  |02d^T.^T%02d.V4.|
+00019960  3137 2500 3330 0064 2b2b 002b 3225 2f64  |71.%03d.+++.%2d/|
+00019970  3025 6432 252f 3230 0064 3225 3a64 3025  |%02d/%02d.%2d:%0|
+00019980  6432 2500 6432 253a 3230 5e64 2e54 545e  |2d.%2d:%02d^T.^T|
+00019990  3025 6432 2500 646c 2500 3230 0064 3025  |%02d.%ld.%02d.%0|
+000199a0  6432 2500 3230 0064 3225 0064 3225 7e64  |2d.%02d.%2d.%2d~|
+000199b0  0043 3225 7e64 0046 3225 0064 3025 6432  |C.%2d~F.%2d.%02d|
+000199c0  2500 3230 0064 3025 6432 2500 3230 0064  |.%02d.%02d.%02d.|
+000199d0  3025 6432 2500 3230 0064 3025 6432 2500  |%02d.%02d.%02d.%|
+000199e0  332e 0073 7325 2500 6432 2500 0073 3025  |.3s.%s.%2d.%s.%0|
+000199f0  6432 2500 332e 0073 7325 2500 3230 0064  |2d.%.3s.%s.%02d.|
+00019a00  3025 6432 2500 6434 2500 3230 0064 3025  |%02d.%4d.%02d.%0|
+00019a10  6432 2500 3230 0064 3025 6432 2500 3230  |2d.%02d.%02d.%02|
+00019a20  0064 3025 6432 0000 0000 0000 0000 0000  |d.%02d..........|
+00019a30  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+00019a40  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+00019a50  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+00019a60  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+00019a70  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+00019a80  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+00019a90  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+00019aa0  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+00019ab0  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+00019ac0  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+00019ad0  0000 0000 0000 0000 0000 0000 0100 bc01  |................|
+00019ae0  0207 0000 0000 07ff 0506 0204 0101 5600  |...............V|
+00019af0  2e34 3137 0000 0000 0000 0000 0000 0000  |4.71............|
+00019b00  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+00019b10  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+00019b20  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+00019b30  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+00019b40  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+00019b50  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+00019b60  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+00019b70  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+00019b80  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+00019b90  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+00019ba0  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+00019bb0  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+00019bc0  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+00019bd0  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+00019be0  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+00019bf0  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+00019c00  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+00019c10  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+00019c20  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+00019c30  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+00019c40  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+00019c50  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+00019c60  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+00019c70  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+00019c80  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+00019c90  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+00019ca0  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+00019cb0  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+00019cc0  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+00019cd0  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+00019ce0  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+00019cf0  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+00019d00  0000 0000 0000 0000 0000 0080 0500 0081  |................|
+00019d10  0100 0282 0200 0183 0100 0184 0000 0185  |................|
+00019d20  0000 0086 0000 0087 0000 0088 0100 0089  |................|
+00019d30  0000 008a 0000 008b 0300 008c 0300 018d  |................|
+00019d40  0100 018e 0001 018f 0100 0030 0101 0031  |..........0...1.|
+00019d50  0000 0100 0301 0101 0101 0102 0201 0103  |................|
+00019d60  0301 0104 0100 0105 0100 0106 0100 0107  |................|
+00019d70  0100 0108 0101 0009 0100 010a 0101 0140  |..............@.|
+00019d80  0101 0141 0301 0042 0100 0143 0100 0144  |..A...B...C...D.|
+00019d90  0000 0145 0101 0150 0000 0151 0000 0152  |..E...P...Q...R.|
+00019da0  0000 0253 0100 0154 0000 0155 0000 0156  |..S...T...U...V.|
+00019db0  0200 0157 0000 0158 0200 0159 0100 015a  |..W...X...Y...Z.|
+00019dc0  0200 0060 0500 0061 0200 0062 0300 0063  |..`...a...b...c.|
+00019dd0  0300 0064 0100 0070 0300 0071 0200 0072  |..d...p...q...r.|
+00019de0  0100 0073 0100 0074 0100 0075 0200 0076  |..s...t...u...v.|
+00019df0  0300 0077 0300 0178 0200 00f0 0000 01f1  |..w...x.........|
+00019e00  0000 02f2 0100 00f3 0000 00f4 0000 00f5  |................|
+00019e10  0000 00f6 0000 00f7 0000 00f8 0100 00a0  |................|
+00019e20  0201 00a1 0201 00a2 0000 00a3 0000 00a4  |................|
+00019e30  0100 00a5 0200 00a6 0300 0090 0000 0091  |................|
+00019e40  0000 0092 0000 0093 0000 1000 0200 0b00  |................|
+00019e50  0600 0b00 0500 0900 0900 0400 0700 0000  |................|
+00019e60  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+00019e70  0000 0000 0000 0000 0000 0000 3025 5832  |............%02X|
+00019e80  2500 3230 2c58 3e00 3025 5832 2523 3230  |.%02X,.>%02X#%02|
+00019e90  2358 3025 5832 2523 2373 2500 2573 3230  |X#%02X#%s#.%s%02|
+00019ea0  3c58 0000 0805 7f20 0100 0005 0000 0000  |X<.... .........|
+00019eb0  0003 be00 0000 0004 0006 0006 2805 287c  |.............(|(|
+00019ec0  287c 9005 92fc 8492 4405 1020 4408 7405  ||(.......D ..D.t|
+00019ed0  9a8a 9064 0003 0600 0000 0004 4438 0082  |..d.........8D..|
+00019ee0  0004 4482 0038 5405 fe38 5438 1005 7c10  |...D8..T8.8T...||
+00019ef0  1010 8002 0060 0000 1005 1010 1010 0003  |....`...........|
+00019f00  8000 0000 4005 1020 0408 7c05 8282 7c82  |.....@ ....|...||
+00019f10  0004 fe84 0080 8405 a2c2 8c92 4405 9282  |.............D..|
+00019f20  6c92 3005 2428 20fe 4e05 8a8a 728a 7c05  |.l.0($. .N...r.||
+00019f30  9292 6492 0205 f202 060a 6c05 9292 6c92  |...d.......l...l|
+00019f40  4c05 9292 7c92 0003 2400 0000 0003 6480  |.L...|...$.....d|
+00019f50  0000 1004 4428 0082 2804 2828 0028 8204  |....(D...((((...|
+00019f60  2844 0010 0405 b202 040a 7c05 ba82 bcaa  |D(.........|....|
+00019f70  fc05 1212 fc12 fe05 9292 6c92 7c05 8282  |...........l.|..|
+00019f80  4482 fe05 8282 7c82 fe05 9292 8292 fe05  |.D.....|........|
+00019f90  1212 0212 7c05 9282 7492 fe05 1010 fe10  |.....|...t......|
+00019fa0  0004 fe82 0082 4005 8282 027e fe05 2810  |.......@..~....(|
+00019fb0  8244 fe05 8080 8080 fe05 0804 fe04 fe05  |D...............|
+00019fc0  0804 fe10 7c05 8282 7c82 fe05 1212 0c12  |.....|...|......|
+00019fd0  7c05 a282 bc42 fe05 3212 8c52 4c05 9292  |.|..B....2R..L..|
+00019fe0  6492 0205 fe02 0202 7e05 8080 7e80 3e05  |.d.......~...~.>|
+00019ff0  8040 3e40 fe05 3040 fe40 c605 1028 c628  |@.@>..@0@...(.(.|
+0001a000  0605 f008 0608 c205 92a2 868a 0004 82fe  |................|
+0001a010  0082 0405 1008 4020 0004 8282 00fe 0004  |...... @........|
+0001a020  0204 0004 8005 8080 8080 0003 0806 0000  |................|
+0001a030  4005 a8a8 f0a8 fe05 8888 7088 7005 8888  |.@.........p.p..|
+0001a040  5088 7005 8888 fe88 7005 a8a8 30a8 1004  |.P.p.....p...0..|
+0001a050  12fc 0004 9005 a8a8 70a8 fe05 0808 f008  |.........p......|
+0001a060  0004 fa88 0080 0004 8080 007a fe04 5020  |..........z... P|
+0001a070  0088 0004 fe82 0080 f005 3008 f008 f805  |...........0....|
+0001a080  0808 f008 7005 8888 7088 f805 4828 3048  |.....p...p..(HH0|
+0001a090  3005 4848 f828 f805 0810 1008 9005 a8a8  |.0HH(...........|
+0001a0a0  48a8 0804 887e 0080 7805 8080 7880 3805  |.H..~....x...x.8|
+0001a0b0  8040 3840 7805 7080 7880 8805 2050 8850  |@.@8.x.p.x..P P.|
+0001a0c0  1805 a0a0 7890 8805 a8c8 8898 ff05 ffff  |.....x..........|
+0001a0d0  ffff 7c05 aaaa 4482 0004 6c82 0010 0e03  |...|...D...l....|
+0001a0e0  0e0a 0000 0000 0000 0000 0807 7f20 0101  |............ ...|
+0001a0f0  0007 0000 0000 0000 0005 be0c 0cbe 0000  |................|
+0001a100  0e05 000e 0e0e 0000 2807 fefe fe28 28fe  |.........(..(..(|
+0001a110  9007 fefc 8292 8486 4607 70e6 1c38 c4ce  |.........F.p8...|
+0001a120  7407 9afe eeba a044 0003 0e0e 0000 0000  |.t....D.........|
+0001a130  3804 c67c 0082 0000 8204 7cc6 0038 0000  |.8|........|8...|
+0001a140  1007 3854 38fe 1054 1006 7c10 107c 0010  |..T8.8T....||...|
+0001a150  8003 60e0 0000 0000 1006 1010 1010 0010  |...`............|
+0001a160  0003 c0c0 0000 0000 4006 3060 0c18 0004  |.........@`0....|
+0001a170  7c07 82fe 8282 7cfe 0006 8400 fefe 0080  |.|.....|........|
+0001a180  e407 92f6 9292 8c9e 4407 82c6 9292 6cfe  |.........D.....l|
+0001a190  2007 3830 262c fefe 4e07 8ace 8a8a 72fa  |. 08,&...N.....r|
+0001a1a0  7c07 92fe 9292 64f6 0207 e202 1af2 060e  |.|.....d........|
+0001a1b0  6c07 92fe 9292 6cfe 4c07 92de 9292 7cfe  |.l.....l.L.....||
+0001a1c0  0003 2424 0000 0000 0003 3454 0000 0000  |..$$......T4....|
+0001a1d0  1005 6c38 82c6 0000 2806 2828 2828 0028  |..8l.....((((((.|
+0001a1e0  8205 6cc6 1038 0000 0207 0103 ddd9 060f  |...l8...........|
+0001a1f0  7c07 82fe a29e 1cbe fc07 12fe 1212 fcfe  |.|..............|
+0001a200  fe07 92fe 9292 6cfe 7c07 82fe 8282 44c6  |.......l.|.....D|
+0001a210  fe07 82fe c682 387c fe07 92fe 9292 8292  |......|8........|
+0001a220  fe07 12fe 1212 0212 7c07 82fe 9292 74f6  |.........|.....t|
+0001a230  fe07 10fe 1010 fefe 8206 fe82 82fe 0082  |................|
+0001a240  4007 80c0 8282 7efe fe07 10fe 6c38 82c6  |.@.....~....8l..|
+0001a250  fe06 80fe 8080 0080 fe07 0cfe 0c18 fefe  |................|
+0001a260  fe07 0cfe 3018 fefe 7c07 82fe 8282 7cfe  |.....0...|.....||
+0001a270  fe07 12fe 1212 0c1e 7c07 82fe c282 bc7e  |.........|....~.|
+0001a280  fe07 12fe 3212 ecfe 4c07 92de 9292 64f6  |.....2...L.....d|
+0001a290  0206 fe02 02fe 0002 7e07 80fe 8080 7efe  |.........~.....~|
+0001a2a0  1e07 703e 70e0 1e3e fe07 60fe 6030 fefe  |..>p.p>....`0`..|
+0001a2b0  c607 38ee 3810 c6ee 0e06 f01e 1ef0 000e  |...8.8..........|
+0001a2c0  c207 b2e2 8e9a 8286 fe05 82fe 8282 0000  |................|
+0001a2d0  0406 180c 6030 0040 8205 8282 fefe 0000  |....0`@.........|
+0001a2e0  0805 060c 080c 0000 8007 8080 8080 8080  |................|
+0001a2f0  0e02 0016 0000 0000 4007 a8e8 a8a8 f0f8  |.........@......|
+0001a300  fe07 88fe 8888 70f8 7007 88f8 8888 50d8  |.......p.p.....P|
+0001a310  7007 88f8 8888 fefe 7007 a8f8 a8a8 30b8  |.p.......p.....0|
+0001a320  0805 fefc 020a 0000 1007 a8b8 a8a8 70f8  |...............p|
+0001a330  fe07 08fe 0808 f0f8 0005 fa88 80fa 0000  |................|
+0001a340  4006 80c0 fa88 007a fe06 20fe d870 0088  |.@....z.... p...|
+0001a350  0005 fe82 80fe 0000 f007 18f8 1870 f0f8  |............p...|
+0001a360  f807 10f8 0818 f0f8 7007 88f8 8888 70f8  |.........p.....p|
+0001a370  f807 28f8 4868 3078 3007 4878 2868 f8f8  |...(hHx0.0xHh(..|
+0001a380  f807 10f8 0818 1018 1007 a8b8 a8a8 40e8  |...............@|
+0001a390  0007 7e08 88fe 40c0 7807 80f8 8080 78f8  |...~...@.x.....x|
+0001a3a0  1807 6038 60c0 1838 7807 c0f8 c060 78f8  |..8`.`8..x..`..x|
+0001a3b0  8806 70d8 d870 0088 1807 a0b8 a0a0 78f8  |...pp..........x|
+0001a3c0  8807 e8c8 b8a8 8898 ff07 ffff ffff ffff  |................|
+0001a3d0  2807 aa7c aaaa 4482 0005 8282 106c 0000  |.(|....D....l...|
+0001a3e0  0005 120c 0c12 0000 0000 0000 0000 0000  |................|
+0001a3f0  100c 7f20 0101 0014 0000 0000 0000 0000  |.. .............|
+0001a400  0000 0000 0000 0000 0000 0000 0000 0a00  |................|
+0001a410  0000 0000 e7ff e7ff e7ff 0000 0000 0000  |................|
+0001a420  0000 0000 0000 0000 0f0e 0f00 0f00 0000  |................|
+0001a430  0f00 0f00 0f00 0000 0000 0000 0000 0000  |................|
+0001a440  1800 0c30 0c30 ffff ffff ffff 0c30 0c30  |..0.0.......0.0.|
+0001a450  ffff ffff ffff 0c30 0c30 c018 dce1 fef1  |......0.0.......|
+0001a460  ffff e7ff c3ef c3e1 c3e1 c7e1 0fe1 0ee0  |................|
+0001a470  0ce0 16e0 180c 1c0c 0e00 0700 0380 01c0  |................|
+0001a480  00e0 0070 0038 181c 180c 0000 3816 7c3e  |..p.8........8>||
+0001a490  ee7f c6ff c6e3 eee3 7c77 383f 007e 80f7  |........w|?8~...|
+0001a4a0  80e7 00c3 0600 0000 000b 000f 0000 0000  |................|
+0001a4b0  0000 0000 0000 0000 0000 0000 0000 f00c  |................|
+0001a4c0  fc0f fe3f 0f7f 07f0 07e0 00e0 0000 0000  |..?.............|
+0001a4d0  0000 0000 0000 0e00 e003 e003 e007 f00f  |................|
+0001a4e0  7ffe 3ffc 0ff0 0000 0000 0000 0000 0000  |...?............|
+0001a4f0  8018 9801 b819 f01d e00f fc07 fc3f e03f  |............?.?.|
+0001a500  f007 b80f 981d 8019 1601 01c0 01c0 01c0  |................|
+0001a510  01c0 1ffc 1ffc 1ffc 01c0 01c0 01c0 01c0  |................|
+0001a520  0000 0008 0000 00b0 00f0 0070 0000 0000  |..........p.....|
+0001a530  0000 0000 0000 0000 0000 1200 0380 0380  |................|
+0001a540  0380 0380 0380 0380 0380 0380 0380 0000  |................|
+0001a550  0000 0000 000a 0000 0000 0038 0038 0038  |..........8.8.8.|
+0001a560  0000 0000 0000 0000 0000 0000 1600 1800  |................|
+0001a570  1c00 0e00 0700 0380 01c0 00e0 0070 0038  |............p.8.|
+0001a580  001c 000c 0000 fc16 fe3f ff7f 0fff 07f0  |........?.......|
+0001a590  07e0 07e0 0fe0 fff0 feff fc7f 003f 0e00  |............?...|
+0001a5a0  0000 0000 0018 001c ffff ffff ffff 0000  |................|
+0001a5b0  0000 0000 0000 0000 0c16 0ef0 0ff8 07fc  |................|
+0001a5c0  07fe 87ef c7e7 efe3 ffe1 7ee0 3ce0 00e0  |...........~.<..|
+0001a5d0  1600 300c 700e f00f e1c7 e1c7 e1c7 e1c7  |...0.p..........|
+0001a5e0  f3ef ffff 7ffe 3e7c 0000 8016 c00f e00f  |......|>........|
+0001a5f0  f00f 780e 3c0e fe0e ffff ffff 00ff 000e  |...x.<..........|
+0001a600  000e 1600 30ff 70ff f0ff e0e7 e0e7 e0e7  |.....0.p........|
+0001a610  e0e7 f1e7 ffe7 7fc7 3f87 0000 fc16 fe3f  |.........?....?.|
+0001a620  ff7f cfff c7f3 c7e1 c7e1 c7e1 cff3 8eff  |................|
+0001a630  0c7f 003f 1600 0007 0007 0007 0007 fe07  |..?.............|
+0001a640  ffc7 ffe7 01f7 007f 003f 001f 0000 1c16  |........?.......|
+0001a650  be3f ff7f efff c7f3 c7e1 c7e1 efe1 fff3  |?...............|
+0001a660  beff 1c7f 003f 1600 70fc f1fe f3ff e3cf  |....?....p......|
+0001a670  e387 e387 e387 f3cf ffff 7ffe 3ffc 0000  |.............?..|
+0001a680  000a 0000 7000 701c 701c 001c 0000 0000  |.....p.p.p......|
+0001a690  0000 0000 0000 0000 0600 6c70 7c70 3c70  |..........plp|p<|
+0001a6a0  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+0001a6b0  0000 8014 c000 e001 f003 7807 3c0f 1e1e  |...........x.<..|
+0001a6c0  0f3c 0778 0370 0060 0000 1000 1c70 1c70  |<.x.p.`.....p.p.|
+0001a6d0  1c70 1c70 1c70 1c70 1c70 1c70 0000 0000  |p.p.p.p.p.p.....|
+0001a6e0  0000 0000 0712 0f70 1e78 3c3c 781e f00f  |......p.x.<<.x..|
+0001a6f0  e007 c003 8001 0000 0000 0000 1400 000c  |................|
+0001a700  000e 000f 0007 e787 e7c7 e7e7 00ff 007e  |..............~.|
+0001a710  003c 0000 0000 fc16 fe3f ff7f 07ff e7e0  |<.......?.......|
+0001a720  f7e1 37e3 37e3 ffe3 fef3 fc73 0031 1400  |...7.7....s.1...|
+0001a730  fffc fffe ffff 038f 0387 0387 038f ffff  |................|
+0001a740  fffe fffc 0000 0000 ff14 ffff ffff c7ff  |................|
+0001a750  c7e1 c7e1 ffe1 fee1 dcf3 807f 003f 0000  |............?...|
+0001a760  1400 3ffc 7ffe ffff f00f e007 e007 e007  |...?............|
+0001a770  f00f 700e 300c 0000 0000 ff14 ffff ffff  |...p.0..........|
+0001a780  07ff 07e0 07e0 1fe0 fef0 fc7f f03f 000f  |............?...|
+0001a790  0000 1200 ffff ffff ffff e1c7 e1c7 e1c7  |................|
+0001a7a0  e1c7 e1c7 e007 0000 0000 0000 ff12 ffff  |................|
+0001a7b0  ffff c7ff c701 c701 c701 0701 0700 0000  |................|
+0001a7c0  0000 0000 1400 3ffc 7ffe ffff f00f e007  |.......?........|
+0001a7d0  e307 f307 ff0f 7f0e 3f0c 0000 0000 ff14  |.........?......|
+0001a7e0  ffff ffff c0ff c001 c001 c001 ff01 ffff  |................|
+0001a7f0  ffff 00ff 0000 0c00 0000 e007 ffff ffff  |................|
+0001a800  ffff e007 0000 0000 0000 0000 0000 0000  |................|
+0001a810  0014 0738 0778 07f0 07e0 fff0 ffff ff7f  |..8.x...........|
+0001a820  073f 0700 0000 0000 1400 ffff ffff ffff  |?...............|
+0001a830  07e0 0ff0 1e78 3c3c 781e f00f e007 0000  |....x.<<.x......|
+0001a840  0000 ff12 ffff ffff 00ff 00e0 00e0 00e0  |................|
+0001a850  00e0 00e0 00e0 0000 0000 1600 ffff ffff  |................|
+0001a860  fffe 007c 00f8 01f0 00f8 007c fffe ffff  |..|.......|.....|
+0001a870  ffff 0000 ff14 ffff feff 3cff 7800 f000  |...........<.x..|
+0001a880  e000 ff01 ffff ffff 00ff 0000 1400 3ffc  |...............?|
+0001a890  7ffe ffff f00f e007 e007 f00f ffff 7ffe  |................|
+0001a8a0  3ffc 0000 0000 ff14 ffff ffff 87ff 8703  |.?..............|
+0001a8b0  8703 cf03 ff03 fe03 fc01 0000 0000 1600  |................|
+0001a8c0  3ffc 7ffe ffff e00f e607 fe07 7c0f 7fff  |.?...........|..|
+0001a8d0  fffe e7fc c000 0000 ff14 ffff ffff 87ff  |................|
+0001a8e0  8703 8703 cf07 ff0f 7efe 3cfc 00f8 0000  |.........~.<....|
+0001a8f0  1400 307c 70fe f0ff e1ef e1c7 e1c7 f3c7  |..|0.p..........|
+0001a900  ffcf 7f8e 3f0c 0000 0000 0716 0700 0700  |.....?..........|
+0001a910  0700 ff00 ffff ffff 07ff 0700 0700 0700  |................|
+0001a920  0000 1400 3fff 7fff ffff f000 e000 e000  |.....?..........|
+0001a930  f000 ffff 7fff 3fff 0000 0000 ff16 ff07  |.......?........|
+0001a940  ff0f 001f 003e 007c 00f8 007c ff3e ff1f  |....>.|...|.>...|
+0001a950  ff0f 0007 1600 ffff ffff 7fff 3c00 1e00  |.............<..|
+0001a960  0f00 1e00 3c00 7fff ffff ffff 0000 1f14  |.....<..........|
+0001a970  3ffc 7ffe f0ff e00f e007 f007 ff0f 7ffe  |.?..............|
+0001a980  3ffc 00f8 0000 1600 001f 003f 007f 00f0  |.?........?.....|
+0001a990  ffe0 ffc0 ffe0 00f0 007f 003f 001f 0000  |..........?.....|
+0001a9a0  0716 07fc 07fe 87ff c7e7 e7e3 f7e1 7fe0  |................|
+0001a9b0  3fe0 1fe0 0fe0 00e0 0c00 ffff ffff ffff  |.?..............|
+0001a9c0  c003 c003 c003 0000 0000 0000 0000 0000  |................|
+0001a9d0  0000 1c14 3c00 7800 f000 e000 c001 8003  |.....<.x........|
+0001a9e0  0007 000f 001e 001c 0000 0c00 c003 c003  |................|
+0001a9f0  c003 ffff ffff ffff 0000 0000 0000 0000  |................|
+0001aa00  0000 0000 7012 3800 1c00 0e00 0700 0e00  |.....p.8........|
+0001aa10  1c00 3800 7000 0000 0000 0000 1600 e000  |...8.p..........|
+0001aa20  e000 e000 e000 e000 e000 e000 e000 e000  |................|
+0001aa30  e000 e000 0000 0f06 1f00 1800 0000 0000  |................|
+0001aa40  0000 0000 0000 0000 0000 0000 0000 1400  |................|
+0001aa50  0fc0 1ff0 3ff8 3838 3018 3018 1838 3ff0  |.....?88.0.08..?|
+0001aa60  3ff8 3ff8 0000 0000 ff14 ff3f ff3f 303f  |.?.?......?.?.?0|
+0001aa70  1818 1830 3830 f838 f03f e01f 000f 0000  |..0.088.?.......|
+0001aa80  1400 0fe0 1ff0 3ff8 3838 3018 3018 3838  |.......?88.0.088|
+0001aa90  3c78 1c70 0c60 0000 0000 e014 f00f f81f  |x<p.`...........|
+0001aaa0  383f 1838 1830 3030 ff18 ff3f ff3f 003f  |?88.0.00..?.?.?.|
+0001aab0  0000 1400 0fe0 1ff0 3ff8 39b8 3198 3198  |.........?.9.1.1|
+0001aac0  31b8 39f8 19f0 08e0 0000 0000 8012 8001  |.1.9............|
+0001aad0  fc01 feff ffff 87ff 8701 0e01 0c00 0000  |................|
+0001aae0  0000 0000 1400 63e0 e7f0 cff8 ce38 cc18  |.......c....8...|
+0001aaf0  cc18 ce38 fff0 7ff8 3ff8 0000 0000 ff14  |..8......?......|
+0001ab00  ff3f ff3f 303f 1800 1800 3800 f800 f03f  |?.?.?0.....8..?.|
+0001ab10  e03f 003f 0000 0c00 0000 2008 3ffb 3ffb  |?.?........ .?.?|
+0001ab20  3ffb 2000 0000 0000 0000 0000 0000 0000  |.?. ............|
+0001ab30  000e 0060 00e0 18c0 fbe0 fbff fb7f 003f  |..`...........?.|
+0001ab40  0000 0000 0000 0000 1400 3fff 3fff 3fff  |...........?.?.?|
+0001ab50  03c0 07e0 0ff0 1e78 3c3c 381c 300c 0000  |......x.<<.8.0..|
+0001ab60  0000 030a ff30 ff3f ff3f 003f 0030 0000  |....0.?.?.?.0...|
+0001ab70  0000 0000 0000 0000 0000 1400 3ff8 3ff8  |.............?.?|
+0001ab80  3ff0 0038 07f8 07f0 0038 3ff8 3ff8 3ff0  |.?8.....8..?.?.?|
+0001ab90  0000 0000 f814 f83f f03f 383f 1800 1800  |......?.?.?8....|
+0001aba0  3800 f800 f03f e03f 003f 0000 1400 0fe0  |.8..?.?.?.......|
+0001abb0  1ff0 3ff8 3838 3018 3018 3838 3ff8 1ff0  |...?88.0.088.?..|
+0001abc0  0fe0 0000 0000 f814 f8ff f8ff 30ff 1818  |.............0..|
+0001abd0  1830 3830 f838 f03f e01f 000f 0000 1400  |0.088.?.........|
+0001abe0  0fe0 1ff0 3ff8 3838 3018 3018 1830 fff8  |.....?88.0.00...|
+0001abf0  fff8 fff8 0000 0000 f814 f83f f03f 383f  |..........?.?.?8|
+0001ac00  1800 1800 3800 7800 7000 6000 0000 0000  |.....8.x.p.`....|
+0001ac10  1400 18f0 39f8 39f8 3198 3198 3198 3198  |.....9.9.1.1.1.1|
+0001ac20  3fb8 3fb8 1f30 0000 0000 1812 1800 ff00  |.?.?0...........|
+0001ac30  ff1f ff3f 183f 1830 0030 0038 0018 0000  |..?.?.0.0.8.....|
+0001ac40  0000 1400 0ff8 1ff8 3ff8 3800 3000 3000  |.........?.8.0.0|
+0001ac50  3800 3ff8 1ff8 0ff8 0000 0000 f814 f803  |.8.?............|
+0001ac60  f807 000f 001e 003c 003c f81e f80f f807  |......<.<.......|
+0001ac70  0003 0000 1400 1ff8 3ff8 3ff8 3800 1fc0  |.........?.?.8..|
+0001ac80  1fc0 3800 3ff8 3ff8 1ff8 0000 0000 3814  |...8.?.?.......8|
+0001ac90  7838 f03c e01e c00f c007 e007 f00f 781e  |8x<............x|
+0001aca0  383c 0038 0000 1400 63f8 e7f8 eff8 ce00  |<88......c......|
+0001acb0  cc00 cc00 ce00 fff8 fff8 7ff8 0000 0000  |................|
+0001acc0  3814 3838 383c 383e b83f f83f f83b f839  |.888<8>8?.?.;.9.|
+0001acd0  7838 3838 0038 0000 1800 ffff ffff ffff  |8x888...........|
+0001ace0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001acf0  ffff f818 fe1f fe7f 6f7f 67f6 67e6 67e6  |.........o.g.g.g|
+0001ad00  67e6 07e6 0fe0 1ef0 1c78 0e38 c003 e007  |.g......x.8.....|
+0001ad10  e007 fe7f 7ffe 3ffc 0180 0000 0000 0000  |.......?........|
+0001ad20  0000 0000 3c10 7e00 e700 c300 c300 e700  |.....<.~........|
+0001ad30  7e00 3c00 0000 0000 0000 0000 0000 0000  |.~.<............|
+0001ad40  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+0001ad50  0000 0000 0000 180f 7f20 0201 002d 0000  |........ ...-...|
+0001ad60  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+0001ad70  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+0001ad80  0000 0000 0000 0000 0000 0018 0000 0000  |................|
+0001ad90  fe00 0001 ffff ff61 f3ff ffff fff3 61ff  |......a........a|
+0001ada0  01fe 0000 0000 0000 0000 0000 0000 0000  |................|
+0001adb0  0000 0000 0000 0000 7815 0000 007c 3e00  |.........x..|..>|
+0001adc0  0000 001f 0f00 0000 0007 0300 0000 0000  |................|
+0001add0  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+0001ade0  0000 0000 0000 c02d 03c3 c3c0 fc03 3fff  |......-........?|
+0001adf0  fffc fc3f 3fff fffc c03f 03c3 c3c0 c003  |..?..?..?.......|
+0001ae00  03c3 fffc fc3f 3fff fffc fc3f 3fff c3c0  |....?..?..?..?..|
+0001ae10  c003 03c3 002d f00e 0e00 f0f8 fc7f fffc  |....-...........|
+0001ae20  feff ffff ffff 1fff f7ce 0e0f 0ff0 f00e  |................|
+0001ae30  0e0f 1ff0 f00e 001e 1ef0 f000 001c 00f0  |................|
+0001ae40  e000 602d 1e00 00f0 f01f 0f80 c060 0007  |..-`........`...|
+0001ae50  03e0 f000 0001 00f8 7c00 0000 003e 1f00  |.........|..>...|
+0001ae60  8000 000f 07c0 e00c 1e03 01f0 f01e 0c00  |................|
+0001ae70  c02d 0ff1 fbf0 f81f 3fff 7ff8 7c3c 383c  |-........?..<|<8|
+0001ae80  383c 3c38 3c7c fe78 f83e 3fef c7f0 e01f  |<88<|<x.>..?....|
+0001ae90  0f83 8000 001f 3fc0 e000 0039 30e0 0015  |.......?..9..0..|
+0001aea0  0000 0000 c000 0000 00ef ff00 0000 007f  |................|
+0001aeb0  3e00 0000 0000 0000 0000 0000 0000 0000  |.>..............|
+0001aec0  0000 0000 0000 0000 0000 0000 001e 0000  |................|
+0001aed0  0000 c000 03ff fff0 fc0f 3fff fffe 3f7f  |...........?...?|
+0001aee0  fc00 000f 07f0 e000 0003 00c0 0000 0000  |................|
+0001aef0  0000 0000 0000 0000 0000 001e 0000 0000  |................|
+0001af00  0300 c000 0007 0fe0 f800 003f fefe 7fff  |..........?.....|
+0001af10  fffc f03f 07ff ffc0 0001 0000 0000 0000  |..?.............|
+0001af20  0000 0000 0000 0000 002d 0038 3880 c002  |........-.8..8..|
+0001af30  0739 bbc0 8007 03ff ff00 f001 1fff fff0  |9...............|
+0001af40  f01f 1fff ff00 8001 03ff bbc0 c007 0739  |..............9.|
+0001af50  3880 0002 0038 002a 003c 3c00 0000 003c  |.8..8.*.<..<..<.|
+0001af60  3c00 0000 003c fff0 f00f 0fff fff0 f00f  |.<..<...........|
+0001af70  0fff 3c00 0000 003c 3c00 0000 003c 3c00  |...<..<..<..<..<|
+0001af80  0000 0000 0012 0000 0000 00c0 ef00 0000  |................|
+0001af90  00ff 7f00 0000 003e 0000 0000 0000 0000  |......>.........|
+0001afa0  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+0001afb0  0000 002a 003c 3c00 0000 003c 3c00 0000  |..*.<..<..<..<..|
+0001afc0  003c 3c00 0000 003c 3c00 0000 003c 3c00  |<..<..<..<..<..<|
+0001afd0  0000 003c 3c00 0000 003c 3c00 0000 0000  |..<..<..<..<....|
+0001afe0  000f 0000 0000 0018 3c00 0000 003c 1800  |.........<..<...|
+0001aff0  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+0001b000  0000 0000 0000 0000 0000 0000 0000 002d  |..............-.|
+0001b010  1e00 0000 001f 0f80 c000 0007 03e0 f000  |................|
+0001b020  0001 00f8 7c00 0000 003e 1f00 8000 000f  |.....|..>.......|
+0001b030  07c0 e000 0003 01f0 f000 0000 f02d 0fff  |............-...|
+0001b040  fffc fe3f 7fff fffe 1f7f f800 000f 0ff0  |..?.............|
+0001b050  f000 000f 0ff0 f000 000f 1ff0 f800 fffe  |................|
+0001b060  fe7f 7fff fffc f03f 0fff 0024 0000 0000  |......?...$.....|
+0001b070  0000 0000 01e0 e000 0001 01f0 f800 0000  |................|
+0001b080  007c ff00 ffff ffff ffff ffff ffff 00ff  ||...............|
+0001b090  0000 0000 0000 0000 382d ff00 c03e 3eff  |........-8..>..>|
+0001b0a0  ffe0 f01f 0fff f3f0 f80f 0ff0 f078 7c0f  |............x..||
+0001b0b0  0ff0 f03c 3e0f 9ff0 f01f 1fff fef0 f00f  |..<..>..........|
+0001b0c0  07fe f8f0 f001 3c2d 3c00 003e 3f7c fc00  |......-<.<>.|?..|
+0001b0d0  001f 0ff8 f00c 1e0f 0ff0 f01e 1e0f 0ff0  |................|
+0001b0e0  f01e 1e0f 1ff0 f83f ffff feff 7fff f3fe  |......?.........|
+0001b0f0  f87f 1fe1 002d 01f8 fc00 0001 01fe ff00  |....-...........|
+0001b100  8001 01ef e7c0 e001 01e3 e1f0 fc01 01e0  |................|
+0001b110  e07f ff01 ffff ffff ffff ffff ffff 00ff  |................|
+0001b120  01e0 ff2d 1c0f 1fff ff7c 7c1f 1fff 0ff8  |..-.....|..|....|
+0001b130  f01e 0f0f 0ff0 f00f 0f0f 0ff0 f00f 0f0f  |................|
+0001b140  0ff0 f81f ff0f 0fff 7ffe fe0f 0f7f 1ff8  |................|
+0001b150  f82d 1fff fffe fe7f 7fff ffff 1fff f81e  |-...............|
+0001b160  0f0f 0ff0 f00f 0f0f 0ff0 f00f 0f0f 0ff0  |................|
+0001b170  f81f fe1f 3eff 7ffe fc3e 387f 1ff0 0f2d  |.....>..>..8..-.|
+0001b180  0000 000f 0f00 0000 000f 0f00 0000 e00f  |................|
+0001b190  0fff fffc ff0f 8fff ffff 3fcf ef00 0007  |...........?....|
+0001b1a0  01ff ff00 0000 007f 3f00 0000 f82d 3fe3  |.........?..-..?|
+0001b1b0  f7fe fe7f ffff ffff 1fff f83f 1e0f 0ff0  |..........?.....|
+0001b1c0  f01e 1e0f 0ff0 f01e 1e0f 1ff0 f83f ffff  |............?...|
+0001b1d0  feff ffff f7fe f87f 3fe3 f82d 1c03 0ffe  |.........?-.....|
+0001b1e0  fe7c 7c1f 1fff 1ff8 f03e 3c0f 0ff0 f03c  ||..|....>..<..<.|
+0001b1f0  3c0f 0ff0 f03c 3c0f 1ff0 f81e ffff feff  |.<..<..<........|
+0001b200  7fff fffe f87f 1fff 000f 0000 0180 c006  |................|
+0001b210  0f03 03c0 800f 0601 0000 0000 0000 0000  |................|
+0001b220  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+0001b230  0000 0000 0000 0012 0000 0000 00c0 e603  |................|
+0001b240  0780 80ff 7f07 0300 003e 0000 0000 0000  |........>.......|
+0001b250  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+0001b260  0000 0000 002d 0018 3c00 0000 007e ff00  |....-....<..~...|
+0001b270  8000 01ff e7c0 e003 07c3 81f0 f80f 1f00  |................|
+0001b280  007c 3e3e 7c00 001f 0ff8 f000 0007 03e0  ||.>>.|..........|
+0001b290  c000 c02a 03c3 c3c0 c003 03c3 c3c0 c003  |..*.............|
+0001b2a0  03c3 c3c0 c003 03c3 c3c0 c003 03c3 c3c0  |................|
+0001b2b0  c003 03c3 c3c0 c003 03c3 c3c0 0003 0000  |................|
+0001b2c0  032d c000 0007 0fe0 f000 001f 3ef8 7c00  |-............>.||
+0001b2d0  007c f83e 1f00 81f0 e00f 07c3 e7c0 8003  ||.>.............|
+0001b2e0  01ff ff00 0000 007e 3c00 0000 0018 702d  |......~..<....-p|
+0001b2f0  0000 007c 3e00 0000 001e 0f00 0000 000f  |..|..>..........|
+0001b300  0f00 63e0 f80f 0ff3 f3fc fe0f 1f63 003f  |...c........c.?.|
+0001b310  0ffe fc00 0007 03f8 e000 0000 f02d 0fff  |............-...|
+0001b320  fffc fe3f 7fff fffe 1f7f f800 000f 8ff0  |..?.............|
+0001b330  f0ff ffcf cff1 f3ff e3cf 9ff3 f3c3 c7fe  |................|
+0001b340  fef1 79ff fffc f078 383f e02d ffff fffc  |...y..x.?8-.....|
+0001b350  feff ffff ffff 7fff 003c 3c1f 0f00 003c  |........<..<..<.|
+0001b360  3c0f 0f00 003c 3c1f 7f00 003c ffff feff  |.<..<..<..<.....|
+0001b370  ffff fffc e0ff ffff ff2d ffff ffff ffff  |........-.......|
+0001b380  ffff ffff 0fff f01e 1e0f 0ff0 f01e 1e0f  |................|
+0001b390  0ff0 f01e 3f1f fef8 feff fffe fcff 7ff7  |.....?..........|
+0001b3a0  e3f8 003f 0f80 f02d 0fff fffc fe3f 7fff  |..?...-.....?...|
+0001b3b0  fffe 7f7f fe00 001f 0ff8 f000 000f 0ff0  |................|
+0001b3c0  f000 001f 3ff8 fc00 00fe fe7f 7f00 00fc  |.....?..........|
+0001b3d0  f03f 0f00 ff2d ffff ffff ffff ffff ffff  |?...-...........|
+0001b3e0  0fff f000 000f 0ff0 f000 001f 1ff8 f800  |................|
+0001b3f0  003f fefc 7f00 fffe fc7f 3fff fff8 e01f  |?..........?....|
+0001b400  07ff ff2d ffff ffff ffff ffff ffff 0fff  |..-.............|
+0001b410  f03c 3c0f 0ff0 f03c 3c0f 0ff0 f03c 3c0f  |<..<..<..<..<..<|
+0001b420  0ff0 f03c 000f 0ff0 f000 000f 0ff0 f000  |..<.............|
+0001b430  ff2d ffff ffff ffff ffff ffff 0fff 003c  |-.............<.|
+0001b440  3c0f 0f00 003c 3c0f 0f00 003c 3c0f 0f00  |.<..<..<..<..<..|
+0001b450  003c 000f 0f00 0000 000f 0f00 0000 f02d  |<.............-.|
+0001b460  0fff fffc fe3f 7fff fffe 3f7f fc00 001f  |....?......?....|
+0001b470  0ff8 f000 780f 0ff0 f078 780f 1ff0 f878  |.....x..x..x..x.|
+0001b480  f83e 7e7f 7ff8 f87c 703f 0ff0 ff2d ffff  |>..~..|.?p..-...|
+0001b490  ffff ffff ffff ffff 00ff 003c 3c00 0000  |..........<..<..|
+0001b4a0  003c 3c00 0000 003c 3c00 0000 003c ffff  |<..<..<..<..<...|
+0001b4b0  ffff ffff ffff ffff ffff 0024 0000 0000  |..........$.....|
+0001b4c0  0700 e000 0007 07e0 e000 ffff ffff ffff  |................|
+0001b4d0  ffff ffff ffff 0007 07e0 e000 0007 00e0  |................|
+0001b4e0  0000 0000 0000 0000 0f2d 1e00 000f 0f7e  |........-.....~.|
+0001b4f0  7e00 000f 0ff8 f000 000f 0ff0 f000 000f  |.~..............|
+0001b500  0ff8 fc00 ffff ff7f 7fff ffff ff3f 0fff  |............?...|
+0001b510  000f 0f00 0000 ff2d ffff ffff ffff ffff  |......-.........|
+0001b520  ffff 80ff 00ff ffc0 e001 03f7 e3f0 f807  |................|
+0001b530  0fc1 80fc 7e1f 3f00 003f 1f7e fc00 000f  |.....~.??.~.....|
+0001b540  07f8 f000 ff2d ffff ffff ffff ffff ffff  |....-...........|
+0001b550  00ff f000 0000 00f0 f000 0000 00f0 f000  |................|
+0001b560  0000 00f0 f000 0000 00f0 f000 0000 00f0  |................|
+0001b570  f000 ff2d ffff ffff ffff ffff fffe fcff  |..-.............|
+0001b580  0001 03f8 f000 0007 0fe0 f000 0007 03f8  |................|
+0001b590  fc00 0001 fffe ffff ffff ffff ffff ffff  |................|
+0001b5a0  ff2d ffff ffff ffff ffff ffff feff 0000  |-...............|
+0001b5b0  01fc f800 0003 07f0 e000 000f 1fc0 8000  |................|
+0001b5c0  003f ffff ffff ffff ffff ffff ffff fc2d  |?.............-.|
+0001b5d0  3fff fffe ff7f ffff ffff 1fff f800 000f  |.?..............|
+0001b5e0  0ff0 f000 000f 0ff0 f000 000f 1ff0 f800  |................|
+0001b5f0  ffff ffff ffff fffe fc7f 3fff ff2d ffff  |...........?-...|
+0001b600  ffff ffff ffff ffff 0fff 00f0 f00f 0f00  |................|
+0001b610  00f0 f00f 0f00 00f0 f00f 1f00 00f8 ffff  |................|
+0001b620  ff00 00ff 7ffe f800 001f fc2d 3fff fffe  |..........-..?..|
+0001b630  ff7f ffff ffff 1fff f800 000f 0ff0 f1c0  |................|
+0001b640  c00f 0ffb ffc0 800f 1f7f 3f00 ffff ff7f  |...........?....|
+0001b650  ffff fffe fcff f3ff ff2d ffff ffff ffff  |........-.......|
+0001b660  ffff ffff 0fff 007e 7e0f 0f00 007e fe0f  |......~..~..~...|
+0001b670  0f00 03fe fe0f 1f0f ffff dfff ffff ff0f  |................|
+0001b680  07fe f8fc e001 f02d 3c03 0ffc fe7c fc0f  |......-..<..|...|
+0001b690  1ffe 1ff8 f01f 1e0f 0ff0 f01e 1e0f 0ff0  |................|
+0001b6a0  f01e 1e0f 0ff0 f83e fc1f 3f7f 7ffc f83e  |......>....?..>.|
+0001b6b0  3c3f 0ff0 0f2d 0000 000f 0f00 0000 000f  |?<..-...........|
+0001b6c0  0f00 0000 ffff ffff ffff ffff ffff ffff  |................|
+0001b6d0  ffff 0fff 0000 000f 0f00 0000 000f 0f00  |................|
+0001b6e0  0000 ff2d 0fff ffff ff3f 7fff ffff 007f  |..-.....?.......|
+0001b6f0  fc00 0000 00f8 f000 0000 00f0 f000 0000  |................|
+0001b700  00f8 fc00 ffff ff7f 7fff ffff ff3f 0fff  |............?...|
+0001b710  ff2d 0007 1fff ff00 007f ffff 0001 07f8  |-...............|
+0001b720  e000 001f 7f80 0000 00fe 7f80 e000 001f  |................|
+0001b730  07f8 ffff ff01 007f 1fff ff00 0007 ff2d  |..............-.|
+0001b740  ffff ffff ffff ffff ffff 007f 3f00 8000  |.............?..|
+0001b750  001f 0fc0 e000 0007 0fc0 8000 001f 3f00  |...............?|
+0001b760  ffff ff7f ffff ffff ffff ffff 7f2d fe00  |............-...|
+0001b770  00ff ffff ff81 c3ff c0ff 03e7 ff80 0001  |................|
+0001b780  00ff 7e00 0000 00ff ff80 c001 03e7 c3ff  |...~............|
+0001b790  ffff ff81 00ff 7fff fe00 ff2d 0003 07ff  |..........-.....|
+0001b7a0  ff00 000f 1fff 0000 003f fe00 00ff fffc  |........?.......|
+0001b7b0  f800 00ff fffc fe00 00ff 003f 1fff ff00  |..........?.....|
+0001b7c0  000f 07ff ff00 0003 0f2d ff00 800f 0fff  |........-.......|
+0001b7d0  ffc0 e00f 0fff f3f0 f80f 0ff1 f0fc 7e0f  |...............~|
+0001b7e0  0ff0 f03f 1f8f cff0 f00f 07ff fff0 f003  |..?.............|
+0001b7f0  01ff fff0 f000 0024 0000 0000 ff00 ffff  |......$.........|
+0001b800  ffff ffff ffff ffff 07ff e000 0007 07e0  |................|
+0001b810  e000 0007 07e0 e000 0007 00e0 0000 0000  |................|
+0001b820  0000 0000 c02d 0000 01e0 e000 0003 07c0  |....-...........|
+0001b830  8000 000f 1f00 0000 003e 7c00 0000 00f8  |........>..|....|
+0001b840  f000 0001 03e0 c000 0007 0f80 0000 000f  |................|
+0001b850  0600 0024 0000 0000 0700 e000 0007 07e0  |..$.............|
+0001b860  e000 0007 07e0 e000 0007 ffe0 ffff ffff  |................|
+0001b870  ffff ffff ffff 00ff 0000 0000 0000 0000  |................|
+0001b880  002a 0000 0040 6000 0000 0070 7800 0000  |*...@..`..p..x..|
+0001b890  003c 1e00 0000 000f 1e00 0000 003c 7800  |<...........<..x|
+0001b8a0  0000 0070 6000 0000 0040 0000 0000 002d  |..p..`..@.....-.|
+0001b8b0  f000 0000 00f0 f000 0000 00f0 f000 0000  |................|
+0001b8c0  00f0 f000 0000 00f0 f000 0000 00f0 f000  |................|
+0001b8d0  0000 00f0 f000 0000 00f0 f000 ff2d 1fff  |............-...|
+0001b8e0  ffff ff1f 1fff ffff c01f 0f03 01e0 f01e  |................|
+0001b8f0  1e00 00f0 f01e 1e00 00f0 f01e 1f01 fff0  |................|
+0001b900  f01f 1fff ffe0 800f 03ff 002d 03c0 f180  |..........-.....|
+0001b910  c00f 1ff9 f9e0 e01f 1e3c 1ce0 e01c 1c1c  |........<.......|
+0001b920  1ce0 e01c 1c1c 3ce0 e01e 0ff9 ffe0 e007  |.......<........|
+0001b930  1fff ffc0 001f 1fff ff2d 1fff ffff ff1f  |........-.......|
+0001b940  1fff ffff 801f 0e03 01c0 e01c 1c00 00e0  |................|
+0001b950  e01c 1c00 00e0 e01c 1e01 ffe0 c01f 1fff  |................|
+0001b960  ff80 000f 03fe 002d 03ff ffc0 e00f 1fff  |......-.........|
+0001b970  ffe0 e01f 1e01 00e0 e01c 1c00 00e0 e01c  |................|
+0001b980  1c00 00e0 e01c 1c00 01e0 e01e 1f03 03c0  |................|
+0001b990  000f 0303 002d 03fe ff80 c00f 1fff ffe0  |....-...........|
+0001b9a0  e01f 1e01 00e0 e01c 1c00 00e0 e01c 1c00  |................|
+0001b9b0  01c0 801c 0f03 ffff ff1f 1fff ffff ff1f  |................|
+0001b9c0  1fff 002d 01fe ff80 c007 0fff ffc0 e00f  |..-.............|
+0001b9d0  1f39 38e0 e01e 1c38 38e0 e01c 1c38 38e0  |9..8..8..8..8..8|
+0001b9e0  e01c 1c39 3fc0 c00e 0f3f 1f80 0007 030e  |..9..?..?.......|
+0001b9f0  0021 0000 0380 8000 0003 fff8 fc1f 1fff  |!...............|
+0001ba00  fffe ff1f 1fff 038f 8700 0003 0387 8700  |................|
+0001ba10  0003 0000 0000 0000 0000 0000 0000 002d  |..............-.|
+0001ba20  183e ff80 c038 79ff ffc0 e071 e3c1 80e0  |>...8..y..q.....|
+0001ba30  e0e3 e380 80e0 e0e3 e380 81e0 c0e3 f1c3  |................|
+0001ba40  ff80 e07f 7fff ffe0 e03f 0fff ff2d 1fff  |........?...-...|
+0001ba50  ffff ff1f 1fff ffff 801f 0007 03c0 e000  |................|
+0001ba60  0001 00e0 e000 0000 00e0 e000 0001 ffe0  |................|
+0001ba70  e01f 1fff ffc0 001f 1fff 001b 0000 0000  |................|
+0001ba80  e01c 1c00 ffe7 e71f 1fff ffe7 e71f 1fff  |................|
+0001ba90  0000 001c 1c00 0000 0000 0000 0000 0000  |................|
+0001baa0  0000 0000 0000 0000 001b e000 0000 00e0  |................|
+0001bab0  e000 0000 e0e0 f000 ffe7 e77f 7fff ffe7  |................|
+0001bac0  e73f 0fff 0000 0000 0000 0000 0000 0000  |?...............|
+0001bad0  0000 0000 0000 ff2a 1fff ffff ff1f 1fff  |......*.........|
+0001bae0  ffff 001f 007e ff00 8000 01ff ffc0 e003  |....~...........|
+0001baf0  07e7 c3e0 e00f 1f81 00e0 001f 1e00 0000  |................|
+0001bb00  001c 0000 001b 0000 0000 071c 1c00 ffff  |................|
+0001bb10  ff1f 1fff ffff ff1f 1fff 0000 001c 1c00  |................|
+0001bb20  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+0001bb30  0000 e02d 1fff ffe0 e01f 1fff 0380 c000  |..-.............|
+0001bb40  0001 03e0 e000 1fff ffc0 801f 1fff 03c0  |................|
+0001bb50  e000 0001 03e0 e000 1fff ffc0 801f 1fff  |................|
+0001bb60  e02d 1fff ffe0 e01f 1fff ffe0 801f 0007  |-...............|
+0001bb70  03c0 e000 0001 00e0 e000 0000 01e0 e000  |................|
+0001bb80  0003 ffc0 c01f 1fff ff80 001f 1ffe 002d  |..............-.|
+0001bb90  01fe ff80 c007 0fff ffc0 e00f 1f03 01e0  |................|
+0001bba0  e01e 1c00 00e0 e01c 1c00 01e0 e01e 1f03  |................|
+0001bbb0  ffc0 c00f 0fff ff80 0007 01fe e02d ffff  |............-...|
+0001bbc0  ffe0 e0ff ffff ffe0 80ff 0703 01c0 e00e  |................|
+0001bbd0  1c00 00e0 e01c 1c00 00e0 e01c 1e01 ffc0  |................|
+0001bbe0  c00f 0fff ff80 0007 01fe 002d 01ff ffc0  |..........-.....|
+0001bbf0  e007 0fff ffe0 e00f 1e01 00e0 e01c 1c00  |................|
+0001bc00  00e0 e01c 0e00 01c0 8007 ffff ffe0 e0ff  |................|
+0001bc10  ffff ffe0 007f 3000 e02d 1fff ffe0 e01f  |.......0-.......|
+0001bc20  1fff ffe0 801f 0007 03c0 c000 0001 01e0  |................|
+0001bc30  e000 0000 00e0 e000 0000 01e0 e000 0003  |................|
+0001bc40  03c0 8000 0003 002d 0600 0700 c00e 1e1f  |......-.........|
+0001bc50  1fc0 e01c 1c3f 3de0 e01c 1c38 38e0 e01c  |....?..=..8..8..|
+0001bc60  1c38 38e0 e01c 1e78 f9e0 c01f 0ff1 f180  |8..8..x.........|
+0001bc70  000f 03c0 f024 0000 00f0 f000 0000 ffff  |....$...........|
+0001bc80  ff03 07ff ffff ff0f 0fff 00f0 f01e 1c00  |................|
+0001bc90  00f0 001c 1c00 0000 001c 0000 0000 0000  |................|
+0001bca0  0000 e02d 01ff ffe0 e007 0fff ffe0 001f  |..-.............|
+0001bcb0  1f00 0000 001e 1c00 0000 001c 1c00 0000  |................|
+0001bcc0  001e 1f00 ffe0 e01f 0fff ffe0 e007 01ff  |................|
+0001bcd0  e02d 003f 7fe0 e000 00ff ffe0 0001 03f0  |-.?.............|
+0001bce0  e000 0007 0fc0 8000 001f 0fc0 e000 0007  |................|
+0001bcf0  03f0 ffe0 e001 00ff 7fe0 e000 003f e02d  |............?.-.|
+0001bd00  1fff ffe0 e01f 0fff ffe0 0007 03e0 f000  |................|
+0001bd10  0001 00f8 7c00 0000 00f8 f000 0001 03e0  |.....|..........|
+0001bd20  ffe0 e007 0fff ffe0 e01f 1fff e02d 1c00  |............-...|
+0001bd30  01e0 e01e 1f03 87c0 800f 07cf ff00 0003  |................|
+0001bd40  01fe fc00 0000 01fe ff00 8003 07cf 87c0  |................|
+0001bd50  e00f 1f03 01e0 e01e 1c00 e02d 183f ffe0  |..........-.?...|
+0001bd60  e038 79ff ffe0 0071 e3c0 8000 00e3 e380  |8..y..q.........|
+0001bd70  8000 00e3 e380 c000 00e1 f0e0 ffe0 e07f  |................|
+0001bd80  7fff ffe0 e03f 0fff e02a 1e01 01e0 e01f  |....?...*.......|
+0001bd90  1f81 c1e0 e01f 1fe1 f1e0 e01f 1ef9 7de0  |...............}|
+0001bda0  e01e 1e3f 1fe0 e01e 1e0f 07e0 e01e 1e03  |..?.............|
+0001bdb0  01e0 001e 0000 ff2d ffff ffff ffff ffff  |......-.........|
+0001bdc0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001bdd0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001bde0  ffff ffff c02d 03ff fff0 f80f 1fff 6678  |....-.........xf|
+0001bdf0  3c1e 3c66 661c 1c38 3866 661c 1c38 3866  |.<f<.f8.f8.f8.f8|
+0001be00  661c 1c38 3866 663c 7c3c 3e00 0078 701e  |.f8.f8<f<|.>x..p|
+0001be10  0e00 0000 0000 0000 0000 0000 0000 0000  |................|
+0001be20  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+0001be30  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+0001be40  fc21 0001 03fe ff00 0007 078f 0700 0007  |!...............|
+0001be50  0707 0700 0007 078f ff00 0007 03fe fc00  |................|
+0001be60  0001 0000 0000 0000 0000 0000 0000 0000  |................|
+0001be70  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+0001be80  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+0001be90  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+0001bea0  0101 07d0 0000 2000 2020 2020 2020 2020  |.......         |
+0001beb0  2121 2121 2021 2020 2020 2020 2020 2020  |!!!!!           |
+0001bec0  2020 2020 2020 0120 4040 4040 4040 4040  |       .@@@@@@@@|
+0001bed0  4040 4040 4040 0240 0202 0202 0202 0202  |@@@@@@@.........|
+0001bee0  4002 4040 4040 4040 1414 1414 1414 0404  |.@@@@@@@........|
+0001bef0  0404 0404 0404 0404 0404 0404 0404 0404  |................|
+0001bf00  0404 4040 4040 4040 1818 1818 1818 0808  |..@@@@@@........|
+0001bf10  0808 0808 0808 0808 0808 0808 0808 0808  |................|
+0001bf20  0808 4040 4040 0020 0000 0000 0000 0000  |..@@@@ .........|
+0001bf30  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+0001bf40  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+0001bf50  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+0001bf60  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+0001bf70  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+0001bf80  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+0001bf90  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+0001bfa0  0000 0000 0000 0000 0200 0202 0202 0202  |................|
+0001bfb0  0102 0101 0101 0202 0202 0202 0202 0202  |................|
+0001bfc0  0202 0202 0202 0202 0201 0202 0302 0202  |................|
+0001bfd0  0202 0204 0202 0202 0505 0505 0505 0505  |................|
+0001bfe0  0505 0202 0202 0202 0202 0202 0a07 0a15  |................|
+0001bff0  090c 0202 020b 0e14 0202 0202 0802 0202  |................|
+0001c000  0212 1002 1002 0202 0202 0602 0a07 0a0a  |................|
+0001c010  090c 0202 020d 0e11 0213 0f02 0802 0202  |................|
+0001c020  0212 0202 0202 0202 6e28 6c75 296c 0000  |........(null)..|
+0001c030  1414 1401 1415 1414 0214 1400 0403 0914  |................|
+0001c040  0505 0505 0505 0505 1405 1414 1414 1414  |................|
+0001c050  1414 1414 170f 080f 1414 0714 1614 1414  |................|
+0001c060  1414 1414 1414 0d14 1414 1414 1414 1414  |................|
+0001c070  1414 0a10 0f0f 080f 140a 0614 1214 0e0b  |................|
+0001c080  1414 1411 140c 0d14 1414 1414 1414 0014  |................|
+0001c090  0000 0000 0000 0000 0000 0000 0400 0400  |................|
+0001c0a0  0400 0000 0002 0000 0000 0000 0000 0000  |................|
+0001c0b0  0000 0100 4900 666e 746f 6365 4b20 2033  |.....Infotec K3 |
+0001c0c0  203a 3156 392e 4900 666e 746f 6365 4b20  |: V1.9.Infotec K|
+0001c0d0  2033 203a 3156 392e 0000 0014 0008 0020  |3 : V1.9...... .|
+0001c0e0  0040 0060 0080 00a0 00c0 00e0 0258 04b0  |@.`.........X...|
+0001c0f0  0960 12c0 2580 4b00 9600 0000 7553 646e  |`....%.K....Sund|
+0001c100  7961 0000 0000 6f4d 646e 7961 0000 0000  |ay....Monday....|
+0001c110  7554 7365 6164 0079 0000 6557 6e64 7365  |Tuesday...Wednes|
+0001c120  6164 0079 6854 7275 6473 7961 0000 7246  |day.Thursday..Fr|
+0001c130  6469 7961 0000 0000 6153 7574 6472 7961  |iday....Saturday|
+0001c140  0000 0000 0000 0000 0000 0000 614a 756e  |............Janu|
+0001c150  7261 0079 0000 6546 7262 6175 7972 0000  |ary...February..|
+0001c160  614d 6372 0068 0000 0000 7041 6972 006c  |March.....April.|
+0001c170  0000 0000 614d 0079 0000 0000 0000 754a  |....May.......Ju|
+0001c180  656e 0000 0000 0000 754a 796c 0000 0000  |ne......July....|
+0001c190  0000 7541 7567 7473 0000 0000 6553 7470  |..August....Sept|
+0001c1a0  6d65 6562 0072 634f 6f74 6562 0072 0000  |ember.October...|
+0001c1b0  6f4e 6576 626d 7265 0000 6544 6563 626d  |November..Decemb|
+0001c1c0  7265 0000 0000 7300 0074 646e 7200 0064  |er.....st.nd.rd.|
+0001c1d0  6874 7400 0068 6874 7400 0068 6874 7400  |th.th.th.th.th.t|
+0001c1e0  0068 6874 7400 0068 6874 7400 0068 6874  |h.th.th.th.th.th|
+0001c1f0  7400 0068 6874 7400 0068 6874 7400 0068  |.th.th.th.th.th.|
+0001c200  6874 7300 0074 646e 7200 0064 6874 7400  |th.st.nd.rd.th.t|
+0001c210  0068 6874 7400 0068 6874 7400 0068 6874  |h.th.th.th.th.th|
+0001c220  7300 0074 0000 0240 0000 0000 0000 0100  |.st...@.........|
+0001c230  d001 0007 001f 001c 001f 001e 001f 001e  |................|
+0001c240  001f 001f 001e 001f 001e 001f 3225 3a64  |............%2d:|
+0001c250  3025 6432 252e 3230 0064 6425 255c 5c64  |%02d.%02d.%d\%d\|
+0001c260  3025 6432 2500 5c64 6425 255c 3230 0064  |%02d.%d\%d\%02d.|
+0001c270  7325 2520 2564 2073 7325 2520 0064 2e25  |%s %d%s %s %d.%.|
+0001c280  7333 2520 6432 7325 2520 332e 2073 3425  |3s %2d%s %.3s %4|
+0001c290  0064 0040 0068 6874 7400 0068 6874 7400  |d.@.h.th.th.th.t|
+0001c2a0  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+
+
+.code:
+flash_proc1:
    1c2b0:	b8 00 ff             	mov    ax,0xff00
    1c2b3:	8e d8                	mov    ds,ax
    1c2b5:	bb ff 0f             	mov    bx,0xfff
@@ -46243,50 +41499,27 @@ call_table:
    1c2dd:	8e d8                	mov    ds,ax
    1c2df:	c6 06 eb 0f 4c       	mov    BYTE PTR ds:0xfeb,0x4c
    1c2e4:	ea 00 00 00 e0       	jmp    0xe000:0x0
-   1c2e9:	00 1f                	add    BYTE PTR [bx],bl
-   1c2eb:	00 1e 00 1f          	add    BYTE PTR ds:0x1f00,bl
-   1c2ef:	00 1f                	add    BYTE PTR [bx],bl
-   1c2f1:	00 1e 00 1f          	add    BYTE PTR ds:0x1f00,bl
-   1c2f5:	00 1e 00 1f          	add    BYTE PTR ds:0x1f00,bl
-   1c2f9:	00 25                	add    BYTE PTR [di],ah
-   1c2fb:	32 64 3a             	xor    ah,BYTE PTR [si+0x3a]
-   1c2fe:	25 30 32             	and    ax,0x3230
-   1c301:	64                   	fs
-   1c302:	2e                   	cs
-   1c303:	25 30 32             	and    ax,0x3230
-   1c306:	64 00 25             	add    BYTE PTR fs:[di],ah
-   1c309:	64                   	fs
-   1c30a:	5c                   	pop    sp
-   1c30b:	25 64 5c             	and    ax,0x5c64
-   1c30e:	25 30 32             	and    ax,0x3230
-   1c311:	64 00 25             	add    BYTE PTR fs:[di],ah
-   1c314:	64                   	fs
-   1c315:	5c                   	pop    sp
-   1c316:	25 64 5c             	and    ax,0x5c64
-   1c319:	25 30 32             	and    ax,0x3230
-   1c31c:	64 00 25             	add    BYTE PTR fs:[di],ah
-   1c31f:	73 20                	jae    0x1c341
-   1c321:	25 64 25             	and    ax,0x2564
-   1c324:	73 20                	jae    0x1c346
-   1c326:	25 73 20             	and    ax,0x2073
-   1c329:	25 64 00             	and    ax,0x64
-   1c32c:	25 2e 33             	and    ax,0x332e
-   1c32f:	73 20                	jae    0x1c351
-   1c331:	25 32 64             	and    ax,0x6432
-   1c334:	25 73 20             	and    ax,0x2073
-   1c337:	25 2e 33             	and    ax,0x332e
-   1c33a:	73 20                	jae    0x1c35c
-   1c33c:	25 34 64             	and    ax,0x6434
-   1c33f:	00 40 00             	add    BYTE PTR [bx+si+0x0],al
-   1c342:	64                   	fs
-   1c343:	25 73 20             	and    ax,0x2073
-   1c346:	25 73 20             	and    ax,0x2073
-   1c349:	25 64 00             	and    ax,0x64
-   1c34c:	25 2e 33             	and    ax,0x332e
-   1c34f:	73 00                	jae    0x1c351
-	...
-   1c35d:	00 00                	add    BYTE PTR [bx+si],al
-   1c35f:	00 b8 00 ff          	add    BYTE PTR [bx+si-0x100],bh
+
+
+.align 2
+;.data
+; 0001c2e9  00                                                |.|
+
+
+.data
+0001c2ea  001f 001e 001f 001f 001e 001f 001e 001f  |................|
+0001c2fa  3225 3a64 3025 6432 252e 3230 0064 6425  |%2d:%02d.%02d.%d|
+0001c30a  255c 5c64 3025 6432 2500 5c64 6425 255c  |\%d\%02d.%d\%d\%|
+0001c31a  3230 0064 7325 2520 2564 2073 7325 2520  |02d.%s %d%s %s %|
+0001c32a  0064 2e25 7333 2520 6432 7325 2520 332e  |d.%.3s %2d%s %.3|
+0001c33a  2073 3425 0064 0040 2564 2073 7325 2520  |s %4d.@.d%s %s %|
+0001c34a  0064 2e25 7333 0000 0000 0000 0000 0000  |d.%.3s..........|
+0001c35a  0000 0000 0000                           |......|
+
+
+.code
+flash_proc2:
+   1c360:	b8 00 ff             	mov    ax,0xff00
    1c363:	8e d8                	mov    ds,ax
    1c365:	bb ff 0f             	mov    bx,0xfff
    1c368:	8a 27                	mov    ah,BYTE PTR [bx]
@@ -46305,19 +41538,26 @@ call_table:
    1c38d:	8e d8                	mov    ds,ax
    1c38f:	c6 06 eb 0f 4c       	mov    BYTE PTR ds:0xfeb,0x4c
    1c394:	ea 00 00 00 e0       	jmp    0xe000:0x0
-   1c399:	0f 8a 27 8e          	jp     0x151c4
-   1c39d:	d8 c6                	fadd   st,st(6)
-   1c39f:	06                   	push   es
-   1c3a0:	ff 0f                	dec    WORD PTR [bx]
-   1c3a2:	80 b8 00 ff 8e       	cmp    BYTE PTR [bx+si-0x100],0x8e
-   1c3a7:	d8 bb ff 0f          	fdivr  DWORD PTR [bp+di+0xfff]
+
+
+.data
+0001c399  0f                                                |.|
+
+
+.code
+flash_proc3:
+   1c39a:	8a 27                	mov    ah,BYTE PTR [bx]
+   1c39c:	8e d8                	mov    ds,ax
+   1c39e:	c6 06 ff 0f 80       	mov    BYTE PTR ds:0xfff,0x80
+   1c3a3:	b8 00 ff             	mov    ax,0xff00
+   1c3a6:	8e d8                	mov    ds,ax
+   1c3a8:	bb ff 0f             	mov    bx,0xfff
    1c3ab:	8a 27                	mov    ah,BYTE PTR [bx]
    1c3ad:	8e d8                	mov    ds,ax
    1c3af:	c6 06 eb 0f 4c       	mov    BYTE PTR ds:0xfeb,0x4c
    1c3b4:	ea 00 00 00 e0       	jmp    0xe000:0x0
 
 
-.code:
    1c3b9:	06                   	push   es
    1c3ba:	8a 47 01             	mov    al,BYTE PTR [bx+0x1]
    1c3bd:	b4 00                	mov    ah,0x0
@@ -46792,10 +42032,12 @@ call_table:
    1c837:	cb                   	retf   
 
 
-   1c838:	52                   	push   dx
-   1c839:	08 73 08             	or     BYTE PTR [bp+di+0x8],dh
-   1c83c:	87 08                	xchg   WORD PTR [bx+si],cx
-   1c83e:	bf 08 55             	mov    di,0x5508
+.data
+0001c838  0852 0873 0887 08bf                      |R.s.....|
+
+
+.code
+   1c840:	55                   	push   bp
    1c841:	8b ec                	mov    bp,sp
    1c843:	83 ec 0a             	sub    sp,0xa
    1c846:	c7 46 fa 00 00       	mov    WORD PTR [bp-0x6],0x0
@@ -47438,3553 +42680,526 @@ call_table:
 
 
 .data
-   1cdbe:	44                   	inc    sp
-   1cdbf:	fb                   	sti    
-	...
-   1cdd0:	01 01                	add    WORD PTR [bx+di],ax
-   1cdd2:	0b 00                	or     ax,WORD PTR [bx+si]
-   1cdd4:	e0 f8                	loopne 0x1cdce
-	...
-   1cdee:	00 00                	add    BYTE PTR [bx+si],al
-   1cdf0:	aa                   	stos   BYTE PTR es:[di],al
-   1cdf1:	55                   	push   bp
-   1cdf2:	00 18                	add    BYTE PTR [bx+si],bl
-   1cdf4:	00 00                	add    BYTE PTR [bx+si],al
-   1cdf6:	01 02                	add    WORD PTR [bp+si],ax
-   1cdf8:	04 08                	add    al,0x8
-   1cdfa:	10 20                	adc    BYTE PTR [bx+si],ah
-   1cdfc:	40                   	inc    ax
-   1cdfd:	80 00 00             	add    BYTE PTR [bx+si],0x0
-   1ce00:	5e                   	pop    si
-   1ce01:	46                   	inc    si
-   1ce02:	31 25                	xor    WORD PTR [di],sp
-   1ce04:	64 00 00             	add    BYTE PTR fs:[bx+si],al
-	...
-   1ce2f:	3e                   	ds
-   1ce30:	50                   	push   ax
-   1ce31:	52                   	push   dx
-   1ce32:	23 30                	and    si,WORD PTR [bx+si]
-   1ce34:	23 30                	and    si,WORD PTR [bx+si]
-   1ce36:	30 23                	xor    BYTE PTR [bp+di],ah
-   1ce38:	25 30 32             	and    ax,0x3230
-   1ce3b:	64                   	fs
-   1ce3c:	2c 25                	sub    al,0x25
-   1ce3e:	30 32                	xor    BYTE PTR [bp+si],dh
-   1ce40:	64                   	fs
-   1ce41:	2c 25                	sub    al,0x25
-   1ce43:	30 32                	xor    BYTE PTR [bp+si],dh
-   1ce45:	64 23 25             	and    sp,WORD PTR fs:[di]
-   1ce48:	30 32                	xor    BYTE PTR [bp+si],dh
-   1ce4a:	64                   	fs
-   1ce4b:	2c 25                	sub    al,0x25
-   1ce4d:	30 32                	xor    BYTE PTR [bp+si],dh
-   1ce4f:	64                   	fs
-   1ce50:	2c 25                	sub    al,0x25
-   1ce52:	30 34                	xor    BYTE PTR [si],dh
-   1ce54:	64                   	fs
-   1ce55:	2c 25                	sub    al,0x25
-   1ce57:	64 23 00             	and    ax,WORD PTR fs:[bx+si]
-   1ce5a:	25 30 32             	and    ax,0x3230
-   1ce5d:	58                   	pop    ax
-   1ce5e:	3c 00                	cmp    al,0x0
-   1ce60:	25 73 25             	and    ax,0x2573
-   1ce63:	73 00                	jae    0x1ce65
-	...
-   1ce6d:	00 00                	add    BYTE PTR [bx+si],al
-   1ce6f:	00 25                	add    BYTE PTR [di],ah
-   1ce71:	6c                   	ins    BYTE PTR es:[di],dx
-   1ce72:	64 00 25             	add    BYTE PTR fs:[di],ah
-   1ce75:	30 32                	xor    BYTE PTR [bp+si],dh
-   1ce77:	64 00 25             	add    BYTE PTR fs:[di],ah
-   1ce7a:	30 32                	xor    BYTE PTR [bp+si],dh
-   1ce7c:	64 00 25             	add    BYTE PTR fs:[di],ah
-   1ce7f:	30 32                	xor    BYTE PTR [bp+si],dh
-   1ce81:	64 00 25             	add    BYTE PTR fs:[di],ah
-   1ce84:	32 64 00             	xor    ah,BYTE PTR [si+0x0]
-   1ce87:	25 32 64             	and    ax,0x6432
-   1ce8a:	7e 43                	jle    0x1cecf
-   1ce8c:	00 25                	add    BYTE PTR [di],ah
-   1ce8e:	32 64 7e             	xor    ah,BYTE PTR [si+0x7e]
-   1ce91:	46                   	inc    si
-   1ce92:	00 25                	add    BYTE PTR [di],ah
-   1ce94:	32 64 00             	xor    ah,BYTE PTR [si+0x0]
-   1ce97:	25 30 32             	and    ax,0x3230
-   1ce9a:	64 00 25             	add    BYTE PTR fs:[di],ah
-   1ce9d:	30 32                	xor    BYTE PTR [bp+si],dh
-   1ce9f:	64 00 25             	add    BYTE PTR fs:[di],ah
-   1cea2:	30 32                	xor    BYTE PTR [bp+si],dh
-   1cea4:	64 00 25             	add    BYTE PTR fs:[di],ah
-   1cea7:	30 32                	xor    BYTE PTR [bp+si],dh
-   1cea9:	64 00 25             	add    BYTE PTR fs:[di],ah
-   1ceac:	30 32                	xor    BYTE PTR [bp+si],dh
-   1ceae:	64 00 25             	add    BYTE PTR fs:[di],ah
-   1ceb1:	30 32                	xor    BYTE PTR [bp+si],dh
-   1ceb3:	64 00 25             	add    BYTE PTR fs:[di],ah
-   1ceb6:	30 32                	xor    BYTE PTR [bp+si],dh
-   1ceb8:	64 00 25             	add    BYTE PTR fs:[di],ah
-   1cebb:	2e 33 73 00          	xor    si,WORD PTR cs:[bp+di+0x0]
-   1cebf:	25 73 00             	and    ax,0x73
-   1cec2:	25 32 64             	and    ax,0x6432
-   1cec5:	00 25                	add    BYTE PTR [di],ah
-   1cec7:	73 00                	jae    0x1cec9
-   1cec9:	25 30 32             	and    ax,0x3230
-   1cecc:	64 00 25             	add    BYTE PTR fs:[di],ah
-   1cecf:	2e 33 73 00          	xor    si,WORD PTR cs:[bp+di+0x0]
-   1ced3:	25 73 00             	and    ax,0x73
-   1ced6:	25 30 32             	and    ax,0x3230
-   1ced9:	64 00 25             	add    BYTE PTR fs:[di],ah
-   1cedc:	30 32                	xor    BYTE PTR [bp+si],dh
-   1cede:	64 00 25             	add    BYTE PTR fs:[di],ah
-   1cee1:	34 64                	xor    al,0x64
-   1cee3:	00 25                	add    BYTE PTR [di],ah
-   1cee5:	30 32                	xor    BYTE PTR [bp+si],dh
-   1cee7:	64 00 25             	add    BYTE PTR fs:[di],ah
-   1ceea:	30 32                	xor    BYTE PTR [bp+si],dh
-   1ceec:	64 00 25             	add    BYTE PTR fs:[di],ah
-   1ceef:	30 32                	xor    BYTE PTR [bp+si],dh
-   1cef1:	64 00 25             	add    BYTE PTR fs:[di],ah
-   1cef4:	30 32                	xor    BYTE PTR [bp+si],dh
-   1cef6:	64 00 25             	add    BYTE PTR fs:[di],ah
-   1cef9:	30 32                	xor    BYTE PTR [bp+si],dh
-   1cefb:	64 00 25             	add    BYTE PTR fs:[di],ah
-   1cefe:	30 32                	xor    BYTE PTR [bp+si],dh
-   1cf00:	64 00 25             	add    BYTE PTR fs:[di],ah
-   1cf03:	30 32                	xor    BYTE PTR [bp+si],dh
-   1cf05:	64 00 25             	add    BYTE PTR fs:[di],ah
-   1cf08:	30 32                	xor    BYTE PTR [bp+si],dh
-   1cf0a:	64 00 25             	add    BYTE PTR fs:[di],ah
-   1cf0d:	30 32                	xor    BYTE PTR [bp+si],dh
-   1cf0f:	64 00 56 37          	add    BYTE PTR fs:[bp+0x37],dl
-   1cf13:	2e 33 00             	xor    ax,WORD PTR cs:[bx+si]
-   1cf16:	25 33 64             	and    ax,0x6433
-   1cf19:	00 2b                	add    BYTE PTR [bp+di],ch
-   1cf1b:	2b 2b                	sub    bp,WORD PTR [bp+di]
-   1cf1d:	00 25                	add    BYTE PTR [di],ah
-   1cf1f:	32 64 2f             	xor    ah,BYTE PTR [si+0x2f]
-   1cf22:	25 30 32             	and    ax,0x3230
-   1cf25:	64                   	fs
-   1cf26:	2f                   	das    
-   1cf27:	25 30 32             	and    ax,0x3230
-   1cf2a:	64 00 25             	add    BYTE PTR fs:[di],ah
-   1cf2d:	32 64 3a             	xor    ah,BYTE PTR [si+0x3a]
-   1cf30:	25 30 32             	and    ax,0x3230
-   1cf33:	64 00 25             	add    BYTE PTR fs:[di],ah
-   1cf36:	32 64 3a             	xor    ah,BYTE PTR [si+0x3a]
-   1cf39:	25 30 32             	and    ax,0x3230
-   1cf3c:	64                   	fs
-   1cf3d:	5e                   	pop    si
-   1cf3e:	54                   	push   sp
-   1cf3f:	2e                   	cs
-   1cf40:	5e                   	pop    si
-   1cf41:	54                   	push   sp
-   1cf42:	25 30 32             	and    ax,0x3230
-   1cf45:	64 00 25             	add    BYTE PTR fs:[di],ah
-   1cf48:	33 64 00             	xor    sp,WORD PTR [si+0x0]
-   1cf4b:	25 30 32             	and    ax,0x3230
-   1cf4e:	58                   	pop    ax
-   1cf4f:	68 00 00             	push   0x0
-   1cf52:	00 20                	add    BYTE PTR [bx+si],ah
-   1cf54:	00 00                	add    BYTE PTR [bx+si],al
-   1cf56:	00 01                	add    BYTE PTR [bx+di],al
-	...
-   1cff8:	00 00                	add    BYTE PTR [bx+si],al
-   1cffa:	00 01                	add    BYTE PTR [bx+di],al
-   1cffc:	01 bc 07 02          	add    WORD PTR [si+0x207],di
-   1d000:	00 00                	add    BYTE PTR [bx+si],al
-   1d002:	00 00                	add    BYTE PTR [bx+si],al
-   1d004:	ff 0f                	dec    WORD PTR [bx]
-   1d006:	0c 09                	or     al,0x9
-   1d008:	06                   	push   es
-   1d009:	03 01                	add    ax,WORD PTR [bx+di]
-   1d00b:	01 56 37             	add    WORD PTR [bp+0x37],dx
-   1d00e:	2e 33 00             	xor    ax,WORD PTR cs:[bx+si]
-	...
-   1d061:	00 00                	add    BYTE PTR [bx+si],al
-   1d063:	2c 20                	sub    al,0x20
-   1d065:	00 25                	add    BYTE PTR [di],ah
-   1d067:	30 32                	xor    BYTE PTR [bp+si],dh
-   1d069:	64 3a 25             	cmp    ah,BYTE PTR fs:[di]
-   1d06c:	30 32                	xor    BYTE PTR [bp+si],dh
-   1d06e:	64 00 25             	add    BYTE PTR fs:[di],ah
-   1d071:	46                   	inc    si
-   1d072:	73 20                	jae    0x1d094
-   1d074:	4f                   	dec    di
-   1d075:	6e                   	outs   dx,BYTE PTR ds:[si]
-   1d076:	6c                   	ins    BYTE PTR es:[di],dx
-   1d077:	79 00                	jns    0x1d079
-   1d079:	26 20 25             	and    BYTE PTR es:[di],ah
-   1d07c:	46                   	inc    si
-   1d07d:	73 00                	jae    0x1d07f
-   1d07f:	25 46 73             	and    ax,0x7346
-   1d082:	00 43 61             	add    BYTE PTR [bp+di+0x61],al
-   1d085:	6c                   	ins    BYTE PTR es:[di],dx
-   1d086:	65 64 6f             	outs   dx,WORD PTR fs:gs:[si]
-   1d089:	6e                   	outs   dx,BYTE PTR ds:[si]
-   1d08a:	69 61 6e 20 53       	imul   sp,WORD PTR [bx+di+0x6e],0x5320
-   1d08f:	6c                   	ins    BYTE PTR es:[di],dx
-   1d090:	65                   	gs
-   1d091:	65                   	gs
-   1d092:	70 65                	jo     0x1d0f9
-   1d094:	72 00                	jb     0x1d096
-   1d096:	00 00                	add    BYTE PTR [bx+si],al
-   1d098:	25 46 73             	and    ax,0x7346
-   1d09b:	20 6f 6e             	and    BYTE PTR [bx+0x6e],ch
-   1d09e:	6c                   	ins    BYTE PTR es:[di],dx
-   1d09f:	79 2e                	jns    0x1d0cf
-   1d0a1:	00 20                	add    BYTE PTR [bx+si],ah
-   1d0a3:	61                   	popa   
-   1d0a4:	6e                   	outs   dx,BYTE PTR ds:[si]
-   1d0a5:	64 20 25             	and    BYTE PTR fs:[di],ah
-   1d0a8:	46                   	inc    si
-   1d0a9:	73 2e                	jae    0x1d0d9
-   1d0ab:	00 00                	add    BYTE PTR [bx+si],al
-   1d0ad:	00 46 72             	add    BYTE PTR [bp+0x72],al
-   1d0b0:	6f                   	outs   dx,WORD PTR ds:[si]
-   1d0b1:	6e                   	outs   dx,BYTE PTR ds:[si]
-   1d0b2:	74 20                	je     0x1d0d4
-   1d0b4:	63 6f 61             	arpl   WORD PTR [bx+0x61],bp
-   1d0b7:	63 68 65             	arpl   WORD PTR [bx+si+0x65],bp
-   1d0ba:	73 3a                	jae    0x1d0f6
-   1d0bc:	00 46 72             	add    BYTE PTR [bp+0x72],al
-   1d0bf:	6f                   	outs   dx,WORD PTR ds:[si]
-   1d0c0:	6e                   	outs   dx,BYTE PTR ds:[si]
-   1d0c1:	74 20                	je     0x1d0e3
-   1d0c3:	25 64 20             	and    ax,0x2064
-   1d0c6:	63 6f 61             	arpl   WORD PTR [bx+0x61],bp
-   1d0c9:	63 68 65             	arpl   WORD PTR [bx+si+0x65],bp
-   1d0cc:	73 3a                	jae    0x1d108
-   1d0ce:	00 52 65             	add    BYTE PTR [bp+si+0x65],dl
-   1d0d1:	61                   	popa   
-   1d0d2:	72 20                	jb     0x1d0f4
-   1d0d4:	63 6f 61             	arpl   WORD PTR [bx+0x61],bp
-   1d0d7:	63 68 65             	arpl   WORD PTR [bx+si+0x65],bp
-   1d0da:	73 3a                	jae    0x1d116
-   1d0dc:	00 52 65             	add    BYTE PTR [bp+si+0x65],dl
-   1d0df:	61                   	popa   
-   1d0e0:	72 20                	jb     0x1d102
-   1d0e2:	25 64 20             	and    ax,0x2064
-   1d0e5:	63 6f 61             	arpl   WORD PTR [bx+0x61],bp
-   1d0e8:	63 68 65             	arpl   WORD PTR [bx+si+0x65],bp
-   1d0eb:	73 3a                	jae    0x1d127
-   1d0ed:	00 42 55             	add    BYTE PTR [bp+si+0x55],al
-   1d0f0:	53                   	push   bx
-   1d0f1:	00 51 55             	add    BYTE PTR [bx+di+0x55],dl
-   1d0f4:	45                   	inc    bp
-   1d0f5:	55                   	push   bp
-   1d0f6:	45                   	inc    bp
-   1d0f7:	00 25                	add    BYTE PTR [di],ah
-   1d0f9:	73 25                	jae    0x1d120
-   1d0fb:	46                   	inc    si
-   1d0fc:	73 20                	jae    0x1d11e
-   1d0fe:	00 25                	add    BYTE PTR [di],ah
-   1d100:	73 25                	jae    0x1d127
-   1d102:	46                   	inc    si
-   1d103:	73 00                	jae    0x1d105
-   1d105:	00 25                	add    BYTE PTR [di],ah
-   1d107:	73 25                	jae    0x1d12e
-   1d109:	46                   	inc    si
-   1d10a:	73 00                	jae    0x1d10c
-   1d10c:	00 00                	add    BYTE PTR [bx+si],al
-   1d10e:	25 73 25             	and    ax,0x2573
-   1d111:	46                   	inc    si
-   1d112:	73 00                	jae    0x1d114
-   1d114:	00 25                	add    BYTE PTR [di],ah
-   1d116:	73 25                	jae    0x1d13d
-   1d118:	46                   	inc    si
-   1d119:	73 00                	jae    0x1d11b
-   1d11b:	0a 0d                	or     cl,BYTE PTR [di]
-   1d11d:	54                   	push   sp
-   1d11e:	69 6d 65 20 3d       	imul   bp,WORD PTR [di+0x65],0x3d20
-   1d123:	20 25                	and    BYTE PTR [di],ah
-   1d125:	30 32                	xor    BYTE PTR [bp+si],dh
-   1d127:	64 3a 25             	cmp    ah,BYTE PTR fs:[di]
-   1d12a:	30 32                	xor    BYTE PTR [bp+si],dh
-   1d12c:	64                   	fs
-   1d12d:	2e                   	cs
-   1d12e:	25 30 32             	and    ax,0x3230
-   1d131:	64 0a 0d             	or     cl,BYTE PTR fs:[di]
-   1d134:	00 0a                	add    BYTE PTR [bp+si],cl
-   1d136:	0d 00 54             	or     ax,0x5400
-   1d139:	69 6d 65 20 3d       	imul   bp,WORD PTR [di+0x65],0x3d20
-   1d13e:	20 25                	and    BYTE PTR [di],ah
-   1d140:	30 32                	xor    BYTE PTR [bp+si],dh
-   1d142:	64 3a 25             	cmp    ah,BYTE PTR fs:[di]
-   1d145:	30 32                	xor    BYTE PTR [bp+si],dh
-   1d147:	64                   	fs
-   1d148:	2e                   	cs
-   1d149:	25 30 32             	and    ax,0x3230
-   1d14c:	64 20 2d             	and    BYTE PTR fs:[di],ch
-   1d14f:	20 50 6f             	and    BYTE PTR [bx+si+0x6f],dl
-   1d152:	6c                   	ins    BYTE PTR es:[di],dx
-   1d153:	6c                   	ins    BYTE PTR es:[di],dx
-   1d154:	20 4d 65             	and    BYTE PTR [di+0x65],cl
-   1d157:	73 73                	jae    0x1d1cc
-   1d159:	61                   	popa   
-   1d15a:	67 65 0a 0d 00 54 69 	addr32 or cl,BYTE PTR gs:0x6d695400
-   1d161:	6d 
-   1d162:	65 20 55 70          	and    BYTE PTR gs:[di+0x70],dl
-   1d166:	64                   	fs
-   1d167:	61                   	popa   
-   1d168:	74 65                	je     0x1d1cf
-   1d16a:	64 20 3d             	and    BYTE PTR fs:[di],bh
-   1d16d:	20 25                	and    BYTE PTR [di],ah
-   1d16f:	30 32                	xor    BYTE PTR [bp+si],dh
-   1d171:	64 3a 25             	cmp    ah,BYTE PTR fs:[di]
-   1d174:	30 32                	xor    BYTE PTR [bp+si],dh
-   1d176:	64                   	fs
-   1d177:	2e                   	cs
-   1d178:	25 30 32             	and    ax,0x3230
-   1d17b:	64 0a 0d             	or     cl,BYTE PTR fs:[di]
-   1d17e:	00 25                	add    BYTE PTR [di],ah
-   1d180:	63 00                	arpl   WORD PTR [bx+si],ax
-   1d182:	25 63 00             	and    ax,0x63
-   1d185:	4e                   	dec    si
-   1d186:	75 6d                	jne    0x1d1f5
-   1d188:	62 65 72             	bound  sp,DWORD PTR [di+0x72]
-   1d18b:	20 4f 66             	and    BYTE PTR [bx+0x66],cl
-   1d18e:	20 54 72             	and    BYTE PTR [si+0x72],dl
-   1d191:	61                   	popa   
-   1d192:	69 6e 73 20 3d       	imul   bp,WORD PTR [bp+0x73],0x3d20
-   1d197:	20 25                	and    BYTE PTR [di],ah
-   1d199:	64 0a 0d             	or     cl,BYTE PTR fs:[di]
-   1d19c:	00 28                	add    BYTE PTR [bx+si],ch
-   1d19e:	4d                   	dec    bp
-   1d19f:	41                   	inc    cx
-   1d1a0:	4a                   	dec    dx
-   1d1a1:	4f                   	dec    di
-   1d1a2:	52                   	push   dx
-   1d1a3:	20 55 50             	and    BYTE PTR [di+0x50],dl
-   1d1a6:	44                   	inc    sp
-   1d1a7:	41                   	inc    cx
-   1d1a8:	54                   	push   sp
-   1d1a9:	45                   	inc    bp
-   1d1aa:	29 0a                	sub    WORD PTR [bp+si],cx
-   1d1ac:	0d 00 28             	or     ax,0x2800
-   1d1af:	4d                   	dec    bp
-   1d1b0:	69 6e 6f 72 20       	imul   bp,WORD PTR [bp+0x6f],0x2072
-   1d1b5:	55                   	push   bp
-   1d1b6:	70 64                	jo     0x1d21c
-   1d1b8:	61                   	popa   
-   1d1b9:	74 65                	je     0x1d220
-   1d1bb:	29 0a                	sub    WORD PTR [bp+si],cx
-   1d1bd:	0d 00 00             	or     ax,0x0
-   1d1c0:	54                   	push   sp
-   1d1c1:	52                   	push   dx
-   1d1c2:	41                   	inc    cx
-   1d1c3:	49                   	dec    cx
-   1d1c4:	4e                   	dec    si
-   1d1c5:	20 25                	and    BYTE PTR [di],ah
-   1d1c7:	64 0a 0d             	or     cl,BYTE PTR fs:[di]
-   1d1ca:	00 2d                	add    BYTE PTR [di],ch
-   1d1cc:	2d 2d 2d             	sub    ax,0x2d2d
-   1d1cf:	2d 2d 2d             	sub    ax,0x2d2d
-   1d1d2:	0a 0d                	or     cl,BYTE PTR [di]
-   1d1d4:	00 54 72             	add    BYTE PTR [si+0x72],dl
-   1d1d7:	61                   	popa   
-   1d1d8:	69 6e 20 44 65       	imul   bp,WORD PTR [bp+0x20],0x6544
-   1d1dd:	73 74                	jae    0x1d253
-   1d1df:	69 6e 61 74 69       	imul   bp,WORD PTR [bp+0x61],0x6974
-   1d1e4:	6f                   	outs   dx,WORD PTR ds:[si]
-   1d1e5:	6e                   	outs   dx,BYTE PTR ds:[si]
-   1d1e6:	73 20                	jae    0x1d208
-   1d1e8:	3d 20 25             	cmp    ax,0x2520
-   1d1eb:	46                   	inc    si
-   1d1ec:	73 2f                	jae    0x1d21d
-   1d1ee:	25 46 73             	and    ax,0x7346
-   1d1f1:	0a 0d                	or     cl,BYTE PTR [di]
-   1d1f3:	00 54 72             	add    BYTE PTR [si+0x72],dl
-   1d1f6:	61                   	popa   
-   1d1f7:	69 6e 20 4f 72       	imul   bp,WORD PTR [bp+0x20],0x724f
-   1d1fc:	69 67 69 6e 73       	imul   sp,WORD PTR [bx+0x69],0x736e
-   1d201:	20 20                	and    BYTE PTR [bx+si],ah
-   1d203:	20 20                	and    BYTE PTR [bx+si],ah
-   1d205:	20 20                	and    BYTE PTR [bx+si],ah
-   1d207:	3d 20 25             	cmp    ax,0x2520
-   1d20a:	46                   	inc    si
-   1d20b:	73 2f                	jae    0x1d23c
-   1d20d:	25 46 73             	and    ax,0x7346
-   1d210:	0a 0d                	or     cl,BYTE PTR [di]
-   1d212:	00 50 6c             	add    BYTE PTR [bx+si+0x6c],dl
-   1d215:	61                   	popa   
-   1d216:	74 66                	je     0x1d27e
-   1d218:	6f                   	outs   dx,WORD PTR ds:[si]
-   1d219:	72 6d                	jb     0x1d288
-   1d21b:	20 20                	and    BYTE PTR [bx+si],ah
-   1d21d:	20 20                	and    BYTE PTR [bx+si],ah
-   1d21f:	20 20                	and    BYTE PTR [bx+si],ah
-   1d221:	20 20                	and    BYTE PTR [bx+si],ah
-   1d223:	20 20                	and    BYTE PTR [bx+si],ah
-   1d225:	20 3d                	and    BYTE PTR [di],bh
-   1d227:	20 25                	and    BYTE PTR [di],ah
-   1d229:	46                   	inc    si
-   1d22a:	73 0a                	jae    0x1d236
-   1d22c:	0d 00 53             	or     ax,0x5300
-   1d22f:	63 68 65             	arpl   WORD PTR [bx+si+0x65],bp
-   1d232:	64                   	fs
-   1d233:	75 6c                	jne    0x1d2a1
-   1d235:	65 20 44 65          	and    BYTE PTR gs:[si+0x65],al
-   1d239:	70 61                	jo     0x1d29c
-   1d23b:	72 74                	jb     0x1d2b1
-   1d23d:	75 72                	jne    0x1d2b1
-   1d23f:	65 20 3d             	and    BYTE PTR gs:[di],bh
-   1d242:	20 25                	and    BYTE PTR [di],ah
-   1d244:	46                   	inc    si
-   1d245:	73 0a                	jae    0x1d251
-   1d247:	0d 00 45             	or     ax,0x4500
-   1d24a:	78 70                	js     0x1d2bc
-   1d24c:	65 63 74 65          	arpl   WORD PTR gs:[si+0x65],si
-   1d250:	64 20 54 72          	and    BYTE PTR fs:[si+0x72],dl
-   1d254:	61                   	popa   
-   1d255:	69 6e 20 44 65       	imul   bp,WORD PTR [bp+0x20],0x6544
-   1d25a:	70 20                	jo     0x1d27c
-   1d25c:	3d 20 25             	cmp    ax,0x2520
-   1d25f:	46                   	inc    si
-   1d260:	73 0a                	jae    0x1d26c
-   1d262:	0d 00 53             	or     ax,0x5300
-   1d265:	63 68 65             	arpl   WORD PTR [bx+si+0x65],bp
-   1d268:	64                   	fs
-   1d269:	75 6c                	jne    0x1d2d7
-   1d26b:	65 20 41 72          	and    BYTE PTR gs:[bx+di+0x72],al
-   1d26f:	72 69                	jb     0x1d2da
-   1d271:	76 61                	jbe    0x1d2d4
-   1d273:	6c                   	ins    BYTE PTR es:[di],dx
-   1d274:	20 20                	and    BYTE PTR [bx+si],ah
-   1d276:	20 3d                	and    BYTE PTR [di],bh
-   1d278:	20 25                	and    BYTE PTR [di],ah
-   1d27a:	46                   	inc    si
-   1d27b:	73 0a                	jae    0x1d287
-   1d27d:	0d 00 45             	or     ax,0x4500
-   1d280:	78 70                	js     0x1d2f2
-   1d282:	65 63 74 65          	arpl   WORD PTR gs:[si+0x65],si
-   1d286:	64 20 54 72          	and    BYTE PTR fs:[si+0x72],dl
-   1d28a:	61                   	popa   
-   1d28b:	69 6e 20 41 72       	imul   bp,WORD PTR [bp+0x20],0x7241
-   1d290:	72 20                	jb     0x1d2b2
-   1d292:	3d 20 25             	cmp    ax,0x2520
-   1d295:	46                   	inc    si
-   1d296:	73 0a                	jae    0x1d2a2
-   1d298:	0d 00 54             	or     ax,0x5400
-   1d29b:	72 61                	jb     0x1d2fe
-   1d29d:	69 6e 20 4f 70       	imul   bp,WORD PTR [bp+0x20],0x704f
-   1d2a2:	65                   	gs
-   1d2a3:	72 61                	jb     0x1d306
-   1d2a5:	74 6f                	je     0x1d316
-   1d2a7:	72 20                	jb     0x1d2c9
-   1d2a9:	20 20                	and    BYTE PTR [bx+si],ah
-   1d2ab:	20 20                	and    BYTE PTR [bx+si],ah
-   1d2ad:	3d 20 25             	cmp    ax,0x2520
-   1d2b0:	46                   	inc    si
-   1d2b1:	73 0a                	jae    0x1d2bd
-   1d2b3:	0d 00 43             	or     ax,0x4300
-   1d2b6:	6f                   	outs   dx,WORD PTR ds:[si]
-   1d2b7:	6d                   	ins    WORD PTR es:[di],dx
-   1d2b8:	6d                   	ins    WORD PTR es:[di],dx
-   1d2b9:	65 6e                	outs   dx,BYTE PTR gs:[si]
-   1d2bb:	74 20                	je     0x1d2dd
-   1d2bd:	31 20                	xor    WORD PTR [bx+si],sp
-   1d2bf:	20 20                	and    BYTE PTR [bx+si],ah
-   1d2c1:	20 20                	and    BYTE PTR [bx+si],ah
-   1d2c3:	20 20                	and    BYTE PTR [bx+si],ah
-   1d2c5:	20 20                	and    BYTE PTR [bx+si],ah
-   1d2c7:	20 3d                	and    BYTE PTR [di],bh
-   1d2c9:	20 25                	and    BYTE PTR [di],ah
-   1d2cb:	46                   	inc    si
-   1d2cc:	73 0a                	jae    0x1d2d8
-   1d2ce:	0d 00 43             	or     ax,0x4300
-   1d2d1:	6f                   	outs   dx,WORD PTR ds:[si]
-   1d2d2:	6d                   	ins    WORD PTR es:[di],dx
-   1d2d3:	6d                   	ins    WORD PTR es:[di],dx
-   1d2d4:	65 6e                	outs   dx,BYTE PTR gs:[si]
-   1d2d6:	74 20                	je     0x1d2f8
-   1d2d8:	32 20                	xor    ah,BYTE PTR [bx+si]
-   1d2da:	20 20                	and    BYTE PTR [bx+si],ah
-   1d2dc:	20 20                	and    BYTE PTR [bx+si],ah
-   1d2de:	20 20                	and    BYTE PTR [bx+si],ah
-   1d2e0:	20 20                	and    BYTE PTR [bx+si],ah
-   1d2e2:	20 3d                	and    BYTE PTR [di],bh
-   1d2e4:	20 25                	and    BYTE PTR [di],ah
-   1d2e6:	46                   	inc    si
-   1d2e7:	73 0a                	jae    0x1d2f3
-   1d2e9:	0d 00 0a             	or     ax,0xa00
-   1d2ec:	0d 44 65             	or     ax,0x6544
-   1d2ef:	70 61                	jo     0x1d352
-   1d2f1:	72 74                	jb     0x1d367
-   1d2f3:	20 20                	and    BYTE PTR [bx+si],ah
-   1d2f5:	54                   	push   sp
-   1d2f6:	72 61                	jb     0x1d359
-   1d2f8:	69 6e 20 53 74       	imul   bp,WORD PTR [bp+0x20],0x7453
-   1d2fd:	61                   	popa   
-   1d2fe:	74 75                	je     0x1d375
-   1d300:	73 20                	jae    0x1d322
-   1d302:	3d 20 00             	cmp    ax,0x20
-   1d305:	4f                   	dec    di
-   1d306:	6e                   	outs   dx,BYTE PTR ds:[si]
-   1d307:	20 74 69             	and    BYTE PTR [si+0x69],dh
-   1d30a:	6d                   	ins    WORD PTR es:[di],dx
-   1d30b:	65 00 4c 61          	add    BYTE PTR gs:[si+0x61],cl
-   1d30f:	74 65                	je     0x1d376
-   1d311:	00 43 61             	add    BYTE PTR [bp+di+0x61],al
-   1d314:	6e                   	outs   dx,BYTE PTR ds:[si]
-   1d315:	63 65 6c             	arpl   WORD PTR [di+0x6c],sp
-   1d318:	6c                   	ins    BYTE PTR es:[di],dx
-   1d319:	65 64 00 44 65       	add    BYTE PTR fs:gs:[si+0x65],al
-   1d31e:	6c                   	ins    BYTE PTR es:[di],dx
-   1d31f:	61                   	popa   
-   1d320:	79 65                	jns    0x1d387
-   1d322:	64 00 4e 6f          	add    BYTE PTR fs:[bp+0x6f],cl
-   1d326:	74 20                	je     0x1d348
-   1d328:	44                   	inc    sp
-   1d329:	65 66 69 6e 65 64 00 	imul   ebp,DWORD PTR gs:[bp+0x65],0xd0a0064
-   1d330:	0a 0d 
-   1d332:	41                   	inc    cx
-   1d333:	72 72                	jb     0x1d3a7
-   1d335:	69 76 61 6c 20       	imul   si,WORD PTR [bp+0x61],0x206c
-   1d33a:	54                   	push   sp
-   1d33b:	72 61                	jb     0x1d39e
-   1d33d:	69 6e 20 53 74       	imul   bp,WORD PTR [bp+0x20],0x7453
-   1d342:	61                   	popa   
-   1d343:	74 75                	je     0x1d3ba
-   1d345:	73 20                	jae    0x1d367
-   1d347:	3d 20 00             	cmp    ax,0x20
-   1d34a:	4f                   	dec    di
-   1d34b:	6e                   	outs   dx,BYTE PTR ds:[si]
-   1d34c:	20 74 69             	and    BYTE PTR [si+0x69],dh
-   1d34f:	6d                   	ins    WORD PTR es:[di],dx
-   1d350:	65 00 4c 61          	add    BYTE PTR gs:[si+0x61],cl
-   1d354:	74 65                	je     0x1d3bb
-   1d356:	00 43 61             	add    BYTE PTR [bp+di+0x61],al
-   1d359:	6e                   	outs   dx,BYTE PTR ds:[si]
-   1d35a:	63 65 6c             	arpl   WORD PTR [di+0x6c],sp
-   1d35d:	6c                   	ins    BYTE PTR es:[di],dx
-   1d35e:	65 64 00 44 65       	add    BYTE PTR fs:gs:[si+0x65],al
-   1d363:	6c                   	ins    BYTE PTR es:[di],dx
-   1d364:	61                   	popa   
-   1d365:	79 65                	jns    0x1d3cc
-   1d367:	64 00 4e 6f          	add    BYTE PTR fs:[bp+0x6f],cl
-   1d36b:	74 20                	je     0x1d38d
-   1d36d:	44                   	inc    sp
-   1d36e:	65 66 69 6e 65 64 00 	imul   ebp,DWORD PTR gs:[bp+0x65],0xd0a0064
-   1d375:	0a 0d 
-   1d377:	50                   	push   ax
-   1d378:	6c                   	ins    BYTE PTR es:[di],dx
-   1d379:	61                   	popa   
-   1d37a:	74 66                	je     0x1d3e2
-   1d37c:	6f                   	outs   dx,WORD PTR ds:[si]
-   1d37d:	72 6d                	jb     0x1d3ec
-   1d37f:	20 53 74             	and    BYTE PTR [bp+di+0x74],dl
-   1d382:	61                   	popa   
-   1d383:	74 75                	je     0x1d3fa
-   1d385:	73 20                	jae    0x1d3a7
-   1d387:	20 20                	and    BYTE PTR [bx+si],ah
-   1d389:	20 20                	and    BYTE PTR [bx+si],ah
-   1d38b:	20 3d                	and    BYTE PTR [di],bh
-   1d38d:	20 00                	and    BYTE PTR [bx+si],al
-   1d38f:	41                   	inc    cx
-   1d390:	73 73                	jae    0x1d405
-   1d392:	69 67 6e 65 64       	imul   sp,WORD PTR [bx+0x6e],0x6465
-   1d397:	00 42 75             	add    BYTE PTR [bp+si+0x75],al
-   1d39a:	73 00                	jae    0x1d39c
-   1d39c:	4e                   	dec    si
-   1d39d:	6f                   	outs   dx,WORD PTR ds:[si]
-   1d39e:	74 20                	je     0x1d3c0
-   1d3a0:	41                   	inc    cx
-   1d3a1:	73 73                	jae    0x1d416
-   1d3a3:	69 67 6e 65 64       	imul   sp,WORD PTR [bx+0x6e],0x6465
-   1d3a8:	00 0a                	add    BYTE PTR [bp+si],cl
-   1d3aa:	0d 50 6c             	or     ax,0x6c50
-   1d3ad:	61                   	popa   
-   1d3ae:	74 66                	je     0x1d416
-   1d3b0:	6f                   	outs   dx,WORD PTR ds:[si]
-   1d3b1:	72 6d                	jb     0x1d420
-   1d3b3:	20 43 68             	and    BYTE PTR [bp+di+0x68],al
-   1d3b6:	61                   	popa   
-   1d3b7:	6e                   	outs   dx,BYTE PTR ds:[si]
-   1d3b8:	67 65 20 20          	addr32 and BYTE PTR gs:[eax],ah
-   1d3bc:	20 20                	and    BYTE PTR [bx+si],ah
-   1d3be:	20 20                	and    BYTE PTR [bx+si],ah
-   1d3c0:	3d 20 00             	cmp    ax,0x20
-   1d3c3:	4e                   	dec    si
-   1d3c4:	6f                   	outs   dx,WORD PTR ds:[si]
-   1d3c5:	00 59 65             	add    BYTE PTR [bx+di+0x65],bl
-   1d3c8:	73 00                	jae    0x1d3ca
-   1d3ca:	4e                   	dec    si
-   1d3cb:	6f                   	outs   dx,WORD PTR ds:[si]
-   1d3cc:	74 20                	je     0x1d3ee
-   1d3ce:	44                   	inc    sp
-   1d3cf:	65 66 69 6e 65 64 00 	imul   ebp,DWORD PTR gs:[bp+0x65],0xd0a0064
-   1d3d6:	0a 0d 
-   1d3d8:	53                   	push   bx
-   1d3d9:	70 6c                	jo     0x1d447
-   1d3db:	69 74 74 69 6e       	imul   si,WORD PTR [si+0x74],0x6e69
-   1d3e0:	67 20 54 72 61       	addr32 and BYTE PTR [edx+esi*2+0x61],dl
-   1d3e5:	69 6e 20 20 20       	imul   bp,WORD PTR [bp+0x20],0x2020
-   1d3ea:	20 20                	and    BYTE PTR [bx+si],ah
-   1d3ec:	20 3d                	and    BYTE PTR [di],bh
-   1d3ee:	20 00                	and    BYTE PTR [bx+si],al
-   1d3f0:	59                   	pop    cx
-   1d3f1:	65                   	gs
-   1d3f2:	73 0a                	jae    0x1d3fe
-   1d3f4:	0d 00 4e             	or     ax,0x4e00
-   1d3f7:	6f                   	outs   dx,WORD PTR ds:[si]
-   1d3f8:	0a 0d                	or     cl,BYTE PTR [di]
-	...
-   1d41e:	00 80 00 00          	add    BYTE PTR [bx+si+0x0],al
-   1d422:	05 81 00             	add    ax,0x81
-   1d425:	00 01                	add    BYTE PTR [bx+di],al
-   1d427:	82                   	(bad)  
-   1d428:	02 00                	add    al,BYTE PTR [bx+si]
-   1d42a:	02 83 01 00          	add    al,BYTE PTR [bp+di+0x1]
-   1d42e:	01 84 01 00          	add    WORD PTR [si+0x1],ax
-   1d432:	00 85 01 00          	add    BYTE PTR [di+0x1],al
-   1d436:	00 86 00 00          	add    BYTE PTR [bp+0x0],al
-   1d43a:	00 87 00 00          	add    BYTE PTR [bx+0x0],al
-   1d43e:	00 88 00 00          	add    BYTE PTR [bx+si+0x0],cl
-   1d442:	01 89 00 00          	add    WORD PTR [bx+di+0x0],cx
-   1d446:	00 8a 00 00          	add    BYTE PTR [bp+si+0x0],cl
-   1d44a:	00 8b 00 00          	add    BYTE PTR [bp+di+0x0],cl
-   1d44e:	03 8c 00 00          	add    cx,WORD PTR [si+0x0]
-   1d452:	03 8d 01 00          	add    cx,WORD PTR [di+0x1]
-   1d456:	01 8e 01 01          	add    WORD PTR [bp+0x101],cx
-   1d45a:	00 8f 01 00          	add    BYTE PTR [bx+0x1],cl
-   1d45e:	01 30                	add    WORD PTR [bx+si],si
-   1d460:	00 01                	add    BYTE PTR [bx+di],al
-   1d462:	02 31                	add    dh,BYTE PTR [bx+di]
-   1d464:	00 00                	add    BYTE PTR [bx+si],al
-   1d466:	00 32                	add    BYTE PTR [bp+si],dh
-   1d468:	00 01                	add    BYTE PTR [bx+di],al
-   1d46a:	02 33                	add    dh,BYTE PTR [bp+di]
-   1d46c:	00 01                	add    BYTE PTR [bx+di],al
-   1d46e:	03 34                	add    si,WORD PTR [si]
-   1d470:	00 00                	add    BYTE PTR [bx+si],al
-   1d472:	01 35                	add    WORD PTR [di],si
-   1d474:	00 01                	add    BYTE PTR [bx+di],al
-   1d476:	03 36 00 01          	add    si,WORD PTR ds:0x100
-   1d47a:	02 00                	add    al,BYTE PTR [bx+si]
-   1d47c:	01 01                	add    WORD PTR [bx+di],ax
-   1d47e:	03 01                	add    ax,WORD PTR [bx+di]
-   1d480:	01 01                	add    WORD PTR [bx+di],ax
-   1d482:	01 02                	add    WORD PTR [bp+si],ax
-   1d484:	01 01                	add    WORD PTR [bx+di],ax
-   1d486:	02 03                	add    al,BYTE PTR [bp+di]
-   1d488:	01 01                	add    WORD PTR [bx+di],ax
-   1d48a:	03 04                	add    ax,WORD PTR [si]
-   1d48c:	01 00                	add    WORD PTR [bx+si],ax
-   1d48e:	01 05                	add    WORD PTR [di],ax
-   1d490:	01 00                	add    WORD PTR [bx+si],ax
-   1d492:	01 06 01 00          	add    WORD PTR ds:0x1,ax
-   1d496:	01 07                	add    WORD PTR [bx],ax
-   1d498:	01 00                	add    WORD PTR [bx+si],ax
-   1d49a:	01 08                	add    WORD PTR [bx+si],cx
-   1d49c:	01 01                	add    WORD PTR [bx+di],ax
-   1d49e:	01 09                	add    WORD PTR [bx+di],cx
-   1d4a0:	00 00                	add    BYTE PTR [bx+si],al
-   1d4a2:	01 0a                	add    WORD PTR [bp+si],cx
-   1d4a4:	01 01                	add    WORD PTR [bx+di],ax
-   1d4a6:	01 0b                	add    WORD PTR [bp+di],cx
-   1d4a8:	01 00                	add    WORD PTR [bx+si],ax
-   1d4aa:	03 0c                	add    cx,WORD PTR [si]
-   1d4ac:	01 01                	add    WORD PTR [bx+di],ax
-   1d4ae:	02 40 01             	add    al,BYTE PTR [bx+si+0x1]
-   1d4b1:	01 01                	add    WORD PTR [bx+di],ax
-   1d4b3:	41                   	inc    cx
-   1d4b4:	01 01                	add    WORD PTR [bx+di],ax
-   1d4b6:	03 42 00             	add    ax,WORD PTR [bp+si+0x0]
-   1d4b9:	00 01                	add    BYTE PTR [bx+di],al
-   1d4bb:	43                   	inc    bx
-   1d4bc:	01 00                	add    WORD PTR [bx+si],ax
-   1d4be:	01 44 01             	add    WORD PTR [si+0x1],ax
-   1d4c1:	00 00                	add    BYTE PTR [bx+si],al
-   1d4c3:	45                   	inc    bp
-   1d4c4:	01 01                	add    WORD PTR [bx+di],ax
-   1d4c6:	01 46 01             	add    WORD PTR [bp+0x1],ax
-   1d4c9:	01 01                	add    WORD PTR [bx+di],ax
-   1d4cb:	50                   	push   ax
-   1d4cc:	01 00                	add    WORD PTR [bx+si],ax
-   1d4ce:	00 51 01             	add    BYTE PTR [bx+di+0x1],dl
-   1d4d1:	00 00                	add    BYTE PTR [bx+si],al
-   1d4d3:	52                   	push   dx
-   1d4d4:	01 00                	add    WORD PTR [bx+si],ax
-   1d4d6:	00 53 02             	add    BYTE PTR [bp+di+0x2],dl
-   1d4d9:	00 01                	add    BYTE PTR [bx+di],al
-   1d4db:	54                   	push   sp
-   1d4dc:	01 00                	add    WORD PTR [bx+si],ax
-   1d4de:	00 55 01             	add    BYTE PTR [di+0x1],dl
-   1d4e1:	00 00                	add    BYTE PTR [bx+si],al
-   1d4e3:	56                   	push   si
-   1d4e4:	01 00                	add    WORD PTR [bx+si],ax
-   1d4e6:	02 57 01             	add    dl,BYTE PTR [bx+0x1]
-   1d4e9:	00 00                	add    BYTE PTR [bx+si],al
-   1d4eb:	58                   	pop    ax
-   1d4ec:	01 00                	add    WORD PTR [bx+si],ax
-   1d4ee:	02 59 01             	add    bl,BYTE PTR [bx+di+0x1]
-   1d4f1:	00 01                	add    BYTE PTR [bx+di],al
-   1d4f3:	5a                   	pop    dx
-   1d4f4:	01 00                	add    WORD PTR [bx+si],ax
-   1d4f6:	02 5b 01             	add    bl,BYTE PTR [bp+di+0x1]
-   1d4f9:	00 00                	add    BYTE PTR [bx+si],al
-   1d4fb:	5c                   	pop    sp
-   1d4fc:	02 00                	add    al,BYTE PTR [bx+si]
-   1d4fe:	02 5d 00             	add    bl,BYTE PTR [di+0x0]
-   1d501:	00 00                	add    BYTE PTR [bx+si],al
-   1d503:	5e                   	pop    si
-   1d504:	01 00                	add    WORD PTR [bx+si],ax
-   1d506:	01 60 00             	add    WORD PTR [bx+si+0x0],sp
-   1d509:	00 05                	add    BYTE PTR [di],al
-   1d50b:	61                   	popa   
-   1d50c:	00 00                	add    BYTE PTR [bx+si],al
-   1d50e:	02 62 00             	add    ah,BYTE PTR [bp+si+0x0]
-   1d511:	00 03                	add    BYTE PTR [bp+di],al
-   1d513:	63 00                	arpl   WORD PTR [bx+si],ax
-   1d515:	00 03                	add    BYTE PTR [bp+di],al
-   1d517:	64 00 00             	add    BYTE PTR fs:[bx+si],al
-   1d51a:	01 70 00             	add    WORD PTR [bx+si+0x0],si
-   1d51d:	00 03                	add    BYTE PTR [bp+di],al
-   1d51f:	71 00                	jno    0x1d521
-   1d521:	00 02                	add    BYTE PTR [bp+si],al
-   1d523:	72 00                	jb     0x1d525
-   1d525:	00 01                	add    BYTE PTR [bx+di],al
-   1d527:	73 00                	jae    0x1d529
-   1d529:	00 01                	add    BYTE PTR [bx+di],al
-   1d52b:	74 00                	je     0x1d52d
-   1d52d:	00 01                	add    BYTE PTR [bx+di],al
-   1d52f:	75 00                	jne    0x1d531
-   1d531:	00 02                	add    BYTE PTR [bp+si],al
-   1d533:	76 00                	jbe    0x1d535
-   1d535:	00 03                	add    BYTE PTR [bp+di],al
-   1d537:	77 00                	ja     0x1d539
-   1d539:	00 03                	add    BYTE PTR [bp+di],al
-   1d53b:	78 01                	js     0x1d53e
-   1d53d:	00 02                	add    BYTE PTR [bp+si],al
-   1d53f:	79 00                	jns    0x1d541
-   1d541:	00 01                	add    BYTE PTR [bx+di],al
-   1d543:	7a 01                	jp     0x1d546
-   1d545:	00 01                	add    BYTE PTR [bx+di],al
-   1d547:	f0 00 00             	lock add BYTE PTR [bx+si],al
-   1d54a:	00 f1                	add    cl,dh
-   1d54c:	01 00                	add    WORD PTR [bx+si],ax
-   1d54e:	00 f2                	add    dl,dh
-   1d550:	02 00                	add    al,BYTE PTR [bx+si]
-   1d552:	01 f3                	add    bx,si
-   1d554:	00 00                	add    BYTE PTR [bx+si],al
-   1d556:	00 f4                	add    ah,dh
-   1d558:	00 00                	add    BYTE PTR [bx+si],al
-   1d55a:	00 f5                	add    ch,dh
-   1d55c:	00 00                	add    BYTE PTR [bx+si],al
-   1d55e:	00 f6                	add    dh,dh
-   1d560:	00 00                	add    BYTE PTR [bx+si],al
-   1d562:	00 f7                	add    bh,dh
-   1d564:	00 00                	add    BYTE PTR [bx+si],al
-   1d566:	00 f8                	add    al,bh
-   1d568:	00 00                	add    BYTE PTR [bx+si],al
-   1d56a:	01 f9                	add    cx,di
-   1d56c:	00 00                	add    BYTE PTR [bx+si],al
-   1d56e:	01 fa                	add    dx,di
-   1d570:	00 00                	add    BYTE PTR [bx+si],al
-   1d572:	01 fb                	add    bx,di
-   1d574:	00 00                	add    BYTE PTR [bx+si],al
-   1d576:	02 fc                	add    bh,ah
-   1d578:	01 00                	add    WORD PTR [bx+si],ax
-   1d57a:	00 a0 00 01          	add    BYTE PTR [bx+si+0x100],ah
-   1d57e:	02 a1 00 01          	add    ah,BYTE PTR [bx+di+0x100]
-   1d582:	02 a2 00 00          	add    ah,BYTE PTR [bp+si+0x0]
-   1d586:	00 a3 00 00          	add    BYTE PTR [bp+di+0x0],ah
-   1d58a:	00 a4 00 00          	add    BYTE PTR [si+0x0],ah
-   1d58e:	01 a5 00 00          	add    WORD PTR [di+0x0],sp
-   1d592:	02 a6 00 00          	add    ah,BYTE PTR [bp+0x0]
-   1d596:	03 90 00 00          	add    dx,WORD PTR [bx+si+0x0]
-   1d59a:	00 91 00 00          	add    BYTE PTR [bx+di+0x0],dl
-   1d59e:	00 92 00 00          	add    BYTE PTR [bp+si+0x0],dl
-   1d5a2:	00 93 00 00          	add    BYTE PTR [bp+di+0x0],dl
-   1d5a6:	00 b0 00 00          	add    BYTE PTR [bx+si+0x0],dh
-   1d5aa:	03 b1 00 00          	add    si,WORD PTR [bx+di+0x0]
-   1d5ae:	01 b2 00 00          	add    WORD PTR [bp+si+0x0],si
-   1d5b2:	02 b3 00 00          	add    dh,BYTE PTR [bp+di+0x0]
-   1d5b6:	03 b4 00 01          	add    si,WORD PTR [si+0x100]
-   1d5ba:	01 00                	add    WORD PTR [bx+si],ax
-   1d5bc:	10 00                	adc    BYTE PTR [bx+si],al
-   1d5be:	07                   	pop    es
-   1d5bf:	00 0d                	add    BYTE PTR [di],cl
-   1d5c1:	00 07                	add    BYTE PTR [bx],al
-   1d5c3:	00 0f                	add    BYTE PTR [bx],cl
-   1d5c5:	00 05                	add    BYTE PTR [di],al
-   1d5c7:	00 0d                	add    BYTE PTR [di],cl
-   1d5c9:	00 0b                	add    BYTE PTR [bp+di],cl
-   1d5cb:	00 04                	add    BYTE PTR [si],al
-   1d5cd:	00 07                	add    BYTE PTR [bx],al
-   1d5cf:	00 05                	add    BYTE PTR [di],al
-	...
-   1d619:	00 00                	add    BYTE PTR [bx+si],al
-   1d61b:	25 30 32             	and    ax,0x3230
-   1d61e:	58                   	pop    ax
-   1d61f:	00 25                	add    BYTE PTR [di],ah
-   1d621:	30 32                	xor    BYTE PTR [bp+si],dh
-   1d623:	58                   	pop    ax
-   1d624:	2c 00                	sub    al,0x0
-   1d626:	00 2c                	add    BYTE PTR [si],ch
-   1d628:	00 3e 25 30          	add    BYTE PTR ds:0x3025,bh
-   1d62c:	32 58 23             	xor    bl,BYTE PTR [bx+si+0x23]
-   1d62f:	25 30 32             	and    ax,0x3230
-   1d632:	58                   	pop    ax
-   1d633:	23 25                	and    sp,WORD PTR [di]
-   1d635:	30 32                	xor    BYTE PTR [bp+si],dh
-   1d637:	58                   	pop    ax
-   1d638:	23 25                	and    sp,WORD PTR [di]
-   1d63a:	73 23                	jae    0x1d65f
-   1d63c:	00 25                	add    BYTE PTR [di],ah
-   1d63e:	73 25                	jae    0x1d665
-   1d640:	30 32                	xor    BYTE PTR [bp+si],dh
-   1d642:	58                   	pop    ax
-   1d643:	3c 00                	cmp    al,0x0
-   1d645:	00 05                	add    BYTE PTR [di],al
-   1d647:	08 20                	or     BYTE PTR [bx+si],ah
-   1d649:	7f 01                	jg     0x1d64c
-   1d64b:	01 04                	add    WORD PTR [si],ax
-   1d64d:	00 00                	add    BYTE PTR [bx+si],al
-   1d64f:	00 00                	add    BYTE PTR [bx+si],al
-   1d651:	00 03                	add    BYTE PTR [bp+di],al
-   1d653:	00 00                	add    BYTE PTR [bx+si],al
-   1d655:	be 00 00             	mov    si,0x0
-   1d658:	04 00                	add    al,0x0
-   1d65a:	06                   	push   es
-   1d65b:	00 06 00 05          	add    BYTE PTR ds:0x500,al
-   1d65f:	28 7c 28             	sub    BYTE PTR [si+0x28],bh
-   1d662:	7c 28                	jl     0x1d68c
-   1d664:	05 90 fc             	add    ax,0xfc90
-   1d667:	92                   	xchg   dx,ax
-   1d668:	92                   	xchg   dx,ax
-   1d669:	84 05                	test   BYTE PTR [di],al
-   1d66b:	44                   	inc    sp
-   1d66c:	20 10                	and    BYTE PTR [bx+si],dl
-   1d66e:	08 44 05             	or     BYTE PTR [si+0x5],al
-   1d671:	74 8a                	je     0x1d5fd
-   1d673:	9a 64 90 03 00       	call   0x3:0x9064
-   1d678:	00 06 00 00          	add    BYTE PTR ds:0x0,al
-   1d67c:	03 38                	add    di,WORD PTR [bx+si]
-   1d67e:	44                   	inc    sp
-   1d67f:	82                   	(bad)  
-   1d680:	00 00                	add    BYTE PTR [bx+si],al
-   1d682:	03 82 44 38          	add    ax,WORD PTR [bp+si+0x3844]
-   1d686:	00 00                	add    BYTE PTR [bx+si],al
-   1d688:	05 54 38             	add    ax,0x3854
-   1d68b:	fe                   	(bad)  
-   1d68c:	38 54 05             	cmp    BYTE PTR [si+0x5],dl
-   1d68f:	10 10                	adc    BYTE PTR [bx+si],dl
-   1d691:	7c 10                	jl     0x1d6a3
-   1d693:	10 02                	adc    BYTE PTR [bp+si],al
-   1d695:	80 60 00 00          	and    BYTE PTR [bx+si+0x0],0x0
-   1d699:	00 05                	add    BYTE PTR [di],al
-   1d69b:	10 10                	adc    BYTE PTR [bx+si],dl
-   1d69d:	10 10                	adc    BYTE PTR [bx+si],dl
-   1d69f:	10 01                	adc    BYTE PTR [bx+di],al
-   1d6a1:	80 00 00             	add    BYTE PTR [bx+si],0x0
-   1d6a4:	00 00                	add    BYTE PTR [bx+si],al
-   1d6a6:	05 40 20             	add    ax,0x2040
-   1d6a9:	10 08                	adc    BYTE PTR [bx+si],cl
-   1d6ab:	04 05                	add    al,0x5
-   1d6ad:	7c 82                	jl     0x1d631
-   1d6af:	82                   	(bad)  
-   1d6b0:	82                   	(bad)  
-   1d6b1:	7c 03                	jl     0x1d6b6
-   1d6b3:	84 fe                	test   dh,bh
-   1d6b5:	80 00 00             	add    BYTE PTR [bx+si],0x0
-   1d6b8:	05 84 c2             	add    ax,0xc284
-   1d6bb:	a2 92 8c             	mov    ds:0x8c92,al
-   1d6be:	05 44 82             	add    ax,0x8244
-   1d6c1:	92                   	xchg   dx,ax
-   1d6c2:	92                   	xchg   dx,ax
-   1d6c3:	6c                   	ins    BYTE PTR es:[di],dx
-   1d6c4:	05 30 28             	add    ax,0x2830
-   1d6c7:	24 fe                	and    al,0xfe
-   1d6c9:	20 05                	and    BYTE PTR [di],al
-   1d6cb:	4e                   	dec    si
-   1d6cc:	8a 8a 8a 72          	mov    cl,BYTE PTR [bp+si+0x728a]
-   1d6d0:	05 7c 92             	add    ax,0x927c
-   1d6d3:	92                   	xchg   dx,ax
-   1d6d4:	92                   	xchg   dx,ax
-   1d6d5:	64                   	fs
-   1d6d6:	05 02 02             	add    ax,0x202
-   1d6d9:	f2 0a 06 05 6c       	repnz or al,BYTE PTR ds:0x6c05
-   1d6de:	92                   	xchg   dx,ax
-   1d6df:	92                   	xchg   dx,ax
-   1d6e0:	92                   	xchg   dx,ax
-   1d6e1:	6c                   	ins    BYTE PTR es:[di],dx
-   1d6e2:	05 4c 92             	add    ax,0x924c
-   1d6e5:	92                   	xchg   dx,ax
-   1d6e6:	92                   	xchg   dx,ax
-   1d6e7:	7c 01                	jl     0x1d6ea
-   1d6e9:	24 00                	and    al,0x0
-   1d6eb:	00 00                	add    BYTE PTR [bx+si],al
-   1d6ed:	00 02                	add    BYTE PTR [bp+si],al
-   1d6ef:	80 64 00 00          	and    BYTE PTR [si+0x0],0x0
-   1d6f3:	00 04                	add    BYTE PTR [si],al
-   1d6f5:	10 28                	adc    BYTE PTR [bx+si],ch
-   1d6f7:	44                   	inc    sp
-   1d6f8:	82                   	(bad)  
-   1d6f9:	00 04                	add    BYTE PTR [si],al
-   1d6fb:	28 28                	sub    BYTE PTR [bx+si],ch
-   1d6fd:	28 28                	sub    BYTE PTR [bx+si],ch
-   1d6ff:	00 04                	add    BYTE PTR [si],al
-   1d701:	82                   	(bad)  
-   1d702:	44                   	inc    sp
-   1d703:	28 10                	sub    BYTE PTR [bx+si],dl
-   1d705:	00 05                	add    BYTE PTR [di],al
-   1d707:	04 02                	add    al,0x2
-   1d709:	b2 0a                	mov    dl,0xa
-   1d70b:	04 05                	add    al,0x5
-   1d70d:	7c 82                	jl     0x1d691
-   1d70f:	ba aa bc             	mov    dx,0xbcaa
-   1d712:	05 fc 12             	add    ax,0x12fc
-   1d715:	12 12                	adc    dl,BYTE PTR [bp+si]
-   1d717:	fc                   	cld    
-   1d718:	05 fe 92             	add    ax,0x92fe
-   1d71b:	92                   	xchg   dx,ax
-   1d71c:	92                   	xchg   dx,ax
-   1d71d:	6c                   	ins    BYTE PTR es:[di],dx
-   1d71e:	05 7c 82             	add    ax,0x827c
-   1d721:	82                   	(bad)  
-   1d722:	82                   	(bad)  
-   1d723:	44                   	inc    sp
-   1d724:	05 fe 82             	add    ax,0x82fe
-   1d727:	82                   	(bad)  
-   1d728:	82                   	(bad)  
-   1d729:	7c 05                	jl     0x1d730
-   1d72b:	fe                   	(bad)  
-   1d72c:	92                   	xchg   dx,ax
-   1d72d:	92                   	xchg   dx,ax
-   1d72e:	92                   	xchg   dx,ax
-   1d72f:	82                   	(bad)  
-   1d730:	05 fe 12             	add    ax,0x12fe
-   1d733:	12 12                	adc    dl,BYTE PTR [bp+si]
-   1d735:	02 05                	add    al,BYTE PTR [di]
-   1d737:	7c 82                	jl     0x1d6bb
-   1d739:	92                   	xchg   dx,ax
-   1d73a:	92                   	xchg   dx,ax
-   1d73b:	74 05                	je     0x1d742
-   1d73d:	fe                   	(bad)  
-   1d73e:	10 10                	adc    BYTE PTR [bx+si],dl
-   1d740:	10 fe                	adc    dh,bh
-   1d742:	03 82 fe 82          	add    ax,WORD PTR [bp+si-0x7d02]
-   1d746:	00 00                	add    BYTE PTR [bx+si],al
-   1d748:	05 40 82             	add    ax,0x8240
-   1d74b:	82                   	(bad)  
-   1d74c:	7e 02                	jle    0x1d750
-   1d74e:	05 fe 10             	add    ax,0x10fe
-   1d751:	28 44 82             	sub    BYTE PTR [si-0x7e],al
-   1d754:	05 fe 80             	add    ax,0x80fe
-   1d757:	80 80 80 05 fe       	add    BYTE PTR [bx+si+0x580],0xfe
-   1d75c:	04 08                	add    al,0x8
-   1d75e:	04 fe                	add    al,0xfe
-   1d760:	05 fe 04             	add    ax,0x4fe
-   1d763:	08 10                	or     BYTE PTR [bx+si],dl
-   1d765:	fe 05                	inc    BYTE PTR [di]
-   1d767:	7c 82                	jl     0x1d6eb
-   1d769:	82                   	(bad)  
-   1d76a:	82                   	(bad)  
-   1d76b:	7c 05                	jl     0x1d772
-   1d76d:	fe                   	(bad)  
-   1d76e:	12 12                	adc    dl,BYTE PTR [bp+si]
-   1d770:	12 0c                	adc    cl,BYTE PTR [si]
-   1d772:	05 7c 82             	add    ax,0x827c
-   1d775:	a2 42 bc             	mov    ds:0xbc42,al
-   1d778:	05 fe 12             	add    ax,0x12fe
-   1d77b:	32 52 8c             	xor    dl,BYTE PTR [bp+si-0x74]
-   1d77e:	05 4c 92             	add    ax,0x924c
-   1d781:	92                   	xchg   dx,ax
-   1d782:	92                   	xchg   dx,ax
-   1d783:	64                   	fs
-   1d784:	05 02 02             	add    ax,0x202
-   1d787:	fe 02                	inc    BYTE PTR [bp+si]
-   1d789:	02 05                	add    al,BYTE PTR [di]
-   1d78b:	7e 80                	jle    0x1d70d
-   1d78d:	80 80 7e 05 3e       	add    BYTE PTR [bx+si+0x57e],0x3e
-   1d792:	40                   	inc    ax
-   1d793:	80 40 3e 05          	add    BYTE PTR [bx+si+0x3e],0x5
-   1d797:	fe 40 30             	inc    BYTE PTR [bx+si+0x30]
-   1d79a:	40                   	inc    ax
-   1d79b:	fe 05                	inc    BYTE PTR [di]
-   1d79d:	c6                   	(bad)  
-   1d79e:	28 10                	sub    BYTE PTR [bx+si],dl
-   1d7a0:	28 c6                	sub    dh,al
-   1d7a2:	05 06 08             	add    ax,0x806
-   1d7a5:	f0 08 06 05 c2       	lock or BYTE PTR ds:0xc205,al
-   1d7aa:	a2 92 8a             	mov    ds:0x8a92,al
-   1d7ad:	86 03                	xchg   BYTE PTR [bp+di],al
-   1d7af:	fe 82 82 00          	inc    BYTE PTR [bp+si+0x82]
-   1d7b3:	00 05                	add    BYTE PTR [di],al
-   1d7b5:	04 08                	add    al,0x8
-   1d7b7:	10 20                	adc    BYTE PTR [bx+si],ah
-   1d7b9:	40                   	inc    ax
-   1d7ba:	03 82 82 fe          	add    ax,WORD PTR [bp+si-0x17e]
-   1d7be:	00 00                	add    BYTE PTR [bx+si],al
-   1d7c0:	03 04                	add    ax,WORD PTR [si]
-   1d7c2:	02 04                	add    al,BYTE PTR [si]
-   1d7c4:	00 00                	add    BYTE PTR [bx+si],al
-   1d7c6:	05 80 80             	add    ax,0x8080
-   1d7c9:	80 80 80 02 06       	add    BYTE PTR [bx+si+0x280],0x6
-   1d7ce:	08 00                	or     BYTE PTR [bx+si],al
-   1d7d0:	00 00                	add    BYTE PTR [bx+si],al
-   1d7d2:	05 40 a8             	add    ax,0xa840
-   1d7d5:	a8 a8                	test   al,0xa8
-   1d7d7:	f0 05 fe 88          	lock add ax,0x88fe
-   1d7db:	88 88 70 05          	mov    BYTE PTR [bx+si+0x570],cl
-   1d7df:	70 88                	jo     0x1d769
-   1d7e1:	88 88 50 05          	mov    BYTE PTR [bx+si+0x550],cl
-   1d7e5:	70 88                	jo     0x1d76f
-   1d7e7:	88 88 fe 05          	mov    BYTE PTR [bx+si+0x5fe],cl
-   1d7eb:	70 a8                	jo     0x1d795
-   1d7ed:	a8 a8                	test   al,0xa8
-   1d7ef:	30 04                	xor    BYTE PTR [si],al
-   1d7f1:	10 fc                	adc    ah,bh
-   1d7f3:	12 04                	adc    al,BYTE PTR [si]
-   1d7f5:	00 05                	add    BYTE PTR [di],al
-   1d7f7:	90                   	nop
-   1d7f8:	a8 a8                	test   al,0xa8
-   1d7fa:	a8 70                	test   al,0x70
-   1d7fc:	05 fe 08             	add    ax,0x8fe
-   1d7ff:	08 08                	or     BYTE PTR [bx+si],cl
-   1d801:	f0 03 88 fa 80       	lock add cx,WORD PTR [bx+si-0x7f06]
-   1d806:	00 00                	add    BYTE PTR [bx+si],al
-   1d808:	03 80 80 7a          	add    ax,WORD PTR [bx+si+0x7a80]
-   1d80c:	00 00                	add    BYTE PTR [bx+si],al
-   1d80e:	04 fe                	add    al,0xfe
-   1d810:	20 50 88             	and    BYTE PTR [bx+si-0x78],dl
-   1d813:	00 03                	add    BYTE PTR [bp+di],al
-   1d815:	82                   	(bad)  
-   1d816:	fe 80 00 00          	inc    BYTE PTR [bx+si+0x0]
-   1d81a:	05 f8 08             	add    ax,0x8f8
-   1d81d:	30 08                	xor    BYTE PTR [bx+si],cl
-   1d81f:	f0 05 f8 10          	lock add ax,0x10f8
-   1d823:	08 08                	or     BYTE PTR [bx+si],cl
-   1d825:	f0 05 70 88          	lock add ax,0x8870
-   1d829:	88 88 70 05          	mov    BYTE PTR [bx+si+0x570],cl
-   1d82d:	f8                   	clc    
-   1d82e:	28 48 48             	sub    BYTE PTR [bx+si+0x48],cl
-   1d831:	30 05                	xor    BYTE PTR [di],al
-   1d833:	30 48 48             	xor    BYTE PTR [bx+si+0x48],cl
-   1d836:	28 f8                	sub    al,bh
-   1d838:	05 f8 10             	add    ax,0x10f8
-   1d83b:	08 08                	or     BYTE PTR [bx+si],cl
-   1d83d:	10 05                	adc    BYTE PTR [di],al
-   1d83f:	90                   	nop
-   1d840:	a8 a8                	test   al,0xa8
-   1d842:	a8 48                	test   al,0x48
-   1d844:	04 08                	add    al,0x8
-   1d846:	7e 88                	jle    0x1d7d0
-   1d848:	80 00 05             	add    BYTE PTR [bx+si],0x5
-   1d84b:	78 80                	js     0x1d7cd
-   1d84d:	80 80 78 05 38       	add    BYTE PTR [bx+si+0x578],0x38
-   1d852:	40                   	inc    ax
-   1d853:	80 40 38 05          	add    BYTE PTR [bx+si+0x38],0x5
-   1d857:	78 80                	js     0x1d7d9
-   1d859:	70 80                	jo     0x1d7db
-   1d85b:	78 05                	js     0x1d862
-   1d85d:	88 50 20             	mov    BYTE PTR [bx+si+0x20],dl
-   1d860:	50                   	push   ax
-   1d861:	88 05                	mov    BYTE PTR [di],al
-   1d863:	98                   	cbw    
-   1d864:	a0 a0 90             	mov    al,ds:0x90a0
-   1d867:	78 05                	js     0x1d86e
-   1d869:	88 c8                	mov    al,cl
-   1d86b:	a8 98                	test   al,0x98
-   1d86d:	88 05                	mov    BYTE PTR [di],al
-   1d86f:	ff                   	(bad)  
-   1d870:	ff                   	(bad)  
-   1d871:	ff                   	(bad)  
-   1d872:	ff                   	(bad)  
-   1d873:	ff 05                	inc    WORD PTR [di]
-   1d875:	7c aa                	jl     0x1d821
-   1d877:	aa                   	stos   BYTE PTR es:[di],al
-   1d878:	82                   	(bad)  
-   1d879:	44                   	inc    sp
-   1d87a:	05 55 aa             	add    ax,0xaa55
-   1d87d:	55                   	push   bp
-   1d87e:	aa                   	stos   BYTE PTR es:[di],al
-   1d87f:	55                   	push   bp
-   1d880:	03 0e 0a 0e          	add    cx,WORD PTR ds:0xe0a
-	...
-   1d88c:	07                   	pop    es
-   1d88d:	08 20                	or     BYTE PTR [bx+si],ah
-   1d88f:	7f 01                	jg     0x1d892
-   1d891:	01 06 00 00          	add    WORD PTR ds:0x0,ax
-   1d895:	00 00                	add    BYTE PTR [bx+si],al
-   1d897:	00 00                	add    BYTE PTR [bx+si],al
-   1d899:	00 05                	add    BYTE PTR [di],al
-   1d89b:	00 0c                	add    BYTE PTR [si],cl
-   1d89d:	be be 0c             	mov    si,0xcbe
-   1d8a0:	00 00                	add    BYTE PTR [bx+si],al
-   1d8a2:	05 0e 0e             	add    ax,0xe0e
-   1d8a5:	00 0e 0e 00          	add    BYTE PTR ds:0xe,cl
-   1d8a9:	00 07                	add    BYTE PTR [bx],al
-   1d8ab:	28 fe                	sub    dh,bh
-   1d8ad:	fe                   	(bad)  
-   1d8ae:	28 fe                	sub    dh,bh
-   1d8b0:	fe                   	(bad)  
-   1d8b1:	28 07                	sub    BYTE PTR [bx],al
-   1d8b3:	90                   	nop
-   1d8b4:	fc                   	cld    
-   1d8b5:	fe                   	(bad)  
-   1d8b6:	92                   	xchg   dx,ax
-   1d8b7:	82                   	(bad)  
-   1d8b8:	86 84 07 46          	xchg   BYTE PTR [si+0x4607],al
-   1d8bc:	e6 70                	out    0x70,al
-   1d8be:	38 1c                	cmp    BYTE PTR [si],bl
-   1d8c0:	ce                   	into   
-   1d8c1:	c4 07                	les    ax,DWORD PTR [bx]
-   1d8c3:	74 fe                	je     0x1d8c3
-   1d8c5:	9a ba ee 44 a0       	call   0xa044:0xeeba
-   1d8ca:	03 00                	add    ax,WORD PTR [bx+si]
-   1d8cc:	0e                   	push   cs
-   1d8cd:	0e                   	push   cs
-   1d8ce:	00 00                	add    BYTE PTR [bx+si],al
-   1d8d0:	00 00                	add    BYTE PTR [bx+si],al
-   1d8d2:	04 38                	add    al,0x38
-   1d8d4:	7c c6                	jl     0x1d89c
-   1d8d6:	82                   	(bad)  
-   1d8d7:	00 00                	add    BYTE PTR [bx+si],al
-   1d8d9:	00 04                	add    BYTE PTR [si],al
-   1d8db:	82                   	(bad)  
-   1d8dc:	c6                   	(bad)  
-   1d8dd:	7c 38                	jl     0x1d917
-   1d8df:	00 00                	add    BYTE PTR [bx+si],al
-   1d8e1:	00 07                	add    BYTE PTR [bx],al
-   1d8e3:	10 54 38             	adc    BYTE PTR [si+0x38],dl
-   1d8e6:	fe                   	(bad)  
-   1d8e7:	38 54 10             	cmp    BYTE PTR [si+0x10],dl
-   1d8ea:	06                   	push   es
-   1d8eb:	10 10                	adc    BYTE PTR [bx+si],dl
-   1d8ed:	7c 7c                	jl     0x1d96b
-   1d8ef:	10 10                	adc    BYTE PTR [bx+si],dl
-   1d8f1:	00 03                	add    BYTE PTR [bp+di],al
-   1d8f3:	80 e0 60             	and    al,0x60
-   1d8f6:	00 00                	add    BYTE PTR [bx+si],al
-   1d8f8:	00 00                	add    BYTE PTR [bx+si],al
-   1d8fa:	06                   	push   es
-   1d8fb:	10 10                	adc    BYTE PTR [bx+si],dl
-   1d8fd:	10 10                	adc    BYTE PTR [bx+si],dl
-   1d8ff:	10 10                	adc    BYTE PTR [bx+si],dl
-   1d901:	00 02                	add    BYTE PTR [bp+si],al
-   1d903:	60                   	pusha  
-   1d904:	60                   	pusha  
-   1d905:	00 00                	add    BYTE PTR [bx+si],al
-   1d907:	00 00                	add    BYTE PTR [bx+si],al
-   1d909:	00 06 40 60          	add    BYTE PTR ds:0x6040,al
-   1d90d:	30 18                	xor    BYTE PTR [bx+si],bl
-   1d90f:	0c 04                	or     al,0x4
-   1d911:	00 07                	add    BYTE PTR [bx],al
-   1d913:	7c fe                	jl     0x1d913
-   1d915:	82                   	(bad)  
-   1d916:	82                   	(bad)  
-   1d917:	82                   	(bad)  
-   1d918:	fe                   	(bad)  
-   1d919:	7c 04                	jl     0x1d91f
-   1d91b:	84 fe                	test   dh,bh
-   1d91d:	fe 80 00 00          	inc    BYTE PTR [bx+si+0x0]
-   1d921:	00 07                	add    BYTE PTR [bx],al
-   1d923:	e4 f6                	in     al,0xf6
-   1d925:	92                   	xchg   dx,ax
-   1d926:	92                   	xchg   dx,ax
-   1d927:	92                   	xchg   dx,ax
-   1d928:	9e                   	sahf   
-   1d929:	8c 07                	mov    WORD PTR [bx],es
-   1d92b:	44                   	inc    sp
-   1d92c:	c6 82 92 92 fe       	mov    BYTE PTR [bp+si-0x6d6e],0xfe
-   1d931:	6c                   	ins    BYTE PTR es:[di],dx
-   1d932:	07                   	pop    es
-   1d933:	30 38                	xor    BYTE PTR [bx+si],bh
-   1d935:	2c 26                	sub    al,0x26
-   1d937:	fe                   	(bad)  
-   1d938:	fe                   	(bad)  
-   1d939:	20 07                	and    BYTE PTR [bx],al
-   1d93b:	4e                   	dec    si
-   1d93c:	ce                   	into   
-   1d93d:	8a 8a 8a fa          	mov    cl,BYTE PTR [bp+si-0x576]
-   1d941:	72 07                	jb     0x1d94a
-   1d943:	7c fe                	jl     0x1d943
-   1d945:	92                   	xchg   dx,ax
-   1d946:	92                   	xchg   dx,ax
-   1d947:	92                   	xchg   dx,ax
-   1d948:	f6 64 07             	mul    BYTE PTR [si+0x7]
-   1d94b:	02 02                	add    al,BYTE PTR [bp+si]
-   1d94d:	e2 f2                	loop   0x1d941
-   1d94f:	1a 0e 06 07          	sbb    cl,BYTE PTR ds:0x706
-   1d953:	6c                   	ins    BYTE PTR es:[di],dx
-   1d954:	fe                   	(bad)  
-   1d955:	92                   	xchg   dx,ax
-   1d956:	92                   	xchg   dx,ax
-   1d957:	92                   	xchg   dx,ax
-   1d958:	fe                   	(bad)  
-   1d959:	6c                   	ins    BYTE PTR es:[di],dx
-   1d95a:	07                   	pop    es
-   1d95b:	4c                   	dec    sp
-   1d95c:	de 92 92 92          	ficom  WORD PTR [bp+si-0x6d6e]
-   1d960:	fe                   	(bad)  
-   1d961:	7c 03                	jl     0x1d966
-   1d963:	00 24                	add    BYTE PTR [si],ah
-   1d965:	24 00                	and    al,0x0
-   1d967:	00 00                	add    BYTE PTR [bx+si],al
-   1d969:	00 03                	add    BYTE PTR [bp+di],al
-   1d96b:	00 54 34             	add    BYTE PTR [si+0x34],dl
-   1d96e:	00 00                	add    BYTE PTR [bx+si],al
-   1d970:	00 00                	add    BYTE PTR [bx+si],al
-   1d972:	05 10 38             	add    ax,0x3810
-   1d975:	6c                   	ins    BYTE PTR es:[di],dx
-   1d976:	c6 82 00 00 06       	mov    BYTE PTR [bp+si+0x0],0x6
-   1d97b:	28 28                	sub    BYTE PTR [bx+si],ch
-   1d97d:	28 28                	sub    BYTE PTR [bx+si],ch
-   1d97f:	28 28                	sub    BYTE PTR [bx+si],ch
-   1d981:	00 05                	add    BYTE PTR [di],al
-   1d983:	82                   	(bad)  
-   1d984:	c6                   	(bad)  
-   1d985:	6c                   	ins    BYTE PTR es:[di],dx
-   1d986:	38 10                	cmp    BYTE PTR [bx+si],dl
-   1d988:	00 00                	add    BYTE PTR [bx+si],al
-   1d98a:	07                   	pop    es
-   1d98b:	04 06                	add    al,0x6
-   1d98d:	d2 da                	rcr    dl,cl
-   1d98f:	0a 0e 04 07          	or     cl,BYTE PTR ds:0x704
-   1d993:	7c fe                	jl     0x1d993
-   1d995:	82                   	(bad)  
-   1d996:	9e                   	sahf   
-   1d997:	a2 be 1c             	mov    ds:0x1cbe,al
-   1d99a:	07                   	pop    es
-   1d99b:	fc                   	cld    
-   1d99c:	fe                   	(bad)  
-   1d99d:	12 12                	adc    dl,BYTE PTR [bp+si]
-   1d99f:	12 fe                	adc    bh,dh
-   1d9a1:	fc                   	cld    
-   1d9a2:	07                   	pop    es
-   1d9a3:	fe                   	(bad)  
-   1d9a4:	fe                   	(bad)  
-   1d9a5:	92                   	xchg   dx,ax
-   1d9a6:	92                   	xchg   dx,ax
-   1d9a7:	92                   	xchg   dx,ax
-   1d9a8:	fe                   	(bad)  
-   1d9a9:	6c                   	ins    BYTE PTR es:[di],dx
-   1d9aa:	07                   	pop    es
-   1d9ab:	7c fe                	jl     0x1d9ab
-   1d9ad:	82                   	(bad)  
-   1d9ae:	82                   	(bad)  
-   1d9af:	82                   	(bad)  
-   1d9b0:	c6 44 07 fe          	mov    BYTE PTR [si+0x7],0xfe
-   1d9b4:	fe 82 82 c6          	inc    BYTE PTR [bp+si-0x397e]
-   1d9b8:	7c 38                	jl     0x1d9f2
-   1d9ba:	07                   	pop    es
-   1d9bb:	fe                   	(bad)  
-   1d9bc:	fe                   	(bad)  
-   1d9bd:	92                   	xchg   dx,ax
-   1d9be:	92                   	xchg   dx,ax
-   1d9bf:	92                   	xchg   dx,ax
-   1d9c0:	92                   	xchg   dx,ax
-   1d9c1:	82                   	(bad)  
-   1d9c2:	07                   	pop    es
-   1d9c3:	fe                   	(bad)  
-   1d9c4:	fe                   	(bad)  
-   1d9c5:	12 12                	adc    dl,BYTE PTR [bp+si]
-   1d9c7:	12 12                	adc    dl,BYTE PTR [bp+si]
-   1d9c9:	02 07                	add    al,BYTE PTR [bx]
-   1d9cb:	7c fe                	jl     0x1d9cb
-   1d9cd:	82                   	(bad)  
-   1d9ce:	92                   	xchg   dx,ax
-   1d9cf:	92                   	xchg   dx,ax
-   1d9d0:	f6 74 07             	div    BYTE PTR [si+0x7]
-   1d9d3:	fe                   	(bad)  
-   1d9d4:	fe                   	(bad)  
-   1d9d5:	10 10                	adc    BYTE PTR [bx+si],dl
-   1d9d7:	10 fe                	adc    dh,bh
-   1d9d9:	fe 06 82 82          	inc    BYTE PTR ds:0x8282
-   1d9dd:	fe                   	(bad)  
-   1d9de:	fe 82 82 00          	inc    BYTE PTR [bp+si+0x82]
-   1d9e2:	07                   	pop    es
-   1d9e3:	40                   	inc    ax
-   1d9e4:	c0 80 82 82 fe       	rol    BYTE PTR [bx+si-0x7d7e],0xfe
-   1d9e9:	7e 07                	jle    0x1d9f2
-   1d9eb:	fe                   	(bad)  
-   1d9ec:	fe                   	(bad)  
-   1d9ed:	10 38                	adc    BYTE PTR [bx+si],bh
-   1d9ef:	6c                   	ins    BYTE PTR es:[di],dx
-   1d9f0:	c6 82 06 fe fe       	mov    BYTE PTR [bp+si-0x1fa],0xfe
-   1d9f5:	80 80 80 80 00       	add    BYTE PTR [bx+si-0x7f80],0x0
-   1d9fa:	07                   	pop    es
-   1d9fb:	fe                   	(bad)  
-   1d9fc:	fe 0c                	dec    BYTE PTR [si]
-   1d9fe:	18 0c                	sbb    BYTE PTR [si],cl
-   1da00:	fe                   	(bad)  
-   1da01:	fe 07                	inc    BYTE PTR [bx]
-   1da03:	fe                   	(bad)  
-   1da04:	fe 0c                	dec    BYTE PTR [si]
-   1da06:	18 30                	sbb    BYTE PTR [bx+si],dh
-   1da08:	fe                   	(bad)  
-   1da09:	fe 07                	inc    BYTE PTR [bx]
-   1da0b:	7c fe                	jl     0x1da0b
-   1da0d:	82                   	(bad)  
-   1da0e:	82                   	(bad)  
-   1da0f:	82                   	(bad)  
-   1da10:	fe                   	(bad)  
-   1da11:	7c 07                	jl     0x1da1a
-   1da13:	fe                   	(bad)  
-   1da14:	fe                   	(bad)  
-   1da15:	12 12                	adc    dl,BYTE PTR [bp+si]
-   1da17:	12 1e 0c 07          	adc    bl,BYTE PTR ds:0x70c
-   1da1b:	7c fe                	jl     0x1da1b
-   1da1d:	82                   	(bad)  
-   1da1e:	82                   	(bad)  
-   1da1f:	c2 7e bc             	ret    0xbc7e
-   1da22:	07                   	pop    es
-   1da23:	fe                   	(bad)  
-   1da24:	fe                   	(bad)  
-   1da25:	12 12                	adc    dl,BYTE PTR [bp+si]
-   1da27:	32 fe                	xor    bh,dh
-   1da29:	ec                   	in     al,dx
-   1da2a:	07                   	pop    es
-   1da2b:	4c                   	dec    sp
-   1da2c:	de 92 92 92          	ficom  WORD PTR [bp+si-0x6d6e]
-   1da30:	f6 64 06             	mul    BYTE PTR [si+0x6]
-   1da33:	02 02                	add    al,BYTE PTR [bp+si]
-   1da35:	fe                   	(bad)  
-   1da36:	fe 02                	inc    BYTE PTR [bp+si]
-   1da38:	02 00                	add    al,BYTE PTR [bx+si]
-   1da3a:	07                   	pop    es
-   1da3b:	7e fe                	jle    0x1da3b
-   1da3d:	80 80 80 fe 7e       	add    BYTE PTR [bx+si-0x180],0x7e
-   1da42:	07                   	pop    es
-   1da43:	1e                   	push   ds
-   1da44:	3e                   	ds
-   1da45:	70 e0                	jo     0x1da27
-   1da47:	70 3e                	jo     0x1da87
-   1da49:	1e                   	push   ds
-   1da4a:	07                   	pop    es
-   1da4b:	fe                   	(bad)  
-   1da4c:	fe                   	(bad)  
-   1da4d:	60                   	pusha  
-   1da4e:	30 60 fe             	xor    BYTE PTR [bx+si-0x2],ah
-   1da51:	fe 07                	inc    BYTE PTR [bx]
-   1da53:	c6                   	(bad)  
-   1da54:	ee                   	out    dx,al
-   1da55:	38 10                	cmp    BYTE PTR [bx+si],dl
-   1da57:	38 ee                	cmp    dh,ch
-   1da59:	c6 06 0e 1e f0       	mov    BYTE PTR ds:0x1e0e,0xf0
-   1da5e:	f0 1e                	lock push ds
-   1da60:	0e                   	push   cs
-   1da61:	00 07                	add    BYTE PTR [bx],al
-   1da63:	c2 e2 b2             	ret    0xb2e2
-   1da66:	9a 8e 86 82 05       	call   0x582:0x868e
-   1da6b:	fe                   	(bad)  
-   1da6c:	fe 82 82 82          	inc    BYTE PTR [bp+si-0x7d7e]
-   1da70:	00 00                	add    BYTE PTR [bx+si],al
-   1da72:	06                   	push   es
-   1da73:	04 0c                	add    al,0xc
-   1da75:	18 30                	sbb    BYTE PTR [bx+si],dh
-   1da77:	60                   	pusha  
-   1da78:	40                   	inc    ax
-   1da79:	00 05                	add    BYTE PTR [di],al
-   1da7b:	82                   	(bad)  
-   1da7c:	82                   	(bad)  
-   1da7d:	82                   	(bad)  
-   1da7e:	fe                   	(bad)  
-   1da7f:	fe 00                	inc    BYTE PTR [bx+si]
-   1da81:	00 05                	add    BYTE PTR [di],al
-   1da83:	08 0c                	or     BYTE PTR [si],cl
-   1da85:	06                   	push   es
-   1da86:	0c 08                	or     al,0x8
-   1da88:	00 00                	add    BYTE PTR [bx+si],al
-   1da8a:	07                   	pop    es
-   1da8b:	80 80 80 80 80       	add    BYTE PTR [bx+si-0x7f80],0x80
-   1da90:	80 80 02 0e 16       	add    BYTE PTR [bx+si+0xe02],0x16
-   1da95:	00 00                	add    BYTE PTR [bx+si],al
-   1da97:	00 00                	add    BYTE PTR [bx+si],al
-   1da99:	00 07                	add    BYTE PTR [bx],al
-   1da9b:	40                   	inc    ax
-   1da9c:	e8 a8 a8             	call   0x18347
-   1da9f:	a8 f8                	test   al,0xf8
-   1daa1:	f0 07                	lock pop es
-   1daa3:	fe                   	(bad)  
-   1daa4:	fe 88 88 88          	dec    BYTE PTR [bx+si-0x7778]
-   1daa8:	f8                   	clc    
-   1daa9:	70 07                	jo     0x1dab2
-   1daab:	70 f8                	jo     0x1daa5
-   1daad:	88 88 88 d8          	mov    BYTE PTR [bx+si-0x2778],cl
-   1dab1:	50                   	push   ax
-   1dab2:	07                   	pop    es
-   1dab3:	70 f8                	jo     0x1daad
-   1dab5:	88 88 88 fe          	mov    BYTE PTR [bx+si-0x178],cl
-   1dab9:	fe 07                	inc    BYTE PTR [bx]
-   1dabb:	70 f8                	jo     0x1dab5
-   1dabd:	a8 a8                	test   al,0xa8
-   1dabf:	a8 b8                	test   al,0xb8
-   1dac1:	30 05                	xor    BYTE PTR [di],al
-   1dac3:	08 fc                	or     ah,bh
-   1dac5:	fe 0a                	dec    BYTE PTR [bp+si]
-   1dac7:	02 00                	add    al,BYTE PTR [bx+si]
-   1dac9:	00 07                	add    BYTE PTR [bx],al
-   1dacb:	10 b8 a8 a8          	adc    BYTE PTR [bx+si-0x5758],bh
-   1dacf:	a8 f8                	test   al,0xf8
-   1dad1:	70 07                	jo     0x1dada
-   1dad3:	fe                   	(bad)  
-   1dad4:	fe 08                	dec    BYTE PTR [bx+si]
-   1dad6:	08 08                	or     BYTE PTR [bx+si],cl
-   1dad8:	f8                   	clc    
-   1dad9:	f0 04 88             	lock add al,0x88
-   1dadc:	fa                   	cli    
-   1dadd:	fa                   	cli    
-   1dade:	80 00 00             	add    BYTE PTR [bx+si],0x0
-   1dae1:	00 06 40 c0          	add    BYTE PTR ds:0xc040,al
-   1dae5:	80 88 fa 7a 00       	or     BYTE PTR [bx+si+0x7afa],0x0
-   1daea:	06                   	push   es
-   1daeb:	fe                   	(bad)  
-   1daec:	fe                   	(bad)  
-   1daed:	20 70 d8             	and    BYTE PTR [bx+si-0x28],dh
-   1daf0:	88 00                	mov    BYTE PTR [bx+si],al
-   1daf2:	04 82                	add    al,0x82
-   1daf4:	fe                   	(bad)  
-   1daf5:	fe 80 00 00          	inc    BYTE PTR [bx+si+0x0]
-   1daf9:	00 07                	add    BYTE PTR [bx],al
-   1dafb:	f0 f8                	lock clc 
-   1dafd:	18 70 18             	sbb    BYTE PTR [bx+si+0x18],dh
-   1db00:	f8                   	clc    
-   1db01:	f0 07                	lock pop es
-   1db03:	f8                   	clc    
-   1db04:	f8                   	clc    
-   1db05:	10 18                	adc    BYTE PTR [bx+si],bl
-   1db07:	08 f8                	or     al,bh
-   1db09:	f0 07                	lock pop es
-   1db0b:	70 f8                	jo     0x1db05
-   1db0d:	88 88 88 f8          	mov    BYTE PTR [bx+si-0x778],cl
-   1db11:	70 07                	jo     0x1db1a
-   1db13:	f8                   	clc    
-   1db14:	f8                   	clc    
-   1db15:	28 68 48             	sub    BYTE PTR [bx+si+0x48],ch
-   1db18:	78 30                	js     0x1db4a
-   1db1a:	07                   	pop    es
-   1db1b:	30 78 48             	xor    BYTE PTR [bx+si+0x48],bh
-   1db1e:	68 28 f8             	push   0xf828
-   1db21:	f8                   	clc    
-   1db22:	07                   	pop    es
-   1db23:	f8                   	clc    
-   1db24:	f8                   	clc    
-   1db25:	10 18                	adc    BYTE PTR [bx+si],bl
-   1db27:	08 18                	or     BYTE PTR [bx+si],bl
-   1db29:	10 07                	adc    BYTE PTR [bx],al
-   1db2b:	10 b8 a8 a8          	adc    BYTE PTR [bx+si-0x5758],bh
-   1db2f:	a8 e8                	test   al,0xe8
-   1db31:	40                   	inc    ax
-   1db32:	06                   	push   es
-   1db33:	08 7e fe             	or     BYTE PTR [bp-0x2],bh
-   1db36:	88 c0                	mov    al,al
-   1db38:	40                   	inc    ax
-   1db39:	00 07                	add    BYTE PTR [bx],al
-   1db3b:	78 f8                	js     0x1db35
-   1db3d:	80 80 80 f8 78       	add    BYTE PTR [bx+si-0x780],0x78
-   1db42:	07                   	pop    es
-   1db43:	18 38                	sbb    BYTE PTR [bx+si],bh
-   1db45:	60                   	pusha  
-   1db46:	c0 60 38 18          	shl    BYTE PTR [bx+si+0x38],0x18
-   1db4a:	07                   	pop    es
-   1db4b:	78 f8                	js     0x1db45
-   1db4d:	c0 60 c0 f8          	shl    BYTE PTR [bx+si-0x40],0xf8
-   1db51:	78 06                	js     0x1db59
-   1db53:	88 d8                	mov    al,bl
-   1db55:	70 70                	jo     0x1dbc7
-   1db57:	d8 88 00 07          	fmul   DWORD PTR [bx+si+0x700]
-   1db5b:	18 b8 a0 a0          	sbb    BYTE PTR [bx+si-0x5f60],bh
-   1db5f:	a0 f8 78             	mov    al,ds:0x78f8
-   1db62:	07                   	pop    es
-   1db63:	88 c8                	mov    al,cl
-   1db65:	e8 a8 b8             	call   0x19410
-   1db68:	98                   	cbw    
-   1db69:	88 05                	mov    BYTE PTR [di],al
-   1db6b:	00 10                	add    BYTE PTR [bx+si],dl
-   1db6d:	6c                   	ins    BYTE PTR es:[di],dx
-   1db6e:	82                   	(bad)  
-   1db6f:	82                   	(bad)  
-   1db70:	00 00                	add    BYTE PTR [bx+si],al
-   1db72:	07                   	pop    es
-   1db73:	28 7c aa             	sub    BYTE PTR [si-0x56],bh
-   1db76:	aa                   	stos   BYTE PTR es:[di],al
-   1db77:	aa                   	stos   BYTE PTR es:[di],al
-   1db78:	82                   	(bad)  
-   1db79:	44                   	inc    sp
-   1db7a:	05 00 82             	add    ax,0x8200
-   1db7d:	82                   	(bad)  
-   1db7e:	6c                   	ins    BYTE PTR es:[di],dx
-   1db7f:	10 00                	adc    BYTE PTR [bx+si],al
-   1db81:	00 05                	add    BYTE PTR [di],al
-   1db83:	00 0c                	add    BYTE PTR [si],cl
-   1db85:	12 12                	adc    dl,BYTE PTR [bp+si]
-   1db87:	0c 00                	or     al,0x0
-	...
-   1db91:	00 08                	add    BYTE PTR [bx+si],cl
-   1db93:	0d 20 7f             	or     ax,0x7f20
-   1db96:	01 01                	add    WORD PTR [bx+di],ax
-   1db98:	0c 00                	or     al,0x0
-	...
-   1dba6:	00 00                	add    BYTE PTR [bx+si],al
-   1dba8:	00 04                	add    BYTE PTR [si],al
-   1dbaa:	ff 06 ff 06          	inc    WORD PTR ds:0x6ff
-	...
-   1dbba:	08 07                	or     BYTE PTR [bx],al
-   1dbbc:	00 07                	add    BYTE PTR [bx],al
-   1dbbe:	00 07                	add    BYTE PTR [bx],al
-   1dbc0:	00 07                	add    BYTE PTR [bx],al
-	...
-   1dbca:	00 10                	add    BYTE PTR [bx+si],dl
-   1dbcc:	80 00 88             	add    BYTE PTR [bx+si],0x88
-   1dbcf:	06                   	push   es
-   1dbd0:	fe 01                	inc    BYTE PTR [bx+di]
-   1dbd2:	89 00                	mov    WORD PTR [bx+si],ax
-   1dbd4:	88 06 fe 01          	mov    BYTE PTR ds:0x1fe,al
-   1dbd8:	89 00                	mov    WORD PTR [bx+si],ax
-   1dbda:	08 00                	or     BYTE PTR [bx+si],al
-   1dbdc:	0e                   	push   cs
-   1dbdd:	1c 02                	sbb    al,0x2
-   1dbdf:	22 04                	and    al,BYTE PTR [si]
-   1dbe1:	ff 0f                	dec    WORD PTR [bx]
-   1dbe3:	22 04                	and    al,BYTE PTR [si]
-   1dbe5:	ff 0f                	dec    WORD PTR [bx]
-   1dbe7:	22 04                	and    al,BYTE PTR [si]
-   1dbe9:	c4 03                	les    ax,DWORD PTR [bp+di]
-   1dbeb:	00 00                	add    BYTE PTR [bx+si],al
-   1dbed:	0e                   	push   cs
-   1dbee:	06                   	push   es
-   1dbef:	06                   	push   es
-   1dbf0:	87 07                	xchg   WORD PTR [bx],ax
-   1dbf2:	e3 01                	jcxz   0x1dbf5
-   1dbf4:	78 00                	js     0x1dbf6
-   1dbf6:	1e                   	push   ds
-   1dbf7:	06                   	push   es
-   1dbf8:	07                   	pop    es
-   1dbf9:	07                   	pop    es
-   1dbfa:	01 03                	add    WORD PTR [bp+di],ax
-   1dbfc:	00 00                	add    BYTE PTR [bx+si],al
-   1dbfe:	0e                   	push   cs
-   1dbff:	c0 03 ee             	rol    BYTE PTR [bp+di],0xee
-   1dc02:	07                   	pop    es
-   1dc03:	3f                   	aas    
-   1dc04:	04 f1                	add    al,0xf1
-   1dc06:	06                   	push   es
-   1dc07:	df 03                	fild   WORD PTR [bp+di]
-   1dc09:	8e 07                	mov    es,WORD PTR [bx]
-   1dc0b:	c0 06 00 00 04       	rol    BYTE PTR ds:0x0,0x4
-   1dc10:	07                   	pop    es
-   1dc11:	00 07                	add    BYTE PTR [bx],al
-	...
-   1dc1f:	00 08                	add    BYTE PTR [bx+si],cl
-   1dc21:	f8                   	clc    
-   1dc22:	01 fe                	add    si,di
-   1dc24:	07                   	pop    es
-   1dc25:	07                   	pop    es
-   1dc26:	0e                   	push   cs
-   1dc27:	01 08                	add    WORD PTR [bx+si],cx
-	...
-   1dc31:	08 01                	or     BYTE PTR [bx+di],al
-   1dc33:	08 07                	or     BYTE PTR [bx],al
-   1dc35:	0e                   	push   cs
-   1dc36:	fe 07                	inc    BYTE PTR [bx]
-   1dc38:	fc                   	cld    
-   1dc39:	01 00                	add    WORD PTR [bx+si],ax
-   1dc3b:	00 00                	add    BYTE PTR [bx+si],al
-   1dc3d:	00 00                	add    BYTE PTR [bx+si],al
-   1dc3f:	00 00                	add    BYTE PTR [bx+si],al
-   1dc41:	00 0e 90 00          	add    BYTE PTR ds:0x90,cl
-   1dc45:	f0 00 60 00          	lock add BYTE PTR [bx+si+0x0],ah
-   1dc49:	f8                   	clc    
-   1dc4a:	01 60 00             	add    WORD PTR [bx+si+0x0],sp
-   1dc4d:	f0 00 90 00 00       	lock add BYTE PTR [bx+si+0x0],dl
-   1dc52:	00 0c                	add    BYTE PTR [si],cl
-   1dc54:	20 00                	and    BYTE PTR [bx+si],al
-   1dc56:	20 00                	and    BYTE PTR [bx+si],al
-   1dc58:	fc                   	cld    
-   1dc59:	01 fc                	add    sp,di
-   1dc5b:	01 20                	add    WORD PTR [bx+si],sp
-   1dc5d:	00 20                	add    BYTE PTR [bx+si],ah
-   1dc5f:	00 00                	add    BYTE PTR [bx+si],al
-   1dc61:	00 00                	add    BYTE PTR [bx+si],al
-   1dc63:	00 06 00 08          	add    BYTE PTR ds:0x800,al
-   1dc67:	00 0e 00 06          	add    BYTE PTR ds:0x600,cl
-	...
-   1dc73:	00 00                	add    BYTE PTR [bx+si],al
-   1dc75:	0e                   	push   cs
-   1dc76:	20 00                	and    BYTE PTR [bx+si],al
-   1dc78:	20 00                	and    BYTE PTR [bx+si],al
-   1dc7a:	20 00                	and    BYTE PTR [bx+si],al
-   1dc7c:	20 00                	and    BYTE PTR [bx+si],al
-   1dc7e:	20 00                	and    BYTE PTR [bx+si],al
-   1dc80:	20 00                	and    BYTE PTR [bx+si],al
-   1dc82:	20 00                	and    BYTE PTR [bx+si],al
-   1dc84:	00 00                	add    BYTE PTR [bx+si],al
-   1dc86:	04 00                	add    al,0x0
-   1dc88:	06                   	push   es
-   1dc89:	00 06 00 00          	add    BYTE PTR ds:0x0,al
-	...
-   1dc95:	00 00                	add    BYTE PTR [bx+si],al
-   1dc97:	0c 00                	or     al,0x0
-   1dc99:	0c 80                	or     al,0x80
-   1dc9b:	0f f0                	(bad)  
-   1dc9d:	03 7e 00             	add    di,WORD PTR [bp+0x0]
-   1dca0:	0f 00 01             	sldt   WORD PTR [bx+di]
-   1dca3:	00 00                	add    BYTE PTR [bx+si],al
-   1dca5:	00 00                	add    BYTE PTR [bx+si],al
-   1dca7:	00 0e fe 03          	add    BYTE PTR ds:0x3fe,cl
-   1dcab:	ff 07                	inc    WORD PTR [bx]
-   1dcad:	01 04                	add    WORD PTR [si],ax
-   1dcaf:	01 04                	add    WORD PTR [si],ax
-   1dcb1:	01 04                	add    WORD PTR [si],ax
-   1dcb3:	ff 07                	inc    WORD PTR [bx]
-   1dcb5:	fe 03                	inc    BYTE PTR [bp+di]
-   1dcb7:	00 00                	add    BYTE PTR [bx+si],al
-   1dcb9:	06                   	push   es
-   1dcba:	02 00                	add    al,BYTE PTR [bx+si]
-   1dcbc:	ff 07                	inc    WORD PTR [bx]
-   1dcbe:	ff 07                	inc    WORD PTR [bx]
-	...
-   1dcc8:	00 00                	add    BYTE PTR [bx+si],al
-   1dcca:	0e                   	push   cs
-   1dccb:	06                   	push   es
-   1dccc:	07                   	pop    es
-   1dccd:	87 07                	xchg   WORD PTR [bx],ax
-   1dccf:	c1 04 61             	rol    WORD PTR [si],0x61
-   1dcd2:	04 31                	add    al,0x31
-   1dcd4:	04 1f                	add    al,0x1f
-   1dcd6:	04 0e                	add    al,0xe
-   1dcd8:	04 00                	add    al,0x0
-   1dcda:	00 0e 06 03          	add    BYTE PTR ds:0x306,cl
-   1dcde:	07                   	pop    es
-   1dcdf:	07                   	pop    es
-   1dce0:	11 04                	adc    WORD PTR [si],ax
-   1dce2:	11 04                	adc    WORD PTR [si],ax
-   1dce4:	11 04                	adc    WORD PTR [si],ax
-   1dce6:	ff 07                	inc    WORD PTR [bx]
-   1dce8:	ee                   	out    dx,al
-   1dce9:	03 00                	add    ax,WORD PTR [bx+si]
-   1dceb:	00 0e 80 01          	add    BYTE PTR ds:0x180,cl
-   1dcef:	e0 01                	loopne 0x1dcf2
-   1dcf1:	38 01                	cmp    BYTE PTR [bx+di],al
-   1dcf3:	0e                   	push   cs
-   1dcf4:	01 ff                	add    di,di
-   1dcf6:	07                   	pop    es
-   1dcf7:	ff 07                	inc    WORD PTR [bx]
-   1dcf9:	00 01                	add    BYTE PTR [bx+di],al
-   1dcfb:	00 00                	add    BYTE PTR [bx+si],al
-   1dcfd:	0e                   	push   cs
-   1dcfe:	3f                   	aas    
-   1dcff:	03 3f                	add    di,WORD PTR [bx]
-   1dd01:	07                   	pop    es
-   1dd02:	11 04                	adc    WORD PTR [si],ax
-   1dd04:	11 04                	adc    WORD PTR [si],ax
-   1dd06:	11 04                	adc    WORD PTR [si],ax
-   1dd08:	f1                   	icebp  
-   1dd09:	07                   	pop    es
-   1dd0a:	e1 03                	loope  0x1dd0f
-   1dd0c:	00 00                	add    BYTE PTR [bx+si],al
-   1dd0e:	0e                   	push   cs
-   1dd0f:	fe 03                	inc    BYTE PTR [bp+di]
-   1dd11:	ff 07                	inc    WORD PTR [bx]
-   1dd13:	11 04                	adc    WORD PTR [si],ax
-   1dd15:	11 04                	adc    WORD PTR [si],ax
-   1dd17:	11 04                	adc    WORD PTR [si],ax
-   1dd19:	f3 07                	repz pop es
-   1dd1b:	e2 03                	loop   0x1dd20
-   1dd1d:	00 00                	add    BYTE PTR [bx+si],al
-   1dd1f:	0e                   	push   cs
-   1dd20:	01 00                	add    WORD PTR [bx+si],ax
-   1dd22:	01 00                	add    WORD PTR [bx+si],ax
-   1dd24:	81 07 f1 07          	add    WORD PTR [bx],0x7f1
-   1dd28:	7d 00                	jge    0x1dd2a
-   1dd2a:	0f 00 03             	sldt   WORD PTR [bp+di]
-   1dd2d:	00 00                	add    BYTE PTR [bx+si],al
-   1dd2f:	00 0e de 03          	add    BYTE PTR ds:0x3de,cl
-   1dd33:	ff 07                	inc    WORD PTR [bx]
-   1dd35:	21 04                	and    WORD PTR [si],ax
-   1dd37:	21 04                	and    WORD PTR [si],ax
-   1dd39:	21 04                	and    WORD PTR [si],ax
-   1dd3b:	ff 07                	inc    WORD PTR [bx]
-   1dd3d:	de 03                	fiadd  WORD PTR [bp+di]
-   1dd3f:	00 00                	add    BYTE PTR [bx+si],al
-   1dd41:	0e                   	push   cs
-   1dd42:	3e 02 7f 06          	add    bh,BYTE PTR ds:[bx+0x6]
-   1dd46:	41                   	inc    cx
-   1dd47:	04 41                	add    al,0x41
-   1dd49:	04 41                	add    al,0x41
-   1dd4b:	04 ff                	add    al,0xff
-   1dd4d:	07                   	pop    es
-   1dd4e:	fe 03                	inc    BYTE PTR [bp+di]
-   1dd50:	00 00                	add    BYTE PTR [bx+si],al
-   1dd52:	04 8c                	add    al,0x8c
-   1dd54:	01 8c 01 00          	add    WORD PTR [si+0x1],cx
-	...
-   1dd60:	00 00                	add    BYTE PTR [bx+si],al
-   1dd62:	00 06 00 04          	add    BYTE PTR ds:0x400,al
-   1dd66:	8c 07                	mov    WORD PTR [bx],es
-   1dd68:	8c 03                	mov    WORD PTR [bp+di],es
-	...
-   1dd72:	00 00                	add    BYTE PTR [bx+si],al
-   1dd74:	0e                   	push   cs
-   1dd75:	20 00                	and    BYTE PTR [bx+si],al
-   1dd77:	20 00                	and    BYTE PTR [bx+si],al
-   1dd79:	70 00                	jo     0x1dd7b
-   1dd7b:	50                   	push   ax
-   1dd7c:	00 d8                	add    al,bl
-   1dd7e:	00 88 00 88          	add    BYTE PTR [bx+si-0x7800],cl
-   1dd82:	00 00                	add    BYTE PTR [bx+si],al
-   1dd84:	00 0e 50 00          	add    BYTE PTR ds:0x50,cl
-   1dd88:	50                   	push   ax
-   1dd89:	00 50 00             	add    BYTE PTR [bx+si+0x0],dl
-   1dd8c:	50                   	push   ax
-   1dd8d:	00 50 00             	add    BYTE PTR [bx+si+0x0],dl
-   1dd90:	50                   	push   ax
-   1dd91:	00 50 00             	add    BYTE PTR [bx+si+0x0],dl
-   1dd94:	00 00                	add    BYTE PTR [bx+si],al
-   1dd96:	0e                   	push   cs
-   1dd97:	88 00                	mov    BYTE PTR [bx+si],al
-   1dd99:	88 00                	mov    BYTE PTR [bx+si],al
-   1dd9b:	d8 00                	fadd   DWORD PTR [bx+si]
-   1dd9d:	50                   	push   ax
-   1dd9e:	00 70 00             	add    BYTE PTR [bx+si+0x0],dh
-   1dda1:	20 00                	and    BYTE PTR [bx+si],al
-   1dda3:	20 00                	and    BYTE PTR [bx+si],al
-   1dda5:	00 00                	add    BYTE PTR [bx+si],al
-   1dda7:	0c 06                	or     al,0x6
-   1dda9:	00 07                	add    BYTE PTR [bx],al
-   1ddab:	00 e1                	add    cl,ah
-   1ddad:	06                   	push   es
-   1ddae:	f1                   	icebp  
-   1ddaf:	06                   	push   es
-   1ddb0:	1f                   	pop    ds
-   1ddb1:	00 0e 00 00          	add    BYTE PTR ds:0x0,cl
-   1ddb5:	00 00                	add    BYTE PTR [bx+si],al
-   1ddb7:	00 0e fc 03          	add    BYTE PTR ds:0x3fc,cl
-   1ddbb:	fe 07                	inc    BYTE PTR [bx]
-   1ddbd:	03 0c                	add    cx,WORD PTR [si]
-   1ddbf:	f9                   	stc    
-   1ddc0:	09 8b 09 fe          	or     WORD PTR [bp+di-0x1f7],cx
-   1ddc4:	0d fc 04             	or     ax,0x4fc
-   1ddc7:	00 00                	add    BYTE PTR [bx+si],al
-   1ddc9:	0e                   	push   cs
-   1ddca:	f8                   	clc    
-   1ddcb:	07                   	pop    es
-   1ddcc:	fe 07                	inc    BYTE PTR [bx]
-   1ddce:	47                   	inc    di
-   1ddcf:	00 43 00             	add    BYTE PTR [bp+di+0x0],al
-   1ddd2:	47                   	inc    di
-   1ddd3:	00 fe                	add    dh,bh
-   1ddd5:	07                   	pop    es
-   1ddd6:	f8                   	clc    
-   1ddd7:	07                   	pop    es
-   1ddd8:	00 00                	add    BYTE PTR [bx+si],al
-   1ddda:	0e                   	push   cs
-   1dddb:	ff 07                	inc    WORD PTR [bx]
-   1dddd:	ff 07                	inc    WORD PTR [bx]
-   1dddf:	21 04                	and    WORD PTR [si],ax
-   1dde1:	21 04                	and    WORD PTR [si],ax
-   1dde3:	21 04                	and    WORD PTR [si],ax
-   1dde5:	ff 07                	inc    WORD PTR [bx]
-   1dde7:	de 03                	fiadd  WORD PTR [bp+di]
-   1dde9:	00 00                	add    BYTE PTR [bx+si],al
-   1ddeb:	0e                   	push   cs
-   1ddec:	fc                   	cld    
-   1dded:	01 fe                	add    si,di
-   1ddef:	03 03                	add    ax,WORD PTR [bp+di]
-   1ddf1:	06                   	push   es
-   1ddf2:	01 04                	add    WORD PTR [si],ax
-   1ddf4:	01 04                	add    WORD PTR [si],ax
-   1ddf6:	07                   	pop    es
-   1ddf7:	07                   	pop    es
-   1ddf8:	06                   	push   es
-   1ddf9:	03 00                	add    ax,WORD PTR [bx+si]
-   1ddfb:	00 0e ff 07          	add    BYTE PTR ds:0x7ff,cl
-   1ddff:	ff 07                	inc    WORD PTR [bx]
-   1de01:	01 04                	add    WORD PTR [si],ax
-   1de03:	01 04                	add    WORD PTR [si],ax
-   1de05:	03 06 fe 03          	add    ax,WORD PTR ds:0x3fe
-   1de09:	fc                   	cld    
-   1de0a:	01 00                	add    WORD PTR [bx+si],ax
-   1de0c:	00 0e ff 07          	add    BYTE PTR ds:0x7ff,cl
-   1de10:	ff 07                	inc    WORD PTR [bx]
-   1de12:	21 04                	and    WORD PTR [si],ax
-   1de14:	21 04                	and    WORD PTR [si],ax
-   1de16:	21 04                	and    WORD PTR [si],ax
-   1de18:	21 04                	and    WORD PTR [si],ax
-   1de1a:	21 04                	and    WORD PTR [si],ax
-   1de1c:	00 00                	add    BYTE PTR [bx+si],al
-   1de1e:	0e                   	push   cs
-   1de1f:	ff 07                	inc    WORD PTR [bx]
-   1de21:	ff 07                	inc    WORD PTR [bx]
-   1de23:	21 00                	and    WORD PTR [bx+si],ax
-   1de25:	21 00                	and    WORD PTR [bx+si],ax
-   1de27:	21 00                	and    WORD PTR [bx+si],ax
-   1de29:	21 00                	and    WORD PTR [bx+si],ax
-   1de2b:	01 00                	add    WORD PTR [bx+si],ax
-   1de2d:	00 00                	add    BYTE PTR [bx+si],al
-   1de2f:	0e                   	push   cs
-   1de30:	fc                   	cld    
-   1de31:	01 fe                	add    si,di
-   1de33:	03 03                	add    ax,WORD PTR [bp+di]
-   1de35:	06                   	push   es
-   1de36:	21 04                	and    WORD PTR [si],ax
-   1de38:	21 06 e7 03          	and    WORD PTR ds:0x3e7,ax
-   1de3c:	e6 07                	out    0x7,al
-   1de3e:	00 00                	add    BYTE PTR [bx+si],al
-   1de40:	0e                   	push   cs
-   1de41:	ff 07                	inc    WORD PTR [bx]
-   1de43:	ff 07                	inc    WORD PTR [bx]
-   1de45:	20 00                	and    BYTE PTR [bx+si],al
-   1de47:	20 00                	and    BYTE PTR [bx+si],al
-   1de49:	20 00                	and    BYTE PTR [bx+si],al
-   1de4b:	ff 07                	inc    WORD PTR [bx]
-   1de4d:	ff 07                	inc    WORD PTR [bx]
-   1de4f:	00 00                	add    BYTE PTR [bx+si],al
-   1de51:	04 ff                	add    al,0xff
-   1de53:	07                   	pop    es
-   1de54:	ff 07                	inc    WORD PTR [bx]
-	...
-   1de62:	0a 00                	or     al,BYTE PTR [bx+si]
-   1de64:	03 00                	add    ax,WORD PTR [bx+si]
-   1de66:	07                   	pop    es
-   1de67:	00 04                	add    BYTE PTR [si],al
-   1de69:	ff 07                	inc    WORD PTR [bx]
-   1de6b:	ff 03                	inc    WORD PTR [bp+di]
-   1de6d:	00 00                	add    BYTE PTR [bx+si],al
-   1de6f:	00 00                	add    BYTE PTR [bx+si],al
-   1de71:	00 00                	add    BYTE PTR [bx+si],al
-   1de73:	0e                   	push   cs
-   1de74:	ff 07                	inc    WORD PTR [bx]
-   1de76:	ff 07                	inc    WORD PTR [bx]
-   1de78:	70 00                	jo     0x1de7a
-   1de7a:	78 00                	js     0x1de7c
-   1de7c:	ee                   	out    dx,al
-   1de7d:	01 87 07 01          	add    WORD PTR [bx+0x107],ax
-   1de81:	06                   	push   es
-   1de82:	00 00                	add    BYTE PTR [bx+si],al
-   1de84:	0e                   	push   cs
-   1de85:	ff 07                	inc    WORD PTR [bx]
-   1de87:	ff 07                	inc    WORD PTR [bx]
-   1de89:	00 04                	add    BYTE PTR [si],al
-   1de8b:	00 04                	add    BYTE PTR [si],al
-   1de8d:	00 04                	add    BYTE PTR [si],al
-   1de8f:	00 04                	add    BYTE PTR [si],al
-   1de91:	00 04                	add    BYTE PTR [si],al
-   1de93:	00 00                	add    BYTE PTR [bx+si],al
-   1de95:	0e                   	push   cs
-   1de96:	ff 07                	inc    WORD PTR [bx]
-   1de98:	ff 07                	inc    WORD PTR [bx]
-   1de9a:	0c 00                	or     al,0x0
-   1de9c:	18 00                	sbb    BYTE PTR [bx+si],al
-   1de9e:	0c 00                	or     al,0x0
-   1dea0:	ff 07                	inc    WORD PTR [bx]
-   1dea2:	ff 07                	inc    WORD PTR [bx]
-   1dea4:	00 00                	add    BYTE PTR [bx+si],al
-   1dea6:	0e                   	push   cs
-   1dea7:	ff 07                	inc    WORD PTR [bx]
-   1dea9:	ff 07                	inc    WORD PTR [bx]
-   1deab:	0e                   	push   cs
-   1deac:	00 1c                	add    BYTE PTR [si],bl
-   1deae:	00 38                	add    BYTE PTR [bx+si],bh
-   1deb0:	00 ff                	add    bh,bh
-   1deb2:	07                   	pop    es
-   1deb3:	ff 07                	inc    WORD PTR [bx]
-   1deb5:	00 00                	add    BYTE PTR [bx+si],al
-   1deb7:	0e                   	push   cs
-   1deb8:	fc                   	cld    
-   1deb9:	01 fe                	add    si,di
-   1debb:	03 03                	add    ax,WORD PTR [bp+di]
-   1debd:	06                   	push   es
-   1debe:	01 04                	add    WORD PTR [si],ax
-   1dec0:	03 06 fe 03          	add    ax,WORD PTR ds:0x3fe
-   1dec4:	fc                   	cld    
-   1dec5:	01 00                	add    WORD PTR [bx+si],ax
-   1dec7:	00 0e ff 07          	add    BYTE PTR ds:0x7ff,cl
-   1decb:	ff 07                	inc    WORD PTR [bx]
-   1decd:	21 00                	and    WORD PTR [bx+si],ax
-   1decf:	21 00                	and    WORD PTR [bx+si],ax
-   1ded1:	21 00                	and    WORD PTR [bx+si],ax
-   1ded3:	3f                   	aas    
-   1ded4:	00 1e 00 00          	add    BYTE PTR ds:0x0,bl
-   1ded8:	00 0e fc 01          	add    BYTE PTR ds:0x1fc,cl
-   1dedc:	fe 03                	inc    BYTE PTR [bp+di]
-   1dede:	03 06 01 05          	add    ax,WORD PTR ds:0x501
-   1dee2:	03 07                	add    ax,WORD PTR [bx]
-   1dee4:	fe 0f                	dec    BYTE PTR [bx]
-   1dee6:	fc                   	cld    
-   1dee7:	0b 00                	or     ax,WORD PTR [bx+si]
-   1dee9:	00 0e ff 07          	add    BYTE PTR ds:0x7ff,cl
-   1deed:	ff 07                	inc    WORD PTR [bx]
-   1deef:	21 00                	and    WORD PTR [bx+si],ax
-   1def1:	21 00                	and    WORD PTR [bx+si],ax
-   1def3:	21 00                	and    WORD PTR [bx+si],ax
-   1def5:	ff 07                	inc    WORD PTR [bx]
-   1def7:	de 07                	fiadd  WORD PTR [bx]
-   1def9:	00 00                	add    BYTE PTR [bx+si],al
-   1defb:	0e                   	push   cs
-   1defc:	0e                   	push   cs
-   1defd:	03 1f                	add    bx,WORD PTR [bx]
-   1deff:	07                   	pop    es
-   1df00:	31 04                	xor    WORD PTR [si],ax
-   1df02:	21 04                	and    WORD PTR [si],ax
-   1df04:	61                   	popa   
-   1df05:	04 c7                	add    al,0xc7
-   1df07:	07                   	pop    es
-   1df08:	86 03                	xchg   BYTE PTR [bp+di],al
-   1df0a:	00 00                	add    BYTE PTR [bx+si],al
-   1df0c:	10 01                	adc    BYTE PTR [bx+di],al
-   1df0e:	00 01                	add    BYTE PTR [bx+di],al
-   1df10:	00 01                	add    BYTE PTR [bx+di],al
-   1df12:	00 ff                	add    bh,bh
-   1df14:	07                   	pop    es
-   1df15:	ff 07                	inc    WORD PTR [bx]
-   1df17:	01 00                	add    WORD PTR [bx+si],ax
-   1df19:	01 00                	add    WORD PTR [bx+si],ax
-   1df1b:	01 00                	add    WORD PTR [bx+si],ax
-   1df1d:	0e                   	push   cs
-   1df1e:	ff 03                	inc    WORD PTR [bp+di]
-   1df20:	ff 07                	inc    WORD PTR [bx]
-   1df22:	00 04                	add    BYTE PTR [si],al
-   1df24:	00 04                	add    BYTE PTR [si],al
-   1df26:	00 04                	add    BYTE PTR [si],al
-   1df28:	ff 07                	inc    WORD PTR [bx]
-   1df2a:	ff 03                	inc    WORD PTR [bp+di]
-   1df2c:	00 00                	add    BYTE PTR [bx+si],al
-   1df2e:	0e                   	push   cs
-   1df2f:	0f 00                	(bad)  
-   1df31:	3f                   	aas    
-   1df32:	00 f8                	add    al,bh
-   1df34:	01 c0                	add    ax,ax
-   1df36:	07                   	pop    es
-   1df37:	f8                   	clc    
-   1df38:	01 3f                	add    WORD PTR [bx],di
-   1df3a:	00 0f                	add    BYTE PTR [bx],cl
-   1df3c:	00 00                	add    BYTE PTR [bx+si],al
-   1df3e:	00 0e ff 07          	add    BYTE PTR ds:0x7ff,cl
-   1df42:	ff 07                	inc    WORD PTR [bx]
-   1df44:	80 03 c0             	add    BYTE PTR [bp+di],0xc0
-   1df47:	01 80 03 ff          	add    WORD PTR [bx+si-0xfd],ax
-   1df4b:	07                   	pop    es
-   1df4c:	ff 07                	inc    WORD PTR [bx]
-   1df4e:	00 00                	add    BYTE PTR [bx+si],al
-   1df50:	10 03                	adc    BYTE PTR [bp+di],al
-   1df52:	06                   	push   es
-   1df53:	07                   	pop    es
-   1df54:	07                   	pop    es
-   1df55:	8e 03                	mov    es,WORD PTR [bp+di]
-   1df57:	fc                   	cld    
-   1df58:	01 fc                	add    sp,di
-   1df5a:	01 8e 03 07          	add    WORD PTR [bp+0x703],cx
-   1df5e:	07                   	pop    es
-   1df5f:	03 06 10 0f          	add    ax,WORD PTR ds:0xf10
-   1df63:	00 1f                	add    BYTE PTR [bx],bl
-   1df65:	00 38                	add    BYTE PTR [bx+si],bh
-   1df67:	00 f0                	add    al,dh
-   1df69:	07                   	pop    es
-   1df6a:	f0 07                	lock pop es
-   1df6c:	38 00                	cmp    BYTE PTR [bx+si],al
-   1df6e:	1f                   	pop    ds
-   1df6f:	00 0f                	add    BYTE PTR [bx],cl
-   1df71:	00 0e 01 04          	add    BYTE PTR ds:0x401,cl
-   1df75:	01 07                	add    WORD PTR [bx],ax
-   1df77:	c1 07 f1             	rol    WORD PTR [bx],0xf1
-   1df7a:	04 3d                	add    al,0x3d
-   1df7c:	04 0f                	add    al,0xf
-   1df7e:	04 03                	add    al,0x3
-   1df80:	04 00                	add    al,0x0
-   1df82:	00 08                	add    BYTE PTR [bx+si],cl
-   1df84:	ff 0f                	dec    WORD PTR [bx]
-   1df86:	ff 0f                	dec    WORD PTR [bx]
-   1df88:	01 08                	add    WORD PTR [bx+si],cx
-   1df8a:	01 08                	add    WORD PTR [bx+si],cx
-	...
-   1df94:	0c 03                	or     al,0x3
-   1df96:	00 0f                	add    BYTE PTR [bx],cl
-   1df98:	00 3c                	add    BYTE PTR [si],bh
-   1df9a:	00 f0                	add    al,dh
-   1df9c:	00 c0                	add    al,al
-   1df9e:	03 00                	add    ax,WORD PTR [bx+si]
-   1dfa0:	03 00                	add    ax,WORD PTR [bx+si]
-   1dfa2:	00 00                	add    BYTE PTR [bx+si],al
-   1dfa4:	00 08                	add    BYTE PTR [bx+si],cl
-   1dfa6:	01 08                	add    WORD PTR [bx+si],cx
-   1dfa8:	01 08                	add    WORD PTR [bx+si],cx
-   1dfaa:	ff 0f                	dec    WORD PTR [bx]
-   1dfac:	ff 0f                	dec    WORD PTR [bx]
-	...
-   1dfb6:	0c 04                	or     al,0x4
-   1dfb8:	00 06 00 03          	add    BYTE PTR ds:0x300,al
-   1dfbc:	00 03                	add    BYTE PTR [bp+di],al
-   1dfbe:	00 06 00 04          	add    BYTE PTR ds:0x400,al
-   1dfc2:	00 00                	add    BYTE PTR [bx+si],al
-   1dfc4:	00 00                	add    BYTE PTR [bx+si],al
-   1dfc6:	00 0e 00 08          	add    BYTE PTR ds:0x800,cl
-   1dfca:	00 08                	add    BYTE PTR [bx+si],cl
-   1dfcc:	00 08                	add    BYTE PTR [bx+si],cl
-   1dfce:	00 08                	add    BYTE PTR [bx+si],cl
-   1dfd0:	00 08                	add    BYTE PTR [bx+si],cl
-   1dfd2:	00 08                	add    BYTE PTR [bx+si],cl
-   1dfd4:	00 08                	add    BYTE PTR [bx+si],cl
-   1dfd6:	00 00                	add    BYTE PTR [bx+si],al
-   1dfd8:	06                   	push   es
-   1dfd9:	01 00                	add    WORD PTR [bx+si],ax
-   1dfdb:	03 00                	add    ax,WORD PTR [bx+si]
-   1dfdd:	02 00                	add    al,BYTE PTR [bx+si]
-	...
-   1dfe7:	00 00                	add    BYTE PTR [bx+si],al
-   1dfe9:	0e                   	push   cs
-   1dfea:	90                   	nop
-   1dfeb:	03 d8                	add    bx,ax
-   1dfed:	07                   	pop    es
-   1dfee:	48                   	dec    ax
-   1dfef:	04 48                	add    al,0x48
-   1dff1:	04 f8                	add    al,0xf8
-   1dff3:	07                   	pop    es
-   1dff4:	f0 07                	lock pop es
-   1dff6:	00 04                	add    BYTE PTR [si],al
-   1dff8:	00 00                	add    BYTE PTR [bx+si],al
-   1dffa:	0e                   	push   cs
-   1dffb:	ff 07                	inc    WORD PTR [bx]
-   1dffd:	ff 07                	inc    WORD PTR [bx]
-   1dfff:	10 02                	adc    BYTE PTR [bp+si],al
-   1e001:	08 04                	or     BYTE PTR [si],al
-   1e003:	18 06 f0 03          	sbb    BYTE PTR ds:0x3f0,al
-   1e007:	e0 01                	loopne 0x1e00a
-   1e009:	00 00                	add    BYTE PTR [bx+si],al
-   1e00b:	0e                   	push   cs
-   1e00c:	e0 01                	loopne 0x1e00f
-   1e00e:	f0 03 18             	lock add bx,WORD PTR [bx+si]
-   1e011:	06                   	push   es
-   1e012:	08 04                	or     BYTE PTR [si],al
-   1e014:	08 04                	or     BYTE PTR [si],al
-   1e016:	18 06 10 02          	sbb    BYTE PTR ds:0x210,al
-   1e01a:	00 00                	add    BYTE PTR [bx+si],al
-   1e01c:	0e                   	push   cs
-   1e01d:	e0 01                	loopne 0x1e020
-   1e01f:	f0 03 18             	lock add bx,WORD PTR [bx+si]
-   1e022:	06                   	push   es
-   1e023:	08 04                	or     BYTE PTR [si],al
-   1e025:	10 02                	adc    BYTE PTR [bp+si],al
-   1e027:	ff 07                	inc    WORD PTR [bx]
-   1e029:	ff 07                	inc    WORD PTR [bx]
-   1e02b:	00 00                	add    BYTE PTR [bx+si],al
-   1e02d:	0e                   	push   cs
-   1e02e:	f0 03 f8             	lock add di,ax
-   1e031:	07                   	pop    es
-   1e032:	48                   	dec    ax
-   1e033:	04 48                	add    al,0x48
-   1e035:	04 48                	add    al,0x48
-   1e037:	04 78                	add    al,0x78
-   1e039:	06                   	push   es
-   1e03a:	70 02                	jo     0x1e03e
-   1e03c:	00 00                	add    BYTE PTR [bx+si],al
-   1e03e:	0a 08                	or     cl,BYTE PTR [bx+si]
-   1e040:	00 fe                	add    dh,bh
-   1e042:	07                   	pop    es
-   1e043:	ff 07                	inc    WORD PTR [bx]
-   1e045:	09 00                	or     WORD PTR [bx+si],ax
-   1e047:	09 00                	or     WORD PTR [bx+si],ax
-   1e049:	00 00                	add    BYTE PTR [bx+si],al
-   1e04b:	00 00                	add    BYTE PTR [bx+si],al
-   1e04d:	00 00                	add    BYTE PTR [bx+si],al
-   1e04f:	0e                   	push   cs
-   1e050:	f0 08 f8             	lock or al,bh
-   1e053:	19 08                	sbb    WORD PTR [bx+si],cx
-   1e055:	11 08                	adc    WORD PTR [bx+si],cx
-   1e057:	11 90 10 f8          	adc    WORD PTR [bx+si-0x7f0],dx
-   1e05b:	1f                   	pop    ds
-   1e05c:	f8                   	clc    
-   1e05d:	0f 00 00             	sldt   WORD PTR [bx+si]
-   1e060:	0e                   	push   cs
-   1e061:	ff 07                	inc    WORD PTR [bx]
-   1e063:	ff 07                	inc    WORD PTR [bx]
-   1e065:	10 00                	adc    BYTE PTR [bx+si],al
-   1e067:	08 00                	or     BYTE PTR [bx+si],al
-   1e069:	08 00                	or     BYTE PTR [bx+si],al
-   1e06b:	f8                   	clc    
-   1e06c:	07                   	pop    es
-   1e06d:	f0 07                	lock pop es
-   1e06f:	00 00                	add    BYTE PTR [bx+si],al
-   1e071:	04 fb                	add    al,0xfb
-   1e073:	07                   	pop    es
-   1e074:	fb                   	sti    
-   1e075:	07                   	pop    es
-	...
-   1e082:	08 00                	or     BYTE PTR [bx+si],al
-   1e084:	08 00                	or     BYTE PTR [bx+si],al
-   1e086:	08 fb                	or     bl,bh
-   1e088:	0f fb 07             	psubq  mm0,QWORD PTR [bx]
-	...
-   1e093:	0e                   	push   cs
-   1e094:	ff 07                	inc    WORD PTR [bx]
-   1e096:	ff 07                	inc    WORD PTR [bx]
-   1e098:	c0 00 e0             	rol    BYTE PTR [bx+si],0xe0
-   1e09b:	01 30                	add    WORD PTR [bx+si],si
-   1e09d:	03 18                	add    bx,WORD PTR [bx+si]
-   1e09f:	06                   	push   es
-   1e0a0:	08 04                	or     BYTE PTR [si],al
-   1e0a2:	00 00                	add    BYTE PTR [bx+si],al
-   1e0a4:	04 ff                	add    al,0xff
-   1e0a6:	07                   	pop    es
-   1e0a7:	ff 07                	inc    WORD PTR [bx]
-	...
-   1e0b5:	10 f0                	adc    al,dh
-   1e0b7:	07                   	pop    es
-   1e0b8:	f8                   	clc    
-   1e0b9:	07                   	pop    es
-   1e0ba:	08 00                	or     BYTE PTR [bx+si],al
-   1e0bc:	f0 03 f0             	lock add si,ax
-   1e0bf:	03 08                	add    cx,WORD PTR [bx+si]
-   1e0c1:	00 f8                	add    al,bh
-   1e0c3:	07                   	pop    es
-   1e0c4:	f0 07                	lock pop es
-   1e0c6:	0e                   	push   cs
-   1e0c7:	f8                   	clc    
-   1e0c8:	07                   	pop    es
-   1e0c9:	f8                   	clc    
-   1e0ca:	07                   	pop    es
-   1e0cb:	10 00                	adc    BYTE PTR [bx+si],al
-   1e0cd:	08 00                	or     BYTE PTR [bx+si],al
-   1e0cf:	08 00                	or     BYTE PTR [bx+si],al
-   1e0d1:	f8                   	clc    
-   1e0d2:	07                   	pop    es
-   1e0d3:	f0 07                	lock pop es
-   1e0d5:	00 00                	add    BYTE PTR [bx+si],al
-   1e0d7:	0e                   	push   cs
-   1e0d8:	e0 01                	loopne 0x1e0db
-   1e0da:	f0 03 18             	lock add bx,WORD PTR [bx+si]
-   1e0dd:	06                   	push   es
-   1e0de:	08 04                	or     BYTE PTR [si],al
-   1e0e0:	18 06 f0 03          	sbb    BYTE PTR ds:0x3f0,al
-   1e0e4:	e0 01                	loopne 0x1e0e7
-   1e0e6:	00 00                	add    BYTE PTR [bx+si],al
-   1e0e8:	0e                   	push   cs
-   1e0e9:	f8                   	clc    
-   1e0ea:	1f                   	pop    ds
-   1e0eb:	f8                   	clc    
-   1e0ec:	1f                   	pop    ds
-   1e0ed:	10 02                	adc    BYTE PTR [bp+si],al
-   1e0ef:	08 04                	or     BYTE PTR [si],al
-   1e0f1:	18 06 f0 03          	sbb    BYTE PTR ds:0x3f0,al
-   1e0f5:	e0 01                	loopne 0x1e0f8
-   1e0f7:	00 00                	add    BYTE PTR [bx+si],al
-   1e0f9:	0e                   	push   cs
-   1e0fa:	e0 01                	loopne 0x1e0fd
-   1e0fc:	f0 03 18             	lock add bx,WORD PTR [bx+si]
-   1e0ff:	06                   	push   es
-   1e100:	08 04                	or     BYTE PTR [si],al
-   1e102:	10 02                	adc    BYTE PTR [bp+si],al
-   1e104:	f8                   	clc    
-   1e105:	1f                   	pop    ds
-   1e106:	f8                   	clc    
-   1e107:	1f                   	pop    ds
-   1e108:	00 00                	add    BYTE PTR [bx+si],al
-   1e10a:	0e                   	push   cs
-   1e10b:	f8                   	clc    
-   1e10c:	07                   	pop    es
-   1e10d:	f8                   	clc    
-   1e10e:	07                   	pop    es
-   1e10f:	30 00                	xor    BYTE PTR [bx+si],al
-   1e111:	18 00                	sbb    BYTE PTR [bx+si],al
-   1e113:	18 00                	sbb    BYTE PTR [bx+si],al
-   1e115:	30 00                	xor    BYTE PTR [bx+si],al
-   1e117:	20 00                	and    BYTE PTR [bx+si],al
-   1e119:	00 00                	add    BYTE PTR [bx+si],al
-   1e11b:	0e                   	push   cs
-   1e11c:	30 02                	xor    BYTE PTR [bp+si],al
-   1e11e:	78 06                	js     0x1e126
-   1e120:	48                   	dec    ax
-   1e121:	04 c8                	add    al,0xc8
-   1e123:	04 88                	add    al,0x88
-   1e125:	04 98                	add    al,0x98
-   1e127:	07                   	pop    es
-   1e128:	10 03                	adc    BYTE PTR [bp+di],al
-   1e12a:	00 00                	add    BYTE PTR [bx+si],al
-   1e12c:	0c 04                	or     al,0x4
-   1e12e:	00 ff                	add    bh,bh
-   1e130:	03 ff                	add    di,di
-   1e132:	07                   	pop    es
-   1e133:	04 04                	add    al,0x4
-   1e135:	04 04                	add    al,0x4
-   1e137:	00 02                	add    BYTE PTR [bp+si],al
-   1e139:	00 00                	add    BYTE PTR [bx+si],al
-   1e13b:	00 00                	add    BYTE PTR [bx+si],al
-   1e13d:	0e                   	push   cs
-   1e13e:	f8                   	clc    
-   1e13f:	03 f8                	add    di,ax
-   1e141:	07                   	pop    es
-   1e142:	00 04                	add    BYTE PTR [si],al
-   1e144:	00 04                	add    BYTE PTR [si],al
-   1e146:	00 02                	add    BYTE PTR [bp+si],al
-   1e148:	f8                   	clc    
-   1e149:	07                   	pop    es
-   1e14a:	f8                   	clc    
-   1e14b:	07                   	pop    es
-   1e14c:	00 00                	add    BYTE PTR [bx+si],al
-   1e14e:	0e                   	push   cs
-   1e14f:	f8                   	clc    
-   1e150:	00 f8                	add    al,bh
-   1e152:	01 80 03 00          	add    WORD PTR [bx+si+0x3],ax
-   1e156:	07                   	pop    es
-   1e157:	80 03 f8             	add    BYTE PTR [bp+di],0xf8
-   1e15a:	01 f8                	add    ax,di
-   1e15c:	00 00                	add    BYTE PTR [bx+si],al
-   1e15e:	00 10                	add    BYTE PTR [bx+si],dl
-   1e160:	f8                   	clc    
-   1e161:	03 f8                	add    di,ax
-   1e163:	07                   	pop    es
-   1e164:	00 03                	add    BYTE PTR [bp+di],al
-   1e166:	e0 01                	loopne 0x1e169
-   1e168:	e0 01                	loopne 0x1e16b
-   1e16a:	00 03                	add    BYTE PTR [bp+di],al
-   1e16c:	f8                   	clc    
-   1e16d:	07                   	pop    es
-   1e16e:	f8                   	clc    
-   1e16f:	03 0e 08 04          	add    cx,WORD PTR ds:0x408
-   1e173:	38 07                	cmp    BYTE PTR [bx],al
-   1e175:	f0 03 c0             	lock add ax,ax
-   1e178:	00 f0                	add    al,dh
-   1e17a:	03 38                	add    di,WORD PTR [bx+si]
-   1e17c:	07                   	pop    es
-   1e17d:	08 04                	or     BYTE PTR [si],al
-   1e17f:	00 00                	add    BYTE PTR [bx+si],al
-   1e181:	0e                   	push   cs
-   1e182:	18 10                	sbb    BYTE PTR [bx+si],dl
-   1e184:	f8                   	clc    
-   1e185:	18 e0                	sbb    al,ah
-   1e187:	0f 80 07 e0          	jo     0x1c192
-   1e18b:	01 78 00             	add    WORD PTR [bx+si+0x0],di
-   1e18e:	18 00                	sbb    BYTE PTR [bx+si],al
-   1e190:	00 00                	add    BYTE PTR [bx+si],al
-   1e192:	0e                   	push   cs
-   1e193:	08 06 08 07          	or     BYTE PTR ds:0x708,al
-   1e197:	88 05                	mov    BYTE PTR [di],al
-   1e199:	c8 04 68 04          	enter  0x6804,0x4
-   1e19d:	38 04                	cmp    BYTE PTR [si],al
-   1e19f:	18 04                	sbb    BYTE PTR [si],al
-   1e1a1:	00 00                	add    BYTE PTR [bx+si],al
-   1e1a3:	0c 00                	or     al,0x0
-   1e1a5:	00 20                	add    BYTE PTR [bx+si],ah
-   1e1a7:	00 fe                	add    dh,bh
-   1e1a9:	03 df                	add    bx,di
-   1e1ab:	07                   	pop    es
-   1e1ac:	01 04                	add    WORD PTR [si],ax
-   1e1ae:	01 04                	add    WORD PTR [si],ax
-   1e1b0:	00 00                	add    BYTE PTR [bx+si],al
-   1e1b2:	00 00                	add    BYTE PTR [bx+si],al
-   1e1b4:	04 ff                	add    al,0xff
-   1e1b6:	07                   	pop    es
-   1e1b7:	ff 07                	inc    WORD PTR [bx]
-	...
-   1e1c5:	0a 01                	or     al,BYTE PTR [bx+di]
-   1e1c7:	04 01                	add    al,0x1
-   1e1c9:	04 df                	add    al,0xdf
-   1e1cb:	07                   	pop    es
-   1e1cc:	fe 03                	inc    BYTE PTR [bp+di]
-   1e1ce:	20 00                	and    BYTE PTR [bx+si],al
-   1e1d0:	00 00                	add    BYTE PTR [bx+si],al
-   1e1d2:	00 00                	add    BYTE PTR [bx+si],al
-   1e1d4:	00 00                	add    BYTE PTR [bx+si],al
-   1e1d6:	0e                   	push   cs
-   1e1d7:	40                   	inc    ax
-   1e1d8:	00 60 00             	add    BYTE PTR [bx+si+0x0],ah
-   1e1db:	20 00                	and    BYTE PTR [bx+si],al
-   1e1dd:	60                   	pusha  
-   1e1de:	00 40 00             	add    BYTE PTR [bx+si+0x0],al
-   1e1e1:	60                   	pusha  
-   1e1e2:	00 20                	add    BYTE PTR [bx+si],ah
-	...
-   1e1f8:	0a 0d                	or     cl,BYTE PTR [di]
-   1e1fa:	20 7f 01             	and    BYTE PTR [bx+0x1],bh
-   1e1fd:	01 0e 00 00          	add    WORD PTR ds:0x0,cx
-	...
-   1e211:	00 00                	add    BYTE PTR [bx+si],al
-   1e213:	04 ff                	add    al,0xff
-   1e215:	1b ff                	sbb    di,di
-   1e217:	1b 00                	sbb    ax,WORD PTR [bx+si]
-	...
-   1e225:	00 00                	add    BYTE PTR [bx+si],al
-   1e227:	00 0a                	add    BYTE PTR [bp+si],cl
-   1e229:	0f 00 0f             	str    WORD PTR [bx]
-   1e22c:	00 00                	add    BYTE PTR [bx+si],al
-   1e22e:	00 0f                	add    BYTE PTR [bx],cl
-   1e230:	00 0f                	add    BYTE PTR [bx],cl
-	...
-   1e23a:	00 00                	add    BYTE PTR [bx+si],al
-   1e23c:	00 12                	add    BYTE PTR [bp+si],dl
-   1e23e:	00 01                	add    BYTE PTR [bx+di],al
-   1e240:	10 1f                	adc    BYTE PTR [bx],bl
-   1e242:	f0 1f                	lock pop ds
-   1e244:	ff 01                	inc    WORD PTR [bx+di]
-   1e246:	1f                   	pop    ds
-   1e247:	1f                   	pop    ds
-   1e248:	f0 1f                	lock pop ds
-   1e24a:	ff 01                	inc    WORD PTR [bx+di]
-   1e24c:	1f                   	pop    ds
-   1e24d:	01 10                	add    WORD PTR [bx+si],dx
-   1e24f:	00 00                	add    BYTE PTR [bx+si],al
-   1e251:	00 10                	add    BYTE PTR [bx+si],dl
-   1e253:	1c 04                	sbb    al,0x4
-   1e255:	3e                   	ds
-   1e256:	0c 63                	or     al,0x63
-   1e258:	18 ff                	sbb    bh,bh
-   1e25a:	1f                   	pop    ds
-   1e25b:	ff 1f                	call   DWORD PTR [bx]
-   1e25d:	c3                   	ret    
-   1e25e:	18 86 0f 04          	sbb    BYTE PTR [bp+0x40f],al
-   1e262:	07                   	pop    es
-   1e263:	00 00                	add    BYTE PTR [bx+si],al
-   1e265:	00 00                	add    BYTE PTR [bx+si],al
-   1e267:	10 1e 00 3f          	adc    BYTE PTR ds:0x3f00,bl
-   1e26b:	1c 3f                	sbb    al,0x3f
-   1e26d:	1f                   	pop    ds
-   1e26e:	fe 03                	inc    BYTE PTR [bp+di]
-   1e270:	f8                   	clc    
-   1e271:	0f 9f 1f             	setg   BYTE PTR [bx]
-   1e274:	87 1f                	xchg   WORD PTR [bx],bx
-   1e276:	00 0f                	add    BYTE PTR [bx],cl
-   1e278:	00 00                	add    BYTE PTR [bx+si],al
-   1e27a:	00 00                	add    BYTE PTR [bx+si],al
-   1e27c:	12 80 0f de          	adc    al,BYTE PTR [bx+si-0x21f1]
-   1e280:	1f                   	pop    ds
-   1e281:	7f 10                	jg     0x1e293
-   1e283:	61                   	popa   
-   1e284:	10 f1                	adc    cl,dh
-   1e286:	13 9f 1f 8e          	adc    bx,WORD PTR [bx-0x71e1]
-   1e28a:	0f 80 1b 00          	jo     0x1e2a9
-   1e28e:	10 00                	adc    BYTE PTR [bx+si],al
-   1e290:	00 04                	add    BYTE PTR [si],al
-   1e292:	0f 00 0f             	str    WORD PTR [bx]
-	...
-   1e2a5:	00 06 f8 03          	add    BYTE PTR ds:0x3f8,al
-   1e2a9:	ff 1f                	call   DWORD PTR [bx]
-   1e2ab:	07                   	pop    es
-   1e2ac:	1c 00                	sbb    al,0x0
-	...
-   1e2ba:	00 0a                	add    BYTE PTR [bp+si],cl
-   1e2bc:	00 00                	add    BYTE PTR [bx+si],al
-   1e2be:	00 00                	add    BYTE PTR [bx+si],al
-   1e2c0:	07                   	pop    es
-   1e2c1:	1c ff                	sbb    al,0xff
-   1e2c3:	1f                   	pop    ds
-   1e2c4:	f8                   	clc    
-   1e2c5:	03 00                	add    ax,WORD PTR [bx+si]
-	...
-   1e2cf:	00 10                	add    BYTE PTR [bx+si],dl
-   1e2d1:	20 00                	and    BYTE PTR [bx+si],al
-   1e2d3:	20 02                	and    BYTE PTR [bp+si],al
-   1e2d5:	60                   	pusha  
-   1e2d6:	03 f8                	add    di,ax
-   1e2d8:	01 f8                	add    ax,di
-   1e2da:	01 60 03             	add    WORD PTR [bx+si+0x3],sp
-   1e2dd:	20 02                	and    BYTE PTR [bp+si],al
-   1e2df:	20 00                	and    BYTE PTR [bx+si],al
-   1e2e1:	00 00                	add    BYTE PTR [bx+si],al
-   1e2e3:	00 00                	add    BYTE PTR [bx+si],al
-   1e2e5:	10 40 00             	adc    BYTE PTR [bx+si+0x0],al
-   1e2e8:	40                   	inc    ax
-   1e2e9:	00 40 00             	add    BYTE PTR [bx+si+0x0],al
-   1e2ec:	fc                   	cld    
-   1e2ed:	07                   	pop    es
-   1e2ee:	fc                   	cld    
-   1e2ef:	07                   	pop    es
-   1e2f0:	40                   	inc    ax
-   1e2f1:	00 40 00             	add    BYTE PTR [bx+si+0x0],al
-   1e2f4:	40                   	inc    ax
-   1e2f5:	00 00                	add    BYTE PTR [bx+si],al
-   1e2f7:	00 00                	add    BYTE PTR [bx+si],al
-   1e2f9:	00 06 00 00          	add    BYTE PTR ds:0x0,al
-   1e2fd:	00 18                	add    BYTE PTR [bx+si],bl
-   1e2ff:	00 18                	add    BYTE PTR [bx+si],bl
-	...
-   1e30d:	00 00                	add    BYTE PTR [bx+si],al
-   1e30f:	12 40 00             	adc    al,BYTE PTR [bx+si+0x0]
-   1e312:	40                   	inc    ax
-   1e313:	00 40 00             	add    BYTE PTR [bx+si+0x0],al
-   1e316:	40                   	inc    ax
-   1e317:	00 40 00             	add    BYTE PTR [bx+si+0x0],al
-   1e31a:	40                   	inc    ax
-   1e31b:	00 40 00             	add    BYTE PTR [bx+si+0x0],al
-   1e31e:	40                   	inc    ax
-   1e31f:	00 40 00             	add    BYTE PTR [bx+si+0x0],al
-   1e322:	00 00                	add    BYTE PTR [bx+si],al
-   1e324:	04 00                	add    al,0x0
-   1e326:	18 00                	sbb    BYTE PTR [bx+si],al
-   1e328:	18 00                	sbb    BYTE PTR [bx+si],al
-	...
-   1e336:	00 00                	add    BYTE PTR [bx+si],al
-   1e338:	00 0e 00 18          	add    BYTE PTR ds:0x1800,cl
-   1e33c:	00 1e c0 07          	add    BYTE PTR ds:0x7c0,bl
-   1e340:	f0 01 3e 00 0f       	lock add WORD PTR ds:0xf00,di
-   1e345:	00 01                	add    BYTE PTR [bx+di],al
-   1e347:	00 00                	add    BYTE PTR [bx+si],al
-   1e349:	00 00                	add    BYTE PTR [bx+si],al
-   1e34b:	00 00                	add    BYTE PTR [bx+si],al
-   1e34d:	00 10                	add    BYTE PTR [bx+si],dl
-   1e34f:	f8                   	clc    
-   1e350:	03 fe                	add    di,si
-   1e352:	0f 07                	sysret 
-   1e354:	1c 01                	sbb    al,0x1
-   1e356:	10 01                	adc    BYTE PTR [bx+di],al
-   1e358:	10 07                	adc    BYTE PTR [bx],al
-   1e35a:	1c fe                	sbb    al,0xfe
-   1e35c:	0f f8 03             	psubb  mm0,QWORD PTR [bp+di]
-   1e35f:	00 00                	add    BYTE PTR [bx+si],al
-   1e361:	00 00                	add    BYTE PTR [bx+si],al
-   1e363:	08 04                	or     BYTE PTR [si],al
-   1e365:	00 02                	add    BYTE PTR [bp+si],al
-   1e367:	00 ff                	add    bh,bh
-   1e369:	1f                   	pop    ds
-   1e36a:	ff 1f                	call   DWORD PTR [bx]
-	...
-   1e378:	10 04                	adc    BYTE PTR [si],al
-   1e37a:	1c 06                	sbb    al,0x6
-   1e37c:	1e                   	push   ds
-   1e37d:	03 13                	add    dx,WORD PTR [bp+di]
-   1e37f:	81 11 c1 10          	adc    WORD PTR [bx+di],0x10c1
-   1e383:	63 10                	arpl   WORD PTR [bx+si],dx
-   1e385:	3e 10 1c             	adc    BYTE PTR ds:[si],bl
-   1e388:	10 00                	adc    BYTE PTR [bx+si],al
-   1e38a:	00 00                	add    BYTE PTR [bx+si],al
-   1e38c:	00 10                	add    BYTE PTR [bx+si],dl
-   1e38e:	04 04                	add    al,0x4
-   1e390:	06                   	push   es
-   1e391:	0c 23                	or     al,0x23
-   1e393:	18 21                	sbb    BYTE PTR [bx+di],ah
-   1e395:	10 21                	adc    BYTE PTR [bx+di],ah
-   1e397:	10 73 18             	adc    BYTE PTR [bp+di+0x18],dh
-   1e39a:	de 0f                	fimul  WORD PTR [bx]
-   1e39c:	8c 07                	mov    WORD PTR [bx],es
-   1e39e:	00 00                	add    BYTE PTR [bx+si],al
-   1e3a0:	00 00                	add    BYTE PTR [bx+si],al
-   1e3a2:	10 00                	adc    BYTE PTR [bx+si],al
-   1e3a4:	02 80 03 e0          	add    al,BYTE PTR [bx+si-0x1ffd]
-   1e3a8:	03 78 02             	add    di,WORD PTR [bx+si+0x2]
-   1e3ab:	1e                   	push   ds
-   1e3ac:	02 ff                	add    bh,bh
-   1e3ae:	1f                   	pop    ds
-   1e3af:	ff 1f                	call   DWORD PTR [bx]
-   1e3b1:	00 02                	add    BYTE PTR [bp+si],al
-   1e3b3:	00 00                	add    BYTE PTR [bx+si],al
-   1e3b5:	00 00                	add    BYTE PTR [bx+si],al
-   1e3b7:	10 7f 04             	adc    BYTE PTR [bx+0x4],bh
-   1e3ba:	7f 0c                	jg     0x1e3c8
-   1e3bc:	31 18                	xor    WORD PTR [bx+si],bx
-   1e3be:	11 10                	adc    WORD PTR [bx+si],dx
-   1e3c0:	11 10                	adc    WORD PTR [bx+si],dx
-   1e3c2:	31 18                	xor    WORD PTR [bx+si],bx
-   1e3c4:	e1 0f                	loope  0x1e3d5
-   1e3c6:	c1 07 00             	rol    WORD PTR [bx],0x0
-   1e3c9:	00 00                	add    BYTE PTR [bx+si],al
-   1e3cb:	00 10                	add    BYTE PTR [bx+si],dl
-   1e3cd:	fc                   	cld    
-   1e3ce:	07                   	pop    es
-   1e3cf:	fe 0f                	dec    BYTE PTR [bx]
-   1e3d1:	33 18                	xor    bx,WORD PTR [bx+si]
-   1e3d3:	11 10                	adc    WORD PTR [bx+si],dx
-   1e3d5:	11 10                	adc    WORD PTR [bx+si],dx
-   1e3d7:	33 18                	xor    bx,WORD PTR [bx+si]
-   1e3d9:	e6 0f                	out    0xf,al
-   1e3db:	c4 07                	les    ax,DWORD PTR [bx]
-   1e3dd:	00 00                	add    BYTE PTR [bx+si],al
-   1e3df:	00 00                	add    BYTE PTR [bx+si],al
-   1e3e1:	10 01                	adc    BYTE PTR [bx+di],al
-   1e3e3:	00 01                	add    BYTE PTR [bx+di],al
-   1e3e5:	00 01                	add    BYTE PTR [bx+di],al
-   1e3e7:	1f                   	pop    ds
-   1e3e8:	c1 1f f1             	rcr    WORD PTR [bx],0xf1
-   1e3eb:	00 3d                	add    BYTE PTR [di],bh
-   1e3ed:	00 0f                	add    BYTE PTR [bx],cl
-   1e3ef:	00 03                	add    BYTE PTR [bp+di],al
-   1e3f1:	00 00                	add    BYTE PTR [bx+si],al
-   1e3f3:	00 00                	add    BYTE PTR [bx+si],al
-   1e3f5:	00 10                	add    BYTE PTR [bx+si],dl
-   1e3f7:	8c 07                	mov    WORD PTR [bx],es
-   1e3f9:	de 0f                	fimul  WORD PTR [bx]
-   1e3fb:	73 18                	jae    0x1e415
-   1e3fd:	21 10                	and    WORD PTR [bx+si],dx
-   1e3ff:	21 10                	and    WORD PTR [bx+si],dx
-   1e401:	73 18                	jae    0x1e41b
-   1e403:	de 0f                	fimul  WORD PTR [bx]
-   1e405:	8c 07                	mov    WORD PTR [bx],es
-   1e407:	00 00                	add    BYTE PTR [bx+si],al
-   1e409:	00 00                	add    BYTE PTR [bx+si],al
-   1e40b:	10 7c 04             	adc    BYTE PTR [si+0x4],bh
-   1e40e:	fe 0c                	dec    BYTE PTR [si]
-   1e410:	83 19 01             	sbb    WORD PTR [bx+di],0x1
-   1e413:	11 01                	adc    WORD PTR [bx+di],ax
-   1e415:	11 83 19 fe          	adc    WORD PTR [bp+di-0x1e7],ax
-   1e419:	0f fc 07             	paddb  mm0,QWORD PTR [bx]
-   1e41c:	00 00                	add    BYTE PTR [bx+si],al
-   1e41e:	00 00                	add    BYTE PTR [bx+si],al
-   1e420:	04 0c                	add    al,0xc
-   1e422:	06                   	push   es
-   1e423:	0c 06                	or     al,0x6
-	...
-   1e435:	06                   	push   es
-   1e436:	00 10                	add    BYTE PTR [bx+si],dl
-   1e438:	0c 1e                	or     al,0x1e
-   1e43a:	0c 0e                	or     al,0xe
-	...
-   1e448:	00 00                	add    BYTE PTR [bx+si],al
-   1e44a:	12 40 00             	adc    al,BYTE PTR [bx+si+0x0]
-   1e44d:	40                   	inc    ax
-   1e44e:	00 e0                	add    al,ah
-   1e450:	00 a0 00 b0          	add    BYTE PTR [bx+si-0x5000],ah
-   1e454:	01 10                	add    WORD PTR [bx+si],dx
-   1e456:	01 18                	add    WORD PTR [bx+si],bx
-   1e458:	03 08                	add    cx,WORD PTR [bx+si]
-   1e45a:	02 08                	add    cl,BYTE PTR [bx+si]
-   1e45c:	02 00                	add    al,BYTE PTR [bx+si]
-   1e45e:	00 12                	add    BYTE PTR [bp+si],dl
-   1e460:	10 01                	adc    BYTE PTR [bx+di],al
-   1e462:	10 01                	adc    BYTE PTR [bx+di],al
-   1e464:	10 01                	adc    BYTE PTR [bx+di],al
-   1e466:	10 01                	adc    BYTE PTR [bx+di],al
-   1e468:	10 01                	adc    BYTE PTR [bx+di],al
-   1e46a:	10 01                	adc    BYTE PTR [bx+di],al
-   1e46c:	10 01                	adc    BYTE PTR [bx+di],al
-   1e46e:	10 01                	adc    BYTE PTR [bx+di],al
-   1e470:	10 01                	adc    BYTE PTR [bx+di],al
-   1e472:	00 00                	add    BYTE PTR [bx+si],al
-   1e474:	12 08                	adc    cl,BYTE PTR [bx+si]
-   1e476:	02 08                	add    cl,BYTE PTR [bx+si]
-   1e478:	02 18                	add    bl,BYTE PTR [bx+si]
-   1e47a:	03 10                	add    dx,WORD PTR [bx+si]
-   1e47c:	01 b0 01 a0          	add    WORD PTR [bx+si-0x5fff],si
-   1e480:	00 e0                	add    al,ah
-   1e482:	00 40 00             	add    BYTE PTR [bx+si+0x0],al
-   1e485:	40                   	inc    ax
-   1e486:	00 00                	add    BYTE PTR [bx+si],al
-   1e488:	00 10                	add    BYTE PTR [bx+si],dl
-   1e48a:	0c 00                	or     al,0x0
-   1e48c:	0e                   	push   cs
-   1e48d:	00 03                	add    BYTE PTR [bp+di],al
-   1e48f:	00 01                	add    BYTE PTR [bx+di],al
-   1e491:	1b 81 1b e3          	sbb    ax,WORD PTR [bx+di-0x1ce5]
-   1e495:	00 7e 00             	add    BYTE PTR [bp+0x0],bh
-   1e498:	1c 00                	sbb    al,0x0
-   1e49a:	00 00                	add    BYTE PTR [bx+si],al
-   1e49c:	00 00                	add    BYTE PTR [bx+si],al
-   1e49e:	12 fc                	adc    bh,ah
-   1e4a0:	07                   	pop    es
-   1e4a1:	fe 0f                	dec    BYTE PTR [bx]
-   1e4a3:	03 18                	add    bx,WORD PTR [bx+si]
-   1e4a5:	f9                   	stc    
-   1e4a6:	13 0d                	adc    cx,WORD PTR [di]
-   1e4a8:	16                   	push   ss
-   1e4a9:	05 16 07             	add    ax,0x716
-   1e4ac:	13 fe                	adc    di,si
-   1e4ae:	17                   	pop    ss
-   1e4af:	fc                   	cld    
-   1e4b0:	13 00                	adc    ax,WORD PTR [bx+si]
-   1e4b2:	00 14                	add    BYTE PTR [si],dl
-   1e4b4:	00 18                	add    BYTE PTR [bx+si],bl
-   1e4b6:	00 1f                	add    BYTE PTR [bx],bl
-   1e4b8:	e0 07                	loopne 0x1e4c1
-   1e4ba:	fc                   	cld    
-   1e4bb:	01 8f 01 8f          	add    WORD PTR [bx-0x70ff],cx
-   1e4bf:	01 fc                	add    sp,di
-   1e4c1:	01 e0                	add    ax,sp
-   1e4c3:	07                   	pop    es
-   1e4c4:	00 1f                	add    BYTE PTR [bx],bl
-   1e4c6:	00 18                	add    BYTE PTR [bx+si],bl
-   1e4c8:	10 ff                	adc    bh,bh
-   1e4ca:	1f                   	pop    ds
-   1e4cb:	ff 1f                	call   DWORD PTR [bx]
-   1e4cd:	41                   	inc    cx
-   1e4ce:	10 41 10             	adc    BYTE PTR [bx+di+0x10],al
-   1e4d1:	41                   	inc    cx
-   1e4d2:	10 e3                	adc    bl,ah
-   1e4d4:	18 be 0f 1c          	sbb    BYTE PTR [bp+0x1c0f],bh
-   1e4d8:	07                   	pop    es
-   1e4d9:	00 00                	add    BYTE PTR [bx+si],al
-   1e4db:	00 00                	add    BYTE PTR [bx+si],al
-   1e4dd:	10 fc                	adc    ah,bh
-   1e4df:	07                   	pop    es
-   1e4e0:	fe 0f                	dec    BYTE PTR [bx]
-   1e4e2:	03 18                	add    bx,WORD PTR [bx+si]
-   1e4e4:	01 10                	add    WORD PTR [bx+si],dx
-   1e4e6:	01 10                	add    WORD PTR [bx+si],dx
-   1e4e8:	03 18                	add    bx,WORD PTR [bx+si]
-   1e4ea:	0e                   	push   cs
-   1e4eb:	0e                   	push   cs
-   1e4ec:	0c 06                	or     al,0x6
-   1e4ee:	00 00                	add    BYTE PTR [bx+si],al
-   1e4f0:	00 00                	add    BYTE PTR [bx+si],al
-   1e4f2:	10 ff                	adc    bh,bh
-   1e4f4:	1f                   	pop    ds
-   1e4f5:	ff 1f                	call   DWORD PTR [bx]
-   1e4f7:	01 10                	add    WORD PTR [bx+si],dx
-   1e4f9:	01 10                	add    WORD PTR [bx+si],dx
-   1e4fb:	01 10                	add    WORD PTR [bx+si],dx
-   1e4fd:	03 18                	add    bx,WORD PTR [bx+si]
-   1e4ff:	fe 0f                	dec    BYTE PTR [bx]
-   1e501:	fc                   	cld    
-   1e502:	07                   	pop    es
-   1e503:	00 00                	add    BYTE PTR [bx+si],al
-   1e505:	00 00                	add    BYTE PTR [bx+si],al
-   1e507:	10 ff                	adc    bh,bh
-   1e509:	1f                   	pop    ds
-   1e50a:	ff 1f                	call   DWORD PTR [bx]
-   1e50c:	41                   	inc    cx
-   1e50d:	10 41 10             	adc    BYTE PTR [bx+di+0x10],al
-   1e510:	41                   	inc    cx
-   1e511:	10 41 10             	adc    BYTE PTR [bx+di+0x10],al
-   1e514:	41                   	inc    cx
-   1e515:	10 01                	adc    BYTE PTR [bx+di],al
-   1e517:	10 00                	adc    BYTE PTR [bx+si],al
-   1e519:	00 00                	add    BYTE PTR [bx+si],al
-   1e51b:	00 10                	add    BYTE PTR [bx+si],dl
-   1e51d:	ff 1f                	call   DWORD PTR [bx]
-   1e51f:	ff 1f                	call   DWORD PTR [bx]
-   1e521:	41                   	inc    cx
-   1e522:	00 41 00             	add    BYTE PTR [bx+di+0x0],al
-   1e525:	41                   	inc    cx
-   1e526:	00 41 00             	add    BYTE PTR [bx+di+0x0],al
-   1e529:	41                   	inc    cx
-   1e52a:	00 01                	add    BYTE PTR [bx+di],al
-   1e52c:	00 00                	add    BYTE PTR [bx+si],al
-   1e52e:	00 00                	add    BYTE PTR [bx+si],al
-   1e530:	00 10                	add    BYTE PTR [bx+si],dl
-   1e532:	fc                   	cld    
-   1e533:	07                   	pop    es
-   1e534:	fe 0f                	dec    BYTE PTR [bx]
-   1e536:	03 18                	add    bx,WORD PTR [bx+si]
-   1e538:	41                   	inc    cx
-   1e539:	10 41 10             	adc    BYTE PTR [bx+di+0x10],al
-   1e53c:	41                   	inc    cx
-   1e53d:	18 c7                	sbb    bh,al
-   1e53f:	0f c6 1f 00          	shufps xmm3,XMMWORD PTR [bx],0x0
-   1e543:	00 00                	add    BYTE PTR [bx+si],al
-   1e545:	00 10                	add    BYTE PTR [bx+si],dl
-   1e547:	ff 1f                	call   DWORD PTR [bx]
-   1e549:	ff 1f                	call   DWORD PTR [bx]
-   1e54b:	40                   	inc    ax
-   1e54c:	00 40 00             	add    BYTE PTR [bx+si+0x0],al
-   1e54f:	40                   	inc    ax
-   1e550:	00 40 00             	add    BYTE PTR [bx+si+0x0],al
-   1e553:	ff 1f                	call   DWORD PTR [bx]
-   1e555:	ff 1f                	call   DWORD PTR [bx]
-   1e557:	00 00                	add    BYTE PTR [bx+si],al
-   1e559:	00 00                	add    BYTE PTR [bx+si],al
-   1e55b:	04 ff                	add    al,0xff
-   1e55d:	1f                   	pop    ds
-   1e55e:	ff 1f                	call   DWORD PTR [bx]
-	...
-   1e570:	10 00                	adc    BYTE PTR [bx+si],al
-   1e572:	06                   	push   es
-   1e573:	00 0e 00 18          	add    BYTE PTR ds:0x1800,cl
-   1e577:	00 10                	add    BYTE PTR [bx+si],dl
-   1e579:	00 10                	add    BYTE PTR [bx+si],dl
-   1e57b:	00 18                	add    BYTE PTR [bx+si],bl
-   1e57d:	ff 0f                	dec    WORD PTR [bx]
-   1e57f:	ff 07                	inc    WORD PTR [bx]
-   1e581:	00 00                	add    BYTE PTR [bx+si],al
-   1e583:	00 00                	add    BYTE PTR [bx+si],al
-   1e585:	10 ff                	adc    bh,bh
-   1e587:	1f                   	pop    ds
-   1e588:	ff 1f                	call   DWORD PTR [bx]
-   1e58a:	60                   	pusha  
-   1e58b:	00 70 00             	add    BYTE PTR [bx+si+0x0],dh
-   1e58e:	f8                   	clc    
-   1e58f:	01 8c 07 06          	add    WORD PTR [si+0x607],cx
-   1e593:	1e                   	push   ds
-   1e594:	03 18                	add    bx,WORD PTR [bx+si]
-   1e596:	00 00                	add    BYTE PTR [bx+si],al
-   1e598:	00 00                	add    BYTE PTR [bx+si],al
-   1e59a:	10 ff                	adc    bh,bh
-   1e59c:	1f                   	pop    ds
-   1e59d:	ff 1f                	call   DWORD PTR [bx]
-   1e59f:	00 10                	add    BYTE PTR [bx+si],dl
-   1e5a1:	00 10                	add    BYTE PTR [bx+si],dl
-   1e5a3:	00 10                	add    BYTE PTR [bx+si],dl
-   1e5a5:	00 10                	add    BYTE PTR [bx+si],dl
-   1e5a7:	00 10                	add    BYTE PTR [bx+si],dl
-   1e5a9:	00 10                	add    BYTE PTR [bx+si],dl
-   1e5ab:	00 00                	add    BYTE PTR [bx+si],al
-   1e5ad:	00 00                	add    BYTE PTR [bx+si],al
-   1e5af:	12 ff                	adc    bh,bh
-   1e5b1:	1f                   	pop    ds
-   1e5b2:	ff 1f                	call   DWORD PTR [bx]
-   1e5b4:	1c 00                	sbb    al,0x0
-   1e5b6:	38 00                	cmp    BYTE PTR [bx+si],al
-   1e5b8:	70 00                	jo     0x1e5ba
-   1e5ba:	38 00                	cmp    BYTE PTR [bx+si],al
-   1e5bc:	1c 00                	sbb    al,0x0
-   1e5be:	ff 1f                	call   DWORD PTR [bx]
-   1e5c0:	ff 1f                	call   DWORD PTR [bx]
-   1e5c2:	00 00                	add    BYTE PTR [bx+si],al
-   1e5c4:	10 ff                	adc    bh,bh
-   1e5c6:	1f                   	pop    ds
-   1e5c7:	ff 1f                	call   DWORD PTR [bx]
-   1e5c9:	3c 00                	cmp    al,0x0
-   1e5cb:	f0 00 c0             	lock add al,al
-   1e5ce:	03 00                	add    ax,WORD PTR [bx+si]
-   1e5d0:	0f ff                	(bad)  
-   1e5d2:	1f                   	pop    ds
-   1e5d3:	ff 1f                	call   DWORD PTR [bx]
-   1e5d5:	00 00                	add    BYTE PTR [bx+si],al
-   1e5d7:	00 00                	add    BYTE PTR [bx+si],al
-   1e5d9:	10 fc                	adc    ah,bh
-   1e5db:	07                   	pop    es
-   1e5dc:	fe 0f                	dec    BYTE PTR [bx]
-   1e5de:	03 18                	add    bx,WORD PTR [bx+si]
-   1e5e0:	01 10                	add    WORD PTR [bx+si],dx
-   1e5e2:	01 10                	add    WORD PTR [bx+si],dx
-   1e5e4:	03 18                	add    bx,WORD PTR [bx+si]
-   1e5e6:	fe 0f                	dec    BYTE PTR [bx]
-   1e5e8:	fc                   	cld    
-   1e5e9:	07                   	pop    es
-   1e5ea:	00 00                	add    BYTE PTR [bx+si],al
-   1e5ec:	00 00                	add    BYTE PTR [bx+si],al
-   1e5ee:	10 ff                	adc    bh,bh
-   1e5f0:	1f                   	pop    ds
-   1e5f1:	ff 1f                	call   DWORD PTR [bx]
-   1e5f3:	81 00 81 00          	add    WORD PTR [bx+si],0x81
-   1e5f7:	81 00 c3 00          	add    WORD PTR [bx+si],0xc3
-   1e5fb:	7e 00                	jle    0x1e5fd
-   1e5fd:	3c 00                	cmp    al,0x0
-   1e5ff:	00 00                	add    BYTE PTR [bx+si],al
-   1e601:	00 00                	add    BYTE PTR [bx+si],al
-   1e603:	10 fc                	adc    ah,bh
-   1e605:	07                   	pop    es
-   1e606:	fe 0f                	dec    BYTE PTR [bx]
-   1e608:	03 18                	add    bx,WORD PTR [bx+si]
-   1e60a:	01 12                	add    WORD PTR [bp+si],dx
-   1e60c:	01 16 03 0c          	add    WORD PTR ds:0xc03,dx
-   1e610:	fe                   	(bad)  
-   1e611:	1f                   	pop    ds
-   1e612:	fc                   	cld    
-   1e613:	17                   	pop    ss
-   1e614:	00 00                	add    BYTE PTR [bx+si],al
-   1e616:	00 00                	add    BYTE PTR [bx+si],al
-   1e618:	10 ff                	adc    bh,bh
-   1e61a:	1f                   	pop    ds
-   1e61b:	ff 1f                	call   DWORD PTR [bx]
-   1e61d:	41                   	inc    cx
-   1e61e:	00 41 00             	add    BYTE PTR [bx+di+0x0],al
-   1e621:	41                   	inc    cx
-   1e622:	00 e3                	add    bl,ah
-   1e624:	00 be 1f 1c          	add    BYTE PTR [bp+0x1c1f],bh
-   1e628:	1f                   	pop    ds
-   1e629:	00 00                	add    BYTE PTR [bx+si],al
-   1e62b:	00 00                	add    BYTE PTR [bx+si],al
-   1e62d:	10 1c                	adc    BYTE PTR [si],bl
-   1e62f:	06                   	push   es
-   1e630:	3e                   	ds
-   1e631:	0e                   	push   cs
-   1e632:	23 18                	and    bx,WORD PTR [bx+si]
-   1e634:	61                   	popa   
-   1e635:	10 41 10             	adc    BYTE PTR [bx+di+0x10],al
-   1e638:	c3                   	ret    
-   1e639:	18 8e 0f 0c          	sbb    BYTE PTR [bp+0xc0f],cl
-   1e63d:	07                   	pop    es
-   1e63e:	00 00                	add    BYTE PTR [bx+si],al
-   1e640:	00 00                	add    BYTE PTR [bx+si],al
-   1e642:	10 01                	adc    BYTE PTR [bx+di],al
-   1e644:	00 01                	add    BYTE PTR [bx+di],al
-   1e646:	00 01                	add    BYTE PTR [bx+di],al
-   1e648:	00 ff                	add    bh,bh
-   1e64a:	1f                   	pop    ds
-   1e64b:	ff 1f                	call   DWORD PTR [bx]
-   1e64d:	01 00                	add    WORD PTR [bx+si],ax
-   1e64f:	01 00                	add    WORD PTR [bx+si],ax
-   1e651:	01 00                	add    WORD PTR [bx+si],ax
-   1e653:	00 00                	add    BYTE PTR [bx+si],al
-   1e655:	00 00                	add    BYTE PTR [bx+si],al
-   1e657:	10 ff                	adc    bh,bh
-   1e659:	07                   	pop    es
-   1e65a:	ff 0f                	dec    WORD PTR [bx]
-   1e65c:	00 18                	add    BYTE PTR [bx+si],bl
-   1e65e:	00 10                	add    BYTE PTR [bx+si],dl
-   1e660:	00 10                	add    BYTE PTR [bx+si],dl
-   1e662:	00 18                	add    BYTE PTR [bx+si],bl
-   1e664:	ff 0f                	dec    WORD PTR [bx]
-   1e666:	ff 07                	inc    WORD PTR [bx]
-   1e668:	00 00                	add    BYTE PTR [bx+si],al
-   1e66a:	00 00                	add    BYTE PTR [bx+si],al
-   1e66c:	10 0f                	adc    BYTE PTR [bx],cl
-   1e66e:	00 7f 00             	add    BYTE PTR [bx+0x0],bh
-   1e671:	f0 03 80 1f 80       	lock add ax,WORD PTR [bx+si-0x7fe1]
-   1e676:	1f                   	pop    ds
-   1e677:	f0 03 7f 00          	lock add di,WORD PTR [bx+0x0]
-   1e67b:	0f 00 00             	sldt   WORD PTR [bx+si]
-   1e67e:	00 00                	add    BYTE PTR [bx+si],al
-   1e680:	00 12                	add    BYTE PTR [bp+si],dl
-   1e682:	ff 07                	inc    WORD PTR [bx]
-   1e684:	ff 1f                	call   DWORD PTR [bx]
-   1e686:	00 1f                	add    BYTE PTR [bx],bl
-   1e688:	80 03 c0             	add    BYTE PTR [bp+di],0xc0
-   1e68b:	01 80 03 00          	add    WORD PTR [bx+si+0x3],ax
-   1e68f:	1f                   	pop    ds
-   1e690:	ff 1f                	call   DWORD PTR [bx]
-   1e692:	ff 07                	inc    WORD PTR [bx]
-   1e694:	00 00                	add    BYTE PTR [bx+si],al
-   1e696:	10 03                	adc    BYTE PTR [bp+di],al
-   1e698:	18 0f                	sbb    BYTE PTR [bx],cl
-   1e69a:	1e                   	push   ds
-   1e69b:	bc 07 f0             	mov    sp,0xf007
-   1e69e:	01 f0                	add    ax,si
-   1e6a0:	01 bc 07 0f          	add    WORD PTR [si+0xf07],di
-   1e6a4:	1e                   	push   ds
-   1e6a5:	03 18                	add    bx,WORD PTR [bx+si]
-   1e6a7:	00 00                	add    BYTE PTR [bx+si],al
-   1e6a9:	00 00                	add    BYTE PTR [bx+si],al
-   1e6ab:	10 03                	adc    BYTE PTR [bp+di],al
-   1e6ad:	00 0f                	add    BYTE PTR [bx],cl
-   1e6af:	00 3c                	add    BYTE PTR [si],bh
-   1e6b1:	00 f0                	add    al,dh
-   1e6b3:	1f                   	pop    ds
-   1e6b4:	f0 1f                	lock pop ds
-   1e6b6:	3c 00                	cmp    al,0x0
-   1e6b8:	0f 00 03             	sldt   WORD PTR [bp+di]
-   1e6bb:	00 00                	add    BYTE PTR [bx+si],al
-   1e6bd:	00 00                	add    BYTE PTR [bx+si],al
-   1e6bf:	00 10                	add    BYTE PTR [bx+si],dl
-   1e6c1:	01 10                	add    WORD PTR [bx+si],dx
-   1e6c3:	01 1c                	add    WORD PTR [si],bx
-   1e6c5:	01 1f                	add    WORD PTR [bx],bx
-   1e6c7:	c1 13 f1             	rcl    WORD PTR [bp+di],0xf1
-   1e6ca:	10 3d                	adc    BYTE PTR [di],bh
-   1e6cc:	10 0f                	adc    BYTE PTR [bx],cl
-   1e6ce:	10 03                	adc    BYTE PTR [bp+di],al
-   1e6d0:	10 00                	adc    BYTE PTR [bx+si],al
-   1e6d2:	00 00                	add    BYTE PTR [bx+si],al
-   1e6d4:	00 04                	add    BYTE PTR [si],al
-   1e6d6:	ff 1f                	call   DWORD PTR [bx]
-   1e6d8:	ff 1f                	call   DWORD PTR [bx]
-	...
-   1e6ea:	14 20                	adc    al,0x20
-   1e6ec:	00 ff                	add    bh,bh
-   1e6ee:	01 ff                	add    di,di
-   1e6f0:	1f                   	pop    ds
-   1e6f1:	e0 1f                	loopne 0x1e712
-   1e6f3:	ff 01                	inc    WORD PTR [bx+di]
-   1e6f5:	ff 01                	inc    WORD PTR [bx+di]
-   1e6f7:	e0 1f                	loopne 0x1e718
-   1e6f9:	ff 1f                	call   DWORD PTR [bx]
-   1e6fb:	ff 01                	inc    WORD PTR [bx+di]
-   1e6fd:	20 00                	and    BYTE PTR [bx+si],al
-   1e6ff:	08 00                	or     BYTE PTR [bx+si],al
-   1e701:	00 00                	add    BYTE PTR [bx+si],al
-   1e703:	00 ff                	add    bh,bh
-   1e705:	1f                   	pop    ds
-   1e706:	ff 1f                	call   DWORD PTR [bx]
-	...
-   1e714:	12 08                	adc    cl,BYTE PTR [bx+si]
-   1e716:	00 0c                	add    BYTE PTR [si],cl
-   1e718:	00 06 00 03          	add    BYTE PTR ds:0x300,al
-   1e71c:	00 01                	add    BYTE PTR [bx+di],al
-   1e71e:	00 03                	add    BYTE PTR [bp+di],al
-   1e720:	00 06 00 0c          	add    BYTE PTR ds:0xc00,al
-   1e724:	00 08                	add    BYTE PTR [bx+si],cl
-	...
-   1e73e:	08 00                	or     BYTE PTR [bx+si],al
-   1e740:	00 01                	add    BYTE PTR [bx+di],al
-   1e742:	00 03                	add    BYTE PTR [bp+di],al
-   1e744:	00 02                	add    BYTE PTR [bp+si],al
-	...
-   1e752:	00 10                	add    BYTE PTR [bx+si],dl
-   1e754:	30 0e 38 1f          	xor    BYTE PTR ds:0x1f38,cl
-   1e758:	88 11                	mov    BYTE PTR [bx+di],dl
-   1e75a:	88 10                	mov    BYTE PTR [bx+si],dl
-   1e75c:	88 10                	mov    BYTE PTR [bx+si],dl
-   1e75e:	88 18                	mov    BYTE PTR [bx+si],bl
-   1e760:	f8                   	clc    
-   1e761:	0f f0                	(bad)  
-   1e763:	1f                   	pop    ds
-   1e764:	00 00                	add    BYTE PTR [bx+si],al
-   1e766:	00 00                	add    BYTE PTR [bx+si],al
-   1e768:	10 ff                	adc    bh,bh
-   1e76a:	1f                   	pop    ds
-   1e76b:	ff 1f                	call   DWORD PTR [bx]
-   1e76d:	18 18                	sbb    BYTE PTR [bx+si],bl
-   1e76f:	08 10                	or     BYTE PTR [bx+si],dl
-   1e771:	08 10                	or     BYTE PTR [bx+si],dl
-   1e773:	18 18                	sbb    BYTE PTR [bx+si],bl
-   1e775:	f0 0f e0 07          	lock pavgb mm0,QWORD PTR [bx]
-   1e779:	00 00                	add    BYTE PTR [bx+si],al
-   1e77b:	00 00                	add    BYTE PTR [bx+si],al
-   1e77d:	10 e0                	adc    al,ah
-   1e77f:	07                   	pop    es
-   1e780:	f0 0f 18 18          	lock prefetcht2 BYTE PTR [bx+si]
-   1e784:	08 10                	or     BYTE PTR [bx+si],dl
-   1e786:	08 10                	or     BYTE PTR [bx+si],dl
-   1e788:	08 10                	or     BYTE PTR [bx+si],dl
-   1e78a:	38 1c                	cmp    BYTE PTR [si],bl
-   1e78c:	30 0c                	xor    BYTE PTR [si],cl
-   1e78e:	00 00                	add    BYTE PTR [bx+si],al
-   1e790:	00 00                	add    BYTE PTR [bx+si],al
-   1e792:	10 e0                	adc    al,ah
-   1e794:	07                   	pop    es
-   1e795:	f0 0f 18 18          	lock prefetcht2 BYTE PTR [bx+si]
-   1e799:	08 10                	or     BYTE PTR [bx+si],dl
-   1e79b:	08 10                	or     BYTE PTR [bx+si],dl
-   1e79d:	18 18                	sbb    BYTE PTR [bx+si],bl
-   1e79f:	ff 1f                	call   DWORD PTR [bx]
-   1e7a1:	ff 1f                	call   DWORD PTR [bx]
-   1e7a3:	00 00                	add    BYTE PTR [bx+si],al
-   1e7a5:	00 00                	add    BYTE PTR [bx+si],al
-   1e7a7:	10 e0                	adc    al,ah
-   1e7a9:	07                   	pop    es
-   1e7aa:	f0 0f 18 19          	lock prefetcht2 BYTE PTR [bx+di]
-   1e7ae:	08 11                	or     BYTE PTR [bx+di],dl
-   1e7b0:	08 11                	or     BYTE PTR [bx+di],dl
-   1e7b2:	18 19                	sbb    BYTE PTR [bx+di],bl
-   1e7b4:	f0 0d e0 05          	lock or ax,0x5e0
-   1e7b8:	00 00                	add    BYTE PTR [bx+si],al
-   1e7ba:	00 00                	add    BYTE PTR [bx+si],al
-   1e7bc:	0e                   	push   cs
-   1e7bd:	08 00                	or     BYTE PTR [bx+si],al
-   1e7bf:	08 00                	or     BYTE PTR [bx+si],al
-   1e7c1:	fe                   	(bad)  
-   1e7c2:	1f                   	pop    ds
-   1e7c3:	ff 1f                	call   DWORD PTR [bx]
-   1e7c5:	09 00                	or     WORD PTR [bx+si],ax
-   1e7c7:	09 00                	or     WORD PTR [bx+si],ax
-   1e7c9:	01 00                	add    WORD PTR [bx+si],ax
-   1e7cb:	00 00                	add    BYTE PTR [bx+si],al
-   1e7cd:	00 00                	add    BYTE PTR [bx+si],al
-   1e7cf:	00 00                	add    BYTE PTR [bx+si],al
-   1e7d1:	10 e0                	adc    al,ah
-   1e7d3:	08 f0                	or     al,dh
-   1e7d5:	19 18                	sbb    WORD PTR [bx+si],bx
-   1e7d7:	13 08                	adc    cx,WORD PTR [bx+si]
-   1e7d9:	12 08                	adc    cl,BYTE PTR [bx+si]
-   1e7db:	12 10                	adc    dl,BYTE PTR [bx+si]
-   1e7dd:	11 f8                	adc    ax,di
-   1e7df:	1f                   	pop    ds
-   1e7e0:	f8                   	clc    
-   1e7e1:	0f 00 00             	sldt   WORD PTR [bx+si]
-   1e7e4:	00 00                	add    BYTE PTR [bx+si],al
-   1e7e6:	10 ff                	adc    bh,bh
-   1e7e8:	1f                   	pop    ds
-   1e7e9:	ff 1f                	call   DWORD PTR [bx]
-   1e7eb:	18 00                	sbb    BYTE PTR [bx+si],al
-   1e7ed:	08 00                	or     BYTE PTR [bx+si],al
-   1e7ef:	08 00                	or     BYTE PTR [bx+si],al
-   1e7f1:	18 00                	sbb    BYTE PTR [bx+si],al
-   1e7f3:	f0 1f                	lock pop ds
-   1e7f5:	e0 1f                	loopne 0x1e816
-   1e7f7:	00 00                	add    BYTE PTR [bx+si],al
-   1e7f9:	00 00                	add    BYTE PTR [bx+si],al
-   1e7fb:	04 f3                	add    al,0xf3
-   1e7fd:	1f                   	pop    ds
-   1e7fe:	f3 1f                	repz pop ds
-	...
-   1e810:	08 00                	or     BYTE PTR [bx+si],al
-   1e812:	00 00                	add    BYTE PTR [bx+si],al
-   1e814:	00 f3                	add    bl,dh
-   1e816:	1f                   	pop    ds
-   1e817:	f3 1f                	repz pop ds
-	...
-   1e825:	10 ff                	adc    bh,bh
-   1e827:	1f                   	pop    ds
-   1e828:	ff 1f                	call   DWORD PTR [bx]
-   1e82a:	80 01 c0             	add    BYTE PTR [bx+di],0xc0
-   1e82d:	00 e0                	add    al,ah
-   1e82f:	01 b0 07 18          	add    WORD PTR [bx+si+0x1807],si
-   1e833:	1e                   	push   ds
-   1e834:	08 18                	or     BYTE PTR [bx+si],bl
-   1e836:	00 00                	add    BYTE PTR [bx+si],al
-   1e838:	00 00                	add    BYTE PTR [bx+si],al
-   1e83a:	04 ff                	add    al,0xff
-   1e83c:	1f                   	pop    ds
-   1e83d:	ff 1f                	call   DWORD PTR [bx]
-	...
-   1e84f:	14 f8                	adc    al,0xf8
-   1e851:	1f                   	pop    ds
-   1e852:	f8                   	clc    
-   1e853:	1f                   	pop    ds
-   1e854:	10 00                	adc    BYTE PTR [bx+si],al
-   1e856:	08 00                	or     BYTE PTR [bx+si],al
-   1e858:	f8                   	clc    
-   1e859:	1f                   	pop    ds
-   1e85a:	f0 1f                	lock pop ds
-   1e85c:	18 00                	sbb    BYTE PTR [bx+si],al
-   1e85e:	08 00                	or     BYTE PTR [bx+si],al
-   1e860:	f8                   	clc    
-   1e861:	1f                   	pop    ds
-   1e862:	f0 1f                	lock pop ds
-   1e864:	10 f8                	adc    al,bh
-   1e866:	1f                   	pop    ds
-   1e867:	f8                   	clc    
-   1e868:	1f                   	pop    ds
-   1e869:	10 00                	adc    BYTE PTR [bx+si],al
-   1e86b:	08 00                	or     BYTE PTR [bx+si],al
-   1e86d:	08 00                	or     BYTE PTR [bx+si],al
-   1e86f:	18 00                	sbb    BYTE PTR [bx+si],al
-   1e871:	f0 1f                	lock pop ds
-   1e873:	e0 1f                	loopne 0x1e894
-   1e875:	00 00                	add    BYTE PTR [bx+si],al
-   1e877:	00 00                	add    BYTE PTR [bx+si],al
-   1e879:	10 e0                	adc    al,ah
-   1e87b:	07                   	pop    es
-   1e87c:	f0 0f 18 18          	lock prefetcht2 BYTE PTR [bx+si]
-   1e880:	08 10                	or     BYTE PTR [bx+si],dl
-   1e882:	08 10                	or     BYTE PTR [bx+si],dl
-   1e884:	18 18                	sbb    BYTE PTR [bx+si],bl
-   1e886:	f0 0f e0 07          	lock pavgb mm0,QWORD PTR [bx]
-   1e88a:	00 00                	add    BYTE PTR [bx+si],al
-   1e88c:	00 00                	add    BYTE PTR [bx+si],al
-   1e88e:	10 f8                	adc    al,bh
-   1e890:	1f                   	pop    ds
-   1e891:	f8                   	clc    
-   1e892:	1f                   	pop    ds
-   1e893:	10 02                	adc    BYTE PTR [bp+si],al
-   1e895:	08 04                	or     BYTE PTR [si],al
-   1e897:	08 04                	or     BYTE PTR [si],al
-   1e899:	18 06 f0 03          	sbb    BYTE PTR ds:0x3f0,al
-   1e89d:	e0 01                	loopne 0x1e8a0
-   1e89f:	00 00                	add    BYTE PTR [bx+si],al
-   1e8a1:	00 00                	add    BYTE PTR [bx+si],al
-   1e8a3:	10 e0                	adc    al,ah
-   1e8a5:	01 f0                	add    ax,si
-   1e8a7:	03 18                	add    bx,WORD PTR [bx+si]
-   1e8a9:	06                   	push   es
-   1e8aa:	08 04                	or     BYTE PTR [si],al
-   1e8ac:	08 04                	or     BYTE PTR [si],al
-   1e8ae:	10 02                	adc    BYTE PTR [bp+si],al
-   1e8b0:	f8                   	clc    
-   1e8b1:	1f                   	pop    ds
-   1e8b2:	f8                   	clc    
-   1e8b3:	1f                   	pop    ds
-   1e8b4:	00 00                	add    BYTE PTR [bx+si],al
-   1e8b6:	00 00                	add    BYTE PTR [bx+si],al
-   1e8b8:	12 f8                	adc    bh,al
-   1e8ba:	1f                   	pop    ds
-   1e8bb:	f8                   	clc    
-   1e8bc:	1f                   	pop    ds
-   1e8bd:	30 00                	xor    BYTE PTR [bx+si],al
-   1e8bf:	18 00                	sbb    BYTE PTR [bx+si],al
-   1e8c1:	08 00                	or     BYTE PTR [bx+si],al
-   1e8c3:	08 00                	or     BYTE PTR [bx+si],al
-   1e8c5:	18 00                	sbb    BYTE PTR [bx+si],al
-   1e8c7:	30 00                	xor    BYTE PTR [bx+si],al
-   1e8c9:	20 00                	and    BYTE PTR [bx+si],al
-   1e8cb:	00 00                	add    BYTE PTR [bx+si],al
-   1e8cd:	10 60 04             	adc    BYTE PTR [bx+si+0x4],ah
-   1e8d0:	f0 0c 98             	lock or al,0x98
-   1e8d3:	18 88 10 88          	sbb    BYTE PTR [bx+si-0x77f0],cl
-   1e8d7:	11 18                	adc    WORD PTR [bx+si],bx
-   1e8d9:	19 30                	sbb    WORD PTR [bx+si],si
-   1e8db:	0f 20                	(bad)  
-   1e8dd:	06                   	push   es
-   1e8de:	00 00                	add    BYTE PTR [bx+si],al
-   1e8e0:	00 00                	add    BYTE PTR [bx+si],al
-   1e8e2:	0c 08                	or     al,0x8
-   1e8e4:	00 08                	add    BYTE PTR [bx+si],cl
-   1e8e6:	00 ff                	add    bh,bh
-   1e8e8:	0f ff                	(bad)  
-   1e8ea:	1f                   	pop    ds
-   1e8eb:	08 10                	or     BYTE PTR [bx+si],dl
-   1e8ed:	08 10                	or     BYTE PTR [bx+si],dl
-	...
-   1e8f7:	10 f8                	adc    al,bh
-   1e8f9:	07                   	pop    es
-   1e8fa:	f8                   	clc    
-   1e8fb:	0f 00 18             	ltr    WORD PTR [bx+si]
-   1e8fe:	00 10                	add    BYTE PTR [bx+si],dl
-   1e900:	00 10                	add    BYTE PTR [bx+si],dl
-   1e902:	00 08                	add    BYTE PTR [bx+si],cl
-   1e904:	f8                   	clc    
-   1e905:	1f                   	pop    ds
-   1e906:	f8                   	clc    
-   1e907:	1f                   	pop    ds
-   1e908:	00 00                	add    BYTE PTR [bx+si],al
-   1e90a:	00 00                	add    BYTE PTR [bx+si],al
-   1e90c:	10 38                	adc    BYTE PTR [bx+si],bh
-   1e90e:	00 f8                	add    al,bh
-   1e910:	01 c0                	add    ax,ax
-   1e912:	07                   	pop    es
-   1e913:	00 1e 00 1e          	add    BYTE PTR ds:0x1e00,bl
-   1e917:	c0 07 f8             	rol    BYTE PTR [bx],0xf8
-   1e91a:	01 38                	add    WORD PTR [bx+si],di
-   1e91c:	00 00                	add    BYTE PTR [bx+si],al
-   1e91e:	00 00                	add    BYTE PTR [bx+si],al
-   1e920:	00 10                	add    BYTE PTR [bx+si],dl
-   1e922:	f8                   	clc    
-   1e923:	00 f8                	add    al,bh
-   1e925:	1f                   	pop    ds
-   1e926:	00 1f                	add    BYTE PTR [bx],bl
-   1e928:	f8                   	clc    
-   1e929:	03 f8                	add    di,ax
-   1e92b:	03 00                	add    ax,WORD PTR [bx+si]
-   1e92d:	1f                   	pop    ds
-   1e92e:	f8                   	clc    
-   1e92f:	1f                   	pop    ds
-   1e930:	f8                   	clc    
-   1e931:	00 00                	add    BYTE PTR [bx+si],al
-   1e933:	00 00                	add    BYTE PTR [bx+si],al
-   1e935:	00 10                	add    BYTE PTR [bx+si],dl
-   1e937:	08 10                	or     BYTE PTR [bx+si],dl
-   1e939:	38 18                	cmp    BYTE PTR [bx+si],bl
-   1e93b:	70 0e                	jo     0x1e94b
-   1e93d:	c0 07 c0             	rol    BYTE PTR [bx],0xc0
-   1e940:	07                   	pop    es
-   1e941:	70 0e                	jo     0x1e951
-   1e943:	38 18                	cmp    BYTE PTR [bx+si],bl
-   1e945:	08 10                	or     BYTE PTR [bx+si],dl
-   1e947:	00 00                	add    BYTE PTR [bx+si],al
-   1e949:	00 00                	add    BYTE PTR [bx+si],al
-   1e94b:	10 18                	adc    BYTE PTR [bx+si],bl
-   1e94d:	00 78 00             	add    BYTE PTR [bx+si+0x0],bh
-   1e950:	e0 11                	loopne 0x1e963
-   1e952:	80 1f 00             	sbb    BYTE PTR [bx],0x0
-   1e955:	0f e0 03             	pavgb  mm0,QWORD PTR [bp+di]
-   1e958:	f8                   	clc    
-   1e959:	00 18                	add    BYTE PTR [bx+si],bl
-   1e95b:	00 00                	add    BYTE PTR [bx+si],al
-   1e95d:	00 00                	add    BYTE PTR [bx+si],al
-   1e95f:	00 10                	add    BYTE PTR [bx+si],dl
-   1e961:	08 18                	or     BYTE PTR [bx+si],bl
-   1e963:	08 1c                	or     BYTE PTR [si],bl
-   1e965:	08 16 88 13          	or     BYTE PTR ds:0x1388,dl
-   1e969:	c8 11 68 10          	enter  0x6811,0x10
-   1e96d:	38 10                	cmp    BYTE PTR [bx+si],dl
-   1e96f:	18 10                	sbb    BYTE PTR [bx+si],dl
-   1e971:	00 00                	add    BYTE PTR [bx+si],al
-   1e973:	00 00                	add    BYTE PTR [bx+si],al
-   1e975:	08 40 00             	or     BYTE PTR [bx+si+0x0],al
-   1e978:	40                   	inc    ax
-   1e979:	00 ff                	add    bh,bh
-   1e97b:	1f                   	pop    ds
-   1e97c:	bf 1f 00             	mov    di,0x1f
-	...
-   1e987:	00 00                	add    BYTE PTR [bx+si],al
-   1e989:	00 04                	add    BYTE PTR [si],al
-   1e98b:	ff 1f                	call   DWORD PTR [bx]
-   1e98d:	ff 1f                	call   DWORD PTR [bx]
-	...
-   1e99f:	0c 00                	or     al,0x0
-   1e9a1:	00 00                	add    BYTE PTR [bx+si],al
-   1e9a3:	00 bf 1f ff          	add    BYTE PTR [bx-0xe1],bh
-   1e9a7:	1f                   	pop    ds
-   1e9a8:	40                   	inc    ax
-   1e9a9:	00 40 00             	add    BYTE PTR [bx+si+0x0],al
-	...
-   1e9b4:	10 40 00             	adc    BYTE PTR [bx+si+0x0],al
-   1e9b7:	60                   	pusha  
-   1e9b8:	00 20                	add    BYTE PTR [bx+si],ah
-   1e9ba:	00 20                	add    BYTE PTR [bx+si],ah
-   1e9bc:	00 60 00             	add    BYTE PTR [bx+si+0x0],ah
-   1e9bf:	40                   	inc    ax
-   1e9c0:	00 60 00             	add    BYTE PTR [bx+si+0x0],ah
-   1e9c3:	20 00                	and    BYTE PTR [bx+si],al
-	...
-   1e9e1:	00 01                	add    BYTE PTR [bx+di],al
-   1e9e3:	01 d0                	add    ax,dx
-   1e9e5:	07                   	pop    es
-   1e9e6:	00 00                	add    BYTE PTR [bx+si],al
-   1e9e8:	00 20                	add    BYTE PTR [bx+si],ah
-   1e9ea:	20 20                	and    BYTE PTR [bx+si],ah
-   1e9ec:	20 20                	and    BYTE PTR [bx+si],ah
-   1e9ee:	20 20                	and    BYTE PTR [bx+si],ah
-   1e9f0:	20 20                	and    BYTE PTR [bx+si],ah
-   1e9f2:	21 21                	and    WORD PTR [bx+di],sp
-   1e9f4:	21 21                	and    WORD PTR [bx+di],sp
-   1e9f6:	21 20                	and    WORD PTR [bx+si],sp
-   1e9f8:	20 20                	and    BYTE PTR [bx+si],ah
-   1e9fa:	20 20                	and    BYTE PTR [bx+si],ah
-   1e9fc:	20 20                	and    BYTE PTR [bx+si],ah
-   1e9fe:	20 20                	and    BYTE PTR [bx+si],ah
-   1ea00:	20 20                	and    BYTE PTR [bx+si],ah
-   1ea02:	20 20                	and    BYTE PTR [bx+si],ah
-   1ea04:	20 20                	and    BYTE PTR [bx+si],ah
-   1ea06:	20 20                	and    BYTE PTR [bx+si],ah
-   1ea08:	20 01                	and    BYTE PTR [bx+di],al
-   1ea0a:	40                   	inc    ax
-   1ea0b:	40                   	inc    ax
-   1ea0c:	40                   	inc    ax
-   1ea0d:	40                   	inc    ax
-   1ea0e:	40                   	inc    ax
-   1ea0f:	40                   	inc    ax
-   1ea10:	40                   	inc    ax
-   1ea11:	40                   	inc    ax
-   1ea12:	40                   	inc    ax
-   1ea13:	40                   	inc    ax
-   1ea14:	40                   	inc    ax
-   1ea15:	40                   	inc    ax
-   1ea16:	40                   	inc    ax
-   1ea17:	40                   	inc    ax
-   1ea18:	40                   	inc    ax
-   1ea19:	02 02                	add    al,BYTE PTR [bp+si]
-   1ea1b:	02 02                	add    al,BYTE PTR [bp+si]
-   1ea1d:	02 02                	add    al,BYTE PTR [bp+si]
-   1ea1f:	02 02                	add    al,BYTE PTR [bp+si]
-   1ea21:	02 02                	add    al,BYTE PTR [bp+si]
-   1ea23:	40                   	inc    ax
-   1ea24:	40                   	inc    ax
-   1ea25:	40                   	inc    ax
-   1ea26:	40                   	inc    ax
-   1ea27:	40                   	inc    ax
-   1ea28:	40                   	inc    ax
-   1ea29:	40                   	inc    ax
-   1ea2a:	14 14                	adc    al,0x14
-   1ea2c:	14 14                	adc    al,0x14
-   1ea2e:	14 14                	adc    al,0x14
-   1ea30:	04 04                	add    al,0x4
-   1ea32:	04 04                	add    al,0x4
-   1ea34:	04 04                	add    al,0x4
-   1ea36:	04 04                	add    al,0x4
-   1ea38:	04 04                	add    al,0x4
-   1ea3a:	04 04                	add    al,0x4
-   1ea3c:	04 04                	add    al,0x4
-   1ea3e:	04 04                	add    al,0x4
-   1ea40:	04 04                	add    al,0x4
-   1ea42:	04 04                	add    al,0x4
-   1ea44:	40                   	inc    ax
-   1ea45:	40                   	inc    ax
-   1ea46:	40                   	inc    ax
-   1ea47:	40                   	inc    ax
-   1ea48:	40                   	inc    ax
-   1ea49:	40                   	inc    ax
-   1ea4a:	18 18                	sbb    BYTE PTR [bx+si],bl
-   1ea4c:	18 18                	sbb    BYTE PTR [bx+si],bl
-   1ea4e:	18 18                	sbb    BYTE PTR [bx+si],bl
-   1ea50:	08 08                	or     BYTE PTR [bx+si],cl
-   1ea52:	08 08                	or     BYTE PTR [bx+si],cl
-   1ea54:	08 08                	or     BYTE PTR [bx+si],cl
-   1ea56:	08 08                	or     BYTE PTR [bx+si],cl
-   1ea58:	08 08                	or     BYTE PTR [bx+si],cl
-   1ea5a:	08 08                	or     BYTE PTR [bx+si],cl
-   1ea5c:	08 08                	or     BYTE PTR [bx+si],cl
-   1ea5e:	08 08                	or     BYTE PTR [bx+si],cl
-   1ea60:	08 08                	or     BYTE PTR [bx+si],cl
-   1ea62:	08 08                	or     BYTE PTR [bx+si],cl
-   1ea64:	40                   	inc    ax
-   1ea65:	40                   	inc    ax
-   1ea66:	40                   	inc    ax
-   1ea67:	40                   	inc    ax
-   1ea68:	20 00                	and    BYTE PTR [bx+si],al
-	...
-   1eaea:	00 02                	add    BYTE PTR [bp+si],al
-   1eaec:	02 02                	add    al,BYTE PTR [bp+si]
-   1eaee:	02 02                	add    al,BYTE PTR [bp+si]
-   1eaf0:	02 02                	add    al,BYTE PTR [bp+si]
-   1eaf2:	02 01                	add    al,BYTE PTR [bx+di]
-   1eaf4:	01 01                	add    WORD PTR [bx+di],ax
-   1eaf6:	01 01                	add    WORD PTR [bx+di],ax
-   1eaf8:	02 02                	add    al,BYTE PTR [bp+si]
-   1eafa:	02 02                	add    al,BYTE PTR [bp+si]
-   1eafc:	02 02                	add    al,BYTE PTR [bp+si]
-   1eafe:	02 02                	add    al,BYTE PTR [bp+si]
-   1eb00:	02 02                	add    al,BYTE PTR [bp+si]
-   1eb02:	02 02                	add    al,BYTE PTR [bp+si]
-   1eb04:	02 02                	add    al,BYTE PTR [bp+si]
-   1eb06:	02 02                	add    al,BYTE PTR [bp+si]
-   1eb08:	02 02                	add    al,BYTE PTR [bp+si]
-   1eb0a:	01 02                	add    WORD PTR [bp+si],ax
-   1eb0c:	02 02                	add    al,BYTE PTR [bp+si]
-   1eb0e:	02 03                	add    al,BYTE PTR [bp+di]
-   1eb10:	02 02                	add    al,BYTE PTR [bp+si]
-   1eb12:	02 02                	add    al,BYTE PTR [bp+si]
-   1eb14:	04 02                	add    al,0x2
-   1eb16:	02 02                	add    al,BYTE PTR [bp+si]
-   1eb18:	02 02                	add    al,BYTE PTR [bp+si]
-   1eb1a:	05 05 05             	add    ax,0x505
-   1eb1d:	05 05 05             	add    ax,0x505
-   1eb20:	05 05 05             	add    ax,0x505
-   1eb23:	05 02 02             	add    ax,0x202
-   1eb26:	02 02                	add    al,BYTE PTR [bp+si]
-   1eb28:	02 02                	add    al,BYTE PTR [bp+si]
-   1eb2a:	02 02                	add    al,BYTE PTR [bp+si]
-   1eb2c:	02 02                	add    al,BYTE PTR [bp+si]
-   1eb2e:	07                   	pop    es
-   1eb2f:	0a 15                	or     dl,BYTE PTR [di]
-   1eb31:	0a 0c                	or     cl,BYTE PTR [si]
-   1eb33:	09 02                	or     WORD PTR [bp+si],ax
-   1eb35:	02 0b                	add    cl,BYTE PTR [bp+di]
-   1eb37:	02 14                	add    dl,BYTE PTR [si]
-   1eb39:	0e                   	push   cs
-   1eb3a:	02 02                	add    al,BYTE PTR [bp+si]
-   1eb3c:	02 02                	add    al,BYTE PTR [bp+si]
-   1eb3e:	02 08                	add    cl,BYTE PTR [bx+si]
-   1eb40:	02 02                	add    al,BYTE PTR [bp+si]
-   1eb42:	12 02                	adc    al,BYTE PTR [bp+si]
-   1eb44:	02 10                	add    dl,BYTE PTR [bx+si]
-   1eb46:	02 10                	add    dl,BYTE PTR [bx+si]
-   1eb48:	02 02                	add    al,BYTE PTR [bp+si]
-   1eb4a:	02 02                	add    al,BYTE PTR [bp+si]
-   1eb4c:	02 06 07 0a          	add    al,BYTE PTR ds:0xa07
-   1eb50:	0a 0a                	or     cl,BYTE PTR [bp+si]
-   1eb52:	0c 09                	or     al,0x9
-   1eb54:	02 02                	add    al,BYTE PTR [bp+si]
-   1eb56:	0d 02 11             	or     ax,0x1102
-   1eb59:	0e                   	push   cs
-   1eb5a:	13 02                	adc    ax,WORD PTR [bp+si]
-   1eb5c:	02 0f                	add    cl,BYTE PTR [bx]
-   1eb5e:	02 08                	add    cl,BYTE PTR [bx+si]
-   1eb60:	02 02                	add    al,BYTE PTR [bp+si]
-   1eb62:	12 02                	adc    al,BYTE PTR [bp+si]
-   1eb64:	02 02                	add    al,BYTE PTR [bp+si]
-   1eb66:	02 02                	add    al,BYTE PTR [bp+si]
-   1eb68:	02 02                	add    al,BYTE PTR [bp+si]
-   1eb6a:	28 6e 75             	sub    BYTE PTR [bp+0x75],ch
-   1eb6d:	6c                   	ins    BYTE PTR es:[di],dx
-   1eb6e:	6c                   	ins    BYTE PTR es:[di],dx
-   1eb6f:	29 00                	sub    WORD PTR [bx+si],ax
-   1eb71:	00 14                	add    BYTE PTR [si],dl
-   1eb73:	14 01                	adc    al,0x1
-   1eb75:	14 15                	adc    al,0x15
-   1eb77:	14 14                	adc    al,0x14
-   1eb79:	14 14                	adc    al,0x14
-   1eb7b:	02 00                	add    al,BYTE PTR [bx+si]
-   1eb7d:	14 03                	adc    al,0x3
-   1eb7f:	04 14                	add    al,0x14
-   1eb81:	09 05                	or     WORD PTR [di],ax
-   1eb83:	05 05 05             	add    ax,0x505
-   1eb86:	05 05 05             	add    ax,0x505
-   1eb89:	05 05 14             	add    ax,0x1405
-   1eb8c:	14 14                	adc    al,0x14
-   1eb8e:	14 14                	adc    al,0x14
-   1eb90:	14 14                	adc    al,0x14
-   1eb92:	14 14                	adc    al,0x14
-   1eb94:	14 14                	adc    al,0x14
-   1eb96:	0f 17 0f             	movhps QWORD PTR [bx],xmm1
-   1eb99:	08 14                	or     BYTE PTR [si],dl
-   1eb9b:	14 14                	adc    al,0x14
-   1eb9d:	07                   	pop    es
-   1eb9e:	14 16                	adc    al,0x16
-   1eba0:	14 14                	adc    al,0x14
-   1eba2:	14 14                	adc    al,0x14
-   1eba4:	14 14                	adc    al,0x14
-   1eba6:	14 14                	adc    al,0x14
-   1eba8:	14 0d                	adc    al,0xd
-   1ebaa:	14 14                	adc    al,0x14
-   1ebac:	14 14                	adc    al,0x14
-   1ebae:	14 14                	adc    al,0x14
-   1ebb0:	14 14                	adc    al,0x14
-   1ebb2:	14 14                	adc    al,0x14
-   1ebb4:	10 0a                	adc    BYTE PTR [bp+si],cl
-   1ebb6:	0f                   	(bad)  
-   1ebb7:	0f                   	(bad)  
-   1ebb8:	0f 08                	invd   
-   1ebba:	0a 14                	or     dl,BYTE PTR [si]
-   1ebbc:	14 06                	adc    al,0x6
-   1ebbe:	14 12                	adc    al,0x12
-   1ebc0:	0b 0e 14 14          	or     cx,WORD PTR ds:0x1414
-   1ebc4:	11 14                	adc    WORD PTR [si],dx
-   1ebc6:	0c 14                	or     al,0x14
-   1ebc8:	14 0d                	adc    al,0xd
-   1ebca:	14 14                	adc    al,0x14
-   1ebcc:	14 14                	adc    al,0x14
-   1ebce:	14 14                	adc    al,0x14
-   1ebd0:	14 00                	adc    al,0x0
-	...
-   1ebde:	00 04                	add    BYTE PTR [si],al
-   1ebe0:	00 04                	add    BYTE PTR [si],al
-   1ebe2:	00 04                	add    BYTE PTR [si],al
-   1ebe4:	00 00                	add    BYTE PTR [bx+si],al
-   1ebe6:	02 00                	add    al,BYTE PTR [bx+si]
-	...
-   1ebf4:	00 01                	add    BYTE PTR [bx+di],al
-   1ebf6:	00 49 6e             	add    BYTE PTR [bx+di+0x6e],cl
-   1ebf9:	66 6f                	outs   dx,DWORD PTR ds:[si]
-   1ebfb:	74 65                	je     0x1ec62
-   1ebfd:	63 20                	arpl   WORD PTR [bx+si],sp
-   1ebff:	4b                   	dec    bx
-   1ec00:	33 20                	xor    sp,WORD PTR [bx+si]
-   1ec02:	3a 20                	cmp    ah,BYTE PTR [bx+si]
-   1ec04:	56                   	push   si
-   1ec05:	31 2e 39 00          	xor    WORD PTR ds:0x39,bp
-   1ec09:	49                   	dec    cx
-   1ec0a:	6e                   	outs   dx,BYTE PTR ds:[si]
-   1ec0b:	66 6f                	outs   dx,DWORD PTR ds:[si]
-   1ec0d:	74 65                	je     0x1ec74
-   1ec0f:	63 20                	arpl   WORD PTR [bx+si],sp
-   1ec11:	4b                   	dec    bx
-   1ec12:	33 20                	xor    sp,WORD PTR [bx+si]
-   1ec14:	3a 20                	cmp    ah,BYTE PTR [bx+si]
-   1ec16:	56                   	push   si
-   1ec17:	31 2e 39 00          	xor    WORD PTR ds:0x39,bp
-   1ec1b:	00 14                	add    BYTE PTR [si],dl
-   1ec1d:	00 08                	add    BYTE PTR [bx+si],cl
-   1ec1f:	00 20                	add    BYTE PTR [bx+si],ah
-   1ec21:	00 40 00             	add    BYTE PTR [bx+si+0x0],al
-   1ec24:	60                   	pusha  
-   1ec25:	00 80 00 a0          	add    BYTE PTR [bx+si-0x6000],al
-   1ec29:	00 c0                	add    al,al
-   1ec2b:	00 e0                	add    al,ah
-   1ec2d:	00 58 02             	add    BYTE PTR [bx+si+0x2],bl
-   1ec30:	b0 04                	mov    al,0x4
-   1ec32:	60                   	pusha  
-   1ec33:	09 c0                	or     ax,ax
-   1ec35:	12 80 25 00          	adc    al,BYTE PTR [bx+si+0x25]
-   1ec39:	4b                   	dec    bx
-   1ec3a:	00 96 00 00          	add    BYTE PTR [bp+0x0],dl
-   1ec3e:	53                   	push   bx
-   1ec3f:	75 6e                	jne    0x1ecaf
-   1ec41:	64                   	fs
-   1ec42:	61                   	popa   
-   1ec43:	79 00                	jns    0x1ec45
-   1ec45:	00 00                	add    BYTE PTR [bx+si],al
-   1ec47:	00 4d 6f             	add    BYTE PTR [di+0x6f],cl
-   1ec4a:	6e                   	outs   dx,BYTE PTR ds:[si]
-   1ec4b:	64                   	fs
-   1ec4c:	61                   	popa   
-   1ec4d:	79 00                	jns    0x1ec4f
-   1ec4f:	00 00                	add    BYTE PTR [bx+si],al
-   1ec51:	00 54 75             	add    BYTE PTR [si+0x75],dl
-   1ec54:	65                   	gs
-   1ec55:	73 64                	jae    0x1ecbb
-   1ec57:	61                   	popa   
-   1ec58:	79 00                	jns    0x1ec5a
-   1ec5a:	00 00                	add    BYTE PTR [bx+si],al
-   1ec5c:	57                   	push   di
-   1ec5d:	65 64 6e             	outs   dx,BYTE PTR fs:gs:[si]
-   1ec60:	65                   	gs
-   1ec61:	73 64                	jae    0x1ecc7
-   1ec63:	61                   	popa   
-   1ec64:	79 00                	jns    0x1ec66
-   1ec66:	54                   	push   sp
-   1ec67:	68 75 72             	push   0x7275
-   1ec6a:	73 64                	jae    0x1ecd0
-   1ec6c:	61                   	popa   
-   1ec6d:	79 00                	jns    0x1ec6f
-   1ec6f:	00 46 72             	add    BYTE PTR [bp+0x72],al
-   1ec72:	69 64 61 79 00       	imul   sp,WORD PTR [si+0x61],0x79
-   1ec77:	00 00                	add    BYTE PTR [bx+si],al
-   1ec79:	00 53 61             	add    BYTE PTR [bp+di+0x61],dl
-   1ec7c:	74 75                	je     0x1ecf3
-   1ec7e:	72 64                	jb     0x1ece4
-   1ec80:	61                   	popa   
-   1ec81:	79 00                	jns    0x1ec83
-	...
-   1ec8b:	00 00                	add    BYTE PTR [bx+si],al
-   1ec8d:	00 4a 61             	add    BYTE PTR [bp+si+0x61],cl
-   1ec90:	6e                   	outs   dx,BYTE PTR ds:[si]
-   1ec91:	75 61                	jne    0x1ecf4
-   1ec93:	72 79                	jb     0x1ed0e
-   1ec95:	00 00                	add    BYTE PTR [bx+si],al
-   1ec97:	00 46 65             	add    BYTE PTR [bp+0x65],al
-   1ec9a:	62 72 75             	bound  si,DWORD PTR [bp+si+0x75]
-   1ec9d:	61                   	popa   
-   1ec9e:	72 79                	jb     0x1ed19
-   1eca0:	00 00                	add    BYTE PTR [bx+si],al
-   1eca2:	4d                   	dec    bp
-   1eca3:	61                   	popa   
-   1eca4:	72 63                	jb     0x1ed09
-   1eca6:	68 00 00             	push   0x0
-   1eca9:	00 00                	add    BYTE PTR [bx+si],al
-   1ecab:	00 41 70             	add    BYTE PTR [bx+di+0x70],al
-   1ecae:	72 69                	jb     0x1ed19
-   1ecb0:	6c                   	ins    BYTE PTR es:[di],dx
-   1ecb1:	00 00                	add    BYTE PTR [bx+si],al
-   1ecb3:	00 00                	add    BYTE PTR [bx+si],al
-   1ecb5:	00 4d 61             	add    BYTE PTR [di+0x61],cl
-   1ecb8:	79 00                	jns    0x1ecba
-   1ecba:	00 00                	add    BYTE PTR [bx+si],al
-   1ecbc:	00 00                	add    BYTE PTR [bx+si],al
-   1ecbe:	00 00                	add    BYTE PTR [bx+si],al
-   1ecc0:	4a                   	dec    dx
-   1ecc1:	75 6e                	jne    0x1ed31
-   1ecc3:	65 00 00             	add    BYTE PTR gs:[bx+si],al
-   1ecc6:	00 00                	add    BYTE PTR [bx+si],al
-   1ecc8:	00 00                	add    BYTE PTR [bx+si],al
-   1ecca:	4a                   	dec    dx
-   1eccb:	75 6c                	jne    0x1ed39
-   1eccd:	79 00                	jns    0x1eccf
-   1eccf:	00 00                	add    BYTE PTR [bx+si],al
-   1ecd1:	00 00                	add    BYTE PTR [bx+si],al
-   1ecd3:	00 41 75             	add    BYTE PTR [bx+di+0x75],al
-   1ecd6:	67 75 73             	addr32 jne 0x1ed4c
-   1ecd9:	74 00                	je     0x1ecdb
-   1ecdb:	00 00                	add    BYTE PTR [bx+si],al
-   1ecdd:	00 53 65             	add    BYTE PTR [bp+di+0x65],dl
-   1ece0:	70 74                	jo     0x1ed56
-   1ece2:	65                   	gs
-   1ece3:	6d                   	ins    WORD PTR es:[di],dx
-   1ece4:	62 65 72             	bound  sp,DWORD PTR [di+0x72]
-   1ece7:	00 4f 63             	add    BYTE PTR [bx+0x63],cl
-   1ecea:	74 6f                	je     0x1ed5b
-   1ecec:	62 65 72             	bound  sp,DWORD PTR [di+0x72]
-   1ecef:	00 00                	add    BYTE PTR [bx+si],al
-   1ecf1:	00 4e 6f             	add    BYTE PTR [bp+0x6f],cl
-   1ecf4:	76 65                	jbe    0x1ed5b
-   1ecf6:	6d                   	ins    WORD PTR es:[di],dx
-   1ecf7:	62 65 72             	bound  sp,DWORD PTR [di+0x72]
-   1ecfa:	00 00                	add    BYTE PTR [bx+si],al
-   1ecfc:	44                   	inc    sp
-   1ecfd:	65 63 65 6d          	arpl   WORD PTR gs:[di+0x6d],sp
-   1ed01:	62 65 72             	bound  sp,DWORD PTR [di+0x72]
-   1ed04:	00 00                	add    BYTE PTR [bx+si],al
-   1ed06:	00 00                	add    BYTE PTR [bx+si],al
-   1ed08:	00 73 74             	add    BYTE PTR [bp+di+0x74],dh
-   1ed0b:	00 6e 64             	add    BYTE PTR [bp+0x64],ch
-   1ed0e:	00 72 64             	add    BYTE PTR [bp+si+0x64],dh
-   1ed11:	00 74 68             	add    BYTE PTR [si+0x68],dh
-   1ed14:	00 74 68             	add    BYTE PTR [si+0x68],dh
-   1ed17:	00 74 68             	add    BYTE PTR [si+0x68],dh
-   1ed1a:	00 74 68             	add    BYTE PTR [si+0x68],dh
-   1ed1d:	00 74 68             	add    BYTE PTR [si+0x68],dh
-   1ed20:	00 74 68             	add    BYTE PTR [si+0x68],dh
-   1ed23:	00 74 68             	add    BYTE PTR [si+0x68],dh
-   1ed26:	00 74 68             	add    BYTE PTR [si+0x68],dh
-   1ed29:	00 74 68             	add    BYTE PTR [si+0x68],dh
-   1ed2c:	00 74 68             	add    BYTE PTR [si+0x68],dh
-   1ed2f:	00 74 68             	add    BYTE PTR [si+0x68],dh
-   1ed32:	00 74 68             	add    BYTE PTR [si+0x68],dh
-   1ed35:	00 74 68             	add    BYTE PTR [si+0x68],dh
-   1ed38:	00 74 68             	add    BYTE PTR [si+0x68],dh
-   1ed3b:	00 74 68             	add    BYTE PTR [si+0x68],dh
-   1ed3e:	00 74 68             	add    BYTE PTR [si+0x68],dh
-   1ed41:	00 74 68             	add    BYTE PTR [si+0x68],dh
-   1ed44:	00 73 74             	add    BYTE PTR [bp+di+0x74],dh
-   1ed47:	00 6e 64             	add    BYTE PTR [bp+0x64],ch
-   1ed4a:	00 72 64             	add    BYTE PTR [bp+si+0x64],dh
-   1ed4d:	00 74 68             	add    BYTE PTR [si+0x68],dh
-   1ed50:	00 74 68             	add    BYTE PTR [si+0x68],dh
-   1ed53:	00 74 68             	add    BYTE PTR [si+0x68],dh
-   1ed56:	00 74 68             	add    BYTE PTR [si+0x68],dh
-   1ed59:	00 74 68             	add    BYTE PTR [si+0x68],dh
-   1ed5c:	00 74 68             	add    BYTE PTR [si+0x68],dh
-   1ed5f:	00 74 68             	add    BYTE PTR [si+0x68],dh
-   1ed62:	00 73 74             	add    BYTE PTR [bp+di+0x74],dh
-   1ed65:	00 00                	add    BYTE PTR [bx+si],al
-   1ed67:	00 40 02             	add    BYTE PTR [bx+si+0x2],al
-   1ed6a:	00 00                	add    BYTE PTR [bx+si],al
-   1ed6c:	00 00                	add    BYTE PTR [bx+si],al
-   1ed6e:	00 00                	add    BYTE PTR [bx+si],al
-   1ed70:	00 01                	add    BYTE PTR [bx+di],al
-   1ed72:	01 d0                	add    ax,dx
-   1ed74:	07                   	pop    es
-   1ed75:	00 1f                	add    BYTE PTR [bx],bl
-   1ed77:	00 1c                	add    BYTE PTR [si],bl
-   1ed79:	00 1f                	add    BYTE PTR [bx],bl
-   1ed7b:	00 1e 00 1f          	add    BYTE PTR ds:0x1f00,bl
-   1ed7f:	00 1e 00 1f          	add    BYTE PTR ds:0x1f00,bl
-   1ed83:	00 1f                	add    BYTE PTR [bx],bl
-   1ed85:	00 1e 00 1f          	add    BYTE PTR ds:0x1f00,bl
-   1ed89:	00 1e 00 1f          	add    BYTE PTR ds:0x1f00,bl
-   1ed8d:	00 25                	add    BYTE PTR [di],ah
-   1ed8f:	32 64 3a             	xor    ah,BYTE PTR [si+0x3a]
-   1ed92:	25 30 32             	and    ax,0x3230
-   1ed95:	64                   	fs
-   1ed96:	2e                   	cs
-   1ed97:	25 30 32             	and    ax,0x3230
-   1ed9a:	64 00 25             	add    BYTE PTR fs:[di],ah
-   1ed9d:	64                   	fs
-   1ed9e:	5c                   	pop    sp
-   1ed9f:	25 64 5c             	and    ax,0x5c64
-   1eda2:	25 30 32             	and    ax,0x3230
-   1eda5:	64 00 25             	add    BYTE PTR fs:[di],ah
-   1eda8:	64                   	fs
-   1eda9:	5c                   	pop    sp
-   1edaa:	25 64 5c             	and    ax,0x5c64
-   1edad:	25 30 32             	and    ax,0x3230
-   1edb0:	64 00 25             	add    BYTE PTR fs:[di],ah
-   1edb3:	73 20                	jae    0x1edd5
-   1edb5:	25 64 25             	and    ax,0x2564
-   1edb8:	73 20                	jae    0x1edda
-   1edba:	25 73 20             	and    ax,0x2073
-   1edbd:	25 64 00             	and    ax,0x64
-   1edc0:	25 2e 33             	and    ax,0x332e
-   1edc3:	73 20                	jae    0x1ede5
-   1edc5:	25 32 64             	and    ax,0x6432
-   1edc8:	25 73 20             	and    ax,0x2073
-   1edcb:	25 2e 33             	and    ax,0x332e
-   1edce:	73 20                	jae    0x1edf0
-   1edd0:	25 34 64             	and    ax,0x6434
-   1edd3:	00 40 00             	add    BYTE PTR [bx+si+0x0],al
-   1edd6:	32 64 25             	xor    ah,BYTE PTR [si+0x25]
-   1edd9:	73 20                	jae    0x1edfb
-   1eddb:	25 2e 33             	and    ax,0x332e
-   1edde:	73 20                	jae    0x1ee00
-	...
+0001cdbe  fb44                                     |D.|
+0001cdc0  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+0001cdd0  0101 000b f8e0 0000 0000 0000 0000 0000  |................|
+0001cde0  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+0001cdf0  55aa 1800 0000 0201 0804 2010 8040 0000  |.U......... @...|
+0001ce00  465e 2531 0064 0000 0000 0000 0000 0000  |^F1%d...........|
+0001ce10  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+0001ce20  0000 0000 0000 0000 0000 0000 0000 3e00  |...............>|
+0001ce30  5250 3023 3023 2330 3025 6432 252c 3230  |PR#0#00#%02d,%02|
+0001ce40  2c64 3025 6432 2523 3230 2c64 3025 6432  |d,%02d#%02d,%02d|
+0001ce50  252c 3430 2c64 6425 0023 3025 5832 003c  |,%04d,%d#.%02X<.|
+0001ce60  7325 7325 0000 0000 0000 0000 0000 0000  |%s%s............|
+0001ce70  6c25 0064 3025 6432 2500 3230 0064 3025  |%ld.%02d.%02d.%0|
+0001ce80  6432 2500 6432 2500 6432 437e 2500 6432  |2d.%2d.%2d~C.%2d|
+0001ce90  467e 2500 6432 2500 3230 0064 3025 6432  |~F.%2d.%02d.%02d|
+0001cea0  2500 3230 0064 3025 6432 2500 3230 0064  |.%02d.%02d.%02d.|
+0001ceb0  3025 6432 2500 3230 0064 2e25 7333 2500  |%02d.%02d.%.3s.%|
+0001cec0  0073 3225 0064 7325 2500 3230 0064 2e25  |s.%2d.%s.%02d.%.|
+0001ced0  7333 2500 0073 3025 6432 2500 3230 0064  |3s.%s.%02d.%02d.|
+0001cee0  3425 0064 3025 6432 2500 3230 0064 3025  |%4d.%02d.%02d.%0|
+0001cef0  6432 2500 3230 0064 3025 6432 2500 3230  |2d.%02d.%02d.%02|
+0001cf00  0064 3025 6432 2500 3230 0064 3025 6432  |d.%02d.%02d.%02d|
+0001cf10  5600 2e37 0033 3325 0064 2b2b 002b 3225  |.V7.3.%3d.+++.%2|
+0001cf20  2f64 3025 6432 252f 3230 0064 3225 3a64  |d/%02d/%02d.%2d:|
+0001cf30  3025 6432 2500 6432 253a 3230 5e64 2e54  |%02d.%2d:%02d^T.|
+0001cf40  545e 3025 6432 2500 6433 2500 3230 6858  |^T%02d.%3d.%02Xh|
+0001cf50  0000 2000 0000 0100 0000 0000 0000 0000  |... ............|
+0001cf60  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+0001cf70  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+0001cf80  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+0001cf90  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+0001cfa0  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+0001cfb0  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+0001cfc0  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+0001cfd0  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+0001cfe0  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+0001cff0  0000 0000 0000 0000 0000 0100 bc01 0207  |................|
+0001d000  0000 0000 0fff 090c 0306 0101 3756 332e  |............V7.3|
+0001d010  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+0001d020  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+0001d030  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+0001d040  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+0001d050  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+0001d060  0000 2c00 0020 3025 6432 253a 3230 0064  |..., .%02d:%02d.|
+0001d070  4625 2073 6e4f 796c 2600 2520 7346 2500  |%Fs Only.& %Fs.%|
+0001d080  7346 4300 6c61 6465 6e6f 6169 206e 6c53  |Fs.Caledonian Sl|
+0001d090  6565 6570 0072 0000 4625 2073 6e6f 796c  |eeper...%Fs only|
+0001d0a0  002e 6120 646e 2520 7346 002e 0000 7246  |.. and %Fs....Fr|
+0001d0b0  6e6f 2074 6f63 6361 6568 3a73 4600 6f72  |ont coaches:.Fro|
+0001d0c0  746e 2520 2064 6f63 6361 6568 3a73 5200  |nt %d coaches:.R|
+0001d0d0  6165 2072 6f63 6361 6568 3a73 5200 6165  |ear coaches:.Rea|
+0001d0e0  2072 6425 6320 616f 6863 7365 003a 5542  |r %d coaches:.BU|
+0001d0f0  0053 5551 5545 0045 7325 4625 2073 2500  |S.QUEUE.%s%Fs .%|
+0001d100  2573 7346 0000 7325 4625 0073 0000 7325  |s%Fs..%s%Fs...%s|
+0001d110  4625 0073 2500 2573 7346 0a00 540d 6d69  |%Fs..%s%Fs...Tim|
+0001d120  2065 203d 3025 6432 253a 3230 2e64 3025  |e = %02d:%02d.%0|
+0001d130  6432 0d0a 0a00 000d 6954 656d 3d20 2520  |2d......Time = %|
+0001d140  3230 3a64 3025 6432 252e 3230 2064 202d  |02d:%02d.%02d - |
+0001d150  6f50 6c6c 4d20 7365 6173 6567 0d0a 5400  |Poll Message...T|
+0001d160  6d69 2065 7055 6164 6574 2064 203d 3025  |ime Updated = %0|
+0001d170  6432 253a 3230 2e64 3025 6432 0d0a 2500  |2d:%02d.%02d...%|
+0001d180  0063 6325 4e00 6d75 6562 2072 664f 5420  |c.%c.Number Of T|
+0001d190  6172 6e69 2073 203d 6425 0d0a 2800 414d  |rains = %d...(MA|
+0001d1a0  4f4a 2052 5055 4144 4554 0a29 000d 4d28  |JOR UPDATE)...(M|
+0001d1b0  6e69 726f 5520 6470 7461 2965 0d0a 0000  |inor Update)....|
+0001d1c0  5254 4941 204e 6425 0d0a 2d00 2d2d 2d2d  |TRAIN %d...-----|
+0001d1d0  2d2d 0d0a 5400 6172 6e69 4420 7365 6974  |--...Train Desti|
+0001d1e0  616e 6974 6e6f 2073 203d 4625 2f73 4625  |nations = %Fs/%F|
+0001d1f0  0a73 000d 7254 6961 206e 724f 6769 6e69  |s...Train Origin|
+0001d200  2073 2020 2020 3d20 2520 7346 252f 7346  |s      = %Fs/%Fs|
+0001d210  0d0a 5000 616c 6674 726f 206d 2020 2020  |...Platform     |
+0001d220  2020 2020 2020 203d 4625 0a73 000d 6353  |      = %Fs...Sc|
+0001d230  6568 7564 656c 4420 7065 7261 7574 6572  |hedule Departure|
+0001d240  3d20 2520 7346 0d0a 4500 7078 6365 6574  | = %Fs...Expecte|
+0001d250  2064 7254 6961 206e 6544 2070 203d 4625  |d Train Dep = %F|
+0001d260  0a73 000d 6353 6568 7564 656c 4120 7272  |s...Schedule Arr|
+0001d270  7669 6c61 2020 3d20 2520 7346 0d0a 4500  |ival   = %Fs...E|
+0001d280  7078 6365 6574 2064 7254 6961 206e 7241  |xpected Train Ar|
+0001d290  2072 203d 4625 0a73 000d 7254 6961 206e  |r = %Fs...Train |
+0001d2a0  704f 7265 7461 726f 2020 2020 3d20 2520  |Operator     = %|
+0001d2b0  7346 0d0a 4300 6d6f 656d 746e 3120 2020  |Fs...Comment 1  |
+0001d2c0  2020 2020 2020 2020 203d 4625 0a73 000d  |        = %Fs...|
+0001d2d0  6f43 6d6d 6e65 2074 2032 2020 2020 2020  |Comment 2       |
+0001d2e0  2020 3d20 2520 7346 0d0a 0a00 440d 7065  |   = %Fs.....Dep|
+0001d2f0  7261 2074 5420 6172 6e69 5320 6174 7574  |art  Train Statu|
+0001d300  2073 203d 4f00 206e 6974 656d 4c00 7461  |s = .On time.Lat|
+0001d310  0065 6143 636e 6c65 656c 0064 6544 616c  |e.Cancelled.Dela|
+0001d320  6579 0064 6f4e 2074 6544 6966 656e 0064  |yed.Not Defined.|
+0001d330  0d0a 7241 6972 6176 206c 7254 6961 206e  |..Arrival Train |
+0001d340  7453 7461 7375 3d20 0020 6e4f 7420 6d69  |Status = .On tim|
+0001d350  0065 614c 6574 4300 6e61 6563 6c6c 6465  |e.Late.Cancelled|
+0001d360  4400 6c65 7961 6465 4e00 746f 4420 6665  |.Delayed.Not Def|
+0001d370  6e69 6465 0a00 500d 616c 6674 726f 206d  |ined...Platform |
+0001d380  7453 7461 7375 2020 2020 2020 203d 4100  |Status      = .A|
+0001d390  7373 6769 656e 0064 7542 0073 6f4e 2074  |ssigned.Bus.Not |
+0001d3a0  7341 6973 6e67 6465 0a00 500d 616c 6674  |Assigned...Platf|
+0001d3b0  726f 206d 6843 6e61 6567 2020 2020 2020  |orm Change      |
+0001d3c0  203d 4e00 006f 6559 0073 6f4e 2074 6544  |= .No.Yes.Not De|
+0001d3d0  6966 656e 0064 0d0a 7053 696c 7474 6e69  |fined...Splittin|
+0001d3e0  2067 7254 6961 206e 2020 2020 3d20 0020  |g Train      = .|
+0001d3f0  6559 0a73 000d 6f4e 0d0a 0000 0000 0000  |Yes...No........|
+0001d400  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+0001d410  0000 0000 0000 0000 0000 0000 0000 8000  |................|
+0001d420  0000 8105 0000 8201 0002 8302 0001 8401  |................|
+0001d430  0001 8500 0001 8600 0000 8700 0000 8800  |................|
+0001d440  0000 8901 0000 8a00 0000 8b00 0000 8c03  |................|
+0001d450  0000 8d03 0001 8e01 0101 8f00 0001 3001  |...............0|
+0001d460  0100 3102 0000 3200 0100 3302 0100 3403  |...1...2...3...4|
+0001d470  0000 3501 0100 3603 0100 0002 0101 0103  |...5...6........|
+0001d480  0101 0201 0101 0302 0101 0403 0001 0501  |................|
+0001d490  0001 0601 0001 0701 0001 0801 0101 0901  |................|
+0001d4a0  0000 0a01 0101 0b01 0001 0c03 0101 4002  |...............@|
+0001d4b0  0101 4101 0101 4203 0000 4301 0001 4401  |...A...B...C...D|
+0001d4c0  0001 4500 0101 4601 0101 5001 0001 5100  |...E...F...P...Q|
+0001d4d0  0001 5200 0001 5300 0002 5401 0001 5500  |...R...S...T...U|
+0001d4e0  0001 5600 0001 5702 0001 5800 0001 5902  |...V...W...X...Y|
+0001d4f0  0001 5a01 0001 5b02 0001 5c00 0002 5d02  |...Z...[...\...]|
+0001d500  0000 5e00 0001 6001 0000 6105 0000 6202  |...^...`...a...b|
+0001d510  0000 6303 0000 6403 0000 7001 0000 7103  |...c...d...p...q|
+0001d520  0000 7202 0000 7301 0000 7401 0000 7501  |...r...s...t...u|
+0001d530  0000 7602 0000 7703 0000 7803 0001 7902  |...v...w...x...y|
+0001d540  0000 7a01 0001 f001 0000 f100 0001 f200  |...z............|
+0001d550  0002 f301 0000 f400 0000 f500 0000 f600  |................|
+0001d560  0000 f700 0000 f800 0000 f901 0000 fa01  |................|
+0001d570  0000 fb01 0000 fc02 0001 a000 0100 a102  |................|
+0001d580  0100 a202 0000 a300 0000 a400 0000 a501  |................|
+0001d590  0000 a602 0000 9003 0000 9100 0000 9200  |................|
+0001d5a0  0000 9300 0000 b000 0000 b103 0000 b201  |................|
+0001d5b0  0000 b302 0000 b403 0100 0001 0010 0007  |................|
+0001d5c0  000d 0007 000f 0005 000d 000b 0004 0007  |................|
+0001d5d0  0005 0000 0000 0000 0000 0000 0000 0000  |................|
+0001d5e0  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+0001d5f0  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+0001d600  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+0001d610  0000 0000 0000 0000 0000 2500 3230 0058  |...........%02X.|
+0001d620  3025 5832 002c 2c00 3e00 3025 5832 2523  |%02X,..,.>%02X#%|
+0001d630  3230 2358 3025 5832 2523 2373 2500 2573  |02X#%02X#%s#.%s%|
+0001d640  3230 3c58 0000 0805 7f20 0101 0004 0000  |02X<.... .......|
+0001d650  0000 0003 be00 0000 0004 0006 0006 2805  |...............(|
+0001d660  287c 287c 9005 92fc 8492 4405 1020 4408  ||(|(.......D ..D|
+0001d670  7405 9a8a 9064 0003 0600 0000 3803 8244  |.t..d........8D.|
+0001d680  0000 8203 3844 0000 5405 fe38 5438 1005  |....D8...T8.8T..|
+0001d690  7c10 1010 8002 0060 0000 1005 1010 1010  |.|....`.........|
+0001d6a0  8001 0000 0000 4005 1020 0408 7c05 8282  |.......@ ....|..|
+0001d6b0  7c82 8403 80fe 0000 8405 a2c2 8c92 4405  |.|.............D|
+0001d6c0  9282 6c92 3005 2428 20fe 4e05 8a8a 728a  |...l.0($. .N...r|
+0001d6d0  7c05 9292 6492 0205 f202 060a 6c05 9292  |.|...d.......l..|
+0001d6e0  6c92 4c05 9292 7c92 2401 0000 0000 8002  |.l.L...|.$......|
+0001d6f0  0064 0000 1004 4428 0082 2804 2828 0028  |d.....(D...((((.|
+0001d700  8204 2844 0010 0405 b202 040a 7c05 ba82  |..D(.........|..|
+0001d710  bcaa fc05 1212 fc12 fe05 9292 6c92 7c05  |.............l.||
+0001d720  8282 4482 fe05 8282 7c82 fe05 9292 8292  |...D.....|......|
+0001d730  fe05 1212 0212 7c05 9282 7492 fe05 1010  |.......|...t....|
+0001d740  fe10 8203 82fe 0000 4005 8282 027e fe05  |.........@..~...|
+0001d750  2810 8244 fe05 8080 8080 fe05 0804 fe04  |.(D.............|
+0001d760  fe05 0804 fe10 7c05 8282 7c82 fe05 1212  |.......|...|....|
+0001d770  0c12 7c05 a282 bc42 fe05 3212 8c52 4c05  |...|..B....2R..L|
+0001d780  9292 6492 0205 fe02 0202 7e05 8080 7e80  |...d.......~...~|
+0001d790  3e05 8040 3e40 fe05 3040 fe40 c605 1028  |.>@.@>..@0@...(.|
+0001d7a0  c628 0605 f008 0608 c205 92a2 868a fe03  |(...............|
+0001d7b0  8282 0000 0405 1008 4020 8203 fe82 0000  |........ @......|
+0001d7c0  0403 0402 0000 8005 8080 8080 0602 0008  |................|
+0001d7d0  0000 4005 a8a8 f0a8 fe05 8888 7088 7005  |...@.........p.p|
+0001d7e0  8888 5088 7005 8888 fe88 7005 a8a8 30a8  |...P.p.....p...0|
+0001d7f0  1004 12fc 0004 9005 a8a8 70a8 fe05 0808  |...........p....|
+0001d800  f008 8803 80fa 0000 8003 7a80 0000 fe04  |...........z....|
+0001d810  5020 0088 8203 80fe 0000 f805 3008 f008  | P...........0..|
+0001d820  f805 0810 f008 7005 8888 7088 f805 4828  |.......p...p..(H|
+0001d830  3048 3005 4848 f828 f805 0810 1008 9005  |H0.0HH(.........|
+0001d840  a8a8 48a8 0804 887e 0080 7805 8080 7880  |...H..~....x...x|
+0001d850  3805 8040 3840 7805 7080 7880 8805 2050  |.8@.@8.x.p.x..P |
+0001d860  8850 9805 a0a0 7890 8805 a8c8 8898 ff05  |P......x........|
+0001d870  ffff ffff 7c05 aaaa 4482 5505 55aa 55aa  |.....|...D.U.U.U|
+0001d880  0e03 0e0a 0000 0000 0000 0000 0807 7f20  |.............. .|
+0001d890  0101 0006 0000 0000 0000 0005 be0c 0cbe  |................|
+0001d8a0  0000 0e05 000e 0e0e 0000 2807 fefe fe28  |...........(..(.|
+0001d8b0  28fe 9007 fefc 8292 8486 4607 70e6 1c38  |.(.........F.p8.|
+0001d8c0  c4ce 7407 9afe eeba a044 0003 0e0e 0000  |...t....D.......|
+0001d8d0  0000 3804 c67c 0082 0000 8204 7cc6 0038  |...8|........|8.|
+0001d8e0  0000 1007 3854 38fe 1054 1006 7c10 107c  |....T8.8T....||.|
+0001d8f0  0010 8003 60e0 0000 0000 1006 1010 1010  |.....`..........|
+0001d900  0010 6002 0060 0000 0000 4006 3060 0c18  |...``......@`0..|
+0001d910  0004 7c07 82fe 8282 7cfe 8404 fefe 0080  |...|.....|......|
+0001d920  0000 e407 92f6 9292 8c9e 4407 82c6 9292  |...........D....|
+0001d930  6cfe 3007 2c38 fe26 20fe 4e07 8ace 8a8a  |.l.08,&.. .N....|
+0001d940  72fa 7c07 92fe 9292 64f6 0207 e202 1af2  |.r.|.....d......|
+0001d950  060e 6c07 92fe 9292 6cfe 4c07 92de 9292  |...l.....l.L....|
+0001d960  7cfe 0003 2424 0000 0000 0003 3454 0000  |.|..$$......T4..|
+0001d970  0000 1005 6c38 82c6 0000 2806 2828 2828  |....8l.....(((((|
+0001d980  0028 8205 6cc6 1038 0000 0407 d206 0ada  |(....l8.........|
+0001d990  040e 7c07 82fe a29e 1cbe fc07 12fe 1212  |...|............|
+0001d9a0  fcfe fe07 92fe 9292 6cfe 7c07 82fe 8282  |.........l.|....|
+0001d9b0  44c6 fe07 82fe c682 387c fe07 92fe 9292  |.D......|8......|
+0001d9c0  8292 fe07 12fe 1212 0212 7c07 82fe 9292  |...........|....|
+0001d9d0  74f6 fe07 10fe 1010 fefe 8206 fe82 82fe  |.t..............|
+0001d9e0  0082 4007 80c0 8282 7efe fe07 10fe 6c38  |...@.....~....8l|
+0001d9f0  82c6 fe06 80fe 8080 0080 fe07 0cfe 0c18  |................|
+0001da00  fefe fe07 0cfe 3018 fefe 7c07 82fe 8282  |.......0...|....|
+0001da10  7cfe fe07 12fe 1212 0c1e 7c07 82fe c282  |.|.........|....|
+0001da20  bc7e fe07 12fe 3212 ecfe 4c07 92de 9292  |~......2...L....|
+0001da30  64f6 0206 fe02 02fe 0002 7e07 80fe 8080  |.d.........~....|
+0001da40  7efe 1e07 703e 70e0 1e3e fe07 60fe 6030  |.~..>p.p>....`0`|
+0001da50  fefe c607 38ee 3810 c6ee 0e06 f01e 1ef0  |.....8.8........|
+0001da60  000e c207 b2e2 8e9a 8286 fe05 82fe 8282  |................|
+0001da70  0000 0406 180c 6030 0040 8205 8282 fefe  |......0`@.......|
+0001da80  0000 0805 060c 080c 0000 8007 8080 8080  |................|
+0001da90  8080 0e02 0016 0000 0000 4007 a8e8 a8a8  |...........@....|
+0001daa0  f0f8 fe07 88fe 8888 70f8 7007 88f8 8888  |.........p.p....|
+0001dab0  50d8 7007 88f8 8888 fefe 7007 a8f8 a8a8  |.P.p.......p....|
+0001dac0  30b8 0805 fefc 020a 0000 1007 a8b8 a8a8  |.0..............|
+0001dad0  70f8 fe07 08fe 0808 f0f8 8804 fafa 0080  |.p..............|
+0001dae0  0000 4006 80c0 fa88 007a fe06 20fe d870  |...@....z.... p.|
+0001daf0  0088 8204 fefe 0080 0000 f007 18f8 1870  |..............p.|
+0001db00  f0f8 f807 10f8 0818 f0f8 7007 88f8 8888  |...........p....|
+0001db10  70f8 f807 28f8 4868 3078 3007 4878 2868  |.p...(hHx0.0xHh(|
+0001db20  f8f8 f807 10f8 0818 1018 1007 a8b8 a8a8  |................|
+0001db30  40e8 0806 fe7e c088 0040 7807 80f8 8080  |.@..~...@..x....|
+0001db40  78f8 1807 6038 60c0 1838 7807 c0f8 c060  |.x..8`.`8..x..`.|
+0001db50  78f8 8806 70d8 d870 0088 1807 a0b8 a0a0  |.x...pp.........|
+0001db60  78f8 8807 e8c8 b8a8 8898 0005 6c10 8282  |.x...........l..|
+0001db70  0000 2807 aa7c aaaa 4482 0005 8282 106c  |...(|....D....l.|
+0001db80  0000 0005 120c 0c12 0000 0000 0000 0000  |................|
+0001db90  0000 0d08 7f20 0101 000c 0000 0000 0000  |.... ...........|
+0001dba0  0000 0000 0000 0000 0400 06ff 06ff 0000  |................|
+0001dbb0  0000 0000 0000 0000 0000 0708 0700 0700  |................|
+0001dbc0  0700 0000 0000 0000 0000 1000 0080 0688  |................|
+0001dbd0  01fe 0089 0688 01fe 0089 0008 1c0e 2202  |..............."|
+0001dbe0  ff04 220f ff04 220f c404 0003 0e00 0606  |..."..."........|
+0001dbf0  0787 01e3 0078 061e 0707 0301 0000 c00e  |....x...........|
+0001dc00  ee03 3f07 f104 df06 8e03 c007 0006 0400  |...?............|
+0001dc10  0007 0007 0000 0000 0000 0000 0000 0000  |................|
+0001dc20  f808 fe01 0707 010e 0008 0000 0000 0000  |................|
+0001dc30  0800 0801 0e07 07fe 01fc 0000 0000 0000  |................|
+0001dc40  0000 900e f000 6000 f800 6001 f000 9000  |.......`...`....|
+0001dc50  0000 0c00 0020 0020 01fc 01fc 0020 0020  |.... . ..... . .|
+0001dc60  0000 0000 0006 0008 000e 0006 0000 0000  |................|
+0001dc70  0000 0000 0e00 0020 0020 0020 0020 0020  |...... . . . . .|
+0001dc80  0020 0020 0000 0004 0006 0006 0000 0000  | . .............|
+0001dc90  0000 0000 0000 0c00 0c00 0f80 03f0 007e  |..............~.|
+0001dca0  000f 0001 0000 0000 fe0e ff03 0107 0104  |................|
+0001dcb0  0104 ff04 fe07 0003 0600 0002 07ff 07ff  |................|
+0001dcc0  0000 0000 0000 0000 0000 060e 8707 c107  |................|
+0001dcd0  6104 3104 1f04 0e04 0004 0e00 0306 0707  |.a.1............|
+0001dce0  0411 0411 0411 07ff 03ee 0000 800e e001  |................|
+0001dcf0  3801 0e01 ff01 ff07 0007 0001 0e00 033f  |.8............?.|
+0001dd00  073f 0411 0411 0411 07f1 03e1 0000 fe0e  |?...............|
+0001dd10  ff03 1107 1104 1104 f304 e207 0003 0e00  |................|
+0001dd20  0001 0001 0781 07f1 007d 000f 0003 0000  |........}.......|
+0001dd30  de0e ff03 2107 2104 2104 ff04 de07 0003  |.....!.!.!......|
+0001dd40  0e00 023e 067f 0441 0441 0441 07ff 03fe  |..>...A.A.A.....|
+0001dd50  0000 8c04 8c01 0001 0000 0000 0000 0000  |................|
+0001dd60  0000 0600 0400 078c 038c 0000 0000 0000  |................|
+0001dd70  0000 0000 200e 2000 7000 5000 d800 8800  |..... . .p.P....|
+0001dd80  8800 0000 0e00 0050 0050 0050 0050 0050  |......P.P.P.P.P.|
+0001dd90  0050 0050 0000 880e 8800 d800 5000 7000  |P.P..........P.p|
+0001dda0  2000 2000 0000 0c00 0006 0007 06e1 06f1  |. . ............|
+0001ddb0  001f 000e 0000 0000 fc0e fe03 0307 f90c  |................|
+0001ddc0  8b09 fe09 fc0d 0004 0e00 07f8 07fe 0047  |..............G.|
+0001ddd0  0043 0047 07fe 07f8 0000 ff0e ff07 2107  |C.G............!|
+0001dde0  2104 2104 ff04 de07 0003 0e00 01fc 03fe  |.!.!............|
+0001ddf0  0603 0401 0401 0707 0306 0000 ff0e ff07  |................|
+0001de00  0107 0104 0304 fe06 fc03 0001 0e00 07ff  |................|
+0001de10  07ff 0421 0421 0421 0421 0421 0000 ff0e  |..!.!.!.!.!.....|
+0001de20  ff07 2107 2100 2100 2100 0100 0000 0e00  |...!.!.!.!......|
+0001de30  01fc 03fe 0603 0421 0621 03e7 07e6 0000  |......!.!.......|
+0001de40  ff0e ff07 2007 2000 2000 ff00 ff07 0007  |..... . . ......|
+0001de50  0400 07ff 07ff 0000 0000 0000 0000 0000  |................|
+0001de60  0000 000a 0003 0007 ff04 ff07 0003 0000  |................|
+0001de70  0000 0e00 07ff 07ff 0070 0078 01ee 0787  |........p.x.....|
+0001de80  0601 0000 ff0e ff07 0007 0004 0004 0004  |................|
+0001de90  0004 0004 0e00 07ff 07ff 000c 0018 000c  |................|
+0001dea0  07ff 07ff 0000 ff0e ff07 0e07 1c00 3800  |...............8|
+0001deb0  ff00 ff07 0007 0e00 01fc 03fe 0603 0401  |................|
+0001dec0  0603 03fe 01fc 0000 ff0e ff07 2107 2100  |.............!.!|
+0001ded0  2100 3f00 1e00 0000 0e00 01fc 03fe 0603  |.!.?............|
+0001dee0  0501 0703 0ffe 0bfc 0000 ff0e ff07 2107  |...............!|
+0001def0  2100 2100 ff00 de07 0007 0e00 030e 071f  |.!.!............|
+0001df00  0431 0421 0461 07c7 0386 0000 0110 0100  |1.!.a...........|
+0001df10  0100 ff00 ff07 0107 0100 0100 0e00 03ff  |................|
+0001df20  07ff 0400 0400 0400 07ff 03ff 0000 0f0e  |................|
+0001df30  3f00 f800 c001 f807 3f01 0f00 0000 0e00  |.?.......?......|
+0001df40  07ff 07ff 0380 01c0 0380 07ff 07ff 0000  |................|
+0001df50  0310 0706 8e07 fc03 fc01 8e01 0703 0307  |................|
+0001df60  1006 000f 001f 0038 07f0 07f0 0038 001f  |......8.....8...|
+0001df70  000f 010e 0104 c107 f107 3d04 0f04 0304  |...........=....|
+0001df80  0004 0800 0fff 0fff 0801 0801 0000 0000  |................|
+0001df90  0000 0000 030c 0f00 3c00 f000 c000 0003  |.........<......|
+0001dfa0  0003 0000 0800 0801 0801 0fff 0fff 0000  |................|
+0001dfb0  0000 0000 0000 040c 0600 0300 0300 0600  |................|
+0001dfc0  0400 0000 0000 0e00 0800 0800 0800 0800  |................|
+0001dfd0  0800 0800 0800 0000 0106 0300 0200 0000  |................|
+0001dfe0  0000 0000 0000 0000 0e00 0390 07d8 0448  |..............H.|
+0001dff0  0448 07f8 07f0 0400 0000 ff0e ff07 1007  |H...............|
+0001e000  0802 1804 f006 e003 0001 0e00 01e0 03f0  |................|
+0001e010  0618 0408 0408 0618 0210 0000 e00e f001  |................|
+0001e020  1803 0806 1004 ff02 ff07 0007 0e00 03f0  |................|
+0001e030  07f8 0448 0448 0448 0678 0270 0000 080a  |..H.H.H.x.p.....|
+0001e040  fe00 ff07 0907 0900 0000 0000 0000 0e00  |................|
+0001e050  08f0 19f8 1108 1108 1090 1ff8 0ff8 0000  |................|
+0001e060  ff0e ff07 1007 0800 0800 f800 f007 0007  |................|
+0001e070  0400 07fb 07fb 0000 0000 0000 0000 0000  |................|
+0001e080  0000 0008 0008 fb08 fb0f 0007 0000 0000  |................|
+0001e090  0000 0e00 07ff 07ff 00c0 01e0 0330 0618  |............0...|
+0001e0a0  0408 0000 ff04 ff07 0007 0000 0000 0000  |................|
+0001e0b0  0000 0000 1000 07f0 07f8 0008 03f0 03f0  |................|
+0001e0c0  0008 07f8 07f0 f80e f807 1007 0800 0800  |................|
+0001e0d0  f800 f007 0007 0e00 01e0 03f0 0618 0408  |................|
+0001e0e0  0618 03f0 01e0 0000 f80e f81f 101f 0802  |................|
+0001e0f0  1804 f006 e003 0001 0e00 01e0 03f0 0618  |................|
+0001e100  0408 0210 1ff8 1ff8 0000 f80e f807 3007  |...............0|
+0001e110  1800 1800 3000 2000 0000 0e00 0230 0678  |.....0. ....0.x.|
+0001e120  0448 04c8 0488 0798 0310 0000 040c ff00  |H...............|
+0001e130  ff03 0407 0404 0004 0002 0000 0e00 03f8  |................|
+0001e140  07f8 0400 0400 0200 07f8 07f8 0000 f80e  |................|
+0001e150  f800 8001 0003 8007 f803 f801 0000 1000  |................|
+0001e160  03f8 07f8 0300 01e0 01e0 0300 07f8 03f8  |................|
+0001e170  080e 3804 f007 c003 f000 3803 0807 0004  |...8.......8....|
+0001e180  0e00 1018 18f8 0fe0 0780 01e0 0078 0018  |............x...|
+0001e190  0000 080e 0806 8807 c805 6804 3804 1804  |...........h.8..|
+0001e1a0  0004 0c00 0000 0020 03fe 07df 0401 0401  |...... .........|
+0001e1b0  0000 0000 ff04 ff07 0007 0000 0000 0000  |................|
+0001e1c0  0000 0000 0a00 0401 0401 07df 03fe 0020  |.............. .|
+0001e1d0  0000 0000 0000 400e 6000 2000 6000 4000  |.......@.`. .`.@|
+0001e1e0  6000 2000 0000 0000 0000 0000 0000 0000  |.`. ............|
+0001e1f0  0000 0000 0000 0000 0d0a 7f20 0101 000e  |.......... .....|
+0001e200  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+0001e210  0000 0400 1bff 1bff 0000 0000 0000 0000  |................|
+0001e220  0000 0000 0000 0000 0f0a 0f00 0000 0f00  |................|
+0001e230  0f00 0000 0000 0000 0000 0000 1200 0100  |................|
+0001e240  1f10 1ff0 01ff 1f1f 1ff0 01ff 011f 0010  |................|
+0001e250  0000 1c10 3e04 630c ff18 ff1f c31f 8618  |.....>.c........|
+0001e260  040f 0007 0000 1000 001e 1c3f 1f3f 03fe  |..........?.?...|
+0001e270  0ff8 1f9f 1f87 0f00 0000 0000 8012 de0f  |................|
+0001e280  7f1f 6110 f110 9f13 8e1f 800f 001b 0010  |...a............|
+0001e290  0400 000f 000f 0000 0000 0000 0000 0000  |................|
+0001e2a0  0000 0000 0000 f806 ff03 071f 001c 0000  |................|
+0001e2b0  0000 0000 0000 0000 0000 0a00 0000 0000  |................|
+0001e2c0  1c07 1fff 03f8 0000 0000 0000 0000 0000  |................|
+0001e2d0  2010 2000 6002 f803 f801 6001 2003 2002  |. . .`.....`. . |
+0001e2e0  0000 0000 1000 0040 0040 0040 07fc 07fc  |......@.@.@.....|
+0001e2f0  0040 0040 0040 0000 0000 0006 0000 0018  |@.@.@...........|
+0001e300  0018 0000 0000 0000 0000 0000 0000 1200  |................|
+0001e310  0040 0040 0040 0040 0040 0040 0040 0040  |@.@.@.@.@.@.@.@.|
+0001e320  0040 0000 0004 0018 0018 0000 0000 0000  |@...............|
+0001e330  0000 0000 0000 0000 0e00 1800 1e00 07c0  |................|
+0001e340  01f0 003e 000f 0001 0000 0000 0000 f810  |..>.............|
+0001e350  fe03 070f 011c 0110 0710 fe1c f80f 0003  |................|
+0001e360  0000 0800 0004 0002 1fff 1fff 0000 0000  |................|
+0001e370  0000 0000 0000 0000 0410 061c 031e 8113  |................|
+0001e380  c111 6310 3e10 1c10 0010 0000 1000 0404  |...c.>..........|
+0001e390  0c06 1823 1021 1021 1873 0fde 078c 0000  |..#.!.!.s.......|
+0001e3a0  0000 0010 8002 e003 7803 1e02 ff02 ff1f  |.........x......|
+0001e3b0  001f 0002 0000 1000 047f 0c7f 1831 1011  |............1...|
+0001e3c0  1011 1831 0fe1 07c1 0000 0000 fc10 fe07  |..1.............|
+0001e3d0  330f 1118 1110 3310 e618 c40f 0007 0000  |.3.....3........|
+0001e3e0  1000 0001 0001 1f01 1fc1 00f1 003d 000f  |............=...|
+0001e3f0  0003 0000 0000 8c10 de07 730f 2118 2110  |...........s.!.!|
+0001e400  7310 de18 8c0f 0007 0000 1000 047c 0cfe  |.s..........|...|
+0001e410  1983 1101 1101 1983 0ffe 07fc 0000 0000  |................|
+0001e420  0c04 0c06 0006 0000 0000 0000 0000 0000  |................|
+0001e430  0000 0000 0600 1000 1e0c 0e0c 0000 0000  |................|
+0001e440  0000 0000 0000 0000 0000 4012 4000 e000  |...........@.@..|
+0001e450  a000 b000 1001 1801 0803 0802 0002 1200  |................|
+0001e460  0110 0110 0110 0110 0110 0110 0110 0110  |................|
+0001e470  0110 0000 0812 0802 1802 1003 b001 a001  |................|
+0001e480  e000 4000 4000 0000 1000 000c 000e 0003  |...@.@..........|
+0001e490  1b01 1b81 00e3 007e 001c 0000 0000 fc12  |......~.........|
+0001e4a0  fe07 030f f918 0d13 0516 0716 fe13 fc17  |................|
+0001e4b0  0013 1400 1800 1f00 07e0 01fc 018f 018f  |................|
+0001e4c0  01fc 07e0 1f00 1800 ff10 ff1f 411f 4110  |.............A.A|
+0001e4d0  4110 e310 be18 1c0f 0007 0000 1000 07fc  |.A..............|
+0001e4e0  0ffe 1803 1001 1001 1803 0e0e 060c 0000  |................|
+0001e4f0  0000 ff10 ff1f 011f 0110 0110 0310 fe18  |................|
+0001e500  fc0f 0007 0000 1000 1fff 1fff 1041 1041  |............A.A.|
+0001e510  1041 1041 1041 1001 0000 0000 ff10 ff1f  |A.A.A...........|
+0001e520  411f 4100 4100 4100 4100 0100 0000 0000  |.A.A.A.A.A......|
+0001e530  1000 07fc 0ffe 1803 1041 1041 1841 0fc7  |........A.A.A...|
+0001e540  1fc6 0000 0000 ff10 ff1f 401f 4000 4000  |...........@.@.@|
+0001e550  4000 ff00 ff1f 001f 0000 0400 1fff 1fff  |.@..............|
+0001e560  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+0001e570  0010 0006 000e 0018 0010 0010 ff18 ff0f  |................|
+0001e580  0007 0000 1000 1fff 1fff 0060 0070 01f8  |..........`.p...|
+0001e590  078c 1e06 1803 0000 0000 ff10 ff1f 001f  |................|
+0001e5a0  0010 0010 0010 0010 0010 0010 0000 1200  |................|
+0001e5b0  1fff 1fff 001c 0038 0070 0038 001c 1fff  |......8.p.8.....|
+0001e5c0  1fff 0000 ff10 ff1f 3c1f f000 c000 0003  |.........<......|
+0001e5d0  ff0f ff1f 001f 0000 1000 07fc 0ffe 1803  |................|
+0001e5e0  1001 1001 1803 0ffe 07fc 0000 0000 ff10  |................|
+0001e5f0  ff1f 811f 8100 8100 c300 7e00 3c00 0000  |...........~.<..|
+0001e600  0000 1000 07fc 0ffe 1803 1201 1601 0c03  |................|
+0001e610  1ffe 17fc 0000 0000 ff10 ff1f 411f 4100  |.............A.A|
+0001e620  4100 e300 be00 1c1f 001f 0000 1000 061c  |.A..............|
+0001e630  0e3e 1823 1061 1041 18c3 0f8e 070c 0000  |>.#.a.A.........|
+0001e640  0000 0110 0100 0100 ff00 ff1f 011f 0100  |................|
+0001e650  0100 0000 0000 1000 07ff 0fff 1800 1000  |................|
+0001e660  1000 1800 0fff 07ff 0000 0000 0f10 7f00  |................|
+0001e670  f000 8003 801f f01f 7f03 0f00 0000 0000  |................|
+0001e680  1200 07ff 1fff 1f00 0380 01c0 0380 1f00  |................|
+0001e690  1fff 07ff 0000 0310 0f18 bc1e f007 f001  |................|
+0001e6a0  bc01 0f07 031e 0018 0000 1000 0003 000f  |................|
+0001e6b0  003c 1ff0 1ff0 003c 000f 0003 0000 0000  |<.....<.........|
+0001e6c0  0110 0110 011c c11f f113 3d10 0f10 0310  |...........=....|
+0001e6d0  0010 0000 0400 1fff 1fff 0000 0000 0000  |................|
+0001e6e0  0000 0000 0000 0000 0000 2014 ff00 ff01  |........... ....|
+0001e6f0  e01f ff1f ff01 e001 ff1f ff1f 2001 0800  |............. ..|
+0001e700  0000 0000 1fff 1fff 0000 0000 0000 0000  |................|
+0001e710  0000 0000 0812 0c00 0600 0300 0100 0300  |................|
+0001e720  0600 0c00 0800 0000 0000 0000 0000 0000  |................|
+0001e730  0000 0000 0000 0000 0000 0000 0000 0008  |................|
+0001e740  0100 0300 0200 0000 0000 0000 0000 0000  |................|
+0001e750  0000 1000 0e30 1f38 1188 1088 1088 1888  |....0.8.........|
+0001e760  0ff8 1ff0 0000 0000 ff10 ff1f 181f 0818  |................|
+0001e770  0810 1810 f018 e00f 0007 0000 1000 07e0  |................|
+0001e780  0ff0 1818 1008 1008 1008 1c38 0c30 0000  |..........8.0...|
+0001e790  0000 e010 f007 180f 0818 0810 1810 ff18  |................|
+0001e7a0  ff1f 001f 0000 1000 07e0 0ff0 1918 1108  |................|
+0001e7b0  1108 1918 0df0 05e0 0000 0000 080e 0800  |................|
+0001e7c0  fe00 ff1f 091f 0900 0100 0000 0000 0000  |................|
+0001e7d0  1000 08e0 19f0 1318 1208 1208 1110 1ff8  |................|
+0001e7e0  0ff8 0000 0000 ff10 ff1f 181f 0800 0800  |................|
+0001e7f0  1800 f000 e01f 001f 0000 0400 1ff3 1ff3  |................|
+0001e800  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+0001e810  0008 0000 f300 f31f 001f 0000 0000 0000  |................|
+0001e820  0000 0000 1000 1fff 1fff 0180 00c0 01e0  |................|
+0001e830  07b0 1e18 1808 0000 0000 ff04 ff1f 001f  |................|
+0001e840  0000 0000 0000 0000 0000 0000 0000 1400  |................|
+0001e850  1ff8 1ff8 0010 0008 1ff8 1ff0 0018 0008  |................|
+0001e860  1ff8 1ff0 f810 f81f 101f 0800 0800 1800  |................|
+0001e870  f000 e01f 001f 0000 1000 07e0 0ff0 1818  |................|
+0001e880  1008 1008 1818 0ff0 07e0 0000 0000 f810  |................|
+0001e890  f81f 101f 0802 0804 1804 f006 e003 0001  |................|
+0001e8a0  0000 1000 01e0 03f0 0618 0408 0408 0210  |................|
+0001e8b0  1ff8 1ff8 0000 0000 f812 f81f 301f 1800  |.............0..|
+0001e8c0  0800 0800 1800 3000 2000 0000 1000 0460  |.......0. ....`.|
+0001e8d0  0cf0 1898 1088 1188 1918 0f30 0620 0000  |..........0. ...|
+0001e8e0  0000 080c 0800 ff00 ff0f 081f 0810 0010  |................|
+0001e8f0  0000 0000 0000 1000 07f8 0ff8 1800 1000  |................|
+0001e900  1000 0800 1ff8 1ff8 0000 0000 3810 f800  |.............8..|
+0001e910  c001 0007 001e c01e f807 3801 0000 0000  |...........8....|
+0001e920  1000 00f8 1ff8 1f00 03f8 03f8 1f00 1ff8  |................|
+0001e930  00f8 0000 0000 0810 3810 7018 c00e c007  |.........8.p....|
+0001e940  7007 380e 0818 0010 0000 1000 0018 0078  |.p.8..........x.|
+0001e950  11e0 1f80 0f00 03e0 00f8 0018 0000 0000  |................|
+0001e960  0810 0818 081c 8816 c813 6811 3810 1810  |...........h.8..|
+0001e970  0010 0000 0800 0040 0040 1fff 1fbf 0000  |......@.@.......|
+0001e980  0000 0000 0000 0000 0000 ff04 ff1f 001f  |................|
+0001e990  0000 0000 0000 0000 0000 0000 0000 0c00  |................|
+0001e9a0  0000 0000 1fbf 1fff 0040 0040 0000 0000  |........@.@.....|
+0001e9b0  0000 0000 4010 6000 2000 2000 6000 4000  |.....@.`. . .`.@|
+0001e9c0  6000 2000 0000 0000 0000 0000 0000 0000  |.`. ............|
+0001e9d0  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+0001e9e0  0000 0101 07d0 0000 2000 2020 2020 2020  |.........       |
+0001e9f0  2020 2121 2121 2021 2020 2020 2020 2020  |  !!!!!         |
+0001ea00  2020 2020 2020 2020 0120 4040 4040 4040  |         .@@@@@@|
+0001ea10  4040 4040 4040 4040 0240 0202 0202 0202  |@@@@@@@@@.......|
+0001ea20  0202 4002 4040 4040 4040 1414 1414 1414  |...@@@@@@@......|
+0001ea30  0404 0404 0404 0404 0404 0404 0404 0404  |................|
+0001ea40  0404 0404 4040 4040 4040 1818 1818 1818  |....@@@@@@......|
+0001ea50  0808 0808 0808 0808 0808 0808 0808 0808  |................|
+0001ea60  0808 0808 4040 4040 0020 0000 0000 0000  |....@@@@ .......|
+0001ea70  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+0001ea80  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+0001ea90  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+0001eaa0  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+0001eab0  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+0001eac0  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+0001ead0  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+0001eae0  0000 0000 0000 0000 0000 0200 0202 0202  |................|
+0001eaf0  0202 0102 0101 0101 0202 0202 0202 0202  |................|
+0001eb00  0202 0202 0202 0202 0202 0201 0202 0302  |................|
+0001eb10  0202 0202 0204 0202 0202 0505 0505 0505  |................|
+0001eb20  0505 0505 0202 0202 0202 0202 0202 0a07  |................|
+0001eb30  0a15 090c 0202 020b 0e14 0202 0202 0802  |................|
+0001eb40  0202 0212 1002 1002 0202 0202 0602 0a07  |................|
+0001eb50  0a0a 090c 0202 020d 0e11 0213 0f02 0802  |................|
+0001eb60  0202 0212 0202 0202 0202 6e28 6c75 296c  |..........(null)|
+0001eb70  0000 1414 1401 1415 1414 0214 1400 0403  |................|
+0001eb80  0914 0505 0505 0505 0505 1405 1414 1414  |................|
+0001eb90  1414 1414 1414 170f 080f 1414 0714 1614  |................|
+0001eba0  1414 1414 1414 1414 0d14 1414 1414 1414  |................|
+0001ebb0  1414 1414 0a10 0f0f 080f 140a 0614 1214  |................|
+0001ebc0  0e0b 1414 1411 140c 0d14 1414 1414 1414  |................|
+0001ebd0  0014 0000 0000 0000 0000 0000 0000 0400  |................|
+0001ebe0  0400 0400 0000 0002 0000 0000 0000 0000  |................|
+0001ebf0  0000 0000 0100 4900 666e 746f 6365 4b20  |.......Infotec K|
+0001ec00  2033 203a 3156 392e 4900 666e 746f 6365  |3 : V1.9.Infotec|
+0001ec10  4b20 2033 203a 3156 392e 0000 0014 0008  | K3 : V1.9......|
+0001ec20  0020 0040 0060 0080 00a0 00c0 00e0 0258  | .@.`.........X.|
+0001ec30  04b0 0960 12c0 2580 4b00 9600 0000 7553  |..`....%.K....Su|
+0001ec40  646e 7961 0000 0000 6f4d 646e 7961 0000  |nday....Monday..|
+0001ec50  0000 7554 7365 6164 0079 0000 6557 6e64  |..Tuesday...Wedn|
+0001ec60  7365 6164 0079 6854 7275 6473 7961 0000  |esday.Thursday..|
+0001ec70  7246 6469 7961 0000 0000 6153 7574 6472  |Friday....Saturd|
+0001ec80  7961 0000 0000 0000 0000 0000 0000 614a  |ay............Ja|
+0001ec90  756e 7261 0079 0000 6546 7262 6175 7972  |nuary...February|
+0001eca0  0000 614d 6372 0068 0000 0000 7041 6972  |..March.....Apri|
+0001ecb0  006c 0000 0000 614d 0079 0000 0000 0000  |l.....May.......|
+0001ecc0  754a 656e 0000 0000 0000 754a 796c 0000  |June......July..|
+0001ecd0  0000 0000 7541 7567 7473 0000 0000 6553  |....August....Se|
+0001ece0  7470 6d65 6562 0072 634f 6f74 6562 0072  |ptember.October.|
+0001ecf0  0000 6f4e 6576 626d 7265 0000 6544 6563  |..November..Dece|
+0001ed00  626d 7265 0000 0000 7300 0074 646e 7200  |mber.....st.nd.r|
+0001ed10  0064 6874 7400 0068 6874 7400 0068 6874  |d.th.th.th.th.th|
+0001ed20  7400 0068 6874 7400 0068 6874 7400 0068  |.th.th.th.th.th.|
+0001ed30  6874 7400 0068 6874 7400 0068 6874 7400  |th.th.th.th.th.t|
+0001ed40  0068 6874 7300 0074 646e 7200 0064 6874  |h.th.st.nd.rd.th|
+0001ed50  7400 0068 6874 7400 0068 6874 7400 0068  |.th.th.th.th.th.|
+0001ed60  6874 7300 0074 0000 0240 0000 0000 0000  |th.st...@.......|
+0001ed70  0100 d001 0007 001f 001c 001f 001e 001f  |................|
+0001ed80  001e 001f 001f 001e 001f 001e 001f 3225  |..............%2|
+0001ed90  3a64 3025 6432 252e 3230 0064 6425 255c  |d:%02d.%02d.%d\%|
+0001eda0  5c64 3025 6432 2500 5c64 6425 255c 3230  |d\%02d.%d\%d\%02|
+0001edb0  0064 7325 2520 2564 2073 7325 2520 0064  |d.%s %d%s %s %d.|
+0001edc0  2e25 7333 2520 6432 7325 2520 332e 2073  |%.3s %2d%s %.3s |
+0001edd0  3425 0064 0040 6432 7325 2520 332e 2073  |%4d.@.2d%s %.3s |
+0001ede0  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+
+
+.code
+flash_proc4:
    1edf0:	b8 00 ff             	mov    ax,0xff00
    1edf3:	8e d8                	mov    ds,ax
    1edf5:	bb ff 0f             	mov    bx,0xfff
@@ -51004,4545 +43219,307 @@ call_table:
    1ee1d:	8e d8                	mov    ds,ax
    1ee1f:	c6 06 eb 0f 4c       	mov    BYTE PTR ds:0xfeb,0x4c
    1ee24:	ea 00 00 00 e0       	jmp    0xe000:0x0
+
+
+flash_proc5:
    1ee29:	ff 0f                	dec    WORD PTR [bx]
    1ee2b:	8a 27                	mov    ah,BYTE PTR [bx]
    1ee2d:	8e d8                	mov    ds,ax
    1ee2f:	c6 06 eb 0f 4c       	mov    BYTE PTR ds:0xfeb,0x4c
    1ee34:	ea 00 00 00 e0       	jmp    0xe000:0x0
+
+
+flash_proc6:
    1ee39:	ff 0f                	dec    WORD PTR [bx]
    1ee3b:	8a 27                	mov    ah,BYTE PTR [bx]
    1ee3d:	8e d8                	mov    ds,ax
    1ee3f:	c6 06 eb 0f 4c       	mov    BYTE PTR ds:0xfeb,0x4c
    1ee44:	ea 00 00 00 e0       	jmp    0xe000:0x0
-   1ee49:	ff                   	(bad)  
-   1ee4a:	ff                   	(bad)  
-   1ee4b:	ff                   	(bad)  
-   1ee4c:	ff                   	(bad)  
-   1ee4d:	ff                   	(bad)  
-   1ee4e:	ff                   	(bad)  
-   1ee4f:	ff                   	(bad)  
-   1ee50:	ff                   	(bad)  
-   1ee51:	ff                   	(bad)  
-   1ee52:	ff                   	(bad)  
-   1ee53:	ff                   	(bad)  
-   1ee54:	ff                   	(bad)  
-   1ee55:	ff                   	(bad)  
-   1ee56:	ff                   	(bad)  
-   1ee57:	ff                   	(bad)  
-   1ee58:	ff                   	(bad)  
-   1ee59:	ff                   	(bad)  
-   1ee5a:	ff                   	(bad)  
-   1ee5b:	ff                   	(bad)  
-   1ee5c:	ff                   	(bad)  
-   1ee5d:	ff                   	(bad)  
-   1ee5e:	ff                   	(bad)  
-   1ee5f:	ff                   	(bad)  
-   1ee60:	ff                   	(bad)  
-   1ee61:	ff                   	(bad)  
-   1ee62:	ff                   	(bad)  
-   1ee63:	ff                   	(bad)  
-   1ee64:	ff                   	(bad)  
-   1ee65:	ff                   	(bad)  
-   1ee66:	ff                   	(bad)  
-   1ee67:	ff                   	(bad)  
-   1ee68:	ff                   	(bad)  
-   1ee69:	ff                   	(bad)  
-   1ee6a:	ff                   	(bad)  
-   1ee6b:	ff                   	(bad)  
-   1ee6c:	ff                   	(bad)  
-   1ee6d:	ff                   	(bad)  
-   1ee6e:	ff                   	(bad)  
-   1ee6f:	ff                   	(bad)  
-   1ee70:	ff                   	(bad)  
-   1ee71:	ff                   	(bad)  
-   1ee72:	ff                   	(bad)  
-   1ee73:	ff                   	(bad)  
-   1ee74:	ff                   	(bad)  
-   1ee75:	ff                   	(bad)  
-   1ee76:	ff                   	(bad)  
-   1ee77:	ff                   	(bad)  
-   1ee78:	ff                   	(bad)  
-   1ee79:	ff                   	(bad)  
-   1ee7a:	ff                   	(bad)  
-   1ee7b:	ff                   	(bad)  
-   1ee7c:	ff                   	(bad)  
-   1ee7d:	ff                   	(bad)  
-   1ee7e:	ff                   	(bad)  
-   1ee7f:	ff                   	(bad)  
-   1ee80:	ff                   	(bad)  
-   1ee81:	ff                   	(bad)  
-   1ee82:	ff                   	(bad)  
-   1ee83:	ff                   	(bad)  
-   1ee84:	ff                   	(bad)  
-   1ee85:	ff                   	(bad)  
-   1ee86:	ff                   	(bad)  
-   1ee87:	ff                   	(bad)  
-   1ee88:	ff                   	(bad)  
-   1ee89:	ff                   	(bad)  
-   1ee8a:	ff                   	(bad)  
-   1ee8b:	ff                   	(bad)  
-   1ee8c:	ff                   	(bad)  
-   1ee8d:	ff                   	(bad)  
-   1ee8e:	ff                   	(bad)  
-   1ee8f:	ff                   	(bad)  
-   1ee90:	ff                   	(bad)  
-   1ee91:	ff                   	(bad)  
-   1ee92:	ff                   	(bad)  
-   1ee93:	ff                   	(bad)  
-   1ee94:	ff                   	(bad)  
-   1ee95:	ff                   	(bad)  
-   1ee96:	ff                   	(bad)  
-   1ee97:	ff                   	(bad)  
-   1ee98:	ff                   	(bad)  
-   1ee99:	ff                   	(bad)  
-   1ee9a:	ff                   	(bad)  
-   1ee9b:	ff                   	(bad)  
-   1ee9c:	ff                   	(bad)  
-   1ee9d:	ff                   	(bad)  
-   1ee9e:	ff                   	(bad)  
-   1ee9f:	ff                   	(bad)  
-   1eea0:	ff                   	(bad)  
-   1eea1:	ff                   	(bad)  
-   1eea2:	ff                   	(bad)  
-   1eea3:	ff                   	(bad)  
-   1eea4:	ff                   	(bad)  
-   1eea5:	ff                   	(bad)  
-   1eea6:	ff                   	(bad)  
-   1eea7:	ff                   	(bad)  
-   1eea8:	ff                   	(bad)  
-   1eea9:	ff                   	(bad)  
-   1eeaa:	ff                   	(bad)  
-   1eeab:	ff                   	(bad)  
-   1eeac:	ff                   	(bad)  
-   1eead:	ff                   	(bad)  
-   1eeae:	ff                   	(bad)  
-   1eeaf:	ff                   	(bad)  
-   1eeb0:	ff                   	(bad)  
-   1eeb1:	ff                   	(bad)  
-   1eeb2:	ff                   	(bad)  
-   1eeb3:	ff                   	(bad)  
-   1eeb4:	ff                   	(bad)  
-   1eeb5:	ff                   	(bad)  
-   1eeb6:	ff                   	(bad)  
-   1eeb7:	ff                   	(bad)  
-   1eeb8:	ff                   	(bad)  
-   1eeb9:	ff                   	(bad)  
-   1eeba:	ff                   	(bad)  
-   1eebb:	ff                   	(bad)  
-   1eebc:	ff                   	(bad)  
-   1eebd:	ff                   	(bad)  
-   1eebe:	ff                   	(bad)  
-   1eebf:	ff                   	(bad)  
-   1eec0:	ff                   	(bad)  
-   1eec1:	ff                   	(bad)  
-   1eec2:	ff                   	(bad)  
-   1eec3:	ff                   	(bad)  
-   1eec4:	ff                   	(bad)  
-   1eec5:	ff                   	(bad)  
-   1eec6:	ff                   	(bad)  
-   1eec7:	ff                   	(bad)  
-   1eec8:	ff                   	(bad)  
-   1eec9:	ff                   	(bad)  
-   1eeca:	ff                   	(bad)  
-   1eecb:	ff                   	(bad)  
-   1eecc:	ff                   	(bad)  
-   1eecd:	ff                   	(bad)  
-   1eece:	ff                   	(bad)  
-   1eecf:	ff                   	(bad)  
-   1eed0:	ff                   	(bad)  
-   1eed1:	ff                   	(bad)  
-   1eed2:	ff                   	(bad)  
-   1eed3:	ff                   	(bad)  
-   1eed4:	ff                   	(bad)  
-   1eed5:	ff                   	(bad)  
-   1eed6:	ff                   	(bad)  
-   1eed7:	ff                   	(bad)  
-   1eed8:	ff                   	(bad)  
-   1eed9:	ff                   	(bad)  
-   1eeda:	ff                   	(bad)  
-   1eedb:	ff                   	(bad)  
-   1eedc:	ff                   	(bad)  
-   1eedd:	ff                   	(bad)  
-   1eede:	ff                   	(bad)  
-   1eedf:	ff                   	(bad)  
-   1eee0:	ff                   	(bad)  
-   1eee1:	ff                   	(bad)  
-   1eee2:	ff                   	(bad)  
-   1eee3:	ff                   	(bad)  
-   1eee4:	ff                   	(bad)  
-   1eee5:	ff                   	(bad)  
-   1eee6:	ff                   	(bad)  
-   1eee7:	ff                   	(bad)  
-   1eee8:	ff                   	(bad)  
-   1eee9:	ff                   	(bad)  
-   1eeea:	ff                   	(bad)  
-   1eeeb:	ff                   	(bad)  
-   1eeec:	ff                   	(bad)  
-   1eeed:	ff                   	(bad)  
-   1eeee:	ff                   	(bad)  
-   1eeef:	ff                   	(bad)  
-   1eef0:	ff                   	(bad)  
-   1eef1:	ff                   	(bad)  
-   1eef2:	ff                   	(bad)  
-   1eef3:	ff                   	(bad)  
-   1eef4:	ff                   	(bad)  
-   1eef5:	ff                   	(bad)  
-   1eef6:	ff                   	(bad)  
-   1eef7:	ff                   	(bad)  
-   1eef8:	ff                   	(bad)  
-   1eef9:	ff                   	(bad)  
-   1eefa:	ff                   	(bad)  
-   1eefb:	ff                   	(bad)  
-   1eefc:	ff                   	(bad)  
-   1eefd:	ff                   	(bad)  
-   1eefe:	ff                   	(bad)  
-   1eeff:	ff                   	(bad)  
-   1ef00:	ff                   	(bad)  
-   1ef01:	ff                   	(bad)  
-   1ef02:	ff                   	(bad)  
-   1ef03:	ff                   	(bad)  
-   1ef04:	ff                   	(bad)  
-   1ef05:	ff                   	(bad)  
-   1ef06:	ff                   	(bad)  
-   1ef07:	ff                   	(bad)  
-   1ef08:	ff                   	(bad)  
-   1ef09:	ff                   	(bad)  
-   1ef0a:	ff                   	(bad)  
-   1ef0b:	ff                   	(bad)  
-   1ef0c:	ff                   	(bad)  
-   1ef0d:	ff                   	(bad)  
-   1ef0e:	ff                   	(bad)  
-   1ef0f:	ff                   	(bad)  
-   1ef10:	ff                   	(bad)  
-   1ef11:	ff                   	(bad)  
-   1ef12:	ff                   	(bad)  
-   1ef13:	ff                   	(bad)  
-   1ef14:	ff                   	(bad)  
-   1ef15:	ff                   	(bad)  
-   1ef16:	ff                   	(bad)  
-   1ef17:	ff                   	(bad)  
-   1ef18:	ff                   	(bad)  
-   1ef19:	ff                   	(bad)  
-   1ef1a:	ff                   	(bad)  
-   1ef1b:	ff                   	(bad)  
-   1ef1c:	ff                   	(bad)  
-   1ef1d:	ff                   	(bad)  
-   1ef1e:	ff                   	(bad)  
-   1ef1f:	ff                   	(bad)  
-   1ef20:	ff                   	(bad)  
-   1ef21:	ff                   	(bad)  
-   1ef22:	ff                   	(bad)  
-   1ef23:	ff                   	(bad)  
-   1ef24:	ff                   	(bad)  
-   1ef25:	ff                   	(bad)  
-   1ef26:	ff                   	(bad)  
-   1ef27:	ff                   	(bad)  
-   1ef28:	ff                   	(bad)  
-   1ef29:	ff                   	(bad)  
-   1ef2a:	ff                   	(bad)  
-   1ef2b:	ff                   	(bad)  
-   1ef2c:	ff                   	(bad)  
-   1ef2d:	ff                   	(bad)  
-   1ef2e:	ff                   	(bad)  
-   1ef2f:	ff                   	(bad)  
-   1ef30:	ff                   	(bad)  
-   1ef31:	ff                   	(bad)  
-   1ef32:	ff                   	(bad)  
-   1ef33:	ff                   	(bad)  
-   1ef34:	ff                   	(bad)  
-   1ef35:	ff                   	(bad)  
-   1ef36:	ff                   	(bad)  
-   1ef37:	ff                   	(bad)  
-   1ef38:	ff                   	(bad)  
-   1ef39:	ff                   	(bad)  
-   1ef3a:	ff                   	(bad)  
-   1ef3b:	ff                   	(bad)  
-   1ef3c:	ff                   	(bad)  
-   1ef3d:	ff                   	(bad)  
-   1ef3e:	ff                   	(bad)  
-   1ef3f:	ff                   	(bad)  
-   1ef40:	ff                   	(bad)  
-   1ef41:	ff                   	(bad)  
-   1ef42:	ff                   	(bad)  
-   1ef43:	ff                   	(bad)  
-   1ef44:	ff                   	(bad)  
-   1ef45:	ff                   	(bad)  
-   1ef46:	ff                   	(bad)  
-   1ef47:	ff                   	(bad)  
-   1ef48:	ff                   	(bad)  
-   1ef49:	ff                   	(bad)  
-   1ef4a:	ff                   	(bad)  
-   1ef4b:	ff                   	(bad)  
-   1ef4c:	ff                   	(bad)  
-   1ef4d:	ff                   	(bad)  
-   1ef4e:	ff                   	(bad)  
-   1ef4f:	ff                   	(bad)  
-   1ef50:	ff                   	(bad)  
-   1ef51:	ff                   	(bad)  
-   1ef52:	ff                   	(bad)  
-   1ef53:	ff                   	(bad)  
-   1ef54:	ff                   	(bad)  
-   1ef55:	ff                   	(bad)  
-   1ef56:	ff                   	(bad)  
-   1ef57:	ff                   	(bad)  
-   1ef58:	ff                   	(bad)  
-   1ef59:	ff                   	(bad)  
-   1ef5a:	ff                   	(bad)  
-   1ef5b:	ff                   	(bad)  
-   1ef5c:	ff                   	(bad)  
-   1ef5d:	ff                   	(bad)  
-   1ef5e:	ff                   	(bad)  
-   1ef5f:	ff                   	(bad)  
-   1ef60:	ff                   	(bad)  
-   1ef61:	ff                   	(bad)  
-   1ef62:	ff                   	(bad)  
-   1ef63:	ff                   	(bad)  
-   1ef64:	ff                   	(bad)  
-   1ef65:	ff                   	(bad)  
-   1ef66:	ff                   	(bad)  
-   1ef67:	ff                   	(bad)  
-   1ef68:	ff                   	(bad)  
-   1ef69:	ff                   	(bad)  
-   1ef6a:	ff                   	(bad)  
-   1ef6b:	ff                   	(bad)  
-   1ef6c:	ff                   	(bad)  
-   1ef6d:	ff                   	(bad)  
-   1ef6e:	ff                   	(bad)  
-   1ef6f:	ff                   	(bad)  
-   1ef70:	ff                   	(bad)  
-   1ef71:	ff                   	(bad)  
-   1ef72:	ff                   	(bad)  
-   1ef73:	ff                   	(bad)  
-   1ef74:	ff                   	(bad)  
-   1ef75:	ff                   	(bad)  
-   1ef76:	ff                   	(bad)  
-   1ef77:	ff                   	(bad)  
-   1ef78:	ff                   	(bad)  
-   1ef79:	ff                   	(bad)  
-   1ef7a:	ff                   	(bad)  
-   1ef7b:	ff                   	(bad)  
-   1ef7c:	ff                   	(bad)  
-   1ef7d:	ff                   	(bad)  
-   1ef7e:	ff                   	(bad)  
-   1ef7f:	ff                   	(bad)  
-   1ef80:	ff                   	(bad)  
-   1ef81:	ff                   	(bad)  
-   1ef82:	ff                   	(bad)  
-   1ef83:	ff                   	(bad)  
-   1ef84:	ff                   	(bad)  
-   1ef85:	ff                   	(bad)  
-   1ef86:	ff                   	(bad)  
-   1ef87:	ff                   	(bad)  
-   1ef88:	ff                   	(bad)  
-   1ef89:	ff                   	(bad)  
-   1ef8a:	ff                   	(bad)  
-   1ef8b:	ff                   	(bad)  
-   1ef8c:	ff                   	(bad)  
-   1ef8d:	ff                   	(bad)  
-   1ef8e:	ff                   	(bad)  
-   1ef8f:	ff                   	(bad)  
-   1ef90:	ff                   	(bad)  
-   1ef91:	ff                   	(bad)  
-   1ef92:	ff                   	(bad)  
-   1ef93:	ff                   	(bad)  
-   1ef94:	ff                   	(bad)  
-   1ef95:	ff                   	(bad)  
-   1ef96:	ff                   	(bad)  
-   1ef97:	ff                   	(bad)  
-   1ef98:	ff                   	(bad)  
-   1ef99:	ff                   	(bad)  
-   1ef9a:	ff                   	(bad)  
-   1ef9b:	ff                   	(bad)  
-   1ef9c:	ff                   	(bad)  
-   1ef9d:	ff                   	(bad)  
-   1ef9e:	ff                   	(bad)  
-   1ef9f:	ff                   	(bad)  
-   1efa0:	ff                   	(bad)  
-   1efa1:	ff                   	(bad)  
-   1efa2:	ff                   	(bad)  
-   1efa3:	ff                   	(bad)  
-   1efa4:	ff                   	(bad)  
-   1efa5:	ff                   	(bad)  
-   1efa6:	ff                   	(bad)  
-   1efa7:	ff                   	(bad)  
-   1efa8:	ff                   	(bad)  
-   1efa9:	ff                   	(bad)  
-   1efaa:	ff                   	(bad)  
-   1efab:	ff                   	(bad)  
-   1efac:	ff                   	(bad)  
-   1efad:	ff                   	(bad)  
-   1efae:	ff                   	(bad)  
-   1efaf:	ff                   	(bad)  
-   1efb0:	ff                   	(bad)  
-   1efb1:	ff                   	(bad)  
-   1efb2:	ff                   	(bad)  
-   1efb3:	ff                   	(bad)  
-   1efb4:	ff                   	(bad)  
-   1efb5:	ff                   	(bad)  
-   1efb6:	ff                   	(bad)  
-   1efb7:	ff                   	(bad)  
-   1efb8:	ff                   	(bad)  
-   1efb9:	ff                   	(bad)  
-   1efba:	ff                   	(bad)  
-   1efbb:	ff                   	(bad)  
-   1efbc:	ff                   	(bad)  
-   1efbd:	ff                   	(bad)  
-   1efbe:	ff                   	(bad)  
-   1efbf:	ff                   	(bad)  
-   1efc0:	ff                   	(bad)  
-   1efc1:	ff                   	(bad)  
-   1efc2:	ff                   	(bad)  
-   1efc3:	ff                   	(bad)  
-   1efc4:	ff                   	(bad)  
-   1efc5:	ff                   	(bad)  
-   1efc6:	ff                   	(bad)  
-   1efc7:	ff                   	(bad)  
-   1efc8:	ff                   	(bad)  
-   1efc9:	ff                   	(bad)  
-   1efca:	ff                   	(bad)  
-   1efcb:	ff                   	(bad)  
-   1efcc:	ff                   	(bad)  
-   1efcd:	ff                   	(bad)  
-   1efce:	ff                   	(bad)  
-   1efcf:	ff                   	(bad)  
-   1efd0:	ff                   	(bad)  
-   1efd1:	ff                   	(bad)  
-   1efd2:	ff                   	(bad)  
-   1efd3:	ff                   	(bad)  
-   1efd4:	ff                   	(bad)  
-   1efd5:	ff                   	(bad)  
-   1efd6:	ff                   	(bad)  
-   1efd7:	ff                   	(bad)  
-   1efd8:	ff                   	(bad)  
-   1efd9:	ff                   	(bad)  
-   1efda:	ff                   	(bad)  
-   1efdb:	ff                   	(bad)  
-   1efdc:	ff                   	(bad)  
-   1efdd:	ff                   	(bad)  
-   1efde:	ff                   	(bad)  
-   1efdf:	ff                   	(bad)  
-   1efe0:	ff                   	(bad)  
-   1efe1:	ff                   	(bad)  
-   1efe2:	ff                   	(bad)  
-   1efe3:	ff                   	(bad)  
-   1efe4:	ff                   	(bad)  
-   1efe5:	ff                   	(bad)  
-   1efe6:	ff                   	(bad)  
-   1efe7:	ff                   	(bad)  
-   1efe8:	ff                   	(bad)  
-   1efe9:	ff                   	(bad)  
-   1efea:	ff                   	(bad)  
-   1efeb:	ff                   	(bad)  
-   1efec:	ff                   	(bad)  
-   1efed:	ff                   	(bad)  
-   1efee:	ff                   	(bad)  
-   1efef:	ff                   	(bad)  
-   1eff0:	ff                   	(bad)  
-   1eff1:	ff                   	(bad)  
-   1eff2:	ff                   	(bad)  
-   1eff3:	ff                   	(bad)  
-   1eff4:	ff                   	(bad)  
-   1eff5:	ff                   	(bad)  
-   1eff6:	ff                   	(bad)  
-   1eff7:	ff                   	(bad)  
-   1eff8:	ff                   	(bad)  
-   1eff9:	ff                   	(bad)  
-   1effa:	ff                   	(bad)  
-   1effb:	ff                   	(bad)  
-   1effc:	ff                   	(bad)  
-   1effd:	ff                   	(bad)  
-   1effe:	ff                   	(bad)  
-   1efff:	ff                   	(bad)  
-   1f000:	ff                   	(bad)  
-   1f001:	ff                   	(bad)  
-   1f002:	ff                   	(bad)  
-   1f003:	ff                   	(bad)  
-   1f004:	ff                   	(bad)  
-   1f005:	ff                   	(bad)  
-   1f006:	ff                   	(bad)  
-   1f007:	ff                   	(bad)  
-   1f008:	ff                   	(bad)  
-   1f009:	ff                   	(bad)  
-   1f00a:	ff                   	(bad)  
-   1f00b:	ff                   	(bad)  
-   1f00c:	ff                   	(bad)  
-   1f00d:	ff                   	(bad)  
-   1f00e:	ff                   	(bad)  
-   1f00f:	ff                   	(bad)  
-   1f010:	ff                   	(bad)  
-   1f011:	ff                   	(bad)  
-   1f012:	ff                   	(bad)  
-   1f013:	ff                   	(bad)  
-   1f014:	ff                   	(bad)  
-   1f015:	ff                   	(bad)  
-   1f016:	ff                   	(bad)  
-   1f017:	ff                   	(bad)  
-   1f018:	ff                   	(bad)  
-   1f019:	ff                   	(bad)  
-   1f01a:	ff                   	(bad)  
-   1f01b:	ff                   	(bad)  
-   1f01c:	ff                   	(bad)  
-   1f01d:	ff                   	(bad)  
-   1f01e:	ff                   	(bad)  
-   1f01f:	ff                   	(bad)  
-   1f020:	ff                   	(bad)  
-   1f021:	ff                   	(bad)  
-   1f022:	ff                   	(bad)  
-   1f023:	ff                   	(bad)  
-   1f024:	ff                   	(bad)  
-   1f025:	ff                   	(bad)  
-   1f026:	ff                   	(bad)  
-   1f027:	ff                   	(bad)  
-   1f028:	ff                   	(bad)  
-   1f029:	ff                   	(bad)  
-   1f02a:	ff                   	(bad)  
-   1f02b:	ff                   	(bad)  
-   1f02c:	ff                   	(bad)  
-   1f02d:	ff                   	(bad)  
-   1f02e:	ff                   	(bad)  
-   1f02f:	ff                   	(bad)  
-   1f030:	ff                   	(bad)  
-   1f031:	ff                   	(bad)  
-   1f032:	ff                   	(bad)  
-   1f033:	ff                   	(bad)  
-   1f034:	ff                   	(bad)  
-   1f035:	ff                   	(bad)  
-   1f036:	ff                   	(bad)  
-   1f037:	ff                   	(bad)  
-   1f038:	ff                   	(bad)  
-   1f039:	ff                   	(bad)  
-   1f03a:	ff                   	(bad)  
-   1f03b:	ff                   	(bad)  
-   1f03c:	ff                   	(bad)  
-   1f03d:	ff                   	(bad)  
-   1f03e:	ff                   	(bad)  
-   1f03f:	ff                   	(bad)  
-   1f040:	ff                   	(bad)  
-   1f041:	ff                   	(bad)  
-   1f042:	ff                   	(bad)  
-   1f043:	ff                   	(bad)  
-   1f044:	ff                   	(bad)  
-   1f045:	ff                   	(bad)  
-   1f046:	ff                   	(bad)  
-   1f047:	ff                   	(bad)  
-   1f048:	ff                   	(bad)  
-   1f049:	ff                   	(bad)  
-   1f04a:	ff                   	(bad)  
-   1f04b:	ff                   	(bad)  
-   1f04c:	ff                   	(bad)  
-   1f04d:	ff                   	(bad)  
-   1f04e:	ff                   	(bad)  
-   1f04f:	ff                   	(bad)  
-   1f050:	ff                   	(bad)  
-   1f051:	ff                   	(bad)  
-   1f052:	ff                   	(bad)  
-   1f053:	ff                   	(bad)  
-   1f054:	ff                   	(bad)  
-   1f055:	ff                   	(bad)  
-   1f056:	ff                   	(bad)  
-   1f057:	ff                   	(bad)  
-   1f058:	ff                   	(bad)  
-   1f059:	ff                   	(bad)  
-   1f05a:	ff                   	(bad)  
-   1f05b:	ff                   	(bad)  
-   1f05c:	ff                   	(bad)  
-   1f05d:	ff                   	(bad)  
-   1f05e:	ff                   	(bad)  
-   1f05f:	ff                   	(bad)  
-   1f060:	ff                   	(bad)  
-   1f061:	ff                   	(bad)  
-   1f062:	ff                   	(bad)  
-   1f063:	ff                   	(bad)  
-   1f064:	ff                   	(bad)  
-   1f065:	ff                   	(bad)  
-   1f066:	ff                   	(bad)  
-   1f067:	ff                   	(bad)  
-   1f068:	ff                   	(bad)  
-   1f069:	ff                   	(bad)  
-   1f06a:	ff                   	(bad)  
-   1f06b:	ff                   	(bad)  
-   1f06c:	ff                   	(bad)  
-   1f06d:	ff                   	(bad)  
-   1f06e:	ff                   	(bad)  
-   1f06f:	ff                   	(bad)  
-   1f070:	ff                   	(bad)  
-   1f071:	ff                   	(bad)  
-   1f072:	ff                   	(bad)  
-   1f073:	ff                   	(bad)  
-   1f074:	ff                   	(bad)  
-   1f075:	ff                   	(bad)  
-   1f076:	ff                   	(bad)  
-   1f077:	ff                   	(bad)  
-   1f078:	ff                   	(bad)  
-   1f079:	ff                   	(bad)  
-   1f07a:	ff                   	(bad)  
-   1f07b:	ff                   	(bad)  
-   1f07c:	ff                   	(bad)  
-   1f07d:	ff                   	(bad)  
-   1f07e:	ff                   	(bad)  
-   1f07f:	ff                   	(bad)  
-   1f080:	ff                   	(bad)  
-   1f081:	ff                   	(bad)  
-   1f082:	ff                   	(bad)  
-   1f083:	ff                   	(bad)  
-   1f084:	ff                   	(bad)  
-   1f085:	ff                   	(bad)  
-   1f086:	ff                   	(bad)  
-   1f087:	ff                   	(bad)  
-   1f088:	ff                   	(bad)  
-   1f089:	ff                   	(bad)  
-   1f08a:	ff                   	(bad)  
-   1f08b:	ff                   	(bad)  
-   1f08c:	ff                   	(bad)  
-   1f08d:	ff                   	(bad)  
-   1f08e:	ff                   	(bad)  
-   1f08f:	ff                   	(bad)  
-   1f090:	ff                   	(bad)  
-   1f091:	ff                   	(bad)  
-   1f092:	ff                   	(bad)  
-   1f093:	ff                   	(bad)  
-   1f094:	ff                   	(bad)  
-   1f095:	ff                   	(bad)  
-   1f096:	ff                   	(bad)  
-   1f097:	ff                   	(bad)  
-   1f098:	ff                   	(bad)  
-   1f099:	ff                   	(bad)  
-   1f09a:	ff                   	(bad)  
-   1f09b:	ff                   	(bad)  
-   1f09c:	ff                   	(bad)  
-   1f09d:	ff                   	(bad)  
-   1f09e:	ff                   	(bad)  
-   1f09f:	ff                   	(bad)  
-   1f0a0:	ff                   	(bad)  
-   1f0a1:	ff                   	(bad)  
-   1f0a2:	ff                   	(bad)  
-   1f0a3:	ff                   	(bad)  
-   1f0a4:	ff                   	(bad)  
-   1f0a5:	ff                   	(bad)  
-   1f0a6:	ff                   	(bad)  
-   1f0a7:	ff                   	(bad)  
-   1f0a8:	ff                   	(bad)  
-   1f0a9:	ff                   	(bad)  
-   1f0aa:	ff                   	(bad)  
-   1f0ab:	ff                   	(bad)  
-   1f0ac:	ff                   	(bad)  
-   1f0ad:	ff                   	(bad)  
-   1f0ae:	ff                   	(bad)  
-   1f0af:	ff                   	(bad)  
-   1f0b0:	ff                   	(bad)  
-   1f0b1:	ff                   	(bad)  
-   1f0b2:	ff                   	(bad)  
-   1f0b3:	ff                   	(bad)  
-   1f0b4:	ff                   	(bad)  
-   1f0b5:	ff                   	(bad)  
-   1f0b6:	ff                   	(bad)  
-   1f0b7:	ff                   	(bad)  
-   1f0b8:	ff                   	(bad)  
-   1f0b9:	ff                   	(bad)  
-   1f0ba:	ff                   	(bad)  
-   1f0bb:	ff                   	(bad)  
-   1f0bc:	ff                   	(bad)  
-   1f0bd:	ff                   	(bad)  
-   1f0be:	ff                   	(bad)  
-   1f0bf:	ff                   	(bad)  
-   1f0c0:	ff                   	(bad)  
-   1f0c1:	ff                   	(bad)  
-   1f0c2:	ff                   	(bad)  
-   1f0c3:	ff                   	(bad)  
-   1f0c4:	ff                   	(bad)  
-   1f0c5:	ff                   	(bad)  
-   1f0c6:	ff                   	(bad)  
-   1f0c7:	ff                   	(bad)  
-   1f0c8:	ff                   	(bad)  
-   1f0c9:	ff                   	(bad)  
-   1f0ca:	ff                   	(bad)  
-   1f0cb:	ff                   	(bad)  
-   1f0cc:	ff                   	(bad)  
-   1f0cd:	ff                   	(bad)  
-   1f0ce:	ff                   	(bad)  
-   1f0cf:	ff                   	(bad)  
-   1f0d0:	ff                   	(bad)  
-   1f0d1:	ff                   	(bad)  
-   1f0d2:	ff                   	(bad)  
-   1f0d3:	ff                   	(bad)  
-   1f0d4:	ff                   	(bad)  
-   1f0d5:	ff                   	(bad)  
-   1f0d6:	ff                   	(bad)  
-   1f0d7:	ff                   	(bad)  
-   1f0d8:	ff                   	(bad)  
-   1f0d9:	ff                   	(bad)  
-   1f0da:	ff                   	(bad)  
-   1f0db:	ff                   	(bad)  
-   1f0dc:	ff                   	(bad)  
-   1f0dd:	ff                   	(bad)  
-   1f0de:	ff                   	(bad)  
-   1f0df:	ff                   	(bad)  
-   1f0e0:	ff                   	(bad)  
-   1f0e1:	ff                   	(bad)  
-   1f0e2:	ff                   	(bad)  
-   1f0e3:	ff                   	(bad)  
-   1f0e4:	ff                   	(bad)  
-   1f0e5:	ff                   	(bad)  
-   1f0e6:	ff                   	(bad)  
-   1f0e7:	ff                   	(bad)  
-   1f0e8:	ff                   	(bad)  
-   1f0e9:	ff                   	(bad)  
-   1f0ea:	ff                   	(bad)  
-   1f0eb:	ff                   	(bad)  
-   1f0ec:	ff                   	(bad)  
-   1f0ed:	ff                   	(bad)  
-   1f0ee:	ff                   	(bad)  
-   1f0ef:	ff                   	(bad)  
-   1f0f0:	ff                   	(bad)  
-   1f0f1:	ff                   	(bad)  
-   1f0f2:	ff                   	(bad)  
-   1f0f3:	ff                   	(bad)  
-   1f0f4:	ff                   	(bad)  
-   1f0f5:	ff                   	(bad)  
-   1f0f6:	ff                   	(bad)  
-   1f0f7:	ff                   	(bad)  
-   1f0f8:	ff                   	(bad)  
-   1f0f9:	ff                   	(bad)  
-   1f0fa:	ff                   	(bad)  
-   1f0fb:	ff                   	(bad)  
-   1f0fc:	ff                   	(bad)  
-   1f0fd:	ff                   	(bad)  
-   1f0fe:	ff                   	(bad)  
-   1f0ff:	ff                   	(bad)  
-   1f100:	ff                   	(bad)  
-   1f101:	ff                   	(bad)  
-   1f102:	ff                   	(bad)  
-   1f103:	ff                   	(bad)  
-   1f104:	ff                   	(bad)  
-   1f105:	ff                   	(bad)  
-   1f106:	ff                   	(bad)  
-   1f107:	ff                   	(bad)  
-   1f108:	ff                   	(bad)  
-   1f109:	ff                   	(bad)  
-   1f10a:	ff                   	(bad)  
-   1f10b:	ff                   	(bad)  
-   1f10c:	ff                   	(bad)  
-   1f10d:	ff                   	(bad)  
-   1f10e:	ff                   	(bad)  
-   1f10f:	ff                   	(bad)  
-   1f110:	ff                   	(bad)  
-   1f111:	ff                   	(bad)  
-   1f112:	ff                   	(bad)  
-   1f113:	ff                   	(bad)  
-   1f114:	ff                   	(bad)  
-   1f115:	ff                   	(bad)  
-   1f116:	ff                   	(bad)  
-   1f117:	ff                   	(bad)  
-   1f118:	ff                   	(bad)  
-   1f119:	ff                   	(bad)  
-   1f11a:	ff                   	(bad)  
-   1f11b:	ff                   	(bad)  
-   1f11c:	ff                   	(bad)  
-   1f11d:	ff                   	(bad)  
-   1f11e:	ff                   	(bad)  
-   1f11f:	ff                   	(bad)  
-   1f120:	ff                   	(bad)  
-   1f121:	ff                   	(bad)  
-   1f122:	ff                   	(bad)  
-   1f123:	ff                   	(bad)  
-   1f124:	ff                   	(bad)  
-   1f125:	ff                   	(bad)  
-   1f126:	ff                   	(bad)  
-   1f127:	ff                   	(bad)  
-   1f128:	ff                   	(bad)  
-   1f129:	ff                   	(bad)  
-   1f12a:	ff                   	(bad)  
-   1f12b:	ff                   	(bad)  
-   1f12c:	ff                   	(bad)  
-   1f12d:	ff                   	(bad)  
-   1f12e:	ff                   	(bad)  
-   1f12f:	ff                   	(bad)  
-   1f130:	ff                   	(bad)  
-   1f131:	ff                   	(bad)  
-   1f132:	ff                   	(bad)  
-   1f133:	ff                   	(bad)  
-   1f134:	ff                   	(bad)  
-   1f135:	ff                   	(bad)  
-   1f136:	ff                   	(bad)  
-   1f137:	ff                   	(bad)  
-   1f138:	ff                   	(bad)  
-   1f139:	ff                   	(bad)  
-   1f13a:	ff                   	(bad)  
-   1f13b:	ff                   	(bad)  
-   1f13c:	ff                   	(bad)  
-   1f13d:	ff                   	(bad)  
-   1f13e:	ff                   	(bad)  
-   1f13f:	ff                   	(bad)  
-   1f140:	ff                   	(bad)  
-   1f141:	ff                   	(bad)  
-   1f142:	ff                   	(bad)  
-   1f143:	ff                   	(bad)  
-   1f144:	ff                   	(bad)  
-   1f145:	ff                   	(bad)  
-   1f146:	ff                   	(bad)  
-   1f147:	ff                   	(bad)  
-   1f148:	ff                   	(bad)  
-   1f149:	ff                   	(bad)  
-   1f14a:	ff                   	(bad)  
-   1f14b:	ff                   	(bad)  
-   1f14c:	ff                   	(bad)  
-   1f14d:	ff                   	(bad)  
-   1f14e:	ff                   	(bad)  
-   1f14f:	ff                   	(bad)  
-   1f150:	ff                   	(bad)  
-   1f151:	ff                   	(bad)  
-   1f152:	ff                   	(bad)  
-   1f153:	ff                   	(bad)  
-   1f154:	ff                   	(bad)  
-   1f155:	ff                   	(bad)  
-   1f156:	ff                   	(bad)  
-   1f157:	ff                   	(bad)  
-   1f158:	ff                   	(bad)  
-   1f159:	ff                   	(bad)  
-   1f15a:	ff                   	(bad)  
-   1f15b:	ff                   	(bad)  
-   1f15c:	ff                   	(bad)  
-   1f15d:	ff                   	(bad)  
-   1f15e:	ff                   	(bad)  
-   1f15f:	ff                   	(bad)  
-   1f160:	ff                   	(bad)  
-   1f161:	ff                   	(bad)  
-   1f162:	ff                   	(bad)  
-   1f163:	ff                   	(bad)  
-   1f164:	ff                   	(bad)  
-   1f165:	ff                   	(bad)  
-   1f166:	ff                   	(bad)  
-   1f167:	ff                   	(bad)  
-   1f168:	ff                   	(bad)  
-   1f169:	ff                   	(bad)  
-   1f16a:	ff                   	(bad)  
-   1f16b:	ff                   	(bad)  
-   1f16c:	ff                   	(bad)  
-   1f16d:	ff                   	(bad)  
-   1f16e:	ff                   	(bad)  
-   1f16f:	ff                   	(bad)  
-   1f170:	ff                   	(bad)  
-   1f171:	ff                   	(bad)  
-   1f172:	ff                   	(bad)  
-   1f173:	ff                   	(bad)  
-   1f174:	ff                   	(bad)  
-   1f175:	ff                   	(bad)  
-   1f176:	ff                   	(bad)  
-   1f177:	ff                   	(bad)  
-   1f178:	ff                   	(bad)  
-   1f179:	ff                   	(bad)  
-   1f17a:	ff                   	(bad)  
-   1f17b:	ff                   	(bad)  
-   1f17c:	ff                   	(bad)  
-   1f17d:	ff                   	(bad)  
-   1f17e:	ff                   	(bad)  
-   1f17f:	ff                   	(bad)  
-   1f180:	ff                   	(bad)  
-   1f181:	ff                   	(bad)  
-   1f182:	ff                   	(bad)  
-   1f183:	ff                   	(bad)  
-   1f184:	ff                   	(bad)  
-   1f185:	ff                   	(bad)  
-   1f186:	ff                   	(bad)  
-   1f187:	ff                   	(bad)  
-   1f188:	ff                   	(bad)  
-   1f189:	ff                   	(bad)  
-   1f18a:	ff                   	(bad)  
-   1f18b:	ff                   	(bad)  
-   1f18c:	ff                   	(bad)  
-   1f18d:	ff                   	(bad)  
-   1f18e:	ff                   	(bad)  
-   1f18f:	ff                   	(bad)  
-   1f190:	ff                   	(bad)  
-   1f191:	ff                   	(bad)  
-   1f192:	ff                   	(bad)  
-   1f193:	ff                   	(bad)  
-   1f194:	ff                   	(bad)  
-   1f195:	ff                   	(bad)  
-   1f196:	ff                   	(bad)  
-   1f197:	ff                   	(bad)  
-   1f198:	ff                   	(bad)  
-   1f199:	ff                   	(bad)  
-   1f19a:	ff                   	(bad)  
-   1f19b:	ff                   	(bad)  
-   1f19c:	ff                   	(bad)  
-   1f19d:	ff                   	(bad)  
-   1f19e:	ff                   	(bad)  
-   1f19f:	ff                   	(bad)  
-   1f1a0:	ff                   	(bad)  
-   1f1a1:	ff                   	(bad)  
-   1f1a2:	ff                   	(bad)  
-   1f1a3:	ff                   	(bad)  
-   1f1a4:	ff                   	(bad)  
-   1f1a5:	ff                   	(bad)  
-   1f1a6:	ff                   	(bad)  
-   1f1a7:	ff                   	(bad)  
-   1f1a8:	ff                   	(bad)  
-   1f1a9:	ff                   	(bad)  
-   1f1aa:	ff                   	(bad)  
-   1f1ab:	ff                   	(bad)  
-   1f1ac:	ff                   	(bad)  
-   1f1ad:	ff                   	(bad)  
-   1f1ae:	ff                   	(bad)  
-   1f1af:	ff                   	(bad)  
-   1f1b0:	ff                   	(bad)  
-   1f1b1:	ff                   	(bad)  
-   1f1b2:	ff                   	(bad)  
-   1f1b3:	ff                   	(bad)  
-   1f1b4:	ff                   	(bad)  
-   1f1b5:	ff                   	(bad)  
-   1f1b6:	ff                   	(bad)  
-   1f1b7:	ff                   	(bad)  
-   1f1b8:	ff                   	(bad)  
-   1f1b9:	ff                   	(bad)  
-   1f1ba:	ff                   	(bad)  
-   1f1bb:	ff                   	(bad)  
-   1f1bc:	ff                   	(bad)  
-   1f1bd:	ff                   	(bad)  
-   1f1be:	ff                   	(bad)  
-   1f1bf:	ff                   	(bad)  
-   1f1c0:	ff                   	(bad)  
-   1f1c1:	ff                   	(bad)  
-   1f1c2:	ff                   	(bad)  
-   1f1c3:	ff                   	(bad)  
-   1f1c4:	ff                   	(bad)  
-   1f1c5:	ff                   	(bad)  
-   1f1c6:	ff                   	(bad)  
-   1f1c7:	ff                   	(bad)  
-   1f1c8:	ff                   	(bad)  
-   1f1c9:	ff                   	(bad)  
-   1f1ca:	ff                   	(bad)  
-   1f1cb:	ff                   	(bad)  
-   1f1cc:	ff                   	(bad)  
-   1f1cd:	ff                   	(bad)  
-   1f1ce:	ff                   	(bad)  
-   1f1cf:	ff                   	(bad)  
-   1f1d0:	ff                   	(bad)  
-   1f1d1:	ff                   	(bad)  
-   1f1d2:	ff                   	(bad)  
-   1f1d3:	ff                   	(bad)  
-   1f1d4:	ff                   	(bad)  
-   1f1d5:	ff                   	(bad)  
-   1f1d6:	ff                   	(bad)  
-   1f1d7:	ff                   	(bad)  
-   1f1d8:	ff                   	(bad)  
-   1f1d9:	ff                   	(bad)  
-   1f1da:	ff                   	(bad)  
-   1f1db:	ff                   	(bad)  
-   1f1dc:	ff                   	(bad)  
-   1f1dd:	ff                   	(bad)  
-   1f1de:	ff                   	(bad)  
-   1f1df:	ff                   	(bad)  
-   1f1e0:	ff                   	(bad)  
-   1f1e1:	ff                   	(bad)  
-   1f1e2:	ff                   	(bad)  
-   1f1e3:	ff                   	(bad)  
-   1f1e4:	ff                   	(bad)  
-   1f1e5:	ff                   	(bad)  
-   1f1e6:	ff                   	(bad)  
-   1f1e7:	ff                   	(bad)  
-   1f1e8:	ff                   	(bad)  
-   1f1e9:	ff                   	(bad)  
-   1f1ea:	ff                   	(bad)  
-   1f1eb:	ff                   	(bad)  
-   1f1ec:	ff                   	(bad)  
-   1f1ed:	ff                   	(bad)  
-   1f1ee:	ff                   	(bad)  
-   1f1ef:	ff                   	(bad)  
-   1f1f0:	ff                   	(bad)  
-   1f1f1:	ff                   	(bad)  
-   1f1f2:	ff                   	(bad)  
-   1f1f3:	ff                   	(bad)  
-   1f1f4:	ff                   	(bad)  
-   1f1f5:	ff                   	(bad)  
-   1f1f6:	ff                   	(bad)  
-   1f1f7:	ff                   	(bad)  
-   1f1f8:	ff                   	(bad)  
-   1f1f9:	ff                   	(bad)  
-   1f1fa:	ff                   	(bad)  
-   1f1fb:	ff                   	(bad)  
-   1f1fc:	ff                   	(bad)  
-   1f1fd:	ff                   	(bad)  
-   1f1fe:	ff                   	(bad)  
-   1f1ff:	ff                   	(bad)  
-   1f200:	ff                   	(bad)  
-   1f201:	ff                   	(bad)  
-   1f202:	ff                   	(bad)  
-   1f203:	ff                   	(bad)  
-   1f204:	ff                   	(bad)  
-   1f205:	ff                   	(bad)  
-   1f206:	ff                   	(bad)  
-   1f207:	ff                   	(bad)  
-   1f208:	ff                   	(bad)  
-   1f209:	ff                   	(bad)  
-   1f20a:	ff                   	(bad)  
-   1f20b:	ff                   	(bad)  
-   1f20c:	ff                   	(bad)  
-   1f20d:	ff                   	(bad)  
-   1f20e:	ff                   	(bad)  
-   1f20f:	ff                   	(bad)  
-   1f210:	ff                   	(bad)  
-   1f211:	ff                   	(bad)  
-   1f212:	ff                   	(bad)  
-   1f213:	ff                   	(bad)  
-   1f214:	ff                   	(bad)  
-   1f215:	ff                   	(bad)  
-   1f216:	ff                   	(bad)  
-   1f217:	ff                   	(bad)  
-   1f218:	ff                   	(bad)  
-   1f219:	ff                   	(bad)  
-   1f21a:	ff                   	(bad)  
-   1f21b:	ff                   	(bad)  
-   1f21c:	ff                   	(bad)  
-   1f21d:	ff                   	(bad)  
-   1f21e:	ff                   	(bad)  
-   1f21f:	ff                   	(bad)  
-   1f220:	ff                   	(bad)  
-   1f221:	ff                   	(bad)  
-   1f222:	ff                   	(bad)  
-   1f223:	ff                   	(bad)  
-   1f224:	ff                   	(bad)  
-   1f225:	ff                   	(bad)  
-   1f226:	ff                   	(bad)  
-   1f227:	ff                   	(bad)  
-   1f228:	ff                   	(bad)  
-   1f229:	ff                   	(bad)  
-   1f22a:	ff                   	(bad)  
-   1f22b:	ff                   	(bad)  
-   1f22c:	ff                   	(bad)  
-   1f22d:	ff                   	(bad)  
-   1f22e:	ff                   	(bad)  
-   1f22f:	ff                   	(bad)  
-   1f230:	ff                   	(bad)  
-   1f231:	ff                   	(bad)  
-   1f232:	ff                   	(bad)  
-   1f233:	ff                   	(bad)  
-   1f234:	ff                   	(bad)  
-   1f235:	ff                   	(bad)  
-   1f236:	ff                   	(bad)  
-   1f237:	ff                   	(bad)  
-   1f238:	ff                   	(bad)  
-   1f239:	ff                   	(bad)  
-   1f23a:	ff                   	(bad)  
-   1f23b:	ff                   	(bad)  
-   1f23c:	ff                   	(bad)  
-   1f23d:	ff                   	(bad)  
-   1f23e:	ff                   	(bad)  
-   1f23f:	ff                   	(bad)  
-   1f240:	ff                   	(bad)  
-   1f241:	ff                   	(bad)  
-   1f242:	ff                   	(bad)  
-   1f243:	ff                   	(bad)  
-   1f244:	ff                   	(bad)  
-   1f245:	ff                   	(bad)  
-   1f246:	ff                   	(bad)  
-   1f247:	ff                   	(bad)  
-   1f248:	ff                   	(bad)  
-   1f249:	ff                   	(bad)  
-   1f24a:	ff                   	(bad)  
-   1f24b:	ff                   	(bad)  
-   1f24c:	ff                   	(bad)  
-   1f24d:	ff                   	(bad)  
-   1f24e:	ff                   	(bad)  
-   1f24f:	ff                   	(bad)  
-   1f250:	ff                   	(bad)  
-   1f251:	ff                   	(bad)  
-   1f252:	ff                   	(bad)  
-   1f253:	ff                   	(bad)  
-   1f254:	ff                   	(bad)  
-   1f255:	ff                   	(bad)  
-   1f256:	ff                   	(bad)  
-   1f257:	ff                   	(bad)  
-   1f258:	ff                   	(bad)  
-   1f259:	ff                   	(bad)  
-   1f25a:	ff                   	(bad)  
-   1f25b:	ff                   	(bad)  
-   1f25c:	ff                   	(bad)  
-   1f25d:	ff                   	(bad)  
-   1f25e:	ff                   	(bad)  
-   1f25f:	ff                   	(bad)  
-   1f260:	ff                   	(bad)  
-   1f261:	ff                   	(bad)  
-   1f262:	ff                   	(bad)  
-   1f263:	ff                   	(bad)  
-   1f264:	ff                   	(bad)  
-   1f265:	ff                   	(bad)  
-   1f266:	ff                   	(bad)  
-   1f267:	ff                   	(bad)  
-   1f268:	ff                   	(bad)  
-   1f269:	ff                   	(bad)  
-   1f26a:	ff                   	(bad)  
-   1f26b:	ff                   	(bad)  
-   1f26c:	ff                   	(bad)  
-   1f26d:	ff                   	(bad)  
-   1f26e:	ff                   	(bad)  
-   1f26f:	ff                   	(bad)  
-   1f270:	ff                   	(bad)  
-   1f271:	ff                   	(bad)  
-   1f272:	ff                   	(bad)  
-   1f273:	ff                   	(bad)  
-   1f274:	ff                   	(bad)  
-   1f275:	ff                   	(bad)  
-   1f276:	ff                   	(bad)  
-   1f277:	ff                   	(bad)  
-   1f278:	ff                   	(bad)  
-   1f279:	ff                   	(bad)  
-   1f27a:	ff                   	(bad)  
-   1f27b:	ff                   	(bad)  
-   1f27c:	ff                   	(bad)  
-   1f27d:	ff                   	(bad)  
-   1f27e:	ff                   	(bad)  
-   1f27f:	ff                   	(bad)  
-   1f280:	ff                   	(bad)  
-   1f281:	ff                   	(bad)  
-   1f282:	ff                   	(bad)  
-   1f283:	ff                   	(bad)  
-   1f284:	ff                   	(bad)  
-   1f285:	ff                   	(bad)  
-   1f286:	ff                   	(bad)  
-   1f287:	ff                   	(bad)  
-   1f288:	ff                   	(bad)  
-   1f289:	ff                   	(bad)  
-   1f28a:	ff                   	(bad)  
-   1f28b:	ff                   	(bad)  
-   1f28c:	ff                   	(bad)  
-   1f28d:	ff                   	(bad)  
-   1f28e:	ff                   	(bad)  
-   1f28f:	ff                   	(bad)  
-   1f290:	ff                   	(bad)  
-   1f291:	ff                   	(bad)  
-   1f292:	ff                   	(bad)  
-   1f293:	ff                   	(bad)  
-   1f294:	ff                   	(bad)  
-   1f295:	ff                   	(bad)  
-   1f296:	ff                   	(bad)  
-   1f297:	ff                   	(bad)  
-   1f298:	ff                   	(bad)  
-   1f299:	ff                   	(bad)  
-   1f29a:	ff                   	(bad)  
-   1f29b:	ff                   	(bad)  
-   1f29c:	ff                   	(bad)  
-   1f29d:	ff                   	(bad)  
-   1f29e:	ff                   	(bad)  
-   1f29f:	ff                   	(bad)  
-   1f2a0:	ff                   	(bad)  
-   1f2a1:	ff                   	(bad)  
-   1f2a2:	ff                   	(bad)  
-   1f2a3:	ff                   	(bad)  
-   1f2a4:	ff                   	(bad)  
-   1f2a5:	ff                   	(bad)  
-   1f2a6:	ff                   	(bad)  
-   1f2a7:	ff                   	(bad)  
-   1f2a8:	ff                   	(bad)  
-   1f2a9:	ff                   	(bad)  
-   1f2aa:	ff                   	(bad)  
-   1f2ab:	ff                   	(bad)  
-   1f2ac:	ff                   	(bad)  
-   1f2ad:	ff                   	(bad)  
-   1f2ae:	ff                   	(bad)  
-   1f2af:	ff                   	(bad)  
-   1f2b0:	ff                   	(bad)  
-   1f2b1:	ff                   	(bad)  
-   1f2b2:	ff                   	(bad)  
-   1f2b3:	ff                   	(bad)  
-   1f2b4:	ff                   	(bad)  
-   1f2b5:	ff                   	(bad)  
-   1f2b6:	ff                   	(bad)  
-   1f2b7:	ff                   	(bad)  
-   1f2b8:	ff                   	(bad)  
-   1f2b9:	ff                   	(bad)  
-   1f2ba:	ff                   	(bad)  
-   1f2bb:	ff                   	(bad)  
-   1f2bc:	ff                   	(bad)  
-   1f2bd:	ff                   	(bad)  
-   1f2be:	ff                   	(bad)  
-   1f2bf:	ff                   	(bad)  
-   1f2c0:	ff                   	(bad)  
-   1f2c1:	ff                   	(bad)  
-   1f2c2:	ff                   	(bad)  
-   1f2c3:	ff                   	(bad)  
-   1f2c4:	ff                   	(bad)  
-   1f2c5:	ff                   	(bad)  
-   1f2c6:	ff                   	(bad)  
-   1f2c7:	ff                   	(bad)  
-   1f2c8:	ff                   	(bad)  
-   1f2c9:	ff                   	(bad)  
-   1f2ca:	ff                   	(bad)  
-   1f2cb:	ff                   	(bad)  
-   1f2cc:	ff                   	(bad)  
-   1f2cd:	ff                   	(bad)  
-   1f2ce:	ff                   	(bad)  
-   1f2cf:	ff                   	(bad)  
-   1f2d0:	ff                   	(bad)  
-   1f2d1:	ff                   	(bad)  
-   1f2d2:	ff                   	(bad)  
-   1f2d3:	ff                   	(bad)  
-   1f2d4:	ff                   	(bad)  
-   1f2d5:	ff                   	(bad)  
-   1f2d6:	ff                   	(bad)  
-   1f2d7:	ff                   	(bad)  
-   1f2d8:	ff                   	(bad)  
-   1f2d9:	ff                   	(bad)  
-   1f2da:	ff                   	(bad)  
-   1f2db:	ff                   	(bad)  
-   1f2dc:	ff                   	(bad)  
-   1f2dd:	ff                   	(bad)  
-   1f2de:	ff                   	(bad)  
-   1f2df:	ff                   	(bad)  
-   1f2e0:	ff                   	(bad)  
-   1f2e1:	ff                   	(bad)  
-   1f2e2:	ff                   	(bad)  
-   1f2e3:	ff                   	(bad)  
-   1f2e4:	ff                   	(bad)  
-   1f2e5:	ff                   	(bad)  
-   1f2e6:	ff                   	(bad)  
-   1f2e7:	ff                   	(bad)  
-   1f2e8:	ff                   	(bad)  
-   1f2e9:	ff                   	(bad)  
-   1f2ea:	ff                   	(bad)  
-   1f2eb:	ff                   	(bad)  
-   1f2ec:	ff                   	(bad)  
-   1f2ed:	ff                   	(bad)  
-   1f2ee:	ff                   	(bad)  
-   1f2ef:	ff                   	(bad)  
-   1f2f0:	ff                   	(bad)  
-   1f2f1:	ff                   	(bad)  
-   1f2f2:	ff                   	(bad)  
-   1f2f3:	ff                   	(bad)  
-   1f2f4:	ff                   	(bad)  
-   1f2f5:	ff                   	(bad)  
-   1f2f6:	ff                   	(bad)  
-   1f2f7:	ff                   	(bad)  
-   1f2f8:	ff                   	(bad)  
-   1f2f9:	ff                   	(bad)  
-   1f2fa:	ff                   	(bad)  
-   1f2fb:	ff                   	(bad)  
-   1f2fc:	ff                   	(bad)  
-   1f2fd:	ff                   	(bad)  
-   1f2fe:	ff                   	(bad)  
-   1f2ff:	ff                   	(bad)  
-   1f300:	ff                   	(bad)  
-   1f301:	ff                   	(bad)  
-   1f302:	ff                   	(bad)  
-   1f303:	ff                   	(bad)  
-   1f304:	ff                   	(bad)  
-   1f305:	ff                   	(bad)  
-   1f306:	ff                   	(bad)  
-   1f307:	ff                   	(bad)  
-   1f308:	ff                   	(bad)  
-   1f309:	ff                   	(bad)  
-   1f30a:	ff                   	(bad)  
-   1f30b:	ff                   	(bad)  
-   1f30c:	ff                   	(bad)  
-   1f30d:	ff                   	(bad)  
-   1f30e:	ff                   	(bad)  
-   1f30f:	ff                   	(bad)  
-   1f310:	ff                   	(bad)  
-   1f311:	ff                   	(bad)  
-   1f312:	ff                   	(bad)  
-   1f313:	ff                   	(bad)  
-   1f314:	ff                   	(bad)  
-   1f315:	ff                   	(bad)  
-   1f316:	ff                   	(bad)  
-   1f317:	ff                   	(bad)  
-   1f318:	ff                   	(bad)  
-   1f319:	ff                   	(bad)  
-   1f31a:	ff                   	(bad)  
-   1f31b:	ff                   	(bad)  
-   1f31c:	ff                   	(bad)  
-   1f31d:	ff                   	(bad)  
-   1f31e:	ff                   	(bad)  
-   1f31f:	ff                   	(bad)  
-   1f320:	ff                   	(bad)  
-   1f321:	ff                   	(bad)  
-   1f322:	ff                   	(bad)  
-   1f323:	ff                   	(bad)  
-   1f324:	ff                   	(bad)  
-   1f325:	ff                   	(bad)  
-   1f326:	ff                   	(bad)  
-   1f327:	ff                   	(bad)  
-   1f328:	ff                   	(bad)  
-   1f329:	ff                   	(bad)  
-   1f32a:	ff                   	(bad)  
-   1f32b:	ff                   	(bad)  
-   1f32c:	ff                   	(bad)  
-   1f32d:	ff                   	(bad)  
-   1f32e:	ff                   	(bad)  
-   1f32f:	ff                   	(bad)  
-   1f330:	ff                   	(bad)  
-   1f331:	ff                   	(bad)  
-   1f332:	ff                   	(bad)  
-   1f333:	ff                   	(bad)  
-   1f334:	ff                   	(bad)  
-   1f335:	ff                   	(bad)  
-   1f336:	ff                   	(bad)  
-   1f337:	ff                   	(bad)  
-   1f338:	ff                   	(bad)  
-   1f339:	ff                   	(bad)  
-   1f33a:	ff                   	(bad)  
-   1f33b:	ff                   	(bad)  
-   1f33c:	ff                   	(bad)  
-   1f33d:	ff                   	(bad)  
-   1f33e:	ff                   	(bad)  
-   1f33f:	ff                   	(bad)  
-   1f340:	ff                   	(bad)  
-   1f341:	ff                   	(bad)  
-   1f342:	ff                   	(bad)  
-   1f343:	ff                   	(bad)  
-   1f344:	ff                   	(bad)  
-   1f345:	ff                   	(bad)  
-   1f346:	ff                   	(bad)  
-   1f347:	ff                   	(bad)  
-   1f348:	ff                   	(bad)  
-   1f349:	ff                   	(bad)  
-   1f34a:	ff                   	(bad)  
-   1f34b:	ff                   	(bad)  
-   1f34c:	ff                   	(bad)  
-   1f34d:	ff                   	(bad)  
-   1f34e:	ff                   	(bad)  
-   1f34f:	ff                   	(bad)  
-   1f350:	ff                   	(bad)  
-   1f351:	ff                   	(bad)  
-   1f352:	ff                   	(bad)  
-   1f353:	ff                   	(bad)  
-   1f354:	ff                   	(bad)  
-   1f355:	ff                   	(bad)  
-   1f356:	ff                   	(bad)  
-   1f357:	ff                   	(bad)  
-   1f358:	ff                   	(bad)  
-   1f359:	ff                   	(bad)  
-   1f35a:	ff                   	(bad)  
-   1f35b:	ff                   	(bad)  
-   1f35c:	ff                   	(bad)  
-   1f35d:	ff                   	(bad)  
-   1f35e:	ff                   	(bad)  
-   1f35f:	ff                   	(bad)  
-   1f360:	ff                   	(bad)  
-   1f361:	ff                   	(bad)  
-   1f362:	ff                   	(bad)  
-   1f363:	ff                   	(bad)  
-   1f364:	ff                   	(bad)  
-   1f365:	ff                   	(bad)  
-   1f366:	ff                   	(bad)  
-   1f367:	ff                   	(bad)  
-   1f368:	ff                   	(bad)  
-   1f369:	ff                   	(bad)  
-   1f36a:	ff                   	(bad)  
-   1f36b:	ff                   	(bad)  
-   1f36c:	ff                   	(bad)  
-   1f36d:	ff                   	(bad)  
-   1f36e:	ff                   	(bad)  
-   1f36f:	ff                   	(bad)  
-   1f370:	ff                   	(bad)  
-   1f371:	ff                   	(bad)  
-   1f372:	ff                   	(bad)  
-   1f373:	ff                   	(bad)  
-   1f374:	ff                   	(bad)  
-   1f375:	ff                   	(bad)  
-   1f376:	ff                   	(bad)  
-   1f377:	ff                   	(bad)  
-   1f378:	ff                   	(bad)  
-   1f379:	ff                   	(bad)  
-   1f37a:	ff                   	(bad)  
-   1f37b:	ff                   	(bad)  
-   1f37c:	ff                   	(bad)  
-   1f37d:	ff                   	(bad)  
-   1f37e:	ff                   	(bad)  
-   1f37f:	ff                   	(bad)  
-   1f380:	ff                   	(bad)  
-   1f381:	ff                   	(bad)  
-   1f382:	ff                   	(bad)  
-   1f383:	ff                   	(bad)  
-   1f384:	ff                   	(bad)  
-   1f385:	ff                   	(bad)  
-   1f386:	ff                   	(bad)  
-   1f387:	ff                   	(bad)  
-   1f388:	ff                   	(bad)  
-   1f389:	ff                   	(bad)  
-   1f38a:	ff                   	(bad)  
-   1f38b:	ff                   	(bad)  
-   1f38c:	ff                   	(bad)  
-   1f38d:	ff                   	(bad)  
-   1f38e:	ff                   	(bad)  
-   1f38f:	ff                   	(bad)  
-   1f390:	ff                   	(bad)  
-   1f391:	ff                   	(bad)  
-   1f392:	ff                   	(bad)  
-   1f393:	ff                   	(bad)  
-   1f394:	ff                   	(bad)  
-   1f395:	ff                   	(bad)  
-   1f396:	ff                   	(bad)  
-   1f397:	ff                   	(bad)  
-   1f398:	ff                   	(bad)  
-   1f399:	ff                   	(bad)  
-   1f39a:	ff                   	(bad)  
-   1f39b:	ff                   	(bad)  
-   1f39c:	ff                   	(bad)  
-   1f39d:	ff                   	(bad)  
-   1f39e:	ff                   	(bad)  
-   1f39f:	ff                   	(bad)  
-   1f3a0:	ff                   	(bad)  
-   1f3a1:	ff                   	(bad)  
-   1f3a2:	ff                   	(bad)  
-   1f3a3:	ff                   	(bad)  
-   1f3a4:	ff                   	(bad)  
-   1f3a5:	ff                   	(bad)  
-   1f3a6:	ff                   	(bad)  
-   1f3a7:	ff                   	(bad)  
-   1f3a8:	ff                   	(bad)  
-   1f3a9:	ff                   	(bad)  
-   1f3aa:	ff                   	(bad)  
-   1f3ab:	ff                   	(bad)  
-   1f3ac:	ff                   	(bad)  
-   1f3ad:	ff                   	(bad)  
-   1f3ae:	ff                   	(bad)  
-   1f3af:	ff                   	(bad)  
-   1f3b0:	ff                   	(bad)  
-   1f3b1:	ff                   	(bad)  
-   1f3b2:	ff                   	(bad)  
-   1f3b3:	ff                   	(bad)  
-   1f3b4:	ff                   	(bad)  
-   1f3b5:	ff                   	(bad)  
-   1f3b6:	ff                   	(bad)  
-   1f3b7:	ff                   	(bad)  
-   1f3b8:	ff                   	(bad)  
-   1f3b9:	ff                   	(bad)  
-   1f3ba:	ff                   	(bad)  
-   1f3bb:	ff                   	(bad)  
-   1f3bc:	ff                   	(bad)  
-   1f3bd:	ff                   	(bad)  
-   1f3be:	ff                   	(bad)  
-   1f3bf:	ff                   	(bad)  
-   1f3c0:	ff                   	(bad)  
-   1f3c1:	ff                   	(bad)  
-   1f3c2:	ff                   	(bad)  
-   1f3c3:	ff                   	(bad)  
-   1f3c4:	ff                   	(bad)  
-   1f3c5:	ff                   	(bad)  
-   1f3c6:	ff                   	(bad)  
-   1f3c7:	ff                   	(bad)  
-   1f3c8:	ff                   	(bad)  
-   1f3c9:	ff                   	(bad)  
-   1f3ca:	ff                   	(bad)  
-   1f3cb:	ff                   	(bad)  
-   1f3cc:	ff                   	(bad)  
-   1f3cd:	ff                   	(bad)  
-   1f3ce:	ff                   	(bad)  
-   1f3cf:	ff                   	(bad)  
-   1f3d0:	ff                   	(bad)  
-   1f3d1:	ff                   	(bad)  
-   1f3d2:	ff                   	(bad)  
-   1f3d3:	ff                   	(bad)  
-   1f3d4:	ff                   	(bad)  
-   1f3d5:	ff                   	(bad)  
-   1f3d6:	ff                   	(bad)  
-   1f3d7:	ff                   	(bad)  
-   1f3d8:	ff                   	(bad)  
-   1f3d9:	ff                   	(bad)  
-   1f3da:	ff                   	(bad)  
-   1f3db:	ff                   	(bad)  
-   1f3dc:	ff                   	(bad)  
-   1f3dd:	ff                   	(bad)  
-   1f3de:	ff                   	(bad)  
-   1f3df:	ff                   	(bad)  
-   1f3e0:	ff                   	(bad)  
-   1f3e1:	ff                   	(bad)  
-   1f3e2:	ff                   	(bad)  
-   1f3e3:	ff                   	(bad)  
-   1f3e4:	ff                   	(bad)  
-   1f3e5:	ff                   	(bad)  
-   1f3e6:	ff                   	(bad)  
-   1f3e7:	ff                   	(bad)  
-   1f3e8:	ff                   	(bad)  
-   1f3e9:	ff                   	(bad)  
-   1f3ea:	ff                   	(bad)  
-   1f3eb:	ff                   	(bad)  
-   1f3ec:	ff                   	(bad)  
-   1f3ed:	ff                   	(bad)  
-   1f3ee:	ff                   	(bad)  
-   1f3ef:	ff                   	(bad)  
-   1f3f0:	ff                   	(bad)  
-   1f3f1:	ff                   	(bad)  
-   1f3f2:	ff                   	(bad)  
-   1f3f3:	ff                   	(bad)  
-   1f3f4:	ff                   	(bad)  
-   1f3f5:	ff                   	(bad)  
-   1f3f6:	ff                   	(bad)  
-   1f3f7:	ff                   	(bad)  
-   1f3f8:	ff                   	(bad)  
-   1f3f9:	ff                   	(bad)  
-   1f3fa:	ff                   	(bad)  
-   1f3fb:	ff                   	(bad)  
-   1f3fc:	ff                   	(bad)  
-   1f3fd:	ff                   	(bad)  
-   1f3fe:	ff                   	(bad)  
-   1f3ff:	ff                   	(bad)  
-   1f400:	ff                   	(bad)  
-   1f401:	ff                   	(bad)  
-   1f402:	ff                   	(bad)  
-   1f403:	ff                   	(bad)  
-   1f404:	ff                   	(bad)  
-   1f405:	ff                   	(bad)  
-   1f406:	ff                   	(bad)  
-   1f407:	ff                   	(bad)  
-   1f408:	ff                   	(bad)  
-   1f409:	ff                   	(bad)  
-   1f40a:	ff                   	(bad)  
-   1f40b:	ff                   	(bad)  
-   1f40c:	ff                   	(bad)  
-   1f40d:	ff                   	(bad)  
-   1f40e:	ff                   	(bad)  
-   1f40f:	ff                   	(bad)  
-   1f410:	ff                   	(bad)  
-   1f411:	ff                   	(bad)  
-   1f412:	ff                   	(bad)  
-   1f413:	ff                   	(bad)  
-   1f414:	ff                   	(bad)  
-   1f415:	ff                   	(bad)  
-   1f416:	ff                   	(bad)  
-   1f417:	ff                   	(bad)  
-   1f418:	ff                   	(bad)  
-   1f419:	ff                   	(bad)  
-   1f41a:	ff                   	(bad)  
-   1f41b:	ff                   	(bad)  
-   1f41c:	ff                   	(bad)  
-   1f41d:	ff                   	(bad)  
-   1f41e:	ff                   	(bad)  
-   1f41f:	ff                   	(bad)  
-   1f420:	ff                   	(bad)  
-   1f421:	ff                   	(bad)  
-   1f422:	ff                   	(bad)  
-   1f423:	ff                   	(bad)  
-   1f424:	ff                   	(bad)  
-   1f425:	ff                   	(bad)  
-   1f426:	ff                   	(bad)  
-   1f427:	ff                   	(bad)  
-   1f428:	ff                   	(bad)  
-   1f429:	ff                   	(bad)  
-   1f42a:	ff                   	(bad)  
-   1f42b:	ff                   	(bad)  
-   1f42c:	ff                   	(bad)  
-   1f42d:	ff                   	(bad)  
-   1f42e:	ff                   	(bad)  
-   1f42f:	ff                   	(bad)  
-   1f430:	ff                   	(bad)  
-   1f431:	ff                   	(bad)  
-   1f432:	ff                   	(bad)  
-   1f433:	ff                   	(bad)  
-   1f434:	ff                   	(bad)  
-   1f435:	ff                   	(bad)  
-   1f436:	ff                   	(bad)  
-   1f437:	ff                   	(bad)  
-   1f438:	ff                   	(bad)  
-   1f439:	ff                   	(bad)  
-   1f43a:	ff                   	(bad)  
-   1f43b:	ff                   	(bad)  
-   1f43c:	ff                   	(bad)  
-   1f43d:	ff                   	(bad)  
-   1f43e:	ff                   	(bad)  
-   1f43f:	ff                   	(bad)  
-   1f440:	ff                   	(bad)  
-   1f441:	ff                   	(bad)  
-   1f442:	ff                   	(bad)  
-   1f443:	ff                   	(bad)  
-   1f444:	ff                   	(bad)  
-   1f445:	ff                   	(bad)  
-   1f446:	ff                   	(bad)  
-   1f447:	ff                   	(bad)  
-   1f448:	ff                   	(bad)  
-   1f449:	ff                   	(bad)  
-   1f44a:	ff                   	(bad)  
-   1f44b:	ff                   	(bad)  
-   1f44c:	ff                   	(bad)  
-   1f44d:	ff                   	(bad)  
-   1f44e:	ff                   	(bad)  
-   1f44f:	ff                   	(bad)  
-   1f450:	ff                   	(bad)  
-   1f451:	ff                   	(bad)  
-   1f452:	ff                   	(bad)  
-   1f453:	ff                   	(bad)  
-   1f454:	ff                   	(bad)  
-   1f455:	ff                   	(bad)  
-   1f456:	ff                   	(bad)  
-   1f457:	ff                   	(bad)  
-   1f458:	ff                   	(bad)  
-   1f459:	ff                   	(bad)  
-   1f45a:	ff                   	(bad)  
-   1f45b:	ff                   	(bad)  
-   1f45c:	ff                   	(bad)  
-   1f45d:	ff                   	(bad)  
-   1f45e:	ff                   	(bad)  
-   1f45f:	ff                   	(bad)  
-   1f460:	ff                   	(bad)  
-   1f461:	ff                   	(bad)  
-   1f462:	ff                   	(bad)  
-   1f463:	ff                   	(bad)  
-   1f464:	ff                   	(bad)  
-   1f465:	ff                   	(bad)  
-   1f466:	ff                   	(bad)  
-   1f467:	ff                   	(bad)  
-   1f468:	ff                   	(bad)  
-   1f469:	ff                   	(bad)  
-   1f46a:	ff                   	(bad)  
-   1f46b:	ff                   	(bad)  
-   1f46c:	ff                   	(bad)  
-   1f46d:	ff                   	(bad)  
-   1f46e:	ff                   	(bad)  
-   1f46f:	ff                   	(bad)  
-   1f470:	ff                   	(bad)  
-   1f471:	ff                   	(bad)  
-   1f472:	ff                   	(bad)  
-   1f473:	ff                   	(bad)  
-   1f474:	ff                   	(bad)  
-   1f475:	ff                   	(bad)  
-   1f476:	ff                   	(bad)  
-   1f477:	ff                   	(bad)  
-   1f478:	ff                   	(bad)  
-   1f479:	ff                   	(bad)  
-   1f47a:	ff                   	(bad)  
-   1f47b:	ff                   	(bad)  
-   1f47c:	ff                   	(bad)  
-   1f47d:	ff                   	(bad)  
-   1f47e:	ff                   	(bad)  
-   1f47f:	ff                   	(bad)  
-   1f480:	ff                   	(bad)  
-   1f481:	ff                   	(bad)  
-   1f482:	ff                   	(bad)  
-   1f483:	ff                   	(bad)  
-   1f484:	ff                   	(bad)  
-   1f485:	ff                   	(bad)  
-   1f486:	ff                   	(bad)  
-   1f487:	ff                   	(bad)  
-   1f488:	ff                   	(bad)  
-   1f489:	ff                   	(bad)  
-   1f48a:	ff                   	(bad)  
-   1f48b:	ff                   	(bad)  
-   1f48c:	ff                   	(bad)  
-   1f48d:	ff                   	(bad)  
-   1f48e:	ff                   	(bad)  
-   1f48f:	ff                   	(bad)  
-   1f490:	ff                   	(bad)  
-   1f491:	ff                   	(bad)  
-   1f492:	ff                   	(bad)  
-   1f493:	ff                   	(bad)  
-   1f494:	ff                   	(bad)  
-   1f495:	ff                   	(bad)  
-   1f496:	ff                   	(bad)  
-   1f497:	ff                   	(bad)  
-   1f498:	ff                   	(bad)  
-   1f499:	ff                   	(bad)  
-   1f49a:	ff                   	(bad)  
-   1f49b:	ff                   	(bad)  
-   1f49c:	ff                   	(bad)  
-   1f49d:	ff                   	(bad)  
-   1f49e:	ff                   	(bad)  
-   1f49f:	ff                   	(bad)  
-   1f4a0:	ff                   	(bad)  
-   1f4a1:	ff                   	(bad)  
-   1f4a2:	ff                   	(bad)  
-   1f4a3:	ff                   	(bad)  
-   1f4a4:	ff                   	(bad)  
-   1f4a5:	ff                   	(bad)  
-   1f4a6:	ff                   	(bad)  
-   1f4a7:	ff                   	(bad)  
-   1f4a8:	ff                   	(bad)  
-   1f4a9:	ff                   	(bad)  
-   1f4aa:	ff                   	(bad)  
-   1f4ab:	ff                   	(bad)  
-   1f4ac:	ff                   	(bad)  
-   1f4ad:	ff                   	(bad)  
-   1f4ae:	ff                   	(bad)  
-   1f4af:	ff                   	(bad)  
-   1f4b0:	ff                   	(bad)  
-   1f4b1:	ff                   	(bad)  
-   1f4b2:	ff                   	(bad)  
-   1f4b3:	ff                   	(bad)  
-   1f4b4:	ff                   	(bad)  
-   1f4b5:	ff                   	(bad)  
-   1f4b6:	ff                   	(bad)  
-   1f4b7:	ff                   	(bad)  
-   1f4b8:	ff                   	(bad)  
-   1f4b9:	ff                   	(bad)  
-   1f4ba:	ff                   	(bad)  
-   1f4bb:	ff                   	(bad)  
-   1f4bc:	ff                   	(bad)  
-   1f4bd:	ff                   	(bad)  
-   1f4be:	ff                   	(bad)  
-   1f4bf:	ff                   	(bad)  
-   1f4c0:	ff                   	(bad)  
-   1f4c1:	ff                   	(bad)  
-   1f4c2:	ff                   	(bad)  
-   1f4c3:	ff                   	(bad)  
-   1f4c4:	ff                   	(bad)  
-   1f4c5:	ff                   	(bad)  
-   1f4c6:	ff                   	(bad)  
-   1f4c7:	ff                   	(bad)  
-   1f4c8:	ff                   	(bad)  
-   1f4c9:	ff                   	(bad)  
-   1f4ca:	ff                   	(bad)  
-   1f4cb:	ff                   	(bad)  
-   1f4cc:	ff                   	(bad)  
-   1f4cd:	ff                   	(bad)  
-   1f4ce:	ff                   	(bad)  
-   1f4cf:	ff                   	(bad)  
-   1f4d0:	ff                   	(bad)  
-   1f4d1:	ff                   	(bad)  
-   1f4d2:	ff                   	(bad)  
-   1f4d3:	ff                   	(bad)  
-   1f4d4:	ff                   	(bad)  
-   1f4d5:	ff                   	(bad)  
-   1f4d6:	ff                   	(bad)  
-   1f4d7:	ff                   	(bad)  
-   1f4d8:	ff                   	(bad)  
-   1f4d9:	ff                   	(bad)  
-   1f4da:	ff                   	(bad)  
-   1f4db:	ff                   	(bad)  
-   1f4dc:	ff                   	(bad)  
-   1f4dd:	ff                   	(bad)  
-   1f4de:	ff                   	(bad)  
-   1f4df:	ff                   	(bad)  
-   1f4e0:	ff                   	(bad)  
-   1f4e1:	ff                   	(bad)  
-   1f4e2:	ff                   	(bad)  
-   1f4e3:	ff                   	(bad)  
-   1f4e4:	ff                   	(bad)  
-   1f4e5:	ff                   	(bad)  
-   1f4e6:	ff                   	(bad)  
-   1f4e7:	ff                   	(bad)  
-   1f4e8:	ff                   	(bad)  
-   1f4e9:	ff                   	(bad)  
-   1f4ea:	ff                   	(bad)  
-   1f4eb:	ff                   	(bad)  
-   1f4ec:	ff                   	(bad)  
-   1f4ed:	ff                   	(bad)  
-   1f4ee:	ff                   	(bad)  
-   1f4ef:	ff                   	(bad)  
-   1f4f0:	ff                   	(bad)  
-   1f4f1:	ff                   	(bad)  
-   1f4f2:	ff                   	(bad)  
-   1f4f3:	ff                   	(bad)  
-   1f4f4:	ff                   	(bad)  
-   1f4f5:	ff                   	(bad)  
-   1f4f6:	ff                   	(bad)  
-   1f4f7:	ff                   	(bad)  
-   1f4f8:	ff                   	(bad)  
-   1f4f9:	ff                   	(bad)  
-   1f4fa:	ff                   	(bad)  
-   1f4fb:	ff                   	(bad)  
-   1f4fc:	ff                   	(bad)  
-   1f4fd:	ff                   	(bad)  
-   1f4fe:	ff                   	(bad)  
-   1f4ff:	ff                   	(bad)  
-   1f500:	ff                   	(bad)  
-   1f501:	ff                   	(bad)  
-   1f502:	ff                   	(bad)  
-   1f503:	ff                   	(bad)  
-   1f504:	ff                   	(bad)  
-   1f505:	ff                   	(bad)  
-   1f506:	ff                   	(bad)  
-   1f507:	ff                   	(bad)  
-   1f508:	ff                   	(bad)  
-   1f509:	ff                   	(bad)  
-   1f50a:	ff                   	(bad)  
-   1f50b:	ff                   	(bad)  
-   1f50c:	ff                   	(bad)  
-   1f50d:	ff                   	(bad)  
-   1f50e:	ff                   	(bad)  
-   1f50f:	ff                   	(bad)  
-   1f510:	ff                   	(bad)  
-   1f511:	ff                   	(bad)  
-   1f512:	ff                   	(bad)  
-   1f513:	ff                   	(bad)  
-   1f514:	ff                   	(bad)  
-   1f515:	ff                   	(bad)  
-   1f516:	ff                   	(bad)  
-   1f517:	ff                   	(bad)  
-   1f518:	ff                   	(bad)  
-   1f519:	ff                   	(bad)  
-   1f51a:	ff                   	(bad)  
-   1f51b:	ff                   	(bad)  
-   1f51c:	ff                   	(bad)  
-   1f51d:	ff                   	(bad)  
-   1f51e:	ff                   	(bad)  
-   1f51f:	ff                   	(bad)  
-   1f520:	ff                   	(bad)  
-   1f521:	ff                   	(bad)  
-   1f522:	ff                   	(bad)  
-   1f523:	ff                   	(bad)  
-   1f524:	ff                   	(bad)  
-   1f525:	ff                   	(bad)  
-   1f526:	ff                   	(bad)  
-   1f527:	ff                   	(bad)  
-   1f528:	ff                   	(bad)  
-   1f529:	ff                   	(bad)  
-   1f52a:	ff                   	(bad)  
-   1f52b:	ff                   	(bad)  
-   1f52c:	ff                   	(bad)  
-   1f52d:	ff                   	(bad)  
-   1f52e:	ff                   	(bad)  
-   1f52f:	ff                   	(bad)  
-   1f530:	ff                   	(bad)  
-   1f531:	ff                   	(bad)  
-   1f532:	ff                   	(bad)  
-   1f533:	ff                   	(bad)  
-   1f534:	ff                   	(bad)  
-   1f535:	ff                   	(bad)  
-   1f536:	ff                   	(bad)  
-   1f537:	ff                   	(bad)  
-   1f538:	ff                   	(bad)  
-   1f539:	ff                   	(bad)  
-   1f53a:	ff                   	(bad)  
-   1f53b:	ff                   	(bad)  
-   1f53c:	ff                   	(bad)  
-   1f53d:	ff                   	(bad)  
-   1f53e:	ff                   	(bad)  
-   1f53f:	ff                   	(bad)  
-   1f540:	ff                   	(bad)  
-   1f541:	ff                   	(bad)  
-   1f542:	ff                   	(bad)  
-   1f543:	ff                   	(bad)  
-   1f544:	ff                   	(bad)  
-   1f545:	ff                   	(bad)  
-   1f546:	ff                   	(bad)  
-   1f547:	ff                   	(bad)  
-   1f548:	ff                   	(bad)  
-   1f549:	ff                   	(bad)  
-   1f54a:	ff                   	(bad)  
-   1f54b:	ff                   	(bad)  
-   1f54c:	ff                   	(bad)  
-   1f54d:	ff                   	(bad)  
-   1f54e:	ff                   	(bad)  
-   1f54f:	ff                   	(bad)  
-   1f550:	ff                   	(bad)  
-   1f551:	ff                   	(bad)  
-   1f552:	ff                   	(bad)  
-   1f553:	ff                   	(bad)  
-   1f554:	ff                   	(bad)  
-   1f555:	ff                   	(bad)  
-   1f556:	ff                   	(bad)  
-   1f557:	ff                   	(bad)  
-   1f558:	ff                   	(bad)  
-   1f559:	ff                   	(bad)  
-   1f55a:	ff                   	(bad)  
-   1f55b:	ff                   	(bad)  
-   1f55c:	ff                   	(bad)  
-   1f55d:	ff                   	(bad)  
-   1f55e:	ff                   	(bad)  
-   1f55f:	ff                   	(bad)  
-   1f560:	ff                   	(bad)  
-   1f561:	ff                   	(bad)  
-   1f562:	ff                   	(bad)  
-   1f563:	ff                   	(bad)  
-   1f564:	ff                   	(bad)  
-   1f565:	ff                   	(bad)  
-   1f566:	ff                   	(bad)  
-   1f567:	ff                   	(bad)  
-   1f568:	ff                   	(bad)  
-   1f569:	ff                   	(bad)  
-   1f56a:	ff                   	(bad)  
-   1f56b:	ff                   	(bad)  
-   1f56c:	ff                   	(bad)  
-   1f56d:	ff                   	(bad)  
-   1f56e:	ff                   	(bad)  
-   1f56f:	ff                   	(bad)  
-   1f570:	ff                   	(bad)  
-   1f571:	ff                   	(bad)  
-   1f572:	ff                   	(bad)  
-   1f573:	ff                   	(bad)  
-   1f574:	ff                   	(bad)  
-   1f575:	ff                   	(bad)  
-   1f576:	ff                   	(bad)  
-   1f577:	ff                   	(bad)  
-   1f578:	ff                   	(bad)  
-   1f579:	ff                   	(bad)  
-   1f57a:	ff                   	(bad)  
-   1f57b:	ff                   	(bad)  
-   1f57c:	ff                   	(bad)  
-   1f57d:	ff                   	(bad)  
-   1f57e:	ff                   	(bad)  
-   1f57f:	ff                   	(bad)  
-   1f580:	ff                   	(bad)  
-   1f581:	ff                   	(bad)  
-   1f582:	ff                   	(bad)  
-   1f583:	ff                   	(bad)  
-   1f584:	ff                   	(bad)  
-   1f585:	ff                   	(bad)  
-   1f586:	ff                   	(bad)  
-   1f587:	ff                   	(bad)  
-   1f588:	ff                   	(bad)  
-   1f589:	ff                   	(bad)  
-   1f58a:	ff                   	(bad)  
-   1f58b:	ff                   	(bad)  
-   1f58c:	ff                   	(bad)  
-   1f58d:	ff                   	(bad)  
-   1f58e:	ff                   	(bad)  
-   1f58f:	ff                   	(bad)  
-   1f590:	ff                   	(bad)  
-   1f591:	ff                   	(bad)  
-   1f592:	ff                   	(bad)  
-   1f593:	ff                   	(bad)  
-   1f594:	ff                   	(bad)  
-   1f595:	ff                   	(bad)  
-   1f596:	ff                   	(bad)  
-   1f597:	ff                   	(bad)  
-   1f598:	ff                   	(bad)  
-   1f599:	ff                   	(bad)  
-   1f59a:	ff                   	(bad)  
-   1f59b:	ff                   	(bad)  
-   1f59c:	ff                   	(bad)  
-   1f59d:	ff                   	(bad)  
-   1f59e:	ff                   	(bad)  
-   1f59f:	ff                   	(bad)  
-   1f5a0:	ff                   	(bad)  
-   1f5a1:	ff                   	(bad)  
-   1f5a2:	ff                   	(bad)  
-   1f5a3:	ff                   	(bad)  
-   1f5a4:	ff                   	(bad)  
-   1f5a5:	ff                   	(bad)  
-   1f5a6:	ff                   	(bad)  
-   1f5a7:	ff                   	(bad)  
-   1f5a8:	ff                   	(bad)  
-   1f5a9:	ff                   	(bad)  
-   1f5aa:	ff                   	(bad)  
-   1f5ab:	ff                   	(bad)  
-   1f5ac:	ff                   	(bad)  
-   1f5ad:	ff                   	(bad)  
-   1f5ae:	ff                   	(bad)  
-   1f5af:	ff                   	(bad)  
-   1f5b0:	ff                   	(bad)  
-   1f5b1:	ff                   	(bad)  
-   1f5b2:	ff                   	(bad)  
-   1f5b3:	ff                   	(bad)  
-   1f5b4:	ff                   	(bad)  
-   1f5b5:	ff                   	(bad)  
-   1f5b6:	ff                   	(bad)  
-   1f5b7:	ff                   	(bad)  
-   1f5b8:	ff                   	(bad)  
-   1f5b9:	ff                   	(bad)  
-   1f5ba:	ff                   	(bad)  
-   1f5bb:	ff                   	(bad)  
-   1f5bc:	ff                   	(bad)  
-   1f5bd:	ff                   	(bad)  
-   1f5be:	ff                   	(bad)  
-   1f5bf:	ff                   	(bad)  
-   1f5c0:	ff                   	(bad)  
-   1f5c1:	ff                   	(bad)  
-   1f5c2:	ff                   	(bad)  
-   1f5c3:	ff                   	(bad)  
-   1f5c4:	ff                   	(bad)  
-   1f5c5:	ff                   	(bad)  
-   1f5c6:	ff                   	(bad)  
-   1f5c7:	ff                   	(bad)  
-   1f5c8:	ff                   	(bad)  
-   1f5c9:	ff                   	(bad)  
-   1f5ca:	ff                   	(bad)  
-   1f5cb:	ff                   	(bad)  
-   1f5cc:	ff                   	(bad)  
-   1f5cd:	ff                   	(bad)  
-   1f5ce:	ff                   	(bad)  
-   1f5cf:	ff                   	(bad)  
-   1f5d0:	ff                   	(bad)  
-   1f5d1:	ff                   	(bad)  
-   1f5d2:	ff                   	(bad)  
-   1f5d3:	ff                   	(bad)  
-   1f5d4:	ff                   	(bad)  
-   1f5d5:	ff                   	(bad)  
-   1f5d6:	ff                   	(bad)  
-   1f5d7:	ff                   	(bad)  
-   1f5d8:	ff                   	(bad)  
-   1f5d9:	ff                   	(bad)  
-   1f5da:	ff                   	(bad)  
-   1f5db:	ff                   	(bad)  
-   1f5dc:	ff                   	(bad)  
-   1f5dd:	ff                   	(bad)  
-   1f5de:	ff                   	(bad)  
-   1f5df:	ff                   	(bad)  
-   1f5e0:	ff                   	(bad)  
-   1f5e1:	ff                   	(bad)  
-   1f5e2:	ff                   	(bad)  
-   1f5e3:	ff                   	(bad)  
-   1f5e4:	ff                   	(bad)  
-   1f5e5:	ff                   	(bad)  
-   1f5e6:	ff                   	(bad)  
-   1f5e7:	ff                   	(bad)  
-   1f5e8:	ff                   	(bad)  
-   1f5e9:	ff                   	(bad)  
-   1f5ea:	ff                   	(bad)  
-   1f5eb:	ff                   	(bad)  
-   1f5ec:	ff                   	(bad)  
-   1f5ed:	ff                   	(bad)  
-   1f5ee:	ff                   	(bad)  
-   1f5ef:	ff                   	(bad)  
-   1f5f0:	ff                   	(bad)  
-   1f5f1:	ff                   	(bad)  
-   1f5f2:	ff                   	(bad)  
-   1f5f3:	ff                   	(bad)  
-   1f5f4:	ff                   	(bad)  
-   1f5f5:	ff                   	(bad)  
-   1f5f6:	ff                   	(bad)  
-   1f5f7:	ff                   	(bad)  
-   1f5f8:	ff                   	(bad)  
-   1f5f9:	ff                   	(bad)  
-   1f5fa:	ff                   	(bad)  
-   1f5fb:	ff                   	(bad)  
-   1f5fc:	ff                   	(bad)  
-   1f5fd:	ff                   	(bad)  
-   1f5fe:	ff                   	(bad)  
-   1f5ff:	ff                   	(bad)  
-   1f600:	ff                   	(bad)  
-   1f601:	ff                   	(bad)  
-   1f602:	ff                   	(bad)  
-   1f603:	ff                   	(bad)  
-   1f604:	ff                   	(bad)  
-   1f605:	ff                   	(bad)  
-   1f606:	ff                   	(bad)  
-   1f607:	ff                   	(bad)  
-   1f608:	ff                   	(bad)  
-   1f609:	ff                   	(bad)  
-   1f60a:	ff                   	(bad)  
-   1f60b:	ff                   	(bad)  
-   1f60c:	ff                   	(bad)  
-   1f60d:	ff                   	(bad)  
-   1f60e:	ff                   	(bad)  
-   1f60f:	ff                   	(bad)  
-   1f610:	ff                   	(bad)  
-   1f611:	ff                   	(bad)  
-   1f612:	ff                   	(bad)  
-   1f613:	ff                   	(bad)  
-   1f614:	ff                   	(bad)  
-   1f615:	ff                   	(bad)  
-   1f616:	ff                   	(bad)  
-   1f617:	ff                   	(bad)  
-   1f618:	ff                   	(bad)  
-   1f619:	ff                   	(bad)  
-   1f61a:	ff                   	(bad)  
-   1f61b:	ff                   	(bad)  
-   1f61c:	ff                   	(bad)  
-   1f61d:	ff                   	(bad)  
-   1f61e:	ff                   	(bad)  
-   1f61f:	ff                   	(bad)  
-   1f620:	ff                   	(bad)  
-   1f621:	ff                   	(bad)  
-   1f622:	ff                   	(bad)  
-   1f623:	ff                   	(bad)  
-   1f624:	ff                   	(bad)  
-   1f625:	ff                   	(bad)  
-   1f626:	ff                   	(bad)  
-   1f627:	ff                   	(bad)  
-   1f628:	ff                   	(bad)  
-   1f629:	ff                   	(bad)  
-   1f62a:	ff                   	(bad)  
-   1f62b:	ff                   	(bad)  
-   1f62c:	ff                   	(bad)  
-   1f62d:	ff                   	(bad)  
-   1f62e:	ff                   	(bad)  
-   1f62f:	ff                   	(bad)  
-   1f630:	ff                   	(bad)  
-   1f631:	ff                   	(bad)  
-   1f632:	ff                   	(bad)  
-   1f633:	ff                   	(bad)  
-   1f634:	ff                   	(bad)  
-   1f635:	ff                   	(bad)  
-   1f636:	ff                   	(bad)  
-   1f637:	ff                   	(bad)  
-   1f638:	ff                   	(bad)  
-   1f639:	ff                   	(bad)  
-   1f63a:	ff                   	(bad)  
-   1f63b:	ff                   	(bad)  
-   1f63c:	ff                   	(bad)  
-   1f63d:	ff                   	(bad)  
-   1f63e:	ff                   	(bad)  
-   1f63f:	ff                   	(bad)  
-   1f640:	ff                   	(bad)  
-   1f641:	ff                   	(bad)  
-   1f642:	ff                   	(bad)  
-   1f643:	ff                   	(bad)  
-   1f644:	ff                   	(bad)  
-   1f645:	ff                   	(bad)  
-   1f646:	ff                   	(bad)  
-   1f647:	ff                   	(bad)  
-   1f648:	ff                   	(bad)  
-   1f649:	ff                   	(bad)  
-   1f64a:	ff                   	(bad)  
-   1f64b:	ff                   	(bad)  
-   1f64c:	ff                   	(bad)  
-   1f64d:	ff                   	(bad)  
-   1f64e:	ff                   	(bad)  
-   1f64f:	ff                   	(bad)  
-   1f650:	ff                   	(bad)  
-   1f651:	ff                   	(bad)  
-   1f652:	ff                   	(bad)  
-   1f653:	ff                   	(bad)  
-   1f654:	ff                   	(bad)  
-   1f655:	ff                   	(bad)  
-   1f656:	ff                   	(bad)  
-   1f657:	ff                   	(bad)  
-   1f658:	ff                   	(bad)  
-   1f659:	ff                   	(bad)  
-   1f65a:	ff                   	(bad)  
-   1f65b:	ff                   	(bad)  
-   1f65c:	ff                   	(bad)  
-   1f65d:	ff                   	(bad)  
-   1f65e:	ff                   	(bad)  
-   1f65f:	ff                   	(bad)  
-   1f660:	ff                   	(bad)  
-   1f661:	ff                   	(bad)  
-   1f662:	ff                   	(bad)  
-   1f663:	ff                   	(bad)  
-   1f664:	ff                   	(bad)  
-   1f665:	ff                   	(bad)  
-   1f666:	ff                   	(bad)  
-   1f667:	ff                   	(bad)  
-   1f668:	ff                   	(bad)  
-   1f669:	ff                   	(bad)  
-   1f66a:	ff                   	(bad)  
-   1f66b:	ff                   	(bad)  
-   1f66c:	ff                   	(bad)  
-   1f66d:	ff                   	(bad)  
-   1f66e:	ff                   	(bad)  
-   1f66f:	ff                   	(bad)  
-   1f670:	ff                   	(bad)  
-   1f671:	ff                   	(bad)  
-   1f672:	ff                   	(bad)  
-   1f673:	ff                   	(bad)  
-   1f674:	ff                   	(bad)  
-   1f675:	ff                   	(bad)  
-   1f676:	ff                   	(bad)  
-   1f677:	ff                   	(bad)  
-   1f678:	ff                   	(bad)  
-   1f679:	ff                   	(bad)  
-   1f67a:	ff                   	(bad)  
-   1f67b:	ff                   	(bad)  
-   1f67c:	ff                   	(bad)  
-   1f67d:	ff                   	(bad)  
-   1f67e:	ff                   	(bad)  
-   1f67f:	ff                   	(bad)  
-   1f680:	ff                   	(bad)  
-   1f681:	ff                   	(bad)  
-   1f682:	ff                   	(bad)  
-   1f683:	ff                   	(bad)  
-   1f684:	ff                   	(bad)  
-   1f685:	ff                   	(bad)  
-   1f686:	ff                   	(bad)  
-   1f687:	ff                   	(bad)  
-   1f688:	ff                   	(bad)  
-   1f689:	ff                   	(bad)  
-   1f68a:	ff                   	(bad)  
-   1f68b:	ff                   	(bad)  
-   1f68c:	ff                   	(bad)  
-   1f68d:	ff                   	(bad)  
-   1f68e:	ff                   	(bad)  
-   1f68f:	ff                   	(bad)  
-   1f690:	ff                   	(bad)  
-   1f691:	ff                   	(bad)  
-   1f692:	ff                   	(bad)  
-   1f693:	ff                   	(bad)  
-   1f694:	ff                   	(bad)  
-   1f695:	ff                   	(bad)  
-   1f696:	ff                   	(bad)  
-   1f697:	ff                   	(bad)  
-   1f698:	ff                   	(bad)  
-   1f699:	ff                   	(bad)  
-   1f69a:	ff                   	(bad)  
-   1f69b:	ff                   	(bad)  
-   1f69c:	ff                   	(bad)  
-   1f69d:	ff                   	(bad)  
-   1f69e:	ff                   	(bad)  
-   1f69f:	ff                   	(bad)  
-   1f6a0:	ff                   	(bad)  
-   1f6a1:	ff                   	(bad)  
-   1f6a2:	ff                   	(bad)  
-   1f6a3:	ff                   	(bad)  
-   1f6a4:	ff                   	(bad)  
-   1f6a5:	ff                   	(bad)  
-   1f6a6:	ff                   	(bad)  
-   1f6a7:	ff                   	(bad)  
-   1f6a8:	ff                   	(bad)  
-   1f6a9:	ff                   	(bad)  
-   1f6aa:	ff                   	(bad)  
-   1f6ab:	ff                   	(bad)  
-   1f6ac:	ff                   	(bad)  
-   1f6ad:	ff                   	(bad)  
-   1f6ae:	ff                   	(bad)  
-   1f6af:	ff                   	(bad)  
-   1f6b0:	ff                   	(bad)  
-   1f6b1:	ff                   	(bad)  
-   1f6b2:	ff                   	(bad)  
-   1f6b3:	ff                   	(bad)  
-   1f6b4:	ff                   	(bad)  
-   1f6b5:	ff                   	(bad)  
-   1f6b6:	ff                   	(bad)  
-   1f6b7:	ff                   	(bad)  
-   1f6b8:	ff                   	(bad)  
-   1f6b9:	ff                   	(bad)  
-   1f6ba:	ff                   	(bad)  
-   1f6bb:	ff                   	(bad)  
-   1f6bc:	ff                   	(bad)  
-   1f6bd:	ff                   	(bad)  
-   1f6be:	ff                   	(bad)  
-   1f6bf:	ff                   	(bad)  
-   1f6c0:	ff                   	(bad)  
-   1f6c1:	ff                   	(bad)  
-   1f6c2:	ff                   	(bad)  
-   1f6c3:	ff                   	(bad)  
-   1f6c4:	ff                   	(bad)  
-   1f6c5:	ff                   	(bad)  
-   1f6c6:	ff                   	(bad)  
-   1f6c7:	ff                   	(bad)  
-   1f6c8:	ff                   	(bad)  
-   1f6c9:	ff                   	(bad)  
-   1f6ca:	ff                   	(bad)  
-   1f6cb:	ff                   	(bad)  
-   1f6cc:	ff                   	(bad)  
-   1f6cd:	ff                   	(bad)  
-   1f6ce:	ff                   	(bad)  
-   1f6cf:	ff                   	(bad)  
-   1f6d0:	ff                   	(bad)  
-   1f6d1:	ff                   	(bad)  
-   1f6d2:	ff                   	(bad)  
-   1f6d3:	ff                   	(bad)  
-   1f6d4:	ff                   	(bad)  
-   1f6d5:	ff                   	(bad)  
-   1f6d6:	ff                   	(bad)  
-   1f6d7:	ff                   	(bad)  
-   1f6d8:	ff                   	(bad)  
-   1f6d9:	ff                   	(bad)  
-   1f6da:	ff                   	(bad)  
-   1f6db:	ff                   	(bad)  
-   1f6dc:	ff                   	(bad)  
-   1f6dd:	ff                   	(bad)  
-   1f6de:	ff                   	(bad)  
-   1f6df:	ff                   	(bad)  
-   1f6e0:	ff                   	(bad)  
-   1f6e1:	ff                   	(bad)  
-   1f6e2:	ff                   	(bad)  
-   1f6e3:	ff                   	(bad)  
-   1f6e4:	ff                   	(bad)  
-   1f6e5:	ff                   	(bad)  
-   1f6e6:	ff                   	(bad)  
-   1f6e7:	ff                   	(bad)  
-   1f6e8:	ff                   	(bad)  
-   1f6e9:	ff                   	(bad)  
-   1f6ea:	ff                   	(bad)  
-   1f6eb:	ff                   	(bad)  
-   1f6ec:	ff                   	(bad)  
-   1f6ed:	ff                   	(bad)  
-   1f6ee:	ff                   	(bad)  
-   1f6ef:	ff                   	(bad)  
-   1f6f0:	ff                   	(bad)  
-   1f6f1:	ff                   	(bad)  
-   1f6f2:	ff                   	(bad)  
-   1f6f3:	ff                   	(bad)  
-   1f6f4:	ff                   	(bad)  
-   1f6f5:	ff                   	(bad)  
-   1f6f6:	ff                   	(bad)  
-   1f6f7:	ff                   	(bad)  
-   1f6f8:	ff                   	(bad)  
-   1f6f9:	ff                   	(bad)  
-   1f6fa:	ff                   	(bad)  
-   1f6fb:	ff                   	(bad)  
-   1f6fc:	ff                   	(bad)  
-   1f6fd:	ff                   	(bad)  
-   1f6fe:	ff                   	(bad)  
-   1f6ff:	ff                   	(bad)  
-   1f700:	ff                   	(bad)  
-   1f701:	ff                   	(bad)  
-   1f702:	ff                   	(bad)  
-   1f703:	ff                   	(bad)  
-   1f704:	ff                   	(bad)  
-   1f705:	ff                   	(bad)  
-   1f706:	ff                   	(bad)  
-   1f707:	ff                   	(bad)  
-   1f708:	ff                   	(bad)  
-   1f709:	ff                   	(bad)  
-   1f70a:	ff                   	(bad)  
-   1f70b:	ff                   	(bad)  
-   1f70c:	ff                   	(bad)  
-   1f70d:	ff                   	(bad)  
-   1f70e:	ff                   	(bad)  
-   1f70f:	ff                   	(bad)  
-   1f710:	ff                   	(bad)  
-   1f711:	ff                   	(bad)  
-   1f712:	ff                   	(bad)  
-   1f713:	ff                   	(bad)  
-   1f714:	ff                   	(bad)  
-   1f715:	ff                   	(bad)  
-   1f716:	ff                   	(bad)  
-   1f717:	ff                   	(bad)  
-   1f718:	ff                   	(bad)  
-   1f719:	ff                   	(bad)  
-   1f71a:	ff                   	(bad)  
-   1f71b:	ff                   	(bad)  
-   1f71c:	ff                   	(bad)  
-   1f71d:	ff                   	(bad)  
-   1f71e:	ff                   	(bad)  
-   1f71f:	ff                   	(bad)  
-   1f720:	ff                   	(bad)  
-   1f721:	ff                   	(bad)  
-   1f722:	ff                   	(bad)  
-   1f723:	ff                   	(bad)  
-   1f724:	ff                   	(bad)  
-   1f725:	ff                   	(bad)  
-   1f726:	ff                   	(bad)  
-   1f727:	ff                   	(bad)  
-   1f728:	ff                   	(bad)  
-   1f729:	ff                   	(bad)  
-   1f72a:	ff                   	(bad)  
-   1f72b:	ff                   	(bad)  
-   1f72c:	ff                   	(bad)  
-   1f72d:	ff                   	(bad)  
-   1f72e:	ff                   	(bad)  
-   1f72f:	ff                   	(bad)  
-   1f730:	ff                   	(bad)  
-   1f731:	ff                   	(bad)  
-   1f732:	ff                   	(bad)  
-   1f733:	ff                   	(bad)  
-   1f734:	ff                   	(bad)  
-   1f735:	ff                   	(bad)  
-   1f736:	ff                   	(bad)  
-   1f737:	ff                   	(bad)  
-   1f738:	ff                   	(bad)  
-   1f739:	ff                   	(bad)  
-   1f73a:	ff                   	(bad)  
-   1f73b:	ff                   	(bad)  
-   1f73c:	ff                   	(bad)  
-   1f73d:	ff                   	(bad)  
-   1f73e:	ff                   	(bad)  
-   1f73f:	ff                   	(bad)  
-   1f740:	ff                   	(bad)  
-   1f741:	ff                   	(bad)  
-   1f742:	ff                   	(bad)  
-   1f743:	ff                   	(bad)  
-   1f744:	ff                   	(bad)  
-   1f745:	ff                   	(bad)  
-   1f746:	ff                   	(bad)  
-   1f747:	ff                   	(bad)  
-   1f748:	ff                   	(bad)  
-   1f749:	ff                   	(bad)  
-   1f74a:	ff                   	(bad)  
-   1f74b:	ff                   	(bad)  
-   1f74c:	ff                   	(bad)  
-   1f74d:	ff                   	(bad)  
-   1f74e:	ff                   	(bad)  
-   1f74f:	ff                   	(bad)  
-   1f750:	ff                   	(bad)  
-   1f751:	ff                   	(bad)  
-   1f752:	ff                   	(bad)  
-   1f753:	ff                   	(bad)  
-   1f754:	ff                   	(bad)  
-   1f755:	ff                   	(bad)  
-   1f756:	ff                   	(bad)  
-   1f757:	ff                   	(bad)  
-   1f758:	ff                   	(bad)  
-   1f759:	ff                   	(bad)  
-   1f75a:	ff                   	(bad)  
-   1f75b:	ff                   	(bad)  
-   1f75c:	ff                   	(bad)  
-   1f75d:	ff                   	(bad)  
-   1f75e:	ff                   	(bad)  
-   1f75f:	ff                   	(bad)  
-   1f760:	ff                   	(bad)  
-   1f761:	ff                   	(bad)  
-   1f762:	ff                   	(bad)  
-   1f763:	ff                   	(bad)  
-   1f764:	ff                   	(bad)  
-   1f765:	ff                   	(bad)  
-   1f766:	ff                   	(bad)  
-   1f767:	ff                   	(bad)  
-   1f768:	ff                   	(bad)  
-   1f769:	ff                   	(bad)  
-   1f76a:	ff                   	(bad)  
-   1f76b:	ff                   	(bad)  
-   1f76c:	ff                   	(bad)  
-   1f76d:	ff                   	(bad)  
-   1f76e:	ff                   	(bad)  
-   1f76f:	ff                   	(bad)  
-   1f770:	ff                   	(bad)  
-   1f771:	ff                   	(bad)  
-   1f772:	ff                   	(bad)  
-   1f773:	ff                   	(bad)  
-   1f774:	ff                   	(bad)  
-   1f775:	ff                   	(bad)  
-   1f776:	ff                   	(bad)  
-   1f777:	ff                   	(bad)  
-   1f778:	ff                   	(bad)  
-   1f779:	ff                   	(bad)  
-   1f77a:	ff                   	(bad)  
-   1f77b:	ff                   	(bad)  
-   1f77c:	ff                   	(bad)  
-   1f77d:	ff                   	(bad)  
-   1f77e:	ff                   	(bad)  
-   1f77f:	ff                   	(bad)  
-   1f780:	ff                   	(bad)  
-   1f781:	ff                   	(bad)  
-   1f782:	ff                   	(bad)  
-   1f783:	ff                   	(bad)  
-   1f784:	ff                   	(bad)  
-   1f785:	ff                   	(bad)  
-   1f786:	ff                   	(bad)  
-   1f787:	ff                   	(bad)  
-   1f788:	ff                   	(bad)  
-   1f789:	ff                   	(bad)  
-   1f78a:	ff                   	(bad)  
-   1f78b:	ff                   	(bad)  
-   1f78c:	ff                   	(bad)  
-   1f78d:	ff                   	(bad)  
-   1f78e:	ff                   	(bad)  
-   1f78f:	ff                   	(bad)  
-   1f790:	ff                   	(bad)  
-   1f791:	ff                   	(bad)  
-   1f792:	ff                   	(bad)  
-   1f793:	ff                   	(bad)  
-   1f794:	ff                   	(bad)  
-   1f795:	ff                   	(bad)  
-   1f796:	ff                   	(bad)  
-   1f797:	ff                   	(bad)  
-   1f798:	ff                   	(bad)  
-   1f799:	ff                   	(bad)  
-   1f79a:	ff                   	(bad)  
-   1f79b:	ff                   	(bad)  
-   1f79c:	ff                   	(bad)  
-   1f79d:	ff                   	(bad)  
-   1f79e:	ff                   	(bad)  
-   1f79f:	ff                   	(bad)  
-   1f7a0:	ff                   	(bad)  
-   1f7a1:	ff                   	(bad)  
-   1f7a2:	ff                   	(bad)  
-   1f7a3:	ff                   	(bad)  
-   1f7a4:	ff                   	(bad)  
-   1f7a5:	ff                   	(bad)  
-   1f7a6:	ff                   	(bad)  
-   1f7a7:	ff                   	(bad)  
-   1f7a8:	ff                   	(bad)  
-   1f7a9:	ff                   	(bad)  
-   1f7aa:	ff                   	(bad)  
-   1f7ab:	ff                   	(bad)  
-   1f7ac:	ff                   	(bad)  
-   1f7ad:	ff                   	(bad)  
-   1f7ae:	ff                   	(bad)  
-   1f7af:	ff                   	(bad)  
-   1f7b0:	ff                   	(bad)  
-   1f7b1:	ff                   	(bad)  
-   1f7b2:	ff                   	(bad)  
-   1f7b3:	ff                   	(bad)  
-   1f7b4:	ff                   	(bad)  
-   1f7b5:	ff                   	(bad)  
-   1f7b6:	ff                   	(bad)  
-   1f7b7:	ff                   	(bad)  
-   1f7b8:	ff                   	(bad)  
-   1f7b9:	ff                   	(bad)  
-   1f7ba:	ff                   	(bad)  
-   1f7bb:	ff                   	(bad)  
-   1f7bc:	ff                   	(bad)  
-   1f7bd:	ff                   	(bad)  
-   1f7be:	ff                   	(bad)  
-   1f7bf:	ff                   	(bad)  
-   1f7c0:	ff                   	(bad)  
-   1f7c1:	ff                   	(bad)  
-   1f7c2:	ff                   	(bad)  
-   1f7c3:	ff                   	(bad)  
-   1f7c4:	ff                   	(bad)  
-   1f7c5:	ff                   	(bad)  
-   1f7c6:	ff                   	(bad)  
-   1f7c7:	ff                   	(bad)  
-   1f7c8:	ff                   	(bad)  
-   1f7c9:	ff                   	(bad)  
-   1f7ca:	ff                   	(bad)  
-   1f7cb:	ff                   	(bad)  
-   1f7cc:	ff                   	(bad)  
-   1f7cd:	ff                   	(bad)  
-   1f7ce:	ff                   	(bad)  
-   1f7cf:	ff                   	(bad)  
-   1f7d0:	ff                   	(bad)  
-   1f7d1:	ff                   	(bad)  
-   1f7d2:	ff                   	(bad)  
-   1f7d3:	ff                   	(bad)  
-   1f7d4:	ff                   	(bad)  
-   1f7d5:	ff                   	(bad)  
-   1f7d6:	ff                   	(bad)  
-   1f7d7:	ff                   	(bad)  
-   1f7d8:	ff                   	(bad)  
-   1f7d9:	ff                   	(bad)  
-   1f7da:	ff                   	(bad)  
-   1f7db:	ff                   	(bad)  
-   1f7dc:	ff                   	(bad)  
-   1f7dd:	ff                   	(bad)  
-   1f7de:	ff                   	(bad)  
-   1f7df:	ff                   	(bad)  
-   1f7e0:	ff                   	(bad)  
-   1f7e1:	ff                   	(bad)  
-   1f7e2:	ff                   	(bad)  
-   1f7e3:	ff                   	(bad)  
-   1f7e4:	ff                   	(bad)  
-   1f7e5:	ff                   	(bad)  
-   1f7e6:	ff                   	(bad)  
-   1f7e7:	ff                   	(bad)  
-   1f7e8:	ff                   	(bad)  
-   1f7e9:	ff                   	(bad)  
-   1f7ea:	ff                   	(bad)  
-   1f7eb:	ff                   	(bad)  
-   1f7ec:	ff                   	(bad)  
-   1f7ed:	ff                   	(bad)  
-   1f7ee:	ff                   	(bad)  
-   1f7ef:	ff                   	(bad)  
-   1f7f0:	ff                   	(bad)  
-   1f7f1:	ff                   	(bad)  
-   1f7f2:	ff                   	(bad)  
-   1f7f3:	ff                   	(bad)  
-   1f7f4:	ff                   	(bad)  
-   1f7f5:	ff                   	(bad)  
-   1f7f6:	ff                   	(bad)  
-   1f7f7:	ff                   	(bad)  
-   1f7f8:	ff                   	(bad)  
-   1f7f9:	ff                   	(bad)  
-   1f7fa:	ff                   	(bad)  
-   1f7fb:	ff                   	(bad)  
-   1f7fc:	ff                   	(bad)  
-   1f7fd:	ff                   	(bad)  
-   1f7fe:	ff                   	(bad)  
-   1f7ff:	ff                   	(bad)  
-   1f800:	ff                   	(bad)  
-   1f801:	ff                   	(bad)  
-   1f802:	ff                   	(bad)  
-   1f803:	ff                   	(bad)  
-   1f804:	ff                   	(bad)  
-   1f805:	ff                   	(bad)  
-   1f806:	ff                   	(bad)  
-   1f807:	ff                   	(bad)  
-   1f808:	ff                   	(bad)  
-   1f809:	ff                   	(bad)  
-   1f80a:	ff                   	(bad)  
-   1f80b:	ff                   	(bad)  
-   1f80c:	ff                   	(bad)  
-   1f80d:	ff                   	(bad)  
-   1f80e:	ff                   	(bad)  
-   1f80f:	ff                   	(bad)  
-   1f810:	ff                   	(bad)  
-   1f811:	ff                   	(bad)  
-   1f812:	ff                   	(bad)  
-   1f813:	ff                   	(bad)  
-   1f814:	ff                   	(bad)  
-   1f815:	ff                   	(bad)  
-   1f816:	ff                   	(bad)  
-   1f817:	ff                   	(bad)  
-   1f818:	ff                   	(bad)  
-   1f819:	ff                   	(bad)  
-   1f81a:	ff                   	(bad)  
-   1f81b:	ff                   	(bad)  
-   1f81c:	ff                   	(bad)  
-   1f81d:	ff                   	(bad)  
-   1f81e:	ff                   	(bad)  
-   1f81f:	ff                   	(bad)  
-   1f820:	ff                   	(bad)  
-   1f821:	ff                   	(bad)  
-   1f822:	ff                   	(bad)  
-   1f823:	ff                   	(bad)  
-   1f824:	ff                   	(bad)  
-   1f825:	ff                   	(bad)  
-   1f826:	ff                   	(bad)  
-   1f827:	ff                   	(bad)  
-   1f828:	ff                   	(bad)  
-   1f829:	ff                   	(bad)  
-   1f82a:	ff                   	(bad)  
-   1f82b:	ff                   	(bad)  
-   1f82c:	ff                   	(bad)  
-   1f82d:	ff                   	(bad)  
-   1f82e:	ff                   	(bad)  
-   1f82f:	ff                   	(bad)  
-   1f830:	ff                   	(bad)  
-   1f831:	ff                   	(bad)  
-   1f832:	ff                   	(bad)  
-   1f833:	ff                   	(bad)  
-   1f834:	ff                   	(bad)  
-   1f835:	ff                   	(bad)  
-   1f836:	ff                   	(bad)  
-   1f837:	ff                   	(bad)  
-   1f838:	ff                   	(bad)  
-   1f839:	ff                   	(bad)  
-   1f83a:	ff                   	(bad)  
-   1f83b:	ff                   	(bad)  
-   1f83c:	ff                   	(bad)  
-   1f83d:	ff                   	(bad)  
-   1f83e:	ff                   	(bad)  
-   1f83f:	ff                   	(bad)  
-   1f840:	ff                   	(bad)  
-   1f841:	ff                   	(bad)  
-   1f842:	ff                   	(bad)  
-   1f843:	ff                   	(bad)  
-   1f844:	ff                   	(bad)  
-   1f845:	ff                   	(bad)  
-   1f846:	ff                   	(bad)  
-   1f847:	ff                   	(bad)  
-   1f848:	ff                   	(bad)  
-   1f849:	ff                   	(bad)  
-   1f84a:	ff                   	(bad)  
-   1f84b:	ff                   	(bad)  
-   1f84c:	ff                   	(bad)  
-   1f84d:	ff                   	(bad)  
-   1f84e:	ff                   	(bad)  
-   1f84f:	ff                   	(bad)  
-   1f850:	ff                   	(bad)  
-   1f851:	ff                   	(bad)  
-   1f852:	ff                   	(bad)  
-   1f853:	ff                   	(bad)  
-   1f854:	ff                   	(bad)  
-   1f855:	ff                   	(bad)  
-   1f856:	ff                   	(bad)  
-   1f857:	ff                   	(bad)  
-   1f858:	ff                   	(bad)  
-   1f859:	ff                   	(bad)  
-   1f85a:	ff                   	(bad)  
-   1f85b:	ff                   	(bad)  
-   1f85c:	ff                   	(bad)  
-   1f85d:	ff                   	(bad)  
-   1f85e:	ff                   	(bad)  
-   1f85f:	ff                   	(bad)  
-   1f860:	ff                   	(bad)  
-   1f861:	ff                   	(bad)  
-   1f862:	ff                   	(bad)  
-   1f863:	ff                   	(bad)  
-   1f864:	ff                   	(bad)  
-   1f865:	ff                   	(bad)  
-   1f866:	ff                   	(bad)  
-   1f867:	ff                   	(bad)  
-   1f868:	ff                   	(bad)  
-   1f869:	ff                   	(bad)  
-   1f86a:	ff                   	(bad)  
-   1f86b:	ff                   	(bad)  
-   1f86c:	ff                   	(bad)  
-   1f86d:	ff                   	(bad)  
-   1f86e:	ff                   	(bad)  
-   1f86f:	ff                   	(bad)  
-   1f870:	ff                   	(bad)  
-   1f871:	ff                   	(bad)  
-   1f872:	ff                   	(bad)  
-   1f873:	ff                   	(bad)  
-   1f874:	ff                   	(bad)  
-   1f875:	ff                   	(bad)  
-   1f876:	ff                   	(bad)  
-   1f877:	ff                   	(bad)  
-   1f878:	ff                   	(bad)  
-   1f879:	ff                   	(bad)  
-   1f87a:	ff                   	(bad)  
-   1f87b:	ff                   	(bad)  
-   1f87c:	ff                   	(bad)  
-   1f87d:	ff                   	(bad)  
-   1f87e:	ff                   	(bad)  
-   1f87f:	ff                   	(bad)  
-   1f880:	ff                   	(bad)  
-   1f881:	ff                   	(bad)  
-   1f882:	ff                   	(bad)  
-   1f883:	ff                   	(bad)  
-   1f884:	ff                   	(bad)  
-   1f885:	ff                   	(bad)  
-   1f886:	ff                   	(bad)  
-   1f887:	ff                   	(bad)  
-   1f888:	ff                   	(bad)  
-   1f889:	ff                   	(bad)  
-   1f88a:	ff                   	(bad)  
-   1f88b:	ff                   	(bad)  
-   1f88c:	ff                   	(bad)  
-   1f88d:	ff                   	(bad)  
-   1f88e:	ff                   	(bad)  
-   1f88f:	ff                   	(bad)  
-   1f890:	ff                   	(bad)  
-   1f891:	ff                   	(bad)  
-   1f892:	ff                   	(bad)  
-   1f893:	ff                   	(bad)  
-   1f894:	ff                   	(bad)  
-   1f895:	ff                   	(bad)  
-   1f896:	ff                   	(bad)  
-   1f897:	ff                   	(bad)  
-   1f898:	ff                   	(bad)  
-   1f899:	ff                   	(bad)  
-   1f89a:	ff                   	(bad)  
-   1f89b:	ff                   	(bad)  
-   1f89c:	ff                   	(bad)  
-   1f89d:	ff                   	(bad)  
-   1f89e:	ff                   	(bad)  
-   1f89f:	ff                   	(bad)  
-   1f8a0:	ff                   	(bad)  
-   1f8a1:	ff                   	(bad)  
-   1f8a2:	ff                   	(bad)  
-   1f8a3:	ff                   	(bad)  
-   1f8a4:	ff                   	(bad)  
-   1f8a5:	ff                   	(bad)  
-   1f8a6:	ff                   	(bad)  
-   1f8a7:	ff                   	(bad)  
-   1f8a8:	ff                   	(bad)  
-   1f8a9:	ff                   	(bad)  
-   1f8aa:	ff                   	(bad)  
-   1f8ab:	ff                   	(bad)  
-   1f8ac:	ff                   	(bad)  
-   1f8ad:	ff                   	(bad)  
-   1f8ae:	ff                   	(bad)  
-   1f8af:	ff                   	(bad)  
-   1f8b0:	ff                   	(bad)  
-   1f8b1:	ff                   	(bad)  
-   1f8b2:	ff                   	(bad)  
-   1f8b3:	ff                   	(bad)  
-   1f8b4:	ff                   	(bad)  
-   1f8b5:	ff                   	(bad)  
-   1f8b6:	ff                   	(bad)  
-   1f8b7:	ff                   	(bad)  
-   1f8b8:	ff                   	(bad)  
-   1f8b9:	ff                   	(bad)  
-   1f8ba:	ff                   	(bad)  
-   1f8bb:	ff                   	(bad)  
-   1f8bc:	ff                   	(bad)  
-   1f8bd:	ff                   	(bad)  
-   1f8be:	ff                   	(bad)  
-   1f8bf:	ff                   	(bad)  
-   1f8c0:	ff                   	(bad)  
-   1f8c1:	ff                   	(bad)  
-   1f8c2:	ff                   	(bad)  
-   1f8c3:	ff                   	(bad)  
-   1f8c4:	ff                   	(bad)  
-   1f8c5:	ff                   	(bad)  
-   1f8c6:	ff                   	(bad)  
-   1f8c7:	ff                   	(bad)  
-   1f8c8:	ff                   	(bad)  
-   1f8c9:	ff                   	(bad)  
-   1f8ca:	ff                   	(bad)  
-   1f8cb:	ff                   	(bad)  
-   1f8cc:	ff                   	(bad)  
-   1f8cd:	ff                   	(bad)  
-   1f8ce:	ff                   	(bad)  
-   1f8cf:	ff                   	(bad)  
-   1f8d0:	ff                   	(bad)  
-   1f8d1:	ff                   	(bad)  
-   1f8d2:	ff                   	(bad)  
-   1f8d3:	ff                   	(bad)  
-   1f8d4:	ff                   	(bad)  
-   1f8d5:	ff                   	(bad)  
-   1f8d6:	ff                   	(bad)  
-   1f8d7:	ff                   	(bad)  
-   1f8d8:	ff                   	(bad)  
-   1f8d9:	ff                   	(bad)  
-   1f8da:	ff                   	(bad)  
-   1f8db:	ff                   	(bad)  
-   1f8dc:	ff                   	(bad)  
-   1f8dd:	ff                   	(bad)  
-   1f8de:	ff                   	(bad)  
-   1f8df:	ff                   	(bad)  
-   1f8e0:	ff                   	(bad)  
-   1f8e1:	ff                   	(bad)  
-   1f8e2:	ff                   	(bad)  
-   1f8e3:	ff                   	(bad)  
-   1f8e4:	ff                   	(bad)  
-   1f8e5:	ff                   	(bad)  
-   1f8e6:	ff                   	(bad)  
-   1f8e7:	ff                   	(bad)  
-   1f8e8:	ff                   	(bad)  
-   1f8e9:	ff                   	(bad)  
-   1f8ea:	ff                   	(bad)  
-   1f8eb:	ff                   	(bad)  
-   1f8ec:	ff                   	(bad)  
-   1f8ed:	ff                   	(bad)  
-   1f8ee:	ff                   	(bad)  
-   1f8ef:	ff                   	(bad)  
-   1f8f0:	ff                   	(bad)  
-   1f8f1:	ff                   	(bad)  
-   1f8f2:	ff                   	(bad)  
-   1f8f3:	ff                   	(bad)  
-   1f8f4:	ff                   	(bad)  
-   1f8f5:	ff                   	(bad)  
-   1f8f6:	ff                   	(bad)  
-   1f8f7:	ff                   	(bad)  
-   1f8f8:	ff                   	(bad)  
-   1f8f9:	ff                   	(bad)  
-   1f8fa:	ff                   	(bad)  
-   1f8fb:	ff                   	(bad)  
-   1f8fc:	ff                   	(bad)  
-   1f8fd:	ff                   	(bad)  
-   1f8fe:	ff                   	(bad)  
-   1f8ff:	ff                   	(bad)  
-   1f900:	ff                   	(bad)  
-   1f901:	ff                   	(bad)  
-   1f902:	ff                   	(bad)  
-   1f903:	ff                   	(bad)  
-   1f904:	ff                   	(bad)  
-   1f905:	ff                   	(bad)  
-   1f906:	ff                   	(bad)  
-   1f907:	ff                   	(bad)  
-   1f908:	ff                   	(bad)  
-   1f909:	ff                   	(bad)  
-   1f90a:	ff                   	(bad)  
-   1f90b:	ff                   	(bad)  
-   1f90c:	ff                   	(bad)  
-   1f90d:	ff                   	(bad)  
-   1f90e:	ff                   	(bad)  
-   1f90f:	ff                   	(bad)  
-   1f910:	ff                   	(bad)  
-   1f911:	ff                   	(bad)  
-   1f912:	ff                   	(bad)  
-   1f913:	ff                   	(bad)  
-   1f914:	ff                   	(bad)  
-   1f915:	ff                   	(bad)  
-   1f916:	ff                   	(bad)  
-   1f917:	ff                   	(bad)  
-   1f918:	ff                   	(bad)  
-   1f919:	ff                   	(bad)  
-   1f91a:	ff                   	(bad)  
-   1f91b:	ff                   	(bad)  
-   1f91c:	ff                   	(bad)  
-   1f91d:	ff                   	(bad)  
-   1f91e:	ff                   	(bad)  
-   1f91f:	ff                   	(bad)  
-   1f920:	ff                   	(bad)  
-   1f921:	ff                   	(bad)  
-   1f922:	ff                   	(bad)  
-   1f923:	ff                   	(bad)  
-   1f924:	ff                   	(bad)  
-   1f925:	ff                   	(bad)  
-   1f926:	ff                   	(bad)  
-   1f927:	ff                   	(bad)  
-   1f928:	ff                   	(bad)  
-   1f929:	ff                   	(bad)  
-   1f92a:	ff                   	(bad)  
-   1f92b:	ff                   	(bad)  
-   1f92c:	ff                   	(bad)  
-   1f92d:	ff                   	(bad)  
-   1f92e:	ff                   	(bad)  
-   1f92f:	ff                   	(bad)  
-   1f930:	ff                   	(bad)  
-   1f931:	ff                   	(bad)  
-   1f932:	ff                   	(bad)  
-   1f933:	ff                   	(bad)  
-   1f934:	ff                   	(bad)  
-   1f935:	ff                   	(bad)  
-   1f936:	ff                   	(bad)  
-   1f937:	ff                   	(bad)  
-   1f938:	ff                   	(bad)  
-   1f939:	ff                   	(bad)  
-   1f93a:	ff                   	(bad)  
-   1f93b:	ff                   	(bad)  
-   1f93c:	ff                   	(bad)  
-   1f93d:	ff                   	(bad)  
-   1f93e:	ff                   	(bad)  
-   1f93f:	ff                   	(bad)  
-   1f940:	ff                   	(bad)  
-   1f941:	ff                   	(bad)  
-   1f942:	ff                   	(bad)  
-   1f943:	ff                   	(bad)  
-   1f944:	ff                   	(bad)  
-   1f945:	ff                   	(bad)  
-   1f946:	ff                   	(bad)  
-   1f947:	ff                   	(bad)  
-   1f948:	ff                   	(bad)  
-   1f949:	ff                   	(bad)  
-   1f94a:	ff                   	(bad)  
-   1f94b:	ff                   	(bad)  
-   1f94c:	ff                   	(bad)  
-   1f94d:	ff                   	(bad)  
-   1f94e:	ff                   	(bad)  
-   1f94f:	ff                   	(bad)  
-   1f950:	ff                   	(bad)  
-   1f951:	ff                   	(bad)  
-   1f952:	ff                   	(bad)  
-   1f953:	ff                   	(bad)  
-   1f954:	ff                   	(bad)  
-   1f955:	ff                   	(bad)  
-   1f956:	ff                   	(bad)  
-   1f957:	ff                   	(bad)  
-   1f958:	ff                   	(bad)  
-   1f959:	ff                   	(bad)  
-   1f95a:	ff                   	(bad)  
-   1f95b:	ff                   	(bad)  
-   1f95c:	ff                   	(bad)  
-   1f95d:	ff                   	(bad)  
-   1f95e:	ff                   	(bad)  
-   1f95f:	ff                   	(bad)  
-   1f960:	ff                   	(bad)  
-   1f961:	ff                   	(bad)  
-   1f962:	ff                   	(bad)  
-   1f963:	ff                   	(bad)  
-   1f964:	ff                   	(bad)  
-   1f965:	ff                   	(bad)  
-   1f966:	ff                   	(bad)  
-   1f967:	ff                   	(bad)  
-   1f968:	ff                   	(bad)  
-   1f969:	ff                   	(bad)  
-   1f96a:	ff                   	(bad)  
-   1f96b:	ff                   	(bad)  
-   1f96c:	ff                   	(bad)  
-   1f96d:	ff                   	(bad)  
-   1f96e:	ff                   	(bad)  
-   1f96f:	ff                   	(bad)  
-   1f970:	ff                   	(bad)  
-   1f971:	ff                   	(bad)  
-   1f972:	ff                   	(bad)  
-   1f973:	ff                   	(bad)  
-   1f974:	ff                   	(bad)  
-   1f975:	ff                   	(bad)  
-   1f976:	ff                   	(bad)  
-   1f977:	ff                   	(bad)  
-   1f978:	ff                   	(bad)  
-   1f979:	ff                   	(bad)  
-   1f97a:	ff                   	(bad)  
-   1f97b:	ff                   	(bad)  
-   1f97c:	ff                   	(bad)  
-   1f97d:	ff                   	(bad)  
-   1f97e:	ff                   	(bad)  
-   1f97f:	ff                   	(bad)  
-   1f980:	ff                   	(bad)  
-   1f981:	ff                   	(bad)  
-   1f982:	ff                   	(bad)  
-   1f983:	ff                   	(bad)  
-   1f984:	ff                   	(bad)  
-   1f985:	ff                   	(bad)  
-   1f986:	ff                   	(bad)  
-   1f987:	ff                   	(bad)  
-   1f988:	ff                   	(bad)  
-   1f989:	ff                   	(bad)  
-   1f98a:	ff                   	(bad)  
-   1f98b:	ff                   	(bad)  
-   1f98c:	ff                   	(bad)  
-   1f98d:	ff                   	(bad)  
-   1f98e:	ff                   	(bad)  
-   1f98f:	ff                   	(bad)  
-   1f990:	ff                   	(bad)  
-   1f991:	ff                   	(bad)  
-   1f992:	ff                   	(bad)  
-   1f993:	ff                   	(bad)  
-   1f994:	ff                   	(bad)  
-   1f995:	ff                   	(bad)  
-   1f996:	ff                   	(bad)  
-   1f997:	ff                   	(bad)  
-   1f998:	ff                   	(bad)  
-   1f999:	ff                   	(bad)  
-   1f99a:	ff                   	(bad)  
-   1f99b:	ff                   	(bad)  
-   1f99c:	ff                   	(bad)  
-   1f99d:	ff                   	(bad)  
-   1f99e:	ff                   	(bad)  
-   1f99f:	ff                   	(bad)  
-   1f9a0:	ff                   	(bad)  
-   1f9a1:	ff                   	(bad)  
-   1f9a2:	ff                   	(bad)  
-   1f9a3:	ff                   	(bad)  
-   1f9a4:	ff                   	(bad)  
-   1f9a5:	ff                   	(bad)  
-   1f9a6:	ff                   	(bad)  
-   1f9a7:	ff                   	(bad)  
-   1f9a8:	ff                   	(bad)  
-   1f9a9:	ff                   	(bad)  
-   1f9aa:	ff                   	(bad)  
-   1f9ab:	ff                   	(bad)  
-   1f9ac:	ff                   	(bad)  
-   1f9ad:	ff                   	(bad)  
-   1f9ae:	ff                   	(bad)  
-   1f9af:	ff                   	(bad)  
-   1f9b0:	ff                   	(bad)  
-   1f9b1:	ff                   	(bad)  
-   1f9b2:	ff                   	(bad)  
-   1f9b3:	ff                   	(bad)  
-   1f9b4:	ff                   	(bad)  
-   1f9b5:	ff                   	(bad)  
-   1f9b6:	ff                   	(bad)  
-   1f9b7:	ff                   	(bad)  
-   1f9b8:	ff                   	(bad)  
-   1f9b9:	ff                   	(bad)  
-   1f9ba:	ff                   	(bad)  
-   1f9bb:	ff                   	(bad)  
-   1f9bc:	ff                   	(bad)  
-   1f9bd:	ff                   	(bad)  
-   1f9be:	ff                   	(bad)  
-   1f9bf:	ff                   	(bad)  
-   1f9c0:	ff                   	(bad)  
-   1f9c1:	ff                   	(bad)  
-   1f9c2:	ff                   	(bad)  
-   1f9c3:	ff                   	(bad)  
-   1f9c4:	ff                   	(bad)  
-   1f9c5:	ff                   	(bad)  
-   1f9c6:	ff                   	(bad)  
-   1f9c7:	ff                   	(bad)  
-   1f9c8:	ff                   	(bad)  
-   1f9c9:	ff                   	(bad)  
-   1f9ca:	ff                   	(bad)  
-   1f9cb:	ff                   	(bad)  
-   1f9cc:	ff                   	(bad)  
-   1f9cd:	ff                   	(bad)  
-   1f9ce:	ff                   	(bad)  
-   1f9cf:	ff                   	(bad)  
-   1f9d0:	ff                   	(bad)  
-   1f9d1:	ff                   	(bad)  
-   1f9d2:	ff                   	(bad)  
-   1f9d3:	ff                   	(bad)  
-   1f9d4:	ff                   	(bad)  
-   1f9d5:	ff                   	(bad)  
-   1f9d6:	ff                   	(bad)  
-   1f9d7:	ff                   	(bad)  
-   1f9d8:	ff                   	(bad)  
-   1f9d9:	ff                   	(bad)  
-   1f9da:	ff                   	(bad)  
-   1f9db:	ff                   	(bad)  
-   1f9dc:	ff                   	(bad)  
-   1f9dd:	ff                   	(bad)  
-   1f9de:	ff                   	(bad)  
-   1f9df:	ff                   	(bad)  
-   1f9e0:	ff                   	(bad)  
-   1f9e1:	ff                   	(bad)  
-   1f9e2:	ff                   	(bad)  
-   1f9e3:	ff                   	(bad)  
-   1f9e4:	ff                   	(bad)  
-   1f9e5:	ff                   	(bad)  
-   1f9e6:	ff                   	(bad)  
-   1f9e7:	ff                   	(bad)  
-   1f9e8:	ff                   	(bad)  
-   1f9e9:	ff                   	(bad)  
-   1f9ea:	ff                   	(bad)  
-   1f9eb:	ff                   	(bad)  
-   1f9ec:	ff                   	(bad)  
-   1f9ed:	ff                   	(bad)  
-   1f9ee:	ff                   	(bad)  
-   1f9ef:	ff                   	(bad)  
-   1f9f0:	ff                   	(bad)  
-   1f9f1:	ff                   	(bad)  
-   1f9f2:	ff                   	(bad)  
-   1f9f3:	ff                   	(bad)  
-   1f9f4:	ff                   	(bad)  
-   1f9f5:	ff                   	(bad)  
-   1f9f6:	ff                   	(bad)  
-   1f9f7:	ff                   	(bad)  
-   1f9f8:	ff                   	(bad)  
-   1f9f9:	ff                   	(bad)  
-   1f9fa:	ff                   	(bad)  
-   1f9fb:	ff                   	(bad)  
-   1f9fc:	ff                   	(bad)  
-   1f9fd:	ff                   	(bad)  
-   1f9fe:	ff                   	(bad)  
-   1f9ff:	ff                   	(bad)  
-   1fa00:	ff                   	(bad)  
-   1fa01:	ff                   	(bad)  
-   1fa02:	ff                   	(bad)  
-   1fa03:	ff                   	(bad)  
-   1fa04:	ff                   	(bad)  
-   1fa05:	ff                   	(bad)  
-   1fa06:	ff                   	(bad)  
-   1fa07:	ff                   	(bad)  
-   1fa08:	ff                   	(bad)  
-   1fa09:	ff                   	(bad)  
-   1fa0a:	ff                   	(bad)  
-   1fa0b:	ff                   	(bad)  
-   1fa0c:	ff                   	(bad)  
-   1fa0d:	ff                   	(bad)  
-   1fa0e:	ff                   	(bad)  
-   1fa0f:	ff                   	(bad)  
-   1fa10:	ff                   	(bad)  
-   1fa11:	ff                   	(bad)  
-   1fa12:	ff                   	(bad)  
-   1fa13:	ff                   	(bad)  
-   1fa14:	ff                   	(bad)  
-   1fa15:	ff                   	(bad)  
-   1fa16:	ff                   	(bad)  
-   1fa17:	ff                   	(bad)  
-   1fa18:	ff                   	(bad)  
-   1fa19:	ff                   	(bad)  
-   1fa1a:	ff                   	(bad)  
-   1fa1b:	ff                   	(bad)  
-   1fa1c:	ff                   	(bad)  
-   1fa1d:	ff                   	(bad)  
-   1fa1e:	ff                   	(bad)  
-   1fa1f:	ff                   	(bad)  
-   1fa20:	ff                   	(bad)  
-   1fa21:	ff                   	(bad)  
-   1fa22:	ff                   	(bad)  
-   1fa23:	ff                   	(bad)  
-   1fa24:	ff                   	(bad)  
-   1fa25:	ff                   	(bad)  
-   1fa26:	ff                   	(bad)  
-   1fa27:	ff                   	(bad)  
-   1fa28:	ff                   	(bad)  
-   1fa29:	ff                   	(bad)  
-   1fa2a:	ff                   	(bad)  
-   1fa2b:	ff                   	(bad)  
-   1fa2c:	ff                   	(bad)  
-   1fa2d:	ff                   	(bad)  
-   1fa2e:	ff                   	(bad)  
-   1fa2f:	ff                   	(bad)  
-   1fa30:	ff                   	(bad)  
-   1fa31:	ff                   	(bad)  
-   1fa32:	ff                   	(bad)  
-   1fa33:	ff                   	(bad)  
-   1fa34:	ff                   	(bad)  
-   1fa35:	ff                   	(bad)  
-   1fa36:	ff                   	(bad)  
-   1fa37:	ff                   	(bad)  
-   1fa38:	ff                   	(bad)  
-   1fa39:	ff                   	(bad)  
-   1fa3a:	ff                   	(bad)  
-   1fa3b:	ff                   	(bad)  
-   1fa3c:	ff                   	(bad)  
-   1fa3d:	ff                   	(bad)  
-   1fa3e:	ff                   	(bad)  
-   1fa3f:	ff                   	(bad)  
-   1fa40:	ff                   	(bad)  
-   1fa41:	ff                   	(bad)  
-   1fa42:	ff                   	(bad)  
-   1fa43:	ff                   	(bad)  
-   1fa44:	ff                   	(bad)  
-   1fa45:	ff                   	(bad)  
-   1fa46:	ff                   	(bad)  
-   1fa47:	ff                   	(bad)  
-   1fa48:	ff                   	(bad)  
-   1fa49:	ff                   	(bad)  
-   1fa4a:	ff                   	(bad)  
-   1fa4b:	ff                   	(bad)  
-   1fa4c:	ff                   	(bad)  
-   1fa4d:	ff                   	(bad)  
-   1fa4e:	ff                   	(bad)  
-   1fa4f:	ff                   	(bad)  
-   1fa50:	ff                   	(bad)  
-   1fa51:	ff                   	(bad)  
-   1fa52:	ff                   	(bad)  
-   1fa53:	ff                   	(bad)  
-   1fa54:	ff                   	(bad)  
-   1fa55:	ff                   	(bad)  
-   1fa56:	ff                   	(bad)  
-   1fa57:	ff                   	(bad)  
-   1fa58:	ff                   	(bad)  
-   1fa59:	ff                   	(bad)  
-   1fa5a:	ff                   	(bad)  
-   1fa5b:	ff                   	(bad)  
-   1fa5c:	ff                   	(bad)  
-   1fa5d:	ff                   	(bad)  
-   1fa5e:	ff                   	(bad)  
-   1fa5f:	ff                   	(bad)  
-   1fa60:	ff                   	(bad)  
-   1fa61:	ff                   	(bad)  
-   1fa62:	ff                   	(bad)  
-   1fa63:	ff                   	(bad)  
-   1fa64:	ff                   	(bad)  
-   1fa65:	ff                   	(bad)  
-   1fa66:	ff                   	(bad)  
-   1fa67:	ff                   	(bad)  
-   1fa68:	ff                   	(bad)  
-   1fa69:	ff                   	(bad)  
-   1fa6a:	ff                   	(bad)  
-   1fa6b:	ff                   	(bad)  
-   1fa6c:	ff                   	(bad)  
-   1fa6d:	ff                   	(bad)  
-   1fa6e:	ff                   	(bad)  
-   1fa6f:	ff                   	(bad)  
-   1fa70:	ff                   	(bad)  
-   1fa71:	ff                   	(bad)  
-   1fa72:	ff                   	(bad)  
-   1fa73:	ff                   	(bad)  
-   1fa74:	ff                   	(bad)  
-   1fa75:	ff                   	(bad)  
-   1fa76:	ff                   	(bad)  
-   1fa77:	ff                   	(bad)  
-   1fa78:	ff                   	(bad)  
-   1fa79:	ff                   	(bad)  
-   1fa7a:	ff                   	(bad)  
-   1fa7b:	ff                   	(bad)  
-   1fa7c:	ff                   	(bad)  
-   1fa7d:	ff                   	(bad)  
-   1fa7e:	ff                   	(bad)  
-   1fa7f:	ff                   	(bad)  
-   1fa80:	ff                   	(bad)  
-   1fa81:	ff                   	(bad)  
-   1fa82:	ff                   	(bad)  
-   1fa83:	ff                   	(bad)  
-   1fa84:	ff                   	(bad)  
-   1fa85:	ff                   	(bad)  
-   1fa86:	ff                   	(bad)  
-   1fa87:	ff                   	(bad)  
-   1fa88:	ff                   	(bad)  
-   1fa89:	ff                   	(bad)  
-   1fa8a:	ff                   	(bad)  
-   1fa8b:	ff                   	(bad)  
-   1fa8c:	ff                   	(bad)  
-   1fa8d:	ff                   	(bad)  
-   1fa8e:	ff                   	(bad)  
-   1fa8f:	ff                   	(bad)  
-   1fa90:	ff                   	(bad)  
-   1fa91:	ff                   	(bad)  
-   1fa92:	ff                   	(bad)  
-   1fa93:	ff                   	(bad)  
-   1fa94:	ff                   	(bad)  
-   1fa95:	ff                   	(bad)  
-   1fa96:	ff                   	(bad)  
-   1fa97:	ff                   	(bad)  
-   1fa98:	ff                   	(bad)  
-   1fa99:	ff                   	(bad)  
-   1fa9a:	ff                   	(bad)  
-   1fa9b:	ff                   	(bad)  
-   1fa9c:	ff                   	(bad)  
-   1fa9d:	ff                   	(bad)  
-   1fa9e:	ff                   	(bad)  
-   1fa9f:	ff                   	(bad)  
-   1faa0:	ff                   	(bad)  
-   1faa1:	ff                   	(bad)  
-   1faa2:	ff                   	(bad)  
-   1faa3:	ff                   	(bad)  
-   1faa4:	ff                   	(bad)  
-   1faa5:	ff                   	(bad)  
-   1faa6:	ff                   	(bad)  
-   1faa7:	ff                   	(bad)  
-   1faa8:	ff                   	(bad)  
-   1faa9:	ff                   	(bad)  
-   1faaa:	ff                   	(bad)  
-   1faab:	ff                   	(bad)  
-   1faac:	ff                   	(bad)  
-   1faad:	ff                   	(bad)  
-   1faae:	ff                   	(bad)  
-   1faaf:	ff                   	(bad)  
-   1fab0:	ff                   	(bad)  
-   1fab1:	ff                   	(bad)  
-   1fab2:	ff                   	(bad)  
-   1fab3:	ff                   	(bad)  
-   1fab4:	ff                   	(bad)  
-   1fab5:	ff                   	(bad)  
-   1fab6:	ff                   	(bad)  
-   1fab7:	ff                   	(bad)  
-   1fab8:	ff                   	(bad)  
-   1fab9:	ff                   	(bad)  
-   1faba:	ff                   	(bad)  
-   1fabb:	ff                   	(bad)  
-   1fabc:	ff                   	(bad)  
-   1fabd:	ff                   	(bad)  
-   1fabe:	ff                   	(bad)  
-   1fabf:	ff                   	(bad)  
-   1fac0:	ff                   	(bad)  
-   1fac1:	ff                   	(bad)  
-   1fac2:	ff                   	(bad)  
-   1fac3:	ff                   	(bad)  
-   1fac4:	ff                   	(bad)  
-   1fac5:	ff                   	(bad)  
-   1fac6:	ff                   	(bad)  
-   1fac7:	ff                   	(bad)  
-   1fac8:	ff                   	(bad)  
-   1fac9:	ff                   	(bad)  
-   1faca:	ff                   	(bad)  
-   1facb:	ff                   	(bad)  
-   1facc:	ff                   	(bad)  
-   1facd:	ff                   	(bad)  
-   1face:	ff                   	(bad)  
-   1facf:	ff                   	(bad)  
-   1fad0:	ff                   	(bad)  
-   1fad1:	ff                   	(bad)  
-   1fad2:	ff                   	(bad)  
-   1fad3:	ff                   	(bad)  
-   1fad4:	ff                   	(bad)  
-   1fad5:	ff                   	(bad)  
-   1fad6:	ff                   	(bad)  
-   1fad7:	ff                   	(bad)  
-   1fad8:	ff                   	(bad)  
-   1fad9:	ff                   	(bad)  
-   1fada:	ff                   	(bad)  
-   1fadb:	ff                   	(bad)  
-   1fadc:	ff                   	(bad)  
-   1fadd:	ff                   	(bad)  
-   1fade:	ff                   	(bad)  
-   1fadf:	ff                   	(bad)  
-   1fae0:	ff                   	(bad)  
-   1fae1:	ff                   	(bad)  
-   1fae2:	ff                   	(bad)  
-   1fae3:	ff                   	(bad)  
-   1fae4:	ff                   	(bad)  
-   1fae5:	ff                   	(bad)  
-   1fae6:	ff                   	(bad)  
-   1fae7:	ff                   	(bad)  
-   1fae8:	ff                   	(bad)  
-   1fae9:	ff                   	(bad)  
-   1faea:	ff                   	(bad)  
-   1faeb:	ff                   	(bad)  
-   1faec:	ff                   	(bad)  
-   1faed:	ff                   	(bad)  
-   1faee:	ff                   	(bad)  
-   1faef:	ff                   	(bad)  
-   1faf0:	ff                   	(bad)  
-   1faf1:	ff                   	(bad)  
-   1faf2:	ff                   	(bad)  
-   1faf3:	ff                   	(bad)  
-   1faf4:	ff                   	(bad)  
-   1faf5:	ff                   	(bad)  
-   1faf6:	ff                   	(bad)  
-   1faf7:	ff                   	(bad)  
-   1faf8:	ff                   	(bad)  
-   1faf9:	ff                   	(bad)  
-   1fafa:	ff                   	(bad)  
-   1fafb:	ff                   	(bad)  
-   1fafc:	ff                   	(bad)  
-   1fafd:	ff                   	(bad)  
-   1fafe:	ff                   	(bad)  
-   1faff:	ff                   	(bad)  
-   1fb00:	ff                   	(bad)  
-   1fb01:	ff                   	(bad)  
-   1fb02:	ff                   	(bad)  
-   1fb03:	ff                   	(bad)  
-   1fb04:	ff                   	(bad)  
-   1fb05:	ff                   	(bad)  
-   1fb06:	ff                   	(bad)  
-   1fb07:	ff                   	(bad)  
-   1fb08:	ff                   	(bad)  
-   1fb09:	ff                   	(bad)  
-   1fb0a:	ff                   	(bad)  
-   1fb0b:	ff                   	(bad)  
-   1fb0c:	ff                   	(bad)  
-   1fb0d:	ff                   	(bad)  
-   1fb0e:	ff                   	(bad)  
-   1fb0f:	ff                   	(bad)  
-   1fb10:	ff                   	(bad)  
-   1fb11:	ff                   	(bad)  
-   1fb12:	ff                   	(bad)  
-   1fb13:	ff                   	(bad)  
-   1fb14:	ff                   	(bad)  
-   1fb15:	ff                   	(bad)  
-   1fb16:	ff                   	(bad)  
-   1fb17:	ff                   	(bad)  
-   1fb18:	ff                   	(bad)  
-   1fb19:	ff                   	(bad)  
-   1fb1a:	ff                   	(bad)  
-   1fb1b:	ff                   	(bad)  
-   1fb1c:	ff                   	(bad)  
-   1fb1d:	ff                   	(bad)  
-   1fb1e:	ff                   	(bad)  
-   1fb1f:	ff                   	(bad)  
-   1fb20:	ff                   	(bad)  
-   1fb21:	ff                   	(bad)  
-   1fb22:	ff                   	(bad)  
-   1fb23:	ff                   	(bad)  
-   1fb24:	ff                   	(bad)  
-   1fb25:	ff                   	(bad)  
-   1fb26:	ff                   	(bad)  
-   1fb27:	ff                   	(bad)  
-   1fb28:	ff                   	(bad)  
-   1fb29:	ff                   	(bad)  
-   1fb2a:	ff                   	(bad)  
-   1fb2b:	ff                   	(bad)  
-   1fb2c:	ff                   	(bad)  
-   1fb2d:	ff                   	(bad)  
-   1fb2e:	ff                   	(bad)  
-   1fb2f:	ff                   	(bad)  
-   1fb30:	ff                   	(bad)  
-   1fb31:	ff                   	(bad)  
-   1fb32:	ff                   	(bad)  
-   1fb33:	ff                   	(bad)  
-   1fb34:	ff                   	(bad)  
-   1fb35:	ff                   	(bad)  
-   1fb36:	ff                   	(bad)  
-   1fb37:	ff                   	(bad)  
-   1fb38:	ff                   	(bad)  
-   1fb39:	ff                   	(bad)  
-   1fb3a:	ff                   	(bad)  
-   1fb3b:	ff                   	(bad)  
-   1fb3c:	ff                   	(bad)  
-   1fb3d:	ff                   	(bad)  
-   1fb3e:	ff                   	(bad)  
-   1fb3f:	ff                   	(bad)  
-   1fb40:	ff                   	(bad)  
-   1fb41:	ff                   	(bad)  
-   1fb42:	ff                   	(bad)  
-   1fb43:	ff                   	(bad)  
-   1fb44:	ff                   	(bad)  
-   1fb45:	ff                   	(bad)  
-   1fb46:	ff                   	(bad)  
-   1fb47:	ff                   	(bad)  
-   1fb48:	ff                   	(bad)  
-   1fb49:	ff                   	(bad)  
-   1fb4a:	ff                   	(bad)  
-   1fb4b:	ff                   	(bad)  
-   1fb4c:	ff                   	(bad)  
-   1fb4d:	ff                   	(bad)  
-   1fb4e:	ff                   	(bad)  
-   1fb4f:	ff                   	(bad)  
-   1fb50:	ff                   	(bad)  
-   1fb51:	ff                   	(bad)  
-   1fb52:	ff                   	(bad)  
-   1fb53:	ff                   	(bad)  
-   1fb54:	ff                   	(bad)  
-   1fb55:	ff                   	(bad)  
-   1fb56:	ff                   	(bad)  
-   1fb57:	ff                   	(bad)  
-   1fb58:	ff                   	(bad)  
-   1fb59:	ff                   	(bad)  
-   1fb5a:	ff                   	(bad)  
-   1fb5b:	ff                   	(bad)  
-   1fb5c:	ff                   	(bad)  
-   1fb5d:	ff                   	(bad)  
-   1fb5e:	ff                   	(bad)  
-   1fb5f:	ff                   	(bad)  
-   1fb60:	ff                   	(bad)  
-   1fb61:	ff                   	(bad)  
-   1fb62:	ff                   	(bad)  
-   1fb63:	ff                   	(bad)  
-   1fb64:	ff                   	(bad)  
-   1fb65:	ff                   	(bad)  
-   1fb66:	ff                   	(bad)  
-   1fb67:	ff                   	(bad)  
-   1fb68:	ff                   	(bad)  
-   1fb69:	ff                   	(bad)  
-   1fb6a:	ff                   	(bad)  
-   1fb6b:	ff                   	(bad)  
-   1fb6c:	ff                   	(bad)  
-   1fb6d:	ff                   	(bad)  
-   1fb6e:	ff                   	(bad)  
-   1fb6f:	ff                   	(bad)  
-   1fb70:	ff                   	(bad)  
-   1fb71:	ff                   	(bad)  
-   1fb72:	ff                   	(bad)  
-   1fb73:	ff                   	(bad)  
-   1fb74:	ff                   	(bad)  
-   1fb75:	ff                   	(bad)  
-   1fb76:	ff                   	(bad)  
-   1fb77:	ff                   	(bad)  
-   1fb78:	ff                   	(bad)  
-   1fb79:	ff                   	(bad)  
-   1fb7a:	ff                   	(bad)  
-   1fb7b:	ff                   	(bad)  
-   1fb7c:	ff                   	(bad)  
-   1fb7d:	ff                   	(bad)  
-   1fb7e:	ff                   	(bad)  
-   1fb7f:	ff                   	(bad)  
-   1fb80:	ff                   	(bad)  
-   1fb81:	ff                   	(bad)  
-   1fb82:	ff                   	(bad)  
-   1fb83:	ff                   	(bad)  
-   1fb84:	ff                   	(bad)  
-   1fb85:	ff                   	(bad)  
-   1fb86:	ff                   	(bad)  
-   1fb87:	ff                   	(bad)  
-   1fb88:	ff                   	(bad)  
-   1fb89:	ff                   	(bad)  
-   1fb8a:	ff                   	(bad)  
-   1fb8b:	ff                   	(bad)  
-   1fb8c:	ff                   	(bad)  
-   1fb8d:	ff                   	(bad)  
-   1fb8e:	ff                   	(bad)  
-   1fb8f:	ff                   	(bad)  
-   1fb90:	ff                   	(bad)  
-   1fb91:	ff                   	(bad)  
-   1fb92:	ff                   	(bad)  
-   1fb93:	ff                   	(bad)  
-   1fb94:	ff                   	(bad)  
-   1fb95:	ff                   	(bad)  
-   1fb96:	ff                   	(bad)  
-   1fb97:	ff                   	(bad)  
-   1fb98:	ff                   	(bad)  
-   1fb99:	ff                   	(bad)  
-   1fb9a:	ff                   	(bad)  
-   1fb9b:	ff                   	(bad)  
-   1fb9c:	ff                   	(bad)  
-   1fb9d:	ff                   	(bad)  
-   1fb9e:	ff                   	(bad)  
-   1fb9f:	ff                   	(bad)  
-   1fba0:	ff                   	(bad)  
-   1fba1:	ff                   	(bad)  
-   1fba2:	ff                   	(bad)  
-   1fba3:	ff                   	(bad)  
-   1fba4:	ff                   	(bad)  
-   1fba5:	ff                   	(bad)  
-   1fba6:	ff                   	(bad)  
-   1fba7:	ff                   	(bad)  
-   1fba8:	ff                   	(bad)  
-   1fba9:	ff                   	(bad)  
-   1fbaa:	ff                   	(bad)  
-   1fbab:	ff                   	(bad)  
-   1fbac:	ff                   	(bad)  
-   1fbad:	ff                   	(bad)  
-   1fbae:	ff                   	(bad)  
-   1fbaf:	ff                   	(bad)  
-   1fbb0:	ff                   	(bad)  
-   1fbb1:	ff                   	(bad)  
-   1fbb2:	ff                   	(bad)  
-   1fbb3:	ff                   	(bad)  
-   1fbb4:	ff                   	(bad)  
-   1fbb5:	ff                   	(bad)  
-   1fbb6:	ff                   	(bad)  
-   1fbb7:	ff                   	(bad)  
-   1fbb8:	ff                   	(bad)  
-   1fbb9:	ff                   	(bad)  
-   1fbba:	ff                   	(bad)  
-   1fbbb:	ff                   	(bad)  
-   1fbbc:	ff                   	(bad)  
-   1fbbd:	ff                   	(bad)  
-   1fbbe:	ff                   	(bad)  
-   1fbbf:	ff                   	(bad)  
-   1fbc0:	ff                   	(bad)  
-   1fbc1:	ff                   	(bad)  
-   1fbc2:	ff                   	(bad)  
-   1fbc3:	ff                   	(bad)  
-   1fbc4:	ff                   	(bad)  
-   1fbc5:	ff                   	(bad)  
-   1fbc6:	ff                   	(bad)  
-   1fbc7:	ff                   	(bad)  
-   1fbc8:	ff                   	(bad)  
-   1fbc9:	ff                   	(bad)  
-   1fbca:	ff                   	(bad)  
-   1fbcb:	ff                   	(bad)  
-   1fbcc:	ff                   	(bad)  
-   1fbcd:	ff                   	(bad)  
-   1fbce:	ff                   	(bad)  
-   1fbcf:	ff                   	(bad)  
-   1fbd0:	ff                   	(bad)  
-   1fbd1:	ff                   	(bad)  
-   1fbd2:	ff                   	(bad)  
-   1fbd3:	ff                   	(bad)  
-   1fbd4:	ff                   	(bad)  
-   1fbd5:	ff                   	(bad)  
-   1fbd6:	ff                   	(bad)  
-   1fbd7:	ff                   	(bad)  
-   1fbd8:	ff                   	(bad)  
-   1fbd9:	ff                   	(bad)  
-   1fbda:	ff                   	(bad)  
-   1fbdb:	ff                   	(bad)  
-   1fbdc:	ff                   	(bad)  
-   1fbdd:	ff                   	(bad)  
-   1fbde:	ff                   	(bad)  
-   1fbdf:	ff                   	(bad)  
-   1fbe0:	ff                   	(bad)  
-   1fbe1:	ff                   	(bad)  
-   1fbe2:	ff                   	(bad)  
-   1fbe3:	ff                   	(bad)  
-   1fbe4:	ff                   	(bad)  
-   1fbe5:	ff                   	(bad)  
-   1fbe6:	ff                   	(bad)  
-   1fbe7:	ff                   	(bad)  
-   1fbe8:	ff                   	(bad)  
-   1fbe9:	ff                   	(bad)  
-   1fbea:	ff                   	(bad)  
-   1fbeb:	ff                   	(bad)  
-   1fbec:	ff                   	(bad)  
-   1fbed:	ff                   	(bad)  
-   1fbee:	ff                   	(bad)  
-   1fbef:	ff                   	(bad)  
-   1fbf0:	ff                   	(bad)  
-   1fbf1:	ff                   	(bad)  
-   1fbf2:	ff                   	(bad)  
-   1fbf3:	ff                   	(bad)  
-   1fbf4:	ff                   	(bad)  
-   1fbf5:	ff                   	(bad)  
-   1fbf6:	ff                   	(bad)  
-   1fbf7:	ff                   	(bad)  
-   1fbf8:	ff                   	(bad)  
-   1fbf9:	ff                   	(bad)  
-   1fbfa:	ff                   	(bad)  
-   1fbfb:	ff                   	(bad)  
-   1fbfc:	ff                   	(bad)  
-   1fbfd:	ff                   	(bad)  
-   1fbfe:	ff                   	(bad)  
-   1fbff:	ff                   	(bad)  
-   1fc00:	ff                   	(bad)  
-   1fc01:	ff                   	(bad)  
-   1fc02:	ff                   	(bad)  
-   1fc03:	ff                   	(bad)  
-   1fc04:	ff                   	(bad)  
-   1fc05:	ff                   	(bad)  
-   1fc06:	ff                   	(bad)  
-   1fc07:	ff                   	(bad)  
-   1fc08:	ff                   	(bad)  
-   1fc09:	ff                   	(bad)  
-   1fc0a:	ff                   	(bad)  
-   1fc0b:	ff                   	(bad)  
-   1fc0c:	ff                   	(bad)  
-   1fc0d:	ff                   	(bad)  
-   1fc0e:	ff                   	(bad)  
-   1fc0f:	ff                   	(bad)  
-   1fc10:	ff                   	(bad)  
-   1fc11:	ff                   	(bad)  
-   1fc12:	ff                   	(bad)  
-   1fc13:	ff                   	(bad)  
-   1fc14:	ff                   	(bad)  
-   1fc15:	ff                   	(bad)  
-   1fc16:	ff                   	(bad)  
-   1fc17:	ff                   	(bad)  
-   1fc18:	ff                   	(bad)  
-   1fc19:	ff                   	(bad)  
-   1fc1a:	ff                   	(bad)  
-   1fc1b:	ff                   	(bad)  
-   1fc1c:	ff                   	(bad)  
-   1fc1d:	ff                   	(bad)  
-   1fc1e:	ff                   	(bad)  
-   1fc1f:	ff                   	(bad)  
-   1fc20:	ff                   	(bad)  
-   1fc21:	ff                   	(bad)  
-   1fc22:	ff                   	(bad)  
-   1fc23:	ff                   	(bad)  
-   1fc24:	ff                   	(bad)  
-   1fc25:	ff                   	(bad)  
-   1fc26:	ff                   	(bad)  
-   1fc27:	ff                   	(bad)  
-   1fc28:	ff                   	(bad)  
-   1fc29:	ff                   	(bad)  
-   1fc2a:	ff                   	(bad)  
-   1fc2b:	ff                   	(bad)  
-   1fc2c:	ff                   	(bad)  
-   1fc2d:	ff                   	(bad)  
-   1fc2e:	ff                   	(bad)  
-   1fc2f:	ff                   	(bad)  
-   1fc30:	ff                   	(bad)  
-   1fc31:	ff                   	(bad)  
-   1fc32:	ff                   	(bad)  
-   1fc33:	ff                   	(bad)  
-   1fc34:	ff                   	(bad)  
-   1fc35:	ff                   	(bad)  
-   1fc36:	ff                   	(bad)  
-   1fc37:	ff                   	(bad)  
-   1fc38:	ff                   	(bad)  
-   1fc39:	ff                   	(bad)  
-   1fc3a:	ff                   	(bad)  
-   1fc3b:	ff                   	(bad)  
-   1fc3c:	ff                   	(bad)  
-   1fc3d:	ff                   	(bad)  
-   1fc3e:	ff                   	(bad)  
-   1fc3f:	ff                   	(bad)  
-   1fc40:	ff                   	(bad)  
-   1fc41:	ff                   	(bad)  
-   1fc42:	ff                   	(bad)  
-   1fc43:	ff                   	(bad)  
-   1fc44:	ff                   	(bad)  
-   1fc45:	ff                   	(bad)  
-   1fc46:	ff                   	(bad)  
-   1fc47:	ff                   	(bad)  
-   1fc48:	ff                   	(bad)  
-   1fc49:	ff                   	(bad)  
-   1fc4a:	ff                   	(bad)  
-   1fc4b:	ff                   	(bad)  
-   1fc4c:	ff                   	(bad)  
-   1fc4d:	ff                   	(bad)  
-   1fc4e:	ff                   	(bad)  
-   1fc4f:	ff                   	(bad)  
-   1fc50:	ff                   	(bad)  
-   1fc51:	ff                   	(bad)  
-   1fc52:	ff                   	(bad)  
-   1fc53:	ff                   	(bad)  
-   1fc54:	ff                   	(bad)  
-   1fc55:	ff                   	(bad)  
-   1fc56:	ff                   	(bad)  
-   1fc57:	ff                   	(bad)  
-   1fc58:	ff                   	(bad)  
-   1fc59:	ff                   	(bad)  
-   1fc5a:	ff                   	(bad)  
-   1fc5b:	ff                   	(bad)  
-   1fc5c:	ff                   	(bad)  
-   1fc5d:	ff                   	(bad)  
-   1fc5e:	ff                   	(bad)  
-   1fc5f:	ff                   	(bad)  
-   1fc60:	ff                   	(bad)  
-   1fc61:	ff                   	(bad)  
-   1fc62:	ff                   	(bad)  
-   1fc63:	ff                   	(bad)  
-   1fc64:	ff                   	(bad)  
-   1fc65:	ff                   	(bad)  
-   1fc66:	ff                   	(bad)  
-   1fc67:	ff                   	(bad)  
-   1fc68:	ff                   	(bad)  
-   1fc69:	ff                   	(bad)  
-   1fc6a:	ff                   	(bad)  
-   1fc6b:	ff                   	(bad)  
-   1fc6c:	ff                   	(bad)  
-   1fc6d:	ff                   	(bad)  
-   1fc6e:	ff                   	(bad)  
-   1fc6f:	ff                   	(bad)  
-   1fc70:	ff                   	(bad)  
-   1fc71:	ff                   	(bad)  
-   1fc72:	ff                   	(bad)  
-   1fc73:	ff                   	(bad)  
-   1fc74:	ff                   	(bad)  
-   1fc75:	ff                   	(bad)  
-   1fc76:	ff                   	(bad)  
-   1fc77:	ff                   	(bad)  
-   1fc78:	ff                   	(bad)  
-   1fc79:	ff                   	(bad)  
-   1fc7a:	ff                   	(bad)  
-   1fc7b:	ff                   	(bad)  
-   1fc7c:	ff                   	(bad)  
-   1fc7d:	ff                   	(bad)  
-   1fc7e:	ff                   	(bad)  
-   1fc7f:	ff                   	(bad)  
-   1fc80:	ff                   	(bad)  
-   1fc81:	ff                   	(bad)  
-   1fc82:	ff                   	(bad)  
-   1fc83:	ff                   	(bad)  
-   1fc84:	ff                   	(bad)  
-   1fc85:	ff                   	(bad)  
-   1fc86:	ff                   	(bad)  
-   1fc87:	ff                   	(bad)  
-   1fc88:	ff                   	(bad)  
-   1fc89:	ff                   	(bad)  
-   1fc8a:	ff                   	(bad)  
-   1fc8b:	ff                   	(bad)  
-   1fc8c:	ff                   	(bad)  
-   1fc8d:	ff                   	(bad)  
-   1fc8e:	ff                   	(bad)  
-   1fc8f:	ff                   	(bad)  
-   1fc90:	ff                   	(bad)  
-   1fc91:	ff                   	(bad)  
-   1fc92:	ff                   	(bad)  
-   1fc93:	ff                   	(bad)  
-   1fc94:	ff                   	(bad)  
-   1fc95:	ff                   	(bad)  
-   1fc96:	ff                   	(bad)  
-   1fc97:	ff                   	(bad)  
-   1fc98:	ff                   	(bad)  
-   1fc99:	ff                   	(bad)  
-   1fc9a:	ff                   	(bad)  
-   1fc9b:	ff                   	(bad)  
-   1fc9c:	ff                   	(bad)  
-   1fc9d:	ff                   	(bad)  
-   1fc9e:	ff                   	(bad)  
-   1fc9f:	ff                   	(bad)  
-   1fca0:	ff                   	(bad)  
-   1fca1:	ff                   	(bad)  
-   1fca2:	ff                   	(bad)  
-   1fca3:	ff                   	(bad)  
-   1fca4:	ff                   	(bad)  
-   1fca5:	ff                   	(bad)  
-   1fca6:	ff                   	(bad)  
-   1fca7:	ff                   	(bad)  
-   1fca8:	ff                   	(bad)  
-   1fca9:	ff                   	(bad)  
-   1fcaa:	ff                   	(bad)  
-   1fcab:	ff                   	(bad)  
-   1fcac:	ff                   	(bad)  
-   1fcad:	ff                   	(bad)  
-   1fcae:	ff                   	(bad)  
-   1fcaf:	ff                   	(bad)  
-   1fcb0:	ff                   	(bad)  
-   1fcb1:	ff                   	(bad)  
-   1fcb2:	ff                   	(bad)  
-   1fcb3:	ff                   	(bad)  
-   1fcb4:	ff                   	(bad)  
-   1fcb5:	ff                   	(bad)  
-   1fcb6:	ff                   	(bad)  
-   1fcb7:	ff                   	(bad)  
-   1fcb8:	ff                   	(bad)  
-   1fcb9:	ff                   	(bad)  
-   1fcba:	ff                   	(bad)  
-   1fcbb:	ff                   	(bad)  
-   1fcbc:	ff                   	(bad)  
-   1fcbd:	ff                   	(bad)  
-   1fcbe:	ff                   	(bad)  
-   1fcbf:	ff                   	(bad)  
-   1fcc0:	ff                   	(bad)  
-   1fcc1:	ff                   	(bad)  
-   1fcc2:	ff                   	(bad)  
-   1fcc3:	ff                   	(bad)  
-   1fcc4:	ff                   	(bad)  
-   1fcc5:	ff                   	(bad)  
-   1fcc6:	ff                   	(bad)  
-   1fcc7:	ff                   	(bad)  
-   1fcc8:	ff                   	(bad)  
-   1fcc9:	ff                   	(bad)  
-   1fcca:	ff                   	(bad)  
-   1fccb:	ff                   	(bad)  
-   1fccc:	ff                   	(bad)  
-   1fccd:	ff                   	(bad)  
-   1fcce:	ff                   	(bad)  
-   1fccf:	ff                   	(bad)  
-   1fcd0:	ff                   	(bad)  
-   1fcd1:	ff                   	(bad)  
-   1fcd2:	ff                   	(bad)  
-   1fcd3:	ff                   	(bad)  
-   1fcd4:	ff                   	(bad)  
-   1fcd5:	ff                   	(bad)  
-   1fcd6:	ff                   	(bad)  
-   1fcd7:	ff                   	(bad)  
-   1fcd8:	ff                   	(bad)  
-   1fcd9:	ff                   	(bad)  
-   1fcda:	ff                   	(bad)  
-   1fcdb:	ff                   	(bad)  
-   1fcdc:	ff                   	(bad)  
-   1fcdd:	ff                   	(bad)  
-   1fcde:	ff                   	(bad)  
-   1fcdf:	ff                   	(bad)  
-   1fce0:	ff                   	(bad)  
-   1fce1:	ff                   	(bad)  
-   1fce2:	ff                   	(bad)  
-   1fce3:	ff                   	(bad)  
-   1fce4:	ff                   	(bad)  
-   1fce5:	ff                   	(bad)  
-   1fce6:	ff                   	(bad)  
-   1fce7:	ff                   	(bad)  
-   1fce8:	ff                   	(bad)  
-   1fce9:	ff                   	(bad)  
-   1fcea:	ff                   	(bad)  
-   1fceb:	ff                   	(bad)  
-   1fcec:	ff                   	(bad)  
-   1fced:	ff                   	(bad)  
-   1fcee:	ff                   	(bad)  
-   1fcef:	ff                   	(bad)  
-   1fcf0:	ff                   	(bad)  
-   1fcf1:	ff                   	(bad)  
-   1fcf2:	ff                   	(bad)  
-   1fcf3:	ff                   	(bad)  
-   1fcf4:	ff                   	(bad)  
-   1fcf5:	ff                   	(bad)  
-   1fcf6:	ff                   	(bad)  
-   1fcf7:	ff                   	(bad)  
-   1fcf8:	ff                   	(bad)  
-   1fcf9:	ff                   	(bad)  
-   1fcfa:	ff                   	(bad)  
-   1fcfb:	ff                   	(bad)  
-   1fcfc:	ff                   	(bad)  
-   1fcfd:	ff                   	(bad)  
-   1fcfe:	ff                   	(bad)  
-   1fcff:	ff                   	(bad)  
-   1fd00:	ff                   	(bad)  
-   1fd01:	ff                   	(bad)  
-   1fd02:	ff                   	(bad)  
-   1fd03:	ff                   	(bad)  
-   1fd04:	ff                   	(bad)  
-   1fd05:	ff                   	(bad)  
-   1fd06:	ff                   	(bad)  
-   1fd07:	ff                   	(bad)  
-   1fd08:	ff                   	(bad)  
-   1fd09:	ff                   	(bad)  
-   1fd0a:	ff                   	(bad)  
-   1fd0b:	ff                   	(bad)  
-   1fd0c:	ff                   	(bad)  
-   1fd0d:	ff                   	(bad)  
-   1fd0e:	ff                   	(bad)  
-   1fd0f:	ff                   	(bad)  
-   1fd10:	ff                   	(bad)  
-   1fd11:	ff                   	(bad)  
-   1fd12:	ff                   	(bad)  
-   1fd13:	ff                   	(bad)  
-   1fd14:	ff                   	(bad)  
-   1fd15:	ff                   	(bad)  
-   1fd16:	ff                   	(bad)  
-   1fd17:	ff                   	(bad)  
-   1fd18:	ff                   	(bad)  
-   1fd19:	ff                   	(bad)  
-   1fd1a:	ff                   	(bad)  
-   1fd1b:	ff                   	(bad)  
-   1fd1c:	ff                   	(bad)  
-   1fd1d:	ff                   	(bad)  
-   1fd1e:	ff                   	(bad)  
-   1fd1f:	ff                   	(bad)  
-   1fd20:	ff                   	(bad)  
-   1fd21:	ff                   	(bad)  
-   1fd22:	ff                   	(bad)  
-   1fd23:	ff                   	(bad)  
-   1fd24:	ff                   	(bad)  
-   1fd25:	ff                   	(bad)  
-   1fd26:	ff                   	(bad)  
-   1fd27:	ff                   	(bad)  
-   1fd28:	ff                   	(bad)  
-   1fd29:	ff                   	(bad)  
-   1fd2a:	ff                   	(bad)  
-   1fd2b:	ff                   	(bad)  
-   1fd2c:	ff                   	(bad)  
-   1fd2d:	ff                   	(bad)  
-   1fd2e:	ff                   	(bad)  
-   1fd2f:	ff                   	(bad)  
-   1fd30:	ff                   	(bad)  
-   1fd31:	ff                   	(bad)  
-   1fd32:	ff                   	(bad)  
-   1fd33:	ff                   	(bad)  
-   1fd34:	ff                   	(bad)  
-   1fd35:	ff                   	(bad)  
-   1fd36:	ff                   	(bad)  
-   1fd37:	ff                   	(bad)  
-   1fd38:	ff                   	(bad)  
-   1fd39:	ff                   	(bad)  
-   1fd3a:	ff                   	(bad)  
-   1fd3b:	ff                   	(bad)  
-   1fd3c:	ff                   	(bad)  
-   1fd3d:	ff                   	(bad)  
-   1fd3e:	ff                   	(bad)  
-   1fd3f:	ff                   	(bad)  
-   1fd40:	ff                   	(bad)  
-   1fd41:	ff                   	(bad)  
-   1fd42:	ff                   	(bad)  
-   1fd43:	ff                   	(bad)  
-   1fd44:	ff                   	(bad)  
-   1fd45:	ff                   	(bad)  
-   1fd46:	ff                   	(bad)  
-   1fd47:	ff                   	(bad)  
-   1fd48:	ff                   	(bad)  
-   1fd49:	ff                   	(bad)  
-   1fd4a:	ff                   	(bad)  
-   1fd4b:	ff                   	(bad)  
-   1fd4c:	ff                   	(bad)  
-   1fd4d:	ff                   	(bad)  
-   1fd4e:	ff                   	(bad)  
-   1fd4f:	ff                   	(bad)  
-   1fd50:	ff                   	(bad)  
-   1fd51:	ff                   	(bad)  
-   1fd52:	ff                   	(bad)  
-   1fd53:	ff                   	(bad)  
-   1fd54:	ff                   	(bad)  
-   1fd55:	ff                   	(bad)  
-   1fd56:	ff                   	(bad)  
-   1fd57:	ff                   	(bad)  
-   1fd58:	ff                   	(bad)  
-   1fd59:	ff                   	(bad)  
-   1fd5a:	ff                   	(bad)  
-   1fd5b:	ff                   	(bad)  
-   1fd5c:	ff                   	(bad)  
-   1fd5d:	ff                   	(bad)  
-   1fd5e:	ff                   	(bad)  
-   1fd5f:	ff                   	(bad)  
-   1fd60:	ff                   	(bad)  
-   1fd61:	ff                   	(bad)  
-   1fd62:	ff                   	(bad)  
-   1fd63:	ff                   	(bad)  
-   1fd64:	ff                   	(bad)  
-   1fd65:	ff                   	(bad)  
-   1fd66:	ff                   	(bad)  
-   1fd67:	ff                   	(bad)  
-   1fd68:	ff                   	(bad)  
-   1fd69:	ff                   	(bad)  
-   1fd6a:	ff                   	(bad)  
-   1fd6b:	ff                   	(bad)  
-   1fd6c:	ff                   	(bad)  
-   1fd6d:	ff                   	(bad)  
-   1fd6e:	ff                   	(bad)  
-   1fd6f:	ff                   	(bad)  
-   1fd70:	ff                   	(bad)  
-   1fd71:	ff                   	(bad)  
-   1fd72:	ff                   	(bad)  
-   1fd73:	ff                   	(bad)  
-   1fd74:	ff                   	(bad)  
-   1fd75:	ff                   	(bad)  
-   1fd76:	ff                   	(bad)  
-   1fd77:	ff                   	(bad)  
-   1fd78:	ff                   	(bad)  
-   1fd79:	ff                   	(bad)  
-   1fd7a:	ff                   	(bad)  
-   1fd7b:	ff                   	(bad)  
-   1fd7c:	ff                   	(bad)  
-   1fd7d:	ff                   	(bad)  
-   1fd7e:	ff                   	(bad)  
-   1fd7f:	ff                   	(bad)  
-   1fd80:	ff                   	(bad)  
-   1fd81:	ff                   	(bad)  
-   1fd82:	ff                   	(bad)  
-   1fd83:	ff                   	(bad)  
-   1fd84:	ff                   	(bad)  
-   1fd85:	ff                   	(bad)  
-   1fd86:	ff                   	(bad)  
-   1fd87:	ff                   	(bad)  
-   1fd88:	ff                   	(bad)  
-   1fd89:	ff                   	(bad)  
-   1fd8a:	ff                   	(bad)  
-   1fd8b:	ff                   	(bad)  
-   1fd8c:	ff                   	(bad)  
-   1fd8d:	ff                   	(bad)  
-   1fd8e:	ff                   	(bad)  
-   1fd8f:	ff                   	(bad)  
-   1fd90:	ff                   	(bad)  
-   1fd91:	ff                   	(bad)  
-   1fd92:	ff                   	(bad)  
-   1fd93:	ff                   	(bad)  
-   1fd94:	ff                   	(bad)  
-   1fd95:	ff                   	(bad)  
-   1fd96:	ff                   	(bad)  
-   1fd97:	ff                   	(bad)  
-   1fd98:	ff                   	(bad)  
-   1fd99:	ff                   	(bad)  
-   1fd9a:	ff                   	(bad)  
-   1fd9b:	ff                   	(bad)  
-   1fd9c:	ff                   	(bad)  
-   1fd9d:	ff                   	(bad)  
-   1fd9e:	ff                   	(bad)  
-   1fd9f:	ff                   	(bad)  
-   1fda0:	ff                   	(bad)  
-   1fda1:	ff                   	(bad)  
-   1fda2:	ff                   	(bad)  
-   1fda3:	ff                   	(bad)  
-   1fda4:	ff                   	(bad)  
-   1fda5:	ff                   	(bad)  
-   1fda6:	ff                   	(bad)  
-   1fda7:	ff                   	(bad)  
-   1fda8:	ff                   	(bad)  
-   1fda9:	ff                   	(bad)  
-   1fdaa:	ff                   	(bad)  
-   1fdab:	ff                   	(bad)  
-   1fdac:	ff                   	(bad)  
-   1fdad:	ff                   	(bad)  
-   1fdae:	ff                   	(bad)  
-   1fdaf:	ff                   	(bad)  
-   1fdb0:	ff                   	(bad)  
-   1fdb1:	ff                   	(bad)  
-   1fdb2:	ff                   	(bad)  
-   1fdb3:	ff                   	(bad)  
-   1fdb4:	ff                   	(bad)  
-   1fdb5:	ff                   	(bad)  
-   1fdb6:	ff                   	(bad)  
-   1fdb7:	ff                   	(bad)  
-   1fdb8:	ff                   	(bad)  
-   1fdb9:	ff                   	(bad)  
-   1fdba:	ff                   	(bad)  
-   1fdbb:	ff                   	(bad)  
-   1fdbc:	ff                   	(bad)  
-   1fdbd:	ff                   	(bad)  
-   1fdbe:	ff                   	(bad)  
-   1fdbf:	ff                   	(bad)  
-   1fdc0:	ff                   	(bad)  
-   1fdc1:	ff                   	(bad)  
-   1fdc2:	ff                   	(bad)  
-   1fdc3:	ff                   	(bad)  
-   1fdc4:	ff                   	(bad)  
-   1fdc5:	ff                   	(bad)  
-   1fdc6:	ff                   	(bad)  
-   1fdc7:	ff                   	(bad)  
-   1fdc8:	ff                   	(bad)  
-   1fdc9:	ff                   	(bad)  
-   1fdca:	ff                   	(bad)  
-   1fdcb:	ff                   	(bad)  
-   1fdcc:	ff                   	(bad)  
-   1fdcd:	ff                   	(bad)  
-   1fdce:	ff                   	(bad)  
-   1fdcf:	ff                   	(bad)  
-   1fdd0:	ff                   	(bad)  
-   1fdd1:	ff                   	(bad)  
-   1fdd2:	ff                   	(bad)  
-   1fdd3:	ff                   	(bad)  
-   1fdd4:	ff                   	(bad)  
-   1fdd5:	ff                   	(bad)  
-   1fdd6:	ff                   	(bad)  
-   1fdd7:	ff                   	(bad)  
-   1fdd8:	ff                   	(bad)  
-   1fdd9:	ff                   	(bad)  
-   1fdda:	ff                   	(bad)  
-   1fddb:	ff                   	(bad)  
-   1fddc:	ff                   	(bad)  
-   1fddd:	ff                   	(bad)  
-   1fdde:	ff                   	(bad)  
-   1fddf:	ff                   	(bad)  
-   1fde0:	ff                   	(bad)  
-   1fde1:	ff                   	(bad)  
-   1fde2:	ff                   	(bad)  
-   1fde3:	ff                   	(bad)  
-   1fde4:	ff                   	(bad)  
-   1fde5:	ff                   	(bad)  
-   1fde6:	ff                   	(bad)  
-   1fde7:	ff                   	(bad)  
-   1fde8:	ff                   	(bad)  
-   1fde9:	ff                   	(bad)  
-   1fdea:	ff                   	(bad)  
-   1fdeb:	ff                   	(bad)  
-   1fdec:	ff                   	(bad)  
-   1fded:	ff                   	(bad)  
-   1fdee:	ff                   	(bad)  
-   1fdef:	ff                   	(bad)  
-   1fdf0:	ff                   	(bad)  
-   1fdf1:	ff                   	(bad)  
-   1fdf2:	ff                   	(bad)  
-   1fdf3:	ff                   	(bad)  
-   1fdf4:	ff                   	(bad)  
-   1fdf5:	ff                   	(bad)  
-   1fdf6:	ff                   	(bad)  
-   1fdf7:	ff                   	(bad)  
-   1fdf8:	ff                   	(bad)  
-   1fdf9:	ff                   	(bad)  
-   1fdfa:	ff                   	(bad)  
-   1fdfb:	ff                   	(bad)  
-   1fdfc:	ff                   	(bad)  
-   1fdfd:	ff                   	(bad)  
-   1fdfe:	ff                   	(bad)  
-   1fdff:	ff                   	(bad)  
-   1fe00:	ff                   	(bad)  
-   1fe01:	ff                   	(bad)  
-   1fe02:	ff                   	(bad)  
-   1fe03:	ff                   	(bad)  
-   1fe04:	ff                   	(bad)  
-   1fe05:	ff                   	(bad)  
-   1fe06:	ff                   	(bad)  
-   1fe07:	ff                   	(bad)  
-   1fe08:	ff                   	(bad)  
-   1fe09:	ff                   	(bad)  
-   1fe0a:	ff                   	(bad)  
-   1fe0b:	ff                   	(bad)  
-   1fe0c:	ff                   	(bad)  
-   1fe0d:	ff                   	(bad)  
-   1fe0e:	ff                   	(bad)  
-   1fe0f:	ff                   	(bad)  
-   1fe10:	ff                   	(bad)  
-   1fe11:	ff                   	(bad)  
-   1fe12:	ff                   	(bad)  
-   1fe13:	ff                   	(bad)  
-   1fe14:	ff                   	(bad)  
-   1fe15:	ff                   	(bad)  
-   1fe16:	ff                   	(bad)  
-   1fe17:	ff                   	(bad)  
-   1fe18:	ff                   	(bad)  
-   1fe19:	ff                   	(bad)  
-   1fe1a:	ff                   	(bad)  
-   1fe1b:	ff                   	(bad)  
-   1fe1c:	ff                   	(bad)  
-   1fe1d:	ff                   	(bad)  
-   1fe1e:	ff                   	(bad)  
-   1fe1f:	ff                   	(bad)  
-   1fe20:	ff                   	(bad)  
-   1fe21:	ff                   	(bad)  
-   1fe22:	ff                   	(bad)  
-   1fe23:	ff                   	(bad)  
-   1fe24:	ff                   	(bad)  
-   1fe25:	ff                   	(bad)  
-   1fe26:	ff                   	(bad)  
-   1fe27:	ff                   	(bad)  
-   1fe28:	ff                   	(bad)  
-   1fe29:	ff                   	(bad)  
-   1fe2a:	ff                   	(bad)  
-   1fe2b:	ff                   	(bad)  
-   1fe2c:	ff                   	(bad)  
-   1fe2d:	ff                   	(bad)  
-   1fe2e:	ff                   	(bad)  
-   1fe2f:	ff                   	(bad)  
-   1fe30:	ff                   	(bad)  
-   1fe31:	ff                   	(bad)  
-   1fe32:	ff                   	(bad)  
-   1fe33:	ff                   	(bad)  
-   1fe34:	ff                   	(bad)  
-   1fe35:	ff                   	(bad)  
-   1fe36:	ff                   	(bad)  
-   1fe37:	ff                   	(bad)  
-   1fe38:	ff                   	(bad)  
-   1fe39:	ff                   	(bad)  
-   1fe3a:	ff                   	(bad)  
-   1fe3b:	ff                   	(bad)  
-   1fe3c:	ff                   	(bad)  
-   1fe3d:	ff                   	(bad)  
-   1fe3e:	ff                   	(bad)  
-   1fe3f:	ff                   	(bad)  
-   1fe40:	ff                   	(bad)  
-   1fe41:	ff                   	(bad)  
-   1fe42:	ff                   	(bad)  
-   1fe43:	ff                   	(bad)  
-   1fe44:	ff                   	(bad)  
-   1fe45:	ff                   	(bad)  
-   1fe46:	ff                   	(bad)  
-   1fe47:	ff                   	(bad)  
-   1fe48:	ff                   	(bad)  
-   1fe49:	ff                   	(bad)  
-   1fe4a:	ff                   	(bad)  
-   1fe4b:	ff                   	(bad)  
-   1fe4c:	ff                   	(bad)  
-   1fe4d:	ff                   	(bad)  
-   1fe4e:	ff                   	(bad)  
-   1fe4f:	ff                   	(bad)  
-   1fe50:	ff                   	(bad)  
-   1fe51:	ff                   	(bad)  
-   1fe52:	ff                   	(bad)  
-   1fe53:	ff                   	(bad)  
-   1fe54:	ff                   	(bad)  
-   1fe55:	ff                   	(bad)  
-   1fe56:	ff                   	(bad)  
-   1fe57:	ff                   	(bad)  
-   1fe58:	ff                   	(bad)  
-   1fe59:	ff                   	(bad)  
-   1fe5a:	ff                   	(bad)  
-   1fe5b:	ff                   	(bad)  
-   1fe5c:	ff                   	(bad)  
-   1fe5d:	ff                   	(bad)  
-   1fe5e:	ff                   	(bad)  
-   1fe5f:	ff                   	(bad)  
-   1fe60:	ff                   	(bad)  
-   1fe61:	ff                   	(bad)  
-   1fe62:	ff                   	(bad)  
-   1fe63:	ff                   	(bad)  
-   1fe64:	ff                   	(bad)  
-   1fe65:	ff                   	(bad)  
-   1fe66:	ff                   	(bad)  
-   1fe67:	ff                   	(bad)  
-   1fe68:	ff                   	(bad)  
-   1fe69:	ff                   	(bad)  
-   1fe6a:	ff                   	(bad)  
-   1fe6b:	ff                   	(bad)  
-   1fe6c:	ff                   	(bad)  
-   1fe6d:	ff                   	(bad)  
-   1fe6e:	ff                   	(bad)  
-   1fe6f:	ff                   	(bad)  
-   1fe70:	ff                   	(bad)  
-   1fe71:	ff                   	(bad)  
-   1fe72:	ff                   	(bad)  
-   1fe73:	ff                   	(bad)  
-   1fe74:	ff                   	(bad)  
-   1fe75:	ff                   	(bad)  
-   1fe76:	ff                   	(bad)  
-   1fe77:	ff                   	(bad)  
-   1fe78:	ff                   	(bad)  
-   1fe79:	ff                   	(bad)  
-   1fe7a:	ff                   	(bad)  
-   1fe7b:	ff                   	(bad)  
-   1fe7c:	ff                   	(bad)  
-   1fe7d:	ff                   	(bad)  
-   1fe7e:	ff                   	(bad)  
-   1fe7f:	ff                   	(bad)  
-   1fe80:	ff                   	(bad)  
-   1fe81:	ff                   	(bad)  
-   1fe82:	ff                   	(bad)  
-   1fe83:	ff                   	(bad)  
-   1fe84:	ff                   	(bad)  
-   1fe85:	ff                   	(bad)  
-   1fe86:	ff                   	(bad)  
-   1fe87:	ff                   	(bad)  
-   1fe88:	ff                   	(bad)  
-   1fe89:	ff                   	(bad)  
-   1fe8a:	ff                   	(bad)  
-   1fe8b:	ff                   	(bad)  
-   1fe8c:	ff                   	(bad)  
-   1fe8d:	ff                   	(bad)  
-   1fe8e:	ff                   	(bad)  
-   1fe8f:	ff                   	(bad)  
-   1fe90:	ff                   	(bad)  
-   1fe91:	ff                   	(bad)  
-   1fe92:	ff                   	(bad)  
-   1fe93:	ff                   	(bad)  
-   1fe94:	ff                   	(bad)  
-   1fe95:	ff                   	(bad)  
-   1fe96:	ff                   	(bad)  
-   1fe97:	ff                   	(bad)  
-   1fe98:	ff                   	(bad)  
-   1fe99:	ff                   	(bad)  
-   1fe9a:	ff                   	(bad)  
-   1fe9b:	ff                   	(bad)  
-   1fe9c:	ff                   	(bad)  
-   1fe9d:	ff                   	(bad)  
-   1fe9e:	ff                   	(bad)  
-   1fe9f:	ff                   	(bad)  
-   1fea0:	ff                   	(bad)  
-   1fea1:	ff                   	(bad)  
-   1fea2:	ff                   	(bad)  
-   1fea3:	ff                   	(bad)  
-   1fea4:	ff                   	(bad)  
-   1fea5:	ff                   	(bad)  
-   1fea6:	ff                   	(bad)  
-   1fea7:	ff                   	(bad)  
-   1fea8:	ff                   	(bad)  
-   1fea9:	ff                   	(bad)  
-   1feaa:	ff                   	(bad)  
-   1feab:	ff                   	(bad)  
-   1feac:	ff                   	(bad)  
-   1fead:	ff                   	(bad)  
-   1feae:	ff                   	(bad)  
-   1feaf:	ff                   	(bad)  
-   1feb0:	ff                   	(bad)  
-   1feb1:	ff                   	(bad)  
-   1feb2:	ff                   	(bad)  
-   1feb3:	ff                   	(bad)  
-   1feb4:	ff                   	(bad)  
-   1feb5:	ff                   	(bad)  
-   1feb6:	ff                   	(bad)  
-   1feb7:	ff                   	(bad)  
-   1feb8:	ff                   	(bad)  
-   1feb9:	ff                   	(bad)  
-   1feba:	ff                   	(bad)  
-   1febb:	ff                   	(bad)  
-   1febc:	ff                   	(bad)  
-   1febd:	ff                   	(bad)  
-   1febe:	ff                   	(bad)  
-   1febf:	ff                   	(bad)  
-   1fec0:	ff                   	(bad)  
-   1fec1:	ff                   	(bad)  
-   1fec2:	ff                   	(bad)  
-   1fec3:	ff                   	(bad)  
-   1fec4:	ff                   	(bad)  
-   1fec5:	ff                   	(bad)  
-   1fec6:	ff                   	(bad)  
-   1fec7:	ff                   	(bad)  
-   1fec8:	ff                   	(bad)  
-   1fec9:	ff                   	(bad)  
-   1feca:	ff                   	(bad)  
-   1fecb:	ff                   	(bad)  
-   1fecc:	ff                   	(bad)  
-   1fecd:	ff                   	(bad)  
-   1fece:	ff                   	(bad)  
-   1fecf:	ff                   	(bad)  
-   1fed0:	ff                   	(bad)  
-   1fed1:	ff                   	(bad)  
-   1fed2:	ff                   	(bad)  
-   1fed3:	ff                   	(bad)  
-   1fed4:	ff                   	(bad)  
-   1fed5:	ff                   	(bad)  
-   1fed6:	ff                   	(bad)  
-   1fed7:	ff                   	(bad)  
-   1fed8:	ff                   	(bad)  
-   1fed9:	ff                   	(bad)  
-   1feda:	ff                   	(bad)  
-   1fedb:	ff                   	(bad)  
-   1fedc:	ff                   	(bad)  
-   1fedd:	ff                   	(bad)  
-   1fede:	ff                   	(bad)  
-   1fedf:	ff                   	(bad)  
-   1fee0:	ff                   	(bad)  
-   1fee1:	ff                   	(bad)  
-   1fee2:	ff                   	(bad)  
-   1fee3:	ff                   	(bad)  
-   1fee4:	ff                   	(bad)  
-   1fee5:	ff                   	(bad)  
-   1fee6:	ff                   	(bad)  
-   1fee7:	ff                   	(bad)  
-   1fee8:	ff                   	(bad)  
-   1fee9:	ff                   	(bad)  
-   1feea:	ff                   	(bad)  
-   1feeb:	ff                   	(bad)  
-   1feec:	ff                   	(bad)  
-   1feed:	ff                   	(bad)  
-   1feee:	ff                   	(bad)  
-   1feef:	ff                   	(bad)  
-   1fef0:	ff                   	(bad)  
-   1fef1:	ff                   	(bad)  
-   1fef2:	ff                   	(bad)  
-   1fef3:	ff                   	(bad)  
-   1fef4:	ff                   	(bad)  
-   1fef5:	ff                   	(bad)  
-   1fef6:	ff                   	(bad)  
-   1fef7:	ff                   	(bad)  
-   1fef8:	ff                   	(bad)  
-   1fef9:	ff                   	(bad)  
-   1fefa:	ff                   	(bad)  
-   1fefb:	ff                   	(bad)  
-   1fefc:	ff                   	(bad)  
-   1fefd:	ff                   	(bad)  
-   1fefe:	ff                   	(bad)  
-   1feff:	ff                   	(bad)  
-   1ff00:	ff                   	(bad)  
-   1ff01:	ff                   	(bad)  
-   1ff02:	ff                   	(bad)  
-   1ff03:	ff                   	(bad)  
-   1ff04:	ff                   	(bad)  
-   1ff05:	ff                   	(bad)  
-   1ff06:	ff                   	(bad)  
-   1ff07:	ff                   	(bad)  
-   1ff08:	ff                   	(bad)  
-   1ff09:	ff                   	(bad)  
-   1ff0a:	ff                   	(bad)  
-   1ff0b:	ff                   	(bad)  
-   1ff0c:	ff                   	(bad)  
-   1ff0d:	ff                   	(bad)  
-   1ff0e:	ff                   	(bad)  
-   1ff0f:	ff                   	(bad)  
-   1ff10:	ff                   	(bad)  
-   1ff11:	ff                   	(bad)  
-   1ff12:	ff                   	(bad)  
-   1ff13:	ff                   	(bad)  
-   1ff14:	ff                   	(bad)  
-   1ff15:	ff                   	(bad)  
-   1ff16:	ff                   	(bad)  
-   1ff17:	ff                   	(bad)  
-   1ff18:	ff                   	(bad)  
-   1ff19:	ff                   	(bad)  
-   1ff1a:	ff                   	(bad)  
-   1ff1b:	ff                   	(bad)  
-   1ff1c:	ff                   	(bad)  
-   1ff1d:	ff                   	(bad)  
-   1ff1e:	ff                   	(bad)  
-   1ff1f:	ff                   	(bad)  
-   1ff20:	ff                   	(bad)  
-   1ff21:	ff                   	(bad)  
-   1ff22:	ff                   	(bad)  
-   1ff23:	ff                   	(bad)  
-   1ff24:	ff                   	(bad)  
-   1ff25:	ff                   	(bad)  
-   1ff26:	ff                   	(bad)  
-   1ff27:	ff                   	(bad)  
-   1ff28:	ff                   	(bad)  
-   1ff29:	ff                   	(bad)  
-   1ff2a:	ff                   	(bad)  
-   1ff2b:	ff                   	(bad)  
-   1ff2c:	ff                   	(bad)  
-   1ff2d:	ff                   	(bad)  
-   1ff2e:	ff                   	(bad)  
-   1ff2f:	ff                   	(bad)  
-   1ff30:	ff                   	(bad)  
-   1ff31:	ff                   	(bad)  
-   1ff32:	ff                   	(bad)  
-   1ff33:	ff                   	(bad)  
-   1ff34:	ff                   	(bad)  
-   1ff35:	ff                   	(bad)  
-   1ff36:	ff                   	(bad)  
-   1ff37:	ff                   	(bad)  
-   1ff38:	ff                   	(bad)  
-   1ff39:	ff                   	(bad)  
-   1ff3a:	ff                   	(bad)  
-   1ff3b:	ff                   	(bad)  
-   1ff3c:	ff                   	(bad)  
-   1ff3d:	ff                   	(bad)  
-   1ff3e:	ff                   	(bad)  
-   1ff3f:	ff                   	(bad)  
-   1ff40:	ff                   	(bad)  
-   1ff41:	ff                   	(bad)  
-   1ff42:	ff                   	(bad)  
-   1ff43:	ff                   	(bad)  
-   1ff44:	ff                   	(bad)  
-   1ff45:	ff                   	(bad)  
-   1ff46:	ff                   	(bad)  
-   1ff47:	ff                   	(bad)  
-   1ff48:	ff                   	(bad)  
-   1ff49:	ff                   	(bad)  
-   1ff4a:	ff                   	(bad)  
-   1ff4b:	ff                   	(bad)  
-   1ff4c:	ff                   	(bad)  
-   1ff4d:	ff                   	(bad)  
-   1ff4e:	ff                   	(bad)  
-   1ff4f:	ff                   	(bad)  
-   1ff50:	ff                   	(bad)  
-   1ff51:	ff                   	(bad)  
-   1ff52:	ff                   	(bad)  
-   1ff53:	ff                   	(bad)  
-   1ff54:	ff                   	(bad)  
-   1ff55:	ff                   	(bad)  
-   1ff56:	ff                   	(bad)  
-   1ff57:	ff                   	(bad)  
-   1ff58:	ff                   	(bad)  
-   1ff59:	ff                   	(bad)  
-   1ff5a:	ff                   	(bad)  
-   1ff5b:	ff                   	(bad)  
-   1ff5c:	ff                   	(bad)  
-   1ff5d:	ff                   	(bad)  
-   1ff5e:	ff                   	(bad)  
-   1ff5f:	ff                   	(bad)  
-   1ff60:	ff                   	(bad)  
-   1ff61:	ff                   	(bad)  
-   1ff62:	ff                   	(bad)  
-   1ff63:	ff                   	(bad)  
-   1ff64:	ff                   	(bad)  
-   1ff65:	ff                   	(bad)  
-   1ff66:	ff                   	(bad)  
-   1ff67:	ff                   	(bad)  
-   1ff68:	ff                   	(bad)  
-   1ff69:	ff                   	(bad)  
-   1ff6a:	ff                   	(bad)  
-   1ff6b:	ff                   	(bad)  
-   1ff6c:	ff                   	(bad)  
-   1ff6d:	ff                   	(bad)  
-   1ff6e:	ff                   	(bad)  
-   1ff6f:	ff                   	(bad)  
-   1ff70:	ff                   	(bad)  
-   1ff71:	ff                   	(bad)  
-   1ff72:	ff                   	(bad)  
-   1ff73:	ff                   	(bad)  
-   1ff74:	ff                   	(bad)  
-   1ff75:	ff                   	(bad)  
-   1ff76:	ff                   	(bad)  
-   1ff77:	ff                   	(bad)  
-   1ff78:	ff                   	(bad)  
-   1ff79:	ff                   	(bad)  
-   1ff7a:	ff                   	(bad)  
-   1ff7b:	ff                   	(bad)  
-   1ff7c:	ff                   	(bad)  
-   1ff7d:	ff                   	(bad)  
-   1ff7e:	ff                   	(bad)  
-   1ff7f:	ff                   	(bad)  
-   1ff80:	ff                   	(bad)  
-   1ff81:	ff                   	(bad)  
-   1ff82:	ff                   	(bad)  
-   1ff83:	ff                   	(bad)  
-   1ff84:	ff                   	(bad)  
-   1ff85:	ff                   	(bad)  
-   1ff86:	ff                   	(bad)  
-   1ff87:	ff                   	(bad)  
-   1ff88:	ff                   	(bad)  
-   1ff89:	ff                   	(bad)  
-   1ff8a:	ff                   	(bad)  
-   1ff8b:	ff                   	(bad)  
-   1ff8c:	ff                   	(bad)  
-   1ff8d:	ff                   	(bad)  
-   1ff8e:	ff                   	(bad)  
-   1ff8f:	ff                   	(bad)  
-   1ff90:	ff                   	(bad)  
-   1ff91:	ff                   	(bad)  
-   1ff92:	ff                   	(bad)  
-   1ff93:	ff                   	(bad)  
-   1ff94:	ff                   	(bad)  
-   1ff95:	ff                   	(bad)  
-   1ff96:	ff                   	(bad)  
-   1ff97:	ff                   	(bad)  
-   1ff98:	ff                   	(bad)  
-   1ff99:	ff                   	(bad)  
-   1ff9a:	ff                   	(bad)  
-   1ff9b:	ff                   	(bad)  
-   1ff9c:	ff                   	(bad)  
-   1ff9d:	ff                   	(bad)  
-   1ff9e:	ff                   	(bad)  
-   1ff9f:	ff                   	(bad)  
-   1ffa0:	ff                   	(bad)  
-   1ffa1:	ff                   	(bad)  
-   1ffa2:	ff                   	(bad)  
-   1ffa3:	ff                   	(bad)  
-   1ffa4:	ff                   	(bad)  
-   1ffa5:	ff                   	(bad)  
-   1ffa6:	ff                   	(bad)  
-   1ffa7:	ff                   	(bad)  
-   1ffa8:	ff                   	(bad)  
-   1ffa9:	ff                   	(bad)  
-   1ffaa:	ff                   	(bad)  
-   1ffab:	ff                   	(bad)  
-   1ffac:	ff                   	(bad)  
-   1ffad:	ff                   	(bad)  
-   1ffae:	ff                   	(bad)  
-   1ffaf:	ff                   	(bad)  
-   1ffb0:	ff                   	(bad)  
-   1ffb1:	ff                   	(bad)  
-   1ffb2:	ff                   	(bad)  
-   1ffb3:	ff                   	(bad)  
-   1ffb4:	ff                   	(bad)  
-   1ffb5:	ff                   	(bad)  
-   1ffb6:	ff                   	(bad)  
-   1ffb7:	ff                   	(bad)  
-   1ffb8:	ff                   	(bad)  
-   1ffb9:	ff                   	(bad)  
-   1ffba:	ff                   	(bad)  
-   1ffbb:	ff                   	(bad)  
-   1ffbc:	ff                   	(bad)  
-   1ffbd:	ff                   	(bad)  
-   1ffbe:	ff                   	(bad)  
-   1ffbf:	ff                   	(bad)  
-   1ffc0:	ff                   	(bad)  
-   1ffc1:	ff                   	(bad)  
-   1ffc2:	ff                   	(bad)  
-   1ffc3:	ff                   	(bad)  
-   1ffc4:	ff                   	(bad)  
-   1ffc5:	ff                   	(bad)  
-   1ffc6:	ff                   	(bad)  
-   1ffc7:	ff                   	(bad)  
-   1ffc8:	ff                   	(bad)  
-   1ffc9:	ff                   	(bad)  
-   1ffca:	ff                   	(bad)  
-   1ffcb:	ff                   	(bad)  
-   1ffcc:	ff                   	(bad)  
-   1ffcd:	ff                   	(bad)  
-   1ffce:	ff                   	(bad)  
-   1ffcf:	ff                   	(bad)  
-   1ffd0:	ff                   	(bad)  
-   1ffd1:	ff                   	(bad)  
-   1ffd2:	ff                   	(bad)  
-   1ffd3:	ff                   	(bad)  
-   1ffd4:	ff                   	(bad)  
-   1ffd5:	ff                   	(bad)  
-   1ffd6:	ff                   	(bad)  
-   1ffd7:	ff                   	(bad)  
-   1ffd8:	ff                   	(bad)  
-   1ffd9:	ff                   	(bad)  
-   1ffda:	ff                   	(bad)  
-   1ffdb:	ff                   	(bad)  
-   1ffdc:	ff                   	(bad)  
-   1ffdd:	ff                   	(bad)  
-   1ffde:	ff                   	(bad)  
-   1ffdf:	ff                   	(bad)  
-   1ffe0:	ff                   	(bad)  
-   1ffe1:	ff                   	(bad)  
-   1ffe2:	ff                   	(bad)  
-   1ffe3:	ff                   	(bad)  
-   1ffe4:	ff                   	(bad)  
-   1ffe5:	ff                   	(bad)  
-   1ffe6:	ff                   	(bad)  
-   1ffe7:	ff                   	(bad)  
-   1ffe8:	ff                   	(bad)  
-   1ffe9:	ff                   	(bad)  
-   1ffea:	ff                   	(bad)  
-   1ffeb:	ff                   	(bad)  
-   1ffec:	ff                   	(bad)  
-   1ffed:	ff                   	(bad)  
-   1ffee:	ff                   	(bad)  
-   1ffef:	ff ea                	jmp    <internal disassembler error>
-   1fff1:	00 00                	add    BYTE PTR [bx+si],al
-   1fff3:	2b fc                	sub    di,sp
-   1fff5:	ff                   	(bad)  
-   1fff6:	ff                   	(bad)  
-   1fff7:	ff                   	(bad)  
-   1fff8:	ff                   	(bad)  
-   1fff9:	ff                   	(bad)  
-   1fffa:	ff                   	(bad)  
-   1fffb:	ff                   	(bad)  
-   1fffc:	ff                   	(bad)  
-   1fffd:	ff                   	(bad)  
-   1fffe:	ff                   	(bad)  
-   1ffff:	ff                   	.byte 0xff
+
+
+.data
+0001ee49  ff                                                |.|
+0001ee4a  ffff ffff ffff                           |......|
+0001ee50  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001ee60  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001ee70  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001ee80  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001ee90  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001eea0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001eeb0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001eec0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001eed0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001eee0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001eef0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001ef00  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001ef10  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001ef20  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001ef30  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001ef40  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001ef50  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001ef60  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001ef70  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001ef80  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001ef90  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001efa0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001efb0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001efc0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001efd0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001efe0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001eff0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f000  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f010  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f020  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f030  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f040  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f050  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f060  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f070  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f080  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f090  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f0a0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f0b0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f0c0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f0d0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f0e0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f0f0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f100  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f110  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f120  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f130  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f140  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f150  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f160  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f170  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f180  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f190  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f1a0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f1b0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f1c0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f1d0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f1e0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f1f0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f200  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f210  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f220  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f230  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f240  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f250  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f260  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f270  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f280  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f290  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f2a0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f2b0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f2c0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f2d0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f2e0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f2f0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f300  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f310  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f320  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f330  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f340  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f350  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f360  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f370  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f380  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f390  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f3a0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f3b0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f3c0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f3d0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f3e0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f3f0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f400  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f410  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f420  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f430  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f440  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f450  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f460  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f470  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f480  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f490  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f4a0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f4b0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f4c0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f4d0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f4e0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f4f0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f500  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f510  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f520  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f530  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f540  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f550  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f560  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f570  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f580  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f590  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f5a0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f5b0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f5c0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f5d0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f5e0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f5f0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f600  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f610  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f620  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f630  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f640  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f650  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f660  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f670  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f680  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f690  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f6a0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f6b0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f6c0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f6d0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f6e0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f6f0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f700  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f710  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f720  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f730  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f740  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f750  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f760  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f770  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f780  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f790  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f7a0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f7b0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f7c0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f7d0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f7e0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f7f0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f800  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f810  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f820  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f830  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f840  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f850  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f860  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f870  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f880  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f890  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f8a0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f8b0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f8c0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f8d0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f8e0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f8f0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f900  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f910  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f920  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f930  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f940  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f950  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f960  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f970  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f980  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f990  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f9a0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f9b0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f9c0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f9d0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f9e0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001f9f0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fa00  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fa10  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fa20  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fa30  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fa40  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fa50  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fa60  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fa70  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fa80  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fa90  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001faa0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fab0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fac0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fad0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fae0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001faf0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fb00  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fb10  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fb20  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fb30  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fb40  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fb50  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fb60  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fb70  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fb80  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fb90  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fba0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fbb0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fbc0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fbd0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fbe0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fbf0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fc00  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fc10  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fc20  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fc30  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fc40  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fc50  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fc60  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fc70  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fc80  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fc90  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fca0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fcb0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fcc0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fcd0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fce0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fcf0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fd00  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fd10  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fd20  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fd30  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fd40  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fd50  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fd60  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fd70  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fd80  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fd90  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fda0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fdb0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fdc0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fdd0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fde0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fdf0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fe00  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fe10  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fe20  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fe30  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fe40  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fe50  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fe60  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fe70  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fe80  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fe90  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fea0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001feb0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fec0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fed0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fee0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fef0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001ff00  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001ff10  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001ff20  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001ff30  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001ff40  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001ff50  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001ff60  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001ff70  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001ff80  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001ff90  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001ffa0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001ffb0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001ffc0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001ffd0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001ffe0  ffff ffff ffff ffff ffff ffff ffff ffff  |................|
+0001fff0  00ea 2b00 fffc ffff ffff ffff ffff ffff  |...+............|
