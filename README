@@ -1,4 +1,4 @@
-objdump -D -b binary -m i8086 -M intel --adjust-vma=0 infotec.bin >infotec.asm
+objdump -D -b binary -m i8086 -M intel --adjust-vma=0xe0000 infotec.bin >infotec.asm
 grep -o 'call   0x.*' infotec.asm|sort|uniq -c|sort -n >calls.txt
 
 
