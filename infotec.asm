@@ -68,6 +68,8 @@ Disassembly of section .data:
    e007d:	33 ed                	xor    bp,bp
    e007f:	9a b7 00 76 f5       	call   0xf576:0xb7
    e0084:	e9 79 ff             	jmp    0xe0000
+
+
    e0087:	55                   	push   bp
    e0088:	8b ec                	mov    bp,sp
    e008a:	8b 46 06             	mov    ax,WORD PTR [bp+0x6]
@@ -108,6 +110,8 @@ Disassembly of section .data:
    e00c8:	75 02                	jne    0xe00cc
    e00ca:	3b c3                	cmp    ax,bx
    e00cc:	cb                   	retf   
+
+
    e00cd:	55                   	push   bp
    e00ce:	8b ec                	mov    bp,sp
    e00d0:	56                   	push   si
@@ -326,6 +330,8 @@ Disassembly of section .data:
    e0264:	1f                   	pop    ds
    e0265:	5f                   	pop    di
    e0266:	cb                   	retf   
+
+
    e0267:	55                   	push   bp
    e0268:	8b ec                	mov    bp,sp
    e026a:	83 ec 22             	sub    sp,0x22
@@ -390,6 +396,8 @@ Disassembly of section .data:
    e02de:	8b e5                	mov    sp,bp
    e02e0:	5d                   	pop    bp
    e02e1:	c2 0c 00             	ret    0xc
+
+
    e02e4:	55                   	push   bp
    e02e5:	8b ec                	mov    bp,sp
    e02e7:	33 c0                	xor    ax,ax
@@ -422,6 +430,8 @@ Disassembly of section .data:
    e031d:	75 02                	jne    0xe0321
    e031f:	3b c3                	cmp    ax,bx
    e0321:	c3                   	ret    
+
+
    e0322:	55                   	push   bp
    e0323:	8b ec                	mov    bp,sp
    e0325:	83 ec 2a             	sub    sp,0x2a
@@ -956,6 +966,8 @@ Disassembly of section .data:
    e07e5:	5b                   	pop    bx
    e07e6:	f9                   	stc    
    e07e7:	c3                   	ret    
+
+
    e07e8:	55                   	push   bp
    e07e9:	8b ec                	mov    bp,sp
    e07eb:	83 ec 06             	sub    sp,0x6
@@ -1122,6 +1134,8 @@ Disassembly of section .data:
    e0963:	8b e5                	mov    sp,bp
    e0965:	5d                   	pop    bp
    e0966:	c3                   	ret    
+
+
    e0967:	55                   	push   bp
    e0968:	8b ec                	mov    bp,sp
    e096a:	8b 56 06             	mov    dx,WORD PTR [bp+0x6]
@@ -1142,6 +1156,8 @@ Disassembly of section .data:
    e098f:	b4 00                	mov    ah,0x0
    e0991:	5d                   	pop    bp
    e0992:	cb                   	retf   
+
+
    e0993:	8a c6                	mov    al,dh
    e0995:	e8 02 00             	call   0xe099a
    e0998:	8a c2                	mov    al,dl
@@ -1155,6 +1171,8 @@ Disassembly of section .data:
    e09a8:	27                   	daa    
    e09a9:	aa                   	stos   BYTE PTR es:[di],al
    e09aa:	c3                   	ret    
+
+
    e09ab:	55                   	push   bp
    e09ac:	8b ec                	mov    bp,sp
    e09ae:	81 ec 96 00          	sub    sp,0x96
@@ -1653,6 +1671,8 @@ Disassembly of section .data:
    e0e65:	29 ff                	sub    di,di
    e0e67:	26 f6 29             	imul   BYTE PTR es:[bx+di]
    e0e6a:	ff 26 f8 29          	jmp    WORD PTR ds:0x29f8
+
+
    e0e6e:	55                   	push   bp
    e0e6f:	8b ec                	mov    bp,sp
    e0e71:	56                   	push   si
@@ -1672,6 +1692,8 @@ Disassembly of section .data:
    e0e8a:	5e                   	pop    si
    e0e8b:	5d                   	pop    bp
    e0e8c:	cb                   	retf   
+
+
    e0e8d:	55                   	push   bp
    e0e8e:	8b ec                	mov    bp,sp
    e0e90:	57                   	push   di
@@ -1694,6 +1716,8 @@ Disassembly of section .data:
    e0eb0:	5f                   	pop    di
    e0eb1:	5d                   	pop    bp
    e0eb2:	cb                   	retf   
+
+
    e0eb3:	55                   	push   bp
    e0eb4:	8b ec                	mov    bp,sp
    e0eb6:	56                   	push   si
@@ -1709,6 +1733,8 @@ Disassembly of section .data:
    e0ecb:	5e                   	pop    si
    e0ecc:	5d                   	pop    bp
    e0ecd:	cb                   	retf   
+
+
    e0ece:	55                   	push   bp
    e0ecf:	8b ec                	mov    bp,sp
    e0ed1:	56                   	push   si
@@ -1750,6 +1776,8 @@ Disassembly of section .data:
    e0f14:	5e                   	pop    si
    e0f15:	5d                   	pop    bp
    e0f16:	cb                   	retf   
+
+
    e0f17:	55                   	push   bp
    e0f18:	8b ec                	mov    bp,sp
    e0f1a:	56                   	push   si
@@ -1764,6 +1792,8 @@ Disassembly of section .data:
    e0f2e:	5e                   	pop    si
    e0f2f:	5d                   	pop    bp
    e0f30:	cb                   	retf   
+
+
    e0f31:	55                   	push   bp
    e0f32:	8b ec                	mov    bp,sp
    e0f34:	56                   	push   si
@@ -1785,6 +1815,8 @@ Disassembly of section .data:
    e0f54:	5e                   	pop    si
    e0f55:	5d                   	pop    bp
    e0f56:	c2 06 00             	ret    0x6
+
+
    e0f59:	55                   	push   bp
    e0f5a:	8b ec                	mov    bp,sp
    e0f5c:	8b 5e 06             	mov    bx,WORD PTR [bp+0x6]
@@ -1799,6 +1831,8 @@ Disassembly of section .data:
    e0f71:	e8 37 fa             	call   0xe09ab
    e0f74:	5d                   	pop    bp
    e0f75:	cb                   	retf   
+
+
    e0f76:	55                   	push   bp
    e0f77:	8b ec                	mov    bp,sp
    e0f79:	8b 5e 06             	mov    bx,WORD PTR [bp+0x6]
@@ -1812,6 +1846,8 @@ Disassembly of section .data:
    e0f8d:	e8 1b fa             	call   0xe09ab
    e0f90:	5d                   	pop    bp
    e0f91:	cb                   	retf   
+
+
    e0f92:	55                   	push   bp
    e0f93:	8b ec                	mov    bp,sp
    e0f95:	56                   	push   si
@@ -1829,6 +1865,8 @@ Disassembly of section .data:
    e0fae:	5e                   	pop    si
    e0faf:	5d                   	pop    bp
    e0fb0:	c3                   	ret    
+
+
    e0fb1:	55                   	push   bp
    e0fb2:	8b ec                	mov    bp,sp
    e0fb4:	56                   	push   si
@@ -1837,6 +1875,8 @@ Disassembly of section .data:
    e0fba:	5e                   	pop    si
    e0fbb:	5d                   	pop    bp
    e0fbc:	c3                   	ret    
+
+
    e0fbd:	55                   	push   bp
    e0fbe:	8b ec                	mov    bp,sp
    e0fc0:	8d 46 0a             	lea    ax,[bp+0xa]
@@ -1852,6 +1892,8 @@ Disassembly of section .data:
    e0fd6:	83 c4 0a             	add    sp,0xa
    e0fd9:	5d                   	pop    bp
    e0fda:	cb                   	retf   
+
+
    e0fdb:	55                   	push   bp
    e0fdc:	8b ec                	mov    bp,sp
    e0fde:	ff 76 0a             	push   WORD PTR [bp+0xa]
@@ -1866,6 +1908,8 @@ Disassembly of section .data:
    e0ff3:	83 c4 0a             	add    sp,0xa
    e0ff6:	5d                   	pop    bp
    e0ff7:	cb                   	retf   
+
+
    e0ff8:	55                   	push   bp
    e0ff9:	8b ec                	mov    bp,sp
    e0ffb:	56                   	push   si
@@ -1898,6 +1942,8 @@ Disassembly of section .data:
    e102e:	5e                   	pop    si
    e102f:	5d                   	pop    bp
    e1030:	cb                   	retf   
+
+
    e1031:	55                   	push   bp
    e1032:	8b ec                	mov    bp,sp
    e1034:	56                   	push   si
@@ -1923,6 +1969,8 @@ Disassembly of section .data:
    e105d:	5e                   	pop    si
    e105e:	5d                   	pop    bp
    e105f:	cb                   	retf   
+
+
    e1060:	55                   	push   bp
    e1061:	8b ec                	mov    bp,sp
    e1063:	56                   	push   si
@@ -1943,6 +1991,8 @@ Disassembly of section .data:
    e107f:	5e                   	pop    si
    e1080:	5d                   	pop    bp
    e1081:	cb                   	retf   
+
+
    e1082:	55                   	push   bp
    e1083:	8b ec                	mov    bp,sp
    e1085:	57                   	push   di
@@ -1959,6 +2009,8 @@ Disassembly of section .data:
    e1099:	5f                   	pop    di
    e109a:	5d                   	pop    bp
    e109b:	cb                   	retf   
+
+
    e109c:	55                   	push   bp
    e109d:	8b ec                	mov    bp,sp
    e109f:	56                   	push   si
@@ -1979,6 +2031,8 @@ Disassembly of section .data:
    e10bd:	5e                   	pop    si
    e10be:	5d                   	pop    bp
    e10bf:	cb                   	retf   
+
+
    e10c0:	55                   	push   bp
    e10c1:	8b ec                	mov    bp,sp
    e10c3:	57                   	push   di
@@ -1999,6 +2053,8 @@ Disassembly of section .data:
    e10e1:	5f                   	pop    di
    e10e2:	5d                   	pop    bp
    e10e3:	cb                   	retf   
+
+
    e10e4:	55                   	push   bp
    e10e5:	8b ec                	mov    bp,sp
    e10e7:	8a 46 0a             	mov    al,BYTE PTR [bp+0xa]
@@ -2013,6 +2069,8 @@ Disassembly of section .data:
    e10fe:	8b 46 06             	mov    ax,WORD PTR [bp+0x6]
    e1101:	5d                   	pop    bp
    e1102:	cb                   	retf   
+
+
    e1103:	55                   	push   bp
    e1104:	8b ec                	mov    bp,sp
    e1106:	56                   	push   si
@@ -2057,6 +2115,8 @@ Disassembly of section .data:
    e1152:	5e                   	pop    si
    e1153:	5d                   	pop    bp
    e1154:	cb                   	retf   
+
+
    e1155:	55                   	push   bp
    e1156:	8b ec                	mov    bp,sp
    e1158:	ff 76 0e             	push   WORD PTR [bp+0xe]
@@ -2071,6 +2131,8 @@ Disassembly of section .data:
    e1171:	8b 46 06             	mov    ax,WORD PTR [bp+0x6]
    e1174:	5d                   	pop    bp
    e1175:	cb                   	retf   
+
+
    e1176:	55                   	push   bp
    e1177:	8b ec                	mov    bp,sp
    e1179:	56                   	push   si
@@ -2094,6 +2156,8 @@ Disassembly of section .data:
    e119c:	5e                   	pop    si
    e119d:	5d                   	pop    bp
    e119e:	cb                   	retf   
+
+
    e119f:	55                   	push   bp
    e11a0:	8b ec                	mov    bp,sp
    e11a2:	57                   	push   di
@@ -2112,6 +2176,8 @@ Disassembly of section .data:
    e11bb:	5f                   	pop    di
    e11bc:	5d                   	pop    bp
    e11bd:	cb                   	retf   
+
+
    e11be:	55                   	push   bp
    e11bf:	8b ec                	mov    bp,sp
    e11c1:	c6 06 f0 27 00       	mov    BYTE PTR ds:0x27f0,0x0
@@ -2157,6 +2223,8 @@ Disassembly of section .data:
    e1241:	5b                   	pop    bx
    e1242:	58                   	pop    ax
    e1243:	cf                   	iret   
+
+
    e1244:	55                   	push   bp
    e1245:	8b ec                	mov    bp,sp
    e1247:	ff 06 13 28          	inc    WORD PTR ds:0x2813
@@ -2169,6 +2237,8 @@ Disassembly of section .data:
    e125d:	c7 06 13 28 00 00    	mov    WORD PTR ds:0x2813,0x0
    e1263:	5d                   	pop    bp
    e1264:	cb                   	retf   
+
+
    e1265:	55                   	push   bp
    e1266:	8b ec                	mov    bp,sp
    e1268:	ff 06 13 28          	inc    WORD PTR ds:0x2813
@@ -2177,6 +2247,8 @@ Disassembly of section .data:
    e1272:	c7 06 13 28 00 00    	mov    WORD PTR ds:0x2813,0x0
    e1278:	5d                   	pop    bp
    e1279:	cb                   	retf   
+
+
    e127a:	55                   	push   bp
    e127b:	8b ec                	mov    bp,sp
    e127d:	ff 06 13 28          	inc    WORD PTR ds:0x2813
@@ -2189,6 +2261,8 @@ Disassembly of section .data:
    e1293:	c7 06 13 28 00 00    	mov    WORD PTR ds:0x2813,0x0
    e1299:	5d                   	pop    bp
    e129a:	cb                   	retf   
+
+
    e129b:	55                   	push   bp
    e129c:	8b ec                	mov    bp,sp
    e129e:	ff 06 13 28          	inc    WORD PTR ds:0x2813
@@ -2273,6 +2347,8 @@ Disassembly of section .data:
    e1343:	5b                   	pop    bx
    e1344:	58                   	pop    ax
    e1345:	cf                   	iret   
+
+
    e1346:	55                   	push   bp
    e1347:	8b ec                	mov    bp,sp
    e1349:	ff 06 13 28          	inc    WORD PTR ds:0x2813
@@ -2295,6 +2371,8 @@ Disassembly of section .data:
    e1374:	c7 06 13 28 00 00    	mov    WORD PTR ds:0x2813,0x0
    e137a:	5d                   	pop    bp
    e137b:	cb                   	retf   
+
+
    e137c:	55                   	push   bp
    e137d:	8b ec                	mov    bp,sp
    e137f:	83 ec 02             	sub    sp,0x2
@@ -2540,6 +2618,8 @@ Disassembly of section .data:
    e1604:	8b e5                	mov    sp,bp
    e1606:	5d                   	pop    bp
    e1607:	cb                   	retf   
+
+
    e1608:	55                   	push   bp
    e1609:	8b ec                	mov    bp,sp
    e160b:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
@@ -2820,6 +2900,8 @@ Disassembly of section .data:
    e18f2:	9a 1a 00 96 f8       	call   0xf896:0x1a
    e18f7:	5d                   	pop    bp
    e18f8:	cb                   	retf   
+
+
    e18f9:	55                   	push   bp
    e18fa:	8b ec                	mov    bp,sp
    e18fc:	83 ec 02             	sub    sp,0x2
@@ -3711,6 +3793,8 @@ Disassembly of section .data:
    e2203:	5b                   	pop    bx
    e2204:	58                   	pop    ax
    e2205:	cf                   	iret   
+
+
    e2206:	55                   	push   bp
    e2207:	8b ec                	mov    bp,sp
    e2209:	83 ec 02             	sub    sp,0x2
@@ -3824,6 +3908,8 @@ Disassembly of section .data:
    e230d:	8b e5                	mov    sp,bp
    e230f:	5d                   	pop    bp
    e2310:	cb                   	retf   
+
+
    e2311:	55                   	push   bp
    e2312:	8b ec                	mov    bp,sp
    e2314:	83 ec 02             	sub    sp,0x2
@@ -3923,6 +4009,8 @@ Disassembly of section .data:
    e23ea:	8b e5                	mov    sp,bp
    e23ec:	5d                   	pop    bp
    e23ed:	cb                   	retf   
+
+
    e23ee:	55                   	push   bp
    e23ef:	8b ec                	mov    bp,sp
    e23f1:	83 ec 02             	sub    sp,0x2
@@ -3962,6 +4050,8 @@ Disassembly of section .data:
    e2449:	8b e5                	mov    sp,bp
    e244b:	5d                   	pop    bp
    e244c:	cb                   	retf   
+
+
    e244d:	55                   	push   bp
    e244e:	8b ec                	mov    bp,sp
    e2450:	81 ec 3a 03          	sub    sp,0x33a
@@ -4362,6 +4452,8 @@ Disassembly of section .data:
    e286f:	8b e5                	mov    sp,bp
    e2871:	5d                   	pop    bp
    e2872:	cb                   	retf   
+
+
    e2873:	55                   	push   bp
    e2874:	8b ec                	mov    bp,sp
    e2876:	80 0e 04 00 80       	or     BYTE PTR ds:0x4,0x80
@@ -4409,6 +4501,8 @@ Disassembly of section .data:
    e28dd:	ee                   	out    dx,al
    e28de:	5d                   	pop    bp
    e28df:	cb                   	retf   
+
+
    e28e0:	55                   	push   bp
    e28e1:	8b ec                	mov    bp,sp
    e28e3:	83 ec 02             	sub    sp,0x2
@@ -4479,6 +4573,8 @@ Disassembly of section .data:
    e299a:	8b e5                	mov    sp,bp
    e299c:	5d                   	pop    bp
    e299d:	cb                   	retf   
+
+
    e299e:	55                   	push   bp
    e299f:	8b ec                	mov    bp,sp
    e29a1:	80 7e 08 32          	cmp    BYTE PTR [bp+0x8],0x32
@@ -4795,6 +4891,8 @@ Disassembly of section .data:
    e2cd8:	9a 1a 00 96 f8       	call   0xf896:0x1a
    e2cdd:	5d                   	pop    bp
    e2cde:	cb                   	retf   
+
+
    e2cdf:	55                   	push   bp
    e2ce0:	8b ec                	mov    bp,sp
    e2ce2:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
@@ -4993,6 +5091,8 @@ Disassembly of section .data:
    e2ee2:	26 c6 87 9e 00 07    	mov    BYTE PTR es:[bx+0x9e],0x7
    e2ee8:	5d                   	pop    bp
    e2ee9:	cb                   	retf   
+
+
    e2eea:	55                   	push   bp
    e2eeb:	8b ec                	mov    bp,sp
    e2eed:	83 ec 04             	sub    sp,0x4
@@ -5138,6 +5238,8 @@ Disassembly of section .data:
    e3077:	8b e5                	mov    sp,bp
    e3079:	5d                   	pop    bp
    e307a:	cb                   	retf   
+
+
    e307b:	55                   	push   bp
    e307c:	8b ec                	mov    bp,sp
    e307e:	ff 76 0e             	push   WORD PTR [bp+0xe]
@@ -5162,6 +5264,8 @@ Disassembly of section .data:
    e30a6:	83 c4 08             	add    sp,0x8
    e30a9:	5d                   	pop    bp
    e30aa:	cb                   	retf   
+
+
    e30ab:	55                   	push   bp
    e30ac:	8b ec                	mov    bp,sp
    e30ae:	a0 d1 62             	mov    al,ds:0x62d1
@@ -5178,6 +5282,8 @@ Disassembly of section .data:
    e30c2:	83 c4 08             	add    sp,0x8
    e30c5:	5d                   	pop    bp
    e30c6:	cb                   	retf   
+
+
    e30c7:	55                   	push   bp
    e30c8:	8b ec                	mov    bp,sp
    e30ca:	80 66 06 07          	and    BYTE PTR [bp+0x6],0x7
@@ -5210,6 +5316,8 @@ Disassembly of section .data:
    e311f:	ee                   	out    dx,al
    e3120:	5d                   	pop    bp
    e3121:	cb                   	retf   
+
+
    e3122:	55                   	push   bp
    e3123:	8b ec                	mov    bp,sp
    e3125:	83 ec 02             	sub    sp,0x2
@@ -5283,6 +5391,8 @@ Disassembly of section .data:
    e31d7:	8b e5                	mov    sp,bp
    e31d9:	5d                   	pop    bp
    e31da:	cb                   	retf   
+
+
    e31db:	55                   	push   bp
    e31dc:	8b ec                	mov    bp,sp
    e31de:	83 ec 08             	sub    sp,0x8
@@ -5629,6 +5739,8 @@ Disassembly of section .data:
    e350e:	0d 21 b1             	or     ax,0xb121
    e3511:	1f                   	pop    ds
    e3512:	75 20                	jne    0xe3534
+
+
    e3514:	55                   	push   bp
    e3515:	8b ec                	mov    bp,sp
    e3517:	83 ec 04             	sub    sp,0x4
@@ -5713,6 +5825,8 @@ Disassembly of section .data:
    e35e1:	27                   	daa    
    e35e2:	22 35                	and    dh,BYTE PTR [di]
    e35e4:	22 50 22             	and    dl,BYTE PTR [bx+si+0x22]
+
+
    e35e7:	55                   	push   bp
    e35e8:	8b ec                	mov    bp,sp
    e35ea:	83 ec 02             	sub    sp,0x2
@@ -5837,6 +5951,8 @@ Disassembly of section .data:
    e3710:	8b e5                	mov    sp,bp
    e3712:	5d                   	pop    bp
    e3713:	cb                   	retf   
+
+
    e3714:	55                   	push   bp
    e3715:	8b ec                	mov    bp,sp
    e3717:	83 ec 04             	sub    sp,0x4
@@ -5932,6 +6048,8 @@ Disassembly of section .data:
    e3844:	8b e5                	mov    sp,bp
    e3846:	5d                   	pop    bp
    e3847:	cb                   	retf   
+
+
    e3848:	55                   	push   bp
    e3849:	8b ec                	mov    bp,sp
    e384b:	83 ec 06             	sub    sp,0x6
@@ -6145,6 +6263,8 @@ Disassembly of section .data:
    e3b03:	8b e5                	mov    sp,bp
    e3b05:	5d                   	pop    bp
    e3b06:	cb                   	retf   
+
+
    e3b07:	55                   	push   bp
    e3b08:	8b ec                	mov    bp,sp
    e3b0a:	83 ec 04             	sub    sp,0x4
@@ -6222,6 +6342,8 @@ Disassembly of section .data:
    e3be4:	8b e5                	mov    sp,bp
    e3be6:	5d                   	pop    bp
    e3be7:	cb                   	retf   
+
+
    e3be8:	55                   	push   bp
    e3be9:	8b ec                	mov    bp,sp
    e3beb:	83 ec 06             	sub    sp,0x6
@@ -6338,6 +6460,8 @@ Disassembly of section .data:
    e3d4a:	8b e5                	mov    sp,bp
    e3d4c:	5d                   	pop    bp
    e3d4d:	cb                   	retf   
+
+
    e3d4e:	55                   	push   bp
    e3d4f:	8b ec                	mov    bp,sp
    e3d51:	83 ec 02             	sub    sp,0x2
@@ -6445,6 +6569,8 @@ Disassembly of section .data:
    e3e93:	8b e5                	mov    sp,bp
    e3e95:	5d                   	pop    bp
    e3e96:	cb                   	retf   
+
+
    e3e97:	55                   	push   bp
    e3e98:	8b ec                	mov    bp,sp
    e3e9a:	83 ec 06             	sub    sp,0x6
@@ -6543,6 +6669,8 @@ Disassembly of section .data:
    e3fc0:	8b e5                	mov    sp,bp
    e3fc2:	5d                   	pop    bp
    e3fc3:	cb                   	retf   
+
+
    e3fc4:	55                   	push   bp
    e3fc5:	8b ec                	mov    bp,sp
    e3fc7:	83 ec 44             	sub    sp,0x44
@@ -6601,6 +6729,8 @@ Disassembly of section .data:
    e4049:	8b e5                	mov    sp,bp
    e404b:	5d                   	pop    bp
    e404c:	cb                   	retf   
+
+
    e404d:	55                   	push   bp
    e404e:	8b ec                	mov    bp,sp
    e4050:	83 ec 16             	sub    sp,0x16
@@ -7022,6 +7152,8 @@ Disassembly of section .data:
    e44f0:	8b e5                	mov    sp,bp
    e44f2:	5d                   	pop    bp
    e44f3:	cb                   	retf   
+
+
    e44f4:	55                   	push   bp
    e44f5:	8b ec                	mov    bp,sp
    e44f7:	fb                   	sti    
@@ -7035,6 +7167,8 @@ Disassembly of section .data:
    e4508:	c7 06 13 28 00 00    	mov    WORD PTR ds:0x2813,0x0
    e450e:	5d                   	pop    bp
    e450f:	cb                   	retf   
+
+
    e4510:	55                   	push   bp
    e4511:	8b ec                	mov    bp,sp
    e4513:	83 ec 08             	sub    sp,0x8
@@ -7144,6 +7278,8 @@ Disassembly of section .data:
    e461d:	8b e5                	mov    sp,bp
    e461f:	5d                   	pop    bp
    e4620:	cb                   	retf   
+
+
    e4621:	55                   	push   bp
    e4622:	8b ec                	mov    bp,sp
    e4624:	ff 06 13 28          	inc    WORD PTR ds:0x2813
@@ -7197,6 +7333,8 @@ Disassembly of section .data:
    e46a9:	c7 06 13 28 00 00    	mov    WORD PTR ds:0x2813,0x0
    e46af:	5d                   	pop    bp
    e46b0:	cb                   	retf   
+
+
    e46b1:	55                   	push   bp
    e46b2:	8b ec                	mov    bp,sp
    e46b4:	83 ec 0a             	sub    sp,0xa
@@ -7229,6 +7367,8 @@ Disassembly of section .data:
    e4703:	8b e5                	mov    sp,bp
    e4705:	5d                   	pop    bp
    e4706:	cb                   	retf   
+
+
    e4707:	55                   	push   bp
    e4708:	8b ec                	mov    bp,sp
    e470a:	83 ec 04             	sub    sp,0x4
@@ -7272,6 +7412,8 @@ Disassembly of section .data:
    e4773:	8b e5                	mov    sp,bp
    e4775:	5d                   	pop    bp
    e4776:	cb                   	retf   
+
+
    e4777:	55                   	push   bp
    e4778:	8b ec                	mov    bp,sp
    e477a:	83 ec 06             	sub    sp,0x6
@@ -7297,6 +7439,8 @@ Disassembly of section .data:
    e47a6:	8b e5                	mov    sp,bp
    e47a8:	5d                   	pop    bp
    e47a9:	cb                   	retf   
+
+
    e47aa:	55                   	push   bp
    e47ab:	8b ec                	mov    bp,sp
    e47ad:	80 3e fd 2d 01       	cmp    BYTE PTR ds:0x2dfd,0x1
@@ -7367,6 +7511,8 @@ Disassembly of section .data:
    e4859:	83 c4 08             	add    sp,0x8
    e485c:	5d                   	pop    bp
    e485d:	cb                   	retf   
+
+
    e485e:	55                   	push   bp
    e485f:	8b ec                	mov    bp,sp
    e4861:	83 ec 04             	sub    sp,0x4
@@ -7584,6 +7730,8 @@ Disassembly of section .data:
    e4ad2:	8b e5                	mov    sp,bp
    e4ad4:	5d                   	pop    bp
    e4ad5:	cb                   	retf   
+
+
    e4ad6:	55                   	push   bp
    e4ad7:	8b ec                	mov    bp,sp
    e4ad9:	83 ec 14             	sub    sp,0x14
@@ -7838,6 +7986,8 @@ Disassembly of section .data:
    e4d96:	8b e5                	mov    sp,bp
    e4d98:	5d                   	pop    bp
    e4d99:	cb                   	retf   
+
+
    e4d9a:	55                   	push   bp
    e4d9b:	8b ec                	mov    bp,sp
    e4d9d:	83 ec 04             	sub    sp,0x4
@@ -7881,6 +8031,8 @@ Disassembly of section .data:
    e4e02:	8b e5                	mov    sp,bp
    e4e04:	5d                   	pop    bp
    e4e05:	cb                   	retf   
+
+
    e4e06:	55                   	push   bp
    e4e07:	8b ec                	mov    bp,sp
    e4e09:	b0 4b                	mov    al,0x4b
@@ -7893,6 +8045,8 @@ Disassembly of section .data:
    e4e16:	a2 67 2d             	mov    ds:0x2d67,al
    e4e19:	5d                   	pop    bp
    e4e1a:	cb                   	retf   
+
+
    e4e1b:	55                   	push   bp
    e4e1c:	8b ec                	mov    bp,sp
    e4e1e:	83 ec 04             	sub    sp,0x4
@@ -7991,6 +8145,8 @@ Disassembly of section .data:
    e4f1a:	8b e5                	mov    sp,bp
    e4f1c:	5d                   	pop    bp
    e4f1d:	cb                   	retf   
+
+
    e4f1e:	55                   	push   bp
    e4f1f:	8b ec                	mov    bp,sp
    e4f21:	83 ec 02             	sub    sp,0x2
@@ -8085,6 +8241,8 @@ Disassembly of section .data:
    e5006:	8b e5                	mov    sp,bp
    e5008:	5d                   	pop    bp
    e5009:	cb                   	retf   
+
+
    e500a:	55                   	push   bp
    e500b:	8b ec                	mov    bp,sp
    e500d:	83 ec 02             	sub    sp,0x2
@@ -8223,6 +8381,8 @@ Disassembly of section .data:
    e5159:	8b e5                	mov    sp,bp
    e515b:	5d                   	pop    bp
    e515c:	cb                   	retf   
+
+
    e515d:	55                   	push   bp
    e515e:	8b ec                	mov    bp,sp
    e5160:	83 ec 08             	sub    sp,0x8
@@ -8636,6 +8796,8 @@ Disassembly of section .data:
    e5576:	8b e5                	mov    sp,bp
    e5578:	5d                   	pop    bp
    e5579:	cb                   	retf   
+
+
    e557a:	55                   	push   bp
    e557b:	8b ec                	mov    bp,sp
    e557d:	83 ec 02             	sub    sp,0x2
@@ -8673,6 +8835,8 @@ Disassembly of section .data:
    e55d0:	8b e5                	mov    sp,bp
    e55d2:	5d                   	pop    bp
    e55d3:	cb                   	retf   
+
+
    e55d4:	55                   	push   bp
    e55d5:	8b ec                	mov    bp,sp
    e55d7:	83 ec 02             	sub    sp,0x2
@@ -8804,6 +8968,8 @@ Disassembly of section .data:
    e572c:	8b e5                	mov    sp,bp
    e572e:	5d                   	pop    bp
    e572f:	cb                   	retf   
+
+
    e5730:	55                   	push   bp
    e5731:	8b ec                	mov    bp,sp
    e5733:	83 ec 04             	sub    sp,0x4
@@ -9191,6 +9357,8 @@ Disassembly of section .data:
    e5ad5:	8b e5                	mov    sp,bp
    e5ad7:	5d                   	pop    bp
    e5ad8:	cb                   	retf   
+
+
    e5ad9:	55                   	push   bp
    e5ada:	8b ec                	mov    bp,sp
    e5adc:	83 ec 02             	sub    sp,0x2
@@ -9254,6 +9422,8 @@ Disassembly of section .data:
    e5b70:	8b e5                	mov    sp,bp
    e5b72:	5d                   	pop    bp
    e5b73:	cb                   	retf   
+
+
    e5b74:	55                   	push   bp
    e5b75:	8b ec                	mov    bp,sp
    e5b77:	83 ec 02             	sub    sp,0x2
@@ -10698,6 +10868,8 @@ Disassembly of section .data:
    e68fb:	11 50 12             	adc    WORD PTR [bx+si+0x12],dx
    e68fe:	58                   	pop    ax
    e68ff:	12 69 12             	adc    ch,BYTE PTR [bx+di+0x12]
+
+
    e6902:	55                   	push   bp
    e6903:	8b ec                	mov    bp,sp
    e6905:	83 ec 04             	sub    sp,0x4
@@ -10919,6 +11091,8 @@ Disassembly of section .data:
    e6b47:	eb 00                	jmp    0xe6b49
    e6b49:	5d                   	pop    bp
    e6b4a:	cb                   	retf   
+
+
    e6b4b:	55                   	push   bp
    e6b4c:	8b ec                	mov    bp,sp
    e6b4e:	83 ec 04             	sub    sp,0x4
@@ -11130,6 +11304,8 @@ Disassembly of section .data:
    e6d6b:	8b e5                	mov    sp,bp
    e6d6d:	5d                   	pop    bp
    e6d6e:	cb                   	retf   
+
+
    e6d6f:	55                   	push   bp
    e6d70:	8b ec                	mov    bp,sp
    e6d72:	83 ec 04             	sub    sp,0x4
@@ -11248,6 +11424,8 @@ Disassembly of section .data:
    e6ea3:	8b e5                	mov    sp,bp
    e6ea5:	5d                   	pop    bp
    e6ea6:	cb                   	retf   
+
+
    e6ea7:	55                   	push   bp
    e6ea8:	8b ec                	mov    bp,sp
    e6eaa:	83 ec 04             	sub    sp,0x4
@@ -11365,6 +11543,8 @@ Disassembly of section .data:
    e6fde:	8b e5                	mov    sp,bp
    e6fe0:	5d                   	pop    bp
    e6fe1:	cb                   	retf   
+
+
    e6fe2:	55                   	push   bp
    e6fe3:	8b ec                	mov    bp,sp
    e6fe5:	83 ec 02             	sub    sp,0x2
@@ -11524,6 +11704,8 @@ Disassembly of section .data:
    e7166:	8b e5                	mov    sp,bp
    e7168:	5d                   	pop    bp
    e7169:	cb                   	retf   
+
+
    e716a:	55                   	push   bp
    e716b:	8b ec                	mov    bp,sp
    e716d:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
@@ -11644,6 +11826,8 @@ Disassembly of section .data:
    e7293:	eb 00                	jmp    0xe7295
    e7295:	5d                   	pop    bp
    e7296:	cb                   	retf   
+
+
    e7297:	55                   	push   bp
    e7298:	8b ec                	mov    bp,sp
    e729a:	81 ec 84 00          	sub    sp,0x84
@@ -12044,6 +12228,8 @@ Disassembly of section .data:
    e7691:	8b e5                	mov    sp,bp
    e7693:	5d                   	pop    bp
    e7694:	cb                   	retf   
+
+
    e7695:	55                   	push   bp
    e7696:	8b ec                	mov    bp,sp
    e7698:	83 ec 02             	sub    sp,0x2
@@ -12087,6 +12273,8 @@ Disassembly of section .data:
    e76f6:	8b e5                	mov    sp,bp
    e76f8:	5d                   	pop    bp
    e76f9:	cb                   	retf   
+
+
    e76fa:	55                   	push   bp
    e76fb:	8b ec                	mov    bp,sp
    e76fd:	83 ec 02             	sub    sp,0x2
@@ -12122,6 +12310,8 @@ Disassembly of section .data:
    e774d:	8b e5                	mov    sp,bp
    e774f:	5d                   	pop    bp
    e7750:	cb                   	retf   
+
+
    e7751:	55                   	push   bp
    e7752:	8b ec                	mov    bp,sp
    e7754:	83 ec 02             	sub    sp,0x2
@@ -12145,6 +12335,8 @@ Disassembly of section .data:
    e778a:	8b e5                	mov    sp,bp
    e778c:	5d                   	pop    bp
    e778d:	cb                   	retf   
+
+
    e778e:	55                   	push   bp
    e778f:	8b ec                	mov    bp,sp
    e7791:	81 ec 8a 00          	sub    sp,0x8a
@@ -13661,6 +13853,8 @@ Disassembly of section .data:
    e8706:	8b e5                	mov    sp,bp
    e8708:	5d                   	pop    bp
    e8709:	cb                   	retf   
+
+
    e870a:	55                   	push   bp
    e870b:	8b ec                	mov    bp,sp
    e870d:	83 ec 02             	sub    sp,0x2
@@ -13698,6 +13892,8 @@ Disassembly of section .data:
    e8763:	8b e5                	mov    sp,bp
    e8765:	5d                   	pop    bp
    e8766:	cb                   	retf   
+
+
    e8767:	55                   	push   bp
    e8768:	8b ec                	mov    bp,sp
    e876a:	83 ec 02             	sub    sp,0x2
@@ -13723,6 +13919,8 @@ Disassembly of section .data:
    e87a6:	8b e5                	mov    sp,bp
    e87a8:	5d                   	pop    bp
    e87a9:	cb                   	retf   
+
+
    e87aa:	55                   	push   bp
    e87ab:	8b ec                	mov    bp,sp
    e87ad:	83 ec 08             	sub    sp,0x8
@@ -15256,6 +15454,8 @@ Disassembly of section .data:
    e9771:	a2 24 97             	mov    ds:0x9724,al
    e9774:	19 7a 20             	sbb    WORD PTR [bp+si+0x20],di
    e9777:	01 1d                	add    WORD PTR [di],bx
+
+
    e9779:	55                   	push   bp
    e977a:	8b ec                	mov    bp,sp
    e977c:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
@@ -15388,6 +15588,8 @@ Disassembly of section .data:
    e98c3:	eb 00                	jmp    0xe98c5
    e98c5:	5d                   	pop    bp
    e98c6:	cb                   	retf   
+
+
    e98c7:	55                   	push   bp
    e98c8:	8b ec                	mov    bp,sp
    e98ca:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
@@ -15456,6 +15658,8 @@ Disassembly of section .data:
    e996d:	eb 00                	jmp    0xe996f
    e996f:	5d                   	pop    bp
    e9970:	cb                   	retf   
+
+
    e9971:	55                   	push   bp
    e9972:	8b ec                	mov    bp,sp
    e9974:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
@@ -15510,6 +15714,8 @@ Disassembly of section .data:
    e99f1:	eb 00                	jmp    0xe99f3
    e99f3:	5d                   	pop    bp
    e99f4:	cb                   	retf   
+
+
    e99f5:	55                   	push   bp
    e99f6:	8b ec                	mov    bp,sp
    e99f8:	83 ec 02             	sub    sp,0x2
@@ -15599,6 +15805,8 @@ Disassembly of section .data:
    e9aeb:	28 0f                	sub    BYTE PTR [bx],cl
    e9aed:	29 18                	sub    WORD PTR [bx+si],bx
    e9aef:	29 4f 29             	sub    WORD PTR [bx+0x29],cx
+
+
    e9af2:	55                   	push   bp
    e9af3:	8b ec                	mov    bp,sp
    e9af5:	83 ec 02             	sub    sp,0x2
@@ -15668,6 +15876,8 @@ Disassembly of section .data:
    e9b8c:	8b e5                	mov    sp,bp
    e9b8e:	5d                   	pop    bp
    e9b8f:	cb                   	retf   
+
+
    e9b90:	55                   	push   bp
    e9b91:	8b ec                	mov    bp,sp
    e9b93:	83 ec 04             	sub    sp,0x4
@@ -15777,6 +15987,8 @@ Disassembly of section .data:
    e9c9f:	8b e5                	mov    sp,bp
    e9ca1:	5d                   	pop    bp
    e9ca2:	cb                   	retf   
+
+
    e9ca3:	55                   	push   bp
    e9ca4:	8b ec                	mov    bp,sp
    e9ca6:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
@@ -15847,6 +16059,8 @@ Disassembly of section .data:
    e9d4f:	eb 00                	jmp    0xe9d51
    e9d51:	5d                   	pop    bp
    e9d52:	cb                   	retf   
+
+
    e9d53:	55                   	push   bp
    e9d54:	8b ec                	mov    bp,sp
    e9d56:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
@@ -15874,6 +16088,8 @@ Disassembly of section .data:
    e9d8c:	eb 00                	jmp    0xe9d8e
    e9d8e:	5d                   	pop    bp
    e9d8f:	cb                   	retf   
+
+
    e9d90:	55                   	push   bp
    e9d91:	8b ec                	mov    bp,sp
    e9d93:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
@@ -15901,6 +16117,8 @@ Disassembly of section .data:
    e9dc9:	eb 00                	jmp    0xe9dcb
    e9dcb:	5d                   	pop    bp
    e9dcc:	cb                   	retf   
+
+
    e9dcd:	55                   	push   bp
    e9dce:	8b ec                	mov    bp,sp
    e9dd0:	83 ec 04             	sub    sp,0x4
@@ -15977,6 +16195,8 @@ Disassembly of section .data:
    e9e89:	8b e5                	mov    sp,bp
    e9e8b:	5d                   	pop    bp
    e9e8c:	cb                   	retf   
+
+
    e9e8d:	55                   	push   bp
    e9e8e:	8b ec                	mov    bp,sp
    e9e90:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
@@ -16027,6 +16247,8 @@ Disassembly of section .data:
    e9f03:	eb 00                	jmp    0xe9f05
    e9f05:	5d                   	pop    bp
    e9f06:	cb                   	retf   
+
+
    e9f07:	55                   	push   bp
    e9f08:	8b ec                	mov    bp,sp
    e9f0a:	83 ec 02             	sub    sp,0x2
@@ -16111,6 +16333,8 @@ Disassembly of section .data:
    e9fd4:	8b e5                	mov    sp,bp
    e9fd6:	5d                   	pop    bp
    e9fd7:	cb                   	retf   
+
+
    e9fd8:	55                   	push   bp
    e9fd9:	8b ec                	mov    bp,sp
    e9fdb:	83 ec 04             	sub    sp,0x4
@@ -16883,6 +17107,8 @@ Disassembly of section .data:
    ea77c:	8b e5                	mov    sp,bp
    ea77e:	5d                   	pop    bp
    ea77f:	cb                   	retf   
+
+
    ea780:	55                   	push   bp
    ea781:	8b ec                	mov    bp,sp
    ea783:	83 ec 02             	sub    sp,0x2
@@ -16949,6 +17175,8 @@ Disassembly of section .data:
    ea822:	8b e5                	mov    sp,bp
    ea824:	5d                   	pop    bp
    ea825:	cb                   	retf   
+
+
    ea826:	55                   	push   bp
    ea827:	8b ec                	mov    bp,sp
    ea829:	83 ec 02             	sub    sp,0x2
@@ -16989,6 +17217,8 @@ Disassembly of section .data:
    ea88a:	8b e5                	mov    sp,bp
    ea88c:	5d                   	pop    bp
    ea88d:	cb                   	retf   
+
+
    ea88e:	55                   	push   bp
    ea88f:	8b ec                	mov    bp,sp
    ea891:	83 ec 04             	sub    sp,0x4
@@ -18987,6 +19217,8 @@ Disassembly of section .data:
    ebcd7:	6e                   	outs   dx,BYTE PTR ds:[si]
    ebcd8:	38 3e 43 e7          	cmp    BYTE PTR ds:0xe743,bh
    ebcdc:	40                   	inc    ax
+
+
    ebcdd:	55                   	push   bp
    ebcde:	8b ec                	mov    bp,sp
    ebce0:	83 ec 02             	sub    sp,0x2
@@ -19799,6 +20031,8 @@ Disassembly of section .data:
    ec4fc:	4c                   	dec    sp
    ec4fd:	12 4d 30             	adc    cl,BYTE PTR [di+0x30]
    ec500:	4d                   	dec    bp
+
+
    ec501:	55                   	push   bp
    ec502:	8b ec                	mov    bp,sp
    ec504:	83 ec 0a             	sub    sp,0xa
@@ -20080,6 +20314,8 @@ Disassembly of section .data:
    ec7ce:	81 54 59 54 5f       	adc    WORD PTR [si+0x59],0x5f54
    ec7d3:	54                   	push   sp
    ec7d4:	6b 54 76 54          	imul   dx,WORD PTR [si+0x76],0x54
+
+
    ec7d8:	55                   	push   bp
    ec7d9:	8b ec                	mov    bp,sp
    ec7db:	83 ec 16             	sub    sp,0x16
@@ -20349,6 +20585,8 @@ Disassembly of section .data:
    eca94:	8b e5                	mov    sp,bp
    eca96:	5d                   	pop    bp
    eca97:	cb                   	retf   
+
+
    eca98:	55                   	push   bp
    eca99:	8b ec                	mov    bp,sp
    eca9b:	81 ec 12 01          	sub    sp,0x112
@@ -20753,6 +20991,8 @@ Disassembly of section .data:
    ece9d:	04 3f                	add    al,0x3f
    ece9f:	05 fc 03             	add    ax,0x3fc
    ecea2:	ff 03                	inc    WORD PTR [bp+di]
+
+
    ecea4:	55                   	push   bp
    ecea5:	8b ec                	mov    bp,sp
    ecea7:	83 ec 16             	sub    sp,0x16
@@ -21160,6 +21400,8 @@ Disassembly of section .data:
    ed2ab:	8b e5                	mov    sp,bp
    ed2ad:	5d                   	pop    bp
    ed2ae:	cb                   	retf   
+
+
    ed2af:	55                   	push   bp
    ed2b0:	8b ec                	mov    bp,sp
    ed2b2:	83 ec 06             	sub    sp,0x6
@@ -21262,6 +21504,8 @@ Disassembly of section .data:
    ed3ab:	8b e5                	mov    sp,bp
    ed3ad:	5d                   	pop    bp
    ed3ae:	cb                   	retf   
+
+
    ed3af:	55                   	push   bp
    ed3b0:	8b ec                	mov    bp,sp
    ed3b2:	83 ec 0e             	sub    sp,0xe
@@ -21672,6 +21916,8 @@ Disassembly of section .data:
    ed7e3:	8b e5                	mov    sp,bp
    ed7e5:	5d                   	pop    bp
    ed7e6:	cb                   	retf   
+
+
    ed7e7:	55                   	push   bp
    ed7e8:	8b ec                	mov    bp,sp
    ed7ea:	83 ec 10             	sub    sp,0x10
@@ -21791,6 +22037,8 @@ Disassembly of section .data:
    ed91c:	8b e5                	mov    sp,bp
    ed91e:	5d                   	pop    bp
    ed91f:	cb                   	retf   
+
+
    ed920:	55                   	push   bp
    ed921:	8b ec                	mov    bp,sp
    ed923:	83 ec 10             	sub    sp,0x10
@@ -21923,6 +22171,8 @@ Disassembly of section .data:
    eda8e:	8b e5                	mov    sp,bp
    eda90:	5d                   	pop    bp
    eda91:	cb                   	retf   
+
+
    eda92:	55                   	push   bp
    eda93:	8b ec                	mov    bp,sp
    eda95:	83 ec 06             	sub    sp,0x6
@@ -21978,6 +22228,8 @@ Disassembly of section .data:
    edb22:	8b e5                	mov    sp,bp
    edb24:	5d                   	pop    bp
    edb25:	cb                   	retf   
+
+
    edb26:	55                   	push   bp
    edb27:	8b ec                	mov    bp,sp
    edb29:	83 ec 0c             	sub    sp,0xc
@@ -22056,6 +22308,8 @@ Disassembly of section .data:
    edbfb:	8b e5                	mov    sp,bp
    edbfd:	5d                   	pop    bp
    edbfe:	cb                   	retf   
+
+
    edbff:	55                   	push   bp
    edc00:	8b ec                	mov    bp,sp
    edc02:	83 ec 02             	sub    sp,0x2
@@ -22130,6 +22384,8 @@ Disassembly of section .data:
    edccd:	8b e5                	mov    sp,bp
    edccf:	5d                   	pop    bp
    edcd0:	cb                   	retf   
+
+
    edcd1:	55                   	push   bp
    edcd2:	8b ec                	mov    bp,sp
    edcd4:	83 ec 02             	sub    sp,0x2
@@ -22907,6 +23163,8 @@ Disassembly of section .data:
    ee45f:	8b e5                	mov    sp,bp
    ee461:	5d                   	pop    bp
    ee462:	cb                   	retf   
+
+
    ee463:	55                   	push   bp
    ee464:	8b ec                	mov    bp,sp
    ee466:	83 ec 04             	sub    sp,0x4
@@ -23124,6 +23382,8 @@ Disassembly of section .data:
    ee6a3:	8b e5                	mov    sp,bp
    ee6a5:	5d                   	pop    bp
    ee6a6:	cb                   	retf   
+
+
    ee6a7:	55                   	push   bp
    ee6a8:	8b ec                	mov    bp,sp
    ee6aa:	83 ec 02             	sub    sp,0x2
@@ -23263,6 +23523,8 @@ Disassembly of section .data:
    ee7fa:	8b e5                	mov    sp,bp
    ee7fc:	5d                   	pop    bp
    ee7fd:	cb                   	retf   
+
+
    ee7fe:	55                   	push   bp
    ee7ff:	8b ec                	mov    bp,sp
    ee801:	83 ec 02             	sub    sp,0x2
@@ -23401,6 +23663,8 @@ Disassembly of section .data:
    ee94f:	8b e5                	mov    sp,bp
    ee951:	5d                   	pop    bp
    ee952:	cb                   	retf   
+
+
    ee953:	55                   	push   bp
    ee954:	8b ec                	mov    bp,sp
    ee956:	83 ec 02             	sub    sp,0x2
@@ -23526,6 +23790,8 @@ Disassembly of section .data:
    eea8a:	8b e5                	mov    sp,bp
    eea8c:	5d                   	pop    bp
    eea8d:	cb                   	retf   
+
+
    eea8e:	55                   	push   bp
    eea8f:	8b ec                	mov    bp,sp
    eea91:	83 ec 02             	sub    sp,0x2
@@ -23572,6 +23838,8 @@ Disassembly of section .data:
    eeafb:	8b e5                	mov    sp,bp
    eeafd:	5d                   	pop    bp
    eeafe:	cb                   	retf   
+
+
    eeaff:	55                   	push   bp
    eeb00:	8b ec                	mov    bp,sp
    eeb02:	83 ec 30             	sub    sp,0x30
@@ -24710,6 +24978,8 @@ Disassembly of section .data:
    ef6b4:	8b e5                	mov    sp,bp
    ef6b6:	5d                   	pop    bp
    ef6b7:	cb                   	retf   
+
+
    ef6b8:	55                   	push   bp
    ef6b9:	8b ec                	mov    bp,sp
    ef6bb:	83 ec 02             	sub    sp,0x2
@@ -24909,6 +25179,8 @@ Disassembly of section .data:
    ef905:	8b e5                	mov    sp,bp
    ef907:	5d                   	pop    bp
    ef908:	cb                   	retf   
+
+
    ef909:	55                   	push   bp
    ef90a:	8b ec                	mov    bp,sp
    ef90c:	83 ec 24             	sub    sp,0x24
@@ -25980,6 +26252,8 @@ Disassembly of section .data:
    f03c1:	8b e5                	mov    sp,bp
    f03c3:	5d                   	pop    bp
    f03c4:	cb                   	retf   
+
+
    f03c5:	55                   	push   bp
    f03c6:	8b ec                	mov    bp,sp
    f03c8:	83 ec 02             	sub    sp,0x2
@@ -26012,6 +26286,8 @@ Disassembly of section .data:
    f0416:	8b e5                	mov    sp,bp
    f0418:	5d                   	pop    bp
    f0419:	cb                   	retf   
+
+
    f041a:	55                   	push   bp
    f041b:	8b ec                	mov    bp,sp
    f041d:	83 ec 02             	sub    sp,0x2
@@ -26036,6 +26312,8 @@ Disassembly of section .data:
    f0450:	8b e5                	mov    sp,bp
    f0452:	5d                   	pop    bp
    f0453:	cb                   	retf   
+
+
    f0454:	55                   	push   bp
    f0455:	8b ec                	mov    bp,sp
    f0457:	83 ec 08             	sub    sp,0x8
@@ -26113,6 +26391,8 @@ Disassembly of section .data:
    f0523:	8b e5                	mov    sp,bp
    f0525:	5d                   	pop    bp
    f0526:	cb                   	retf   
+
+
    f0527:	55                   	push   bp
    f0528:	8b ec                	mov    bp,sp
    f052a:	80 7e 06 01          	cmp    BYTE PTR [bp+0x6],0x1
@@ -26125,6 +26405,8 @@ Disassembly of section .data:
    f0543:	26 88 07             	mov    BYTE PTR es:[bx],al
    f0546:	5d                   	pop    bp
    f0547:	cb                   	retf   
+
+
    f0548:	55                   	push   bp
    f0549:	8b ec                	mov    bp,sp
    f054b:	83 ec 0a             	sub    sp,0xa
@@ -26151,6 +26433,8 @@ Disassembly of section .data:
    f057f:	8b e5                	mov    sp,bp
    f0581:	5d                   	pop    bp
    f0582:	cb                   	retf   
+
+
    f0583:	55                   	push   bp
    f0584:	8b ec                	mov    bp,sp
    f0586:	83 ec 02             	sub    sp,0x2
@@ -26274,6 +26558,8 @@ Disassembly of section .data:
    f06d4:	8b e5                	mov    sp,bp
    f06d6:	5d                   	pop    bp
    f06d7:	cb                   	retf   
+
+
    f06d8:	55                   	push   bp
    f06d9:	8b ec                	mov    bp,sp
    f06db:	83 ec 06             	sub    sp,0x6
@@ -26363,6 +26649,8 @@ Disassembly of section .data:
    f07be:	8b e5                	mov    sp,bp
    f07c0:	5d                   	pop    bp
    f07c1:	cb                   	retf   
+
+
    f07c2:	55                   	push   bp
    f07c3:	8b ec                	mov    bp,sp
    f07c5:	a0 d8 62             	mov    al,ds:0x62d8
@@ -26400,6 +26688,8 @@ Disassembly of section .data:
    f0811:	83 c4 06             	add    sp,0x6
    f0814:	5d                   	pop    bp
    f0815:	cb                   	retf   
+
+
    f0816:	55                   	push   bp
    f0817:	8b ec                	mov    bp,sp
    f0819:	83 ec 06             	sub    sp,0x6
@@ -26500,6 +26790,8 @@ Disassembly of section .data:
    f097a:	8b e5                	mov    sp,bp
    f097c:	5d                   	pop    bp
    f097d:	cb                   	retf   
+
+
    f097e:	55                   	push   bp
    f097f:	8b ec                	mov    bp,sp
    f0981:	83 ec 02             	sub    sp,0x2
@@ -26531,6 +26823,8 @@ Disassembly of section .data:
    f09d7:	8b e5                	mov    sp,bp
    f09d9:	5d                   	pop    bp
    f09da:	cb                   	retf   
+
+
    f09db:	55                   	push   bp
    f09dc:	8b ec                	mov    bp,sp
    f09de:	83 ec 02             	sub    sp,0x2
@@ -26658,6 +26952,8 @@ Disassembly of section .data:
    f0b1f:	8b e5                	mov    sp,bp
    f0b21:	5d                   	pop    bp
    f0b22:	cb                   	retf   
+
+
    f0b23:	55                   	push   bp
    f0b24:	8b ec                	mov    bp,sp
    f0b26:	83 ec 02             	sub    sp,0x2
@@ -26733,6 +27029,8 @@ Disassembly of section .data:
    f0be6:	8b e5                	mov    sp,bp
    f0be8:	5d                   	pop    bp
    f0be9:	cb                   	retf   
+
+
    f0bea:	55                   	push   bp
    f0beb:	8b ec                	mov    bp,sp
    f0bed:	83 ec 04             	sub    sp,0x4
@@ -26781,6 +27079,8 @@ Disassembly of section .data:
    f0c5b:	8b e5                	mov    sp,bp
    f0c5d:	5d                   	pop    bp
    f0c5e:	cb                   	retf   
+
+
    f0c5f:	55                   	push   bp
    f0c60:	8b ec                	mov    bp,sp
    f0c62:	83 ec 04             	sub    sp,0x4
@@ -26834,6 +27134,8 @@ Disassembly of section .data:
    f0cef:	8b e5                	mov    sp,bp
    f0cf1:	5d                   	pop    bp
    f0cf2:	cb                   	retf   
+
+
    f0cf3:	55                   	push   bp
    f0cf4:	8b ec                	mov    bp,sp
    f0cf6:	81 ec 86 00          	sub    sp,0x86
@@ -26985,6 +27287,8 @@ Disassembly of section .data:
    f0e83:	8b e5                	mov    sp,bp
    f0e85:	5d                   	pop    bp
    f0e86:	cb                   	retf   
+
+
    f0e87:	55                   	push   bp
    f0e88:	8b ec                	mov    bp,sp
    f0e8a:	83 ec 04             	sub    sp,0x4
@@ -27013,6 +27317,8 @@ Disassembly of section .data:
    f0ed7:	8b e5                	mov    sp,bp
    f0ed9:	5d                   	pop    bp
    f0eda:	cb                   	retf   
+
+
    f0edb:	55                   	push   bp
    f0edc:	8b ec                	mov    bp,sp
    f0ede:	83 ec 02             	sub    sp,0x2
@@ -27763,6 +28069,8 @@ Disassembly of section .data:
    f161c:	8b e5                	mov    sp,bp
    f161e:	5d                   	pop    bp
    f161f:	cb                   	retf   
+
+
    f1620:	55                   	push   bp
    f1621:	8b ec                	mov    bp,sp
    f1623:	83 ec 02             	sub    sp,0x2
@@ -27944,6 +28252,8 @@ Disassembly of section .data:
    f17fe:	8b e5                	mov    sp,bp
    f1800:	5d                   	pop    bp
    f1801:	cb                   	retf   
+
+
    f1802:	55                   	push   bp
    f1803:	8b ec                	mov    bp,sp
    f1805:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
@@ -28038,6 +28348,8 @@ Disassembly of section .data:
    f18e5:	eb 00                	jmp    0xf18e7
    f18e7:	5d                   	pop    bp
    f18e8:	cb                   	retf   
+
+
    f18e9:	55                   	push   bp
    f18ea:	8b ec                	mov    bp,sp
    f18ec:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
@@ -28135,6 +28447,8 @@ Disassembly of section .data:
    f19d4:	eb 00                	jmp    0xf19d6
    f19d6:	5d                   	pop    bp
    f19d7:	cb                   	retf   
+
+
    f19d8:	55                   	push   bp
    f19d9:	8b ec                	mov    bp,sp
    f19db:	83 ec 02             	sub    sp,0x2
@@ -28245,6 +28559,8 @@ Disassembly of section .data:
    f1ae6:	8b e5                	mov    sp,bp
    f1ae8:	5d                   	pop    bp
    f1ae9:	cb                   	retf   
+
+
    f1aea:	55                   	push   bp
    f1aeb:	8b ec                	mov    bp,sp
    f1aed:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
@@ -28278,6 +28594,8 @@ Disassembly of section .data:
    f1b35:	eb 00                	jmp    0xf1b37
    f1b37:	5d                   	pop    bp
    f1b38:	cb                   	retf   
+
+
    f1b39:	55                   	push   bp
    f1b3a:	8b ec                	mov    bp,sp
    f1b3c:	83 ec 08             	sub    sp,0x8
@@ -28832,6 +29150,8 @@ Disassembly of section .data:
    f20f4:	8b e5                	mov    sp,bp
    f20f6:	5d                   	pop    bp
    f20f7:	cb                   	retf   
+
+
    f20f8:	55                   	push   bp
    f20f9:	8b ec                	mov    bp,sp
    f20fb:	83 ec 08             	sub    sp,0x8
@@ -29190,6 +29510,8 @@ Disassembly of section .data:
    f24e7:	8b e5                	mov    sp,bp
    f24e9:	5d                   	pop    bp
    f24ea:	cb                   	retf   
+
+
    f24eb:	55                   	push   bp
    f24ec:	8b ec                	mov    bp,sp
    f24ee:	83 ec 02             	sub    sp,0x2
@@ -29263,6 +29585,8 @@ Disassembly of section .data:
    f25ab:	8b e5                	mov    sp,bp
    f25ad:	5d                   	pop    bp
    f25ae:	cb                   	retf   
+
+
    f25af:	55                   	push   bp
    f25b0:	8b ec                	mov    bp,sp
    f25b2:	81 ec 4e 01          	sub    sp,0x14e
@@ -29320,6 +29644,8 @@ Disassembly of section .data:
    f2657:	8b e5                	mov    sp,bp
    f2659:	5d                   	pop    bp
    f265a:	cb                   	retf   
+
+
    f265b:	55                   	push   bp
    f265c:	8b ec                	mov    bp,sp
    f265e:	0e                   	push   cs
@@ -29337,6 +29663,8 @@ Disassembly of section .data:
    f2680:	c6 06 2b 63 01       	mov    BYTE PTR ds:0x632b,0x1
    f2685:	5d                   	pop    bp
    f2686:	cb                   	retf   
+
+
    f2687:	55                   	push   bp
    f2688:	8b ec                	mov    bp,sp
    f268a:	0e                   	push   cs
@@ -29354,6 +29682,8 @@ Disassembly of section .data:
    f26ac:	c6 06 2b 63 01       	mov    BYTE PTR ds:0x632b,0x1
    f26b1:	5d                   	pop    bp
    f26b2:	cb                   	retf   
+
+
    f26b3:	55                   	push   bp
    f26b4:	8b ec                	mov    bp,sp
    f26b6:	83 ec 04             	sub    sp,0x4
@@ -29411,6 +29741,8 @@ Disassembly of section .data:
    f2747:	8b e5                	mov    sp,bp
    f2749:	5d                   	pop    bp
    f274a:	cb                   	retf   
+
+
    f274b:	55                   	push   bp
    f274c:	8b ec                	mov    bp,sp
    f274e:	83 ec 06             	sub    sp,0x6
@@ -29512,6 +29844,8 @@ Disassembly of section .data:
    f2878:	8b e5                	mov    sp,bp
    f287a:	5d                   	pop    bp
    f287b:	cb                   	retf   
+
+
    f287c:	55                   	push   bp
    f287d:	8b ec                	mov    bp,sp
    f287f:	83 ec 02             	sub    sp,0x2
@@ -29531,6 +29865,8 @@ Disassembly of section .data:
    f28b7:	8b e5                	mov    sp,bp
    f28b9:	5d                   	pop    bp
    f28ba:	cb                   	retf   
+
+
    f28bb:	55                   	push   bp
    f28bc:	8b ec                	mov    bp,sp
    f28be:	c6 06 2b 63 00       	mov    BYTE PTR ds:0x632b,0x0
@@ -29553,6 +29889,8 @@ Disassembly of section .data:
    f2902:	eb 00                	jmp    0xf2904
    f2904:	5d                   	pop    bp
    f2905:	cb                   	retf   
+
+
    f2906:	55                   	push   bp
    f2907:	8b ec                	mov    bp,sp
    f2909:	83 ec 02             	sub    sp,0x2
@@ -29591,6 +29929,8 @@ Disassembly of section .data:
    f296d:	8b e5                	mov    sp,bp
    f296f:	5d                   	pop    bp
    f2970:	cb                   	retf   
+
+
    f2971:	55                   	push   bp
    f2972:	8b ec                	mov    bp,sp
    f2974:	83 ec 02             	sub    sp,0x2
@@ -29610,6 +29950,8 @@ Disassembly of section .data:
    f29a0:	8b e5                	mov    sp,bp
    f29a2:	5d                   	pop    bp
    f29a3:	cb                   	retf   
+
+
    f29a4:	55                   	push   bp
    f29a5:	8b ec                	mov    bp,sp
    f29a7:	83 ec 0c             	sub    sp,0xc
@@ -29776,6 +30118,8 @@ Disassembly of section .data:
    f2b5b:	8b e5                	mov    sp,bp
    f2b5d:	5d                   	pop    bp
    f2b5e:	cb                   	retf   
+
+
    f2b5f:	55                   	push   bp
    f2b60:	8b ec                	mov    bp,sp
    f2b62:	83 ec 02             	sub    sp,0x2
@@ -29801,6 +30145,8 @@ Disassembly of section .data:
    f2b8f:	8b e5                	mov    sp,bp
    f2b91:	5d                   	pop    bp
    f2b92:	cb                   	retf   
+
+
    f2b93:	55                   	push   bp
    f2b94:	8b ec                	mov    bp,sp
    f2b96:	83 ec 02             	sub    sp,0x2
@@ -29836,6 +30182,8 @@ Disassembly of section .data:
    f2bd9:	8b e5                	mov    sp,bp
    f2bdb:	5d                   	pop    bp
    f2bdc:	cb                   	retf   
+
+
    f2bdd:	55                   	push   bp
    f2bde:	8b ec                	mov    bp,sp
    f2be0:	83 ec 02             	sub    sp,0x2
@@ -29861,6 +30209,8 @@ Disassembly of section .data:
    f2c0c:	8b e5                	mov    sp,bp
    f2c0e:	5d                   	pop    bp
    f2c0f:	cb                   	retf   
+
+
    f2c10:	55                   	push   bp
    f2c11:	8b ec                	mov    bp,sp
    f2c13:	83 ec 04             	sub    sp,0x4
@@ -29943,6 +30293,8 @@ Disassembly of section .data:
    f2cbd:	5b                   	pop    bx
    f2cbe:	58                   	pop    ax
    f2cbf:	cf                   	iret   
+
+
    f2cc0:	55                   	push   bp
    f2cc1:	8b ec                	mov    bp,sp
    f2cc3:	83 ec 02             	sub    sp,0x2
@@ -29992,6 +30344,8 @@ Disassembly of section .data:
    f2d46:	8b e5                	mov    sp,bp
    f2d48:	5d                   	pop    bp
    f2d49:	cb                   	retf   
+
+
    f2d4a:	55                   	push   bp
    f2d4b:	8b ec                	mov    bp,sp
    f2d4d:	c6 06 bb 62 01       	mov    BYTE PTR ds:0x62bb,0x1
@@ -29999,6 +30353,8 @@ Disassembly of section .data:
    f2d55:	eb 00                	jmp    0xf2d57
    f2d57:	5d                   	pop    bp
    f2d58:	cb                   	retf   
+
+
    f2d59:	55                   	push   bp
    f2d5a:	8b ec                	mov    bp,sp
    f2d5c:	c6 06 bb 62 02       	mov    BYTE PTR ds:0x62bb,0x2
@@ -30006,6 +30362,8 @@ Disassembly of section .data:
    f2d64:	eb 00                	jmp    0xf2d66
    f2d66:	5d                   	pop    bp
    f2d67:	cb                   	retf   
+
+
    f2d68:	55                   	push   bp
    f2d69:	8b ec                	mov    bp,sp
    f2d6b:	83 ec 06             	sub    sp,0x6
@@ -30034,6 +30392,8 @@ Disassembly of section .data:
    f2db2:	8b e5                	mov    sp,bp
    f2db4:	5d                   	pop    bp
    f2db5:	cb                   	retf   
+
+
    f2db6:	55                   	push   bp
    f2db7:	8b ec                	mov    bp,sp
    f2db9:	83 ec 08             	sub    sp,0x8
@@ -30068,6 +30428,8 @@ Disassembly of section .data:
    f2e14:	8b e5                	mov    sp,bp
    f2e16:	5d                   	pop    bp
    f2e17:	cb                   	retf   
+
+
    f2e18:	55                   	push   bp
    f2e19:	8b ec                	mov    bp,sp
    f2e1b:	83 ec 02             	sub    sp,0x2
@@ -30118,6 +30480,8 @@ Disassembly of section .data:
    f2e81:	8b e5                	mov    sp,bp
    f2e83:	5d                   	pop    bp
    f2e84:	cb                   	retf   
+
+
    f2e85:	55                   	push   bp
    f2e86:	8b ec                	mov    bp,sp
    f2e88:	83 ec 02             	sub    sp,0x2
@@ -30128,6 +30492,8 @@ Disassembly of section .data:
    f2e9a:	8b e5                	mov    sp,bp
    f2e9c:	5d                   	pop    bp
    f2e9d:	cb                   	retf   
+
+
    f2e9e:	55                   	push   bp
    f2e9f:	8b ec                	mov    bp,sp
    f2ea1:	83 ec 02             	sub    sp,0x2
@@ -30157,6 +30523,8 @@ Disassembly of section .data:
    f2edc:	8b e5                	mov    sp,bp
    f2ede:	5d                   	pop    bp
    f2edf:	cb                   	retf   
+
+
    f2ee0:	55                   	push   bp
    f2ee1:	8b ec                	mov    bp,sp
    f2ee3:	83 ec 04             	sub    sp,0x4
@@ -30178,6 +30546,8 @@ Disassembly of section .data:
    f2f11:	8b e5                	mov    sp,bp
    f2f13:	5d                   	pop    bp
    f2f14:	cb                   	retf   
+
+
    f2f15:	55                   	push   bp
    f2f16:	8b ec                	mov    bp,sp
    f2f18:	83 ec 02             	sub    sp,0x2
@@ -30202,6 +30572,8 @@ Disassembly of section .data:
    f2f49:	8b e5                	mov    sp,bp
    f2f4b:	5d                   	pop    bp
    f2f4c:	cb                   	retf   
+
+
    f2f4d:	55                   	push   bp
    f2f4e:	8b ec                	mov    bp,sp
    f2f50:	83 ec 02             	sub    sp,0x2
@@ -30227,6 +30599,8 @@ Disassembly of section .data:
    f2f7e:	8b e5                	mov    sp,bp
    f2f80:	5d                   	pop    bp
    f2f81:	cb                   	retf   
+
+
    f2f82:	55                   	push   bp
    f2f83:	8b ec                	mov    bp,sp
    f2f85:	83 ec 04             	sub    sp,0x4
@@ -30301,6 +30675,8 @@ Disassembly of section .data:
    f302b:	8b e5                	mov    sp,bp
    f302d:	5d                   	pop    bp
    f302e:	cb                   	retf   
+
+
    f302f:	55                   	push   bp
    f3030:	8b ec                	mov    bp,sp
    f3032:	83 ec 04             	sub    sp,0x4
@@ -30406,6 +30782,8 @@ Disassembly of section .data:
    f3116:	8b e5                	mov    sp,bp
    f3118:	5d                   	pop    bp
    f3119:	cb                   	retf   
+
+
    f311a:	55                   	push   bp
    f311b:	8b ec                	mov    bp,sp
    f311d:	83 ec 02             	sub    sp,0x2
@@ -30431,6 +30809,8 @@ Disassembly of section .data:
    f314b:	8b e5                	mov    sp,bp
    f314d:	5d                   	pop    bp
    f314e:	cb                   	retf   
+
+
    f314f:	55                   	push   bp
    f3150:	8b ec                	mov    bp,sp
    f3152:	83 ec 02             	sub    sp,0x2
@@ -30456,6 +30836,8 @@ Disassembly of section .data:
    f317d:	8b e5                	mov    sp,bp
    f317f:	5d                   	pop    bp
    f3180:	cb                   	retf   
+
+
    f3181:	55                   	push   bp
    f3182:	8b ec                	mov    bp,sp
    f3184:	83 ec 02             	sub    sp,0x2
@@ -30483,6 +30865,8 @@ Disassembly of section .data:
    f31b9:	8b e5                	mov    sp,bp
    f31bb:	5d                   	pop    bp
    f31bc:	cb                   	retf   
+
+
    f31bd:	55                   	push   bp
    f31be:	8b ec                	mov    bp,sp
    f31c0:	83 ec 02             	sub    sp,0x2
@@ -30509,6 +30893,8 @@ Disassembly of section .data:
    f31f0:	8b e5                	mov    sp,bp
    f31f2:	5d                   	pop    bp
    f31f3:	cb                   	retf   
+
+
    f31f4:	55                   	push   bp
    f31f5:	8b ec                	mov    bp,sp
    f31f7:	83 ec 02             	sub    sp,0x2
@@ -30535,6 +30921,8 @@ Disassembly of section .data:
    f3227:	8b e5                	mov    sp,bp
    f3229:	5d                   	pop    bp
    f322a:	cb                   	retf   
+
+
    f322b:	55                   	push   bp
    f322c:	8b ec                	mov    bp,sp
    f322e:	83 ec 04             	sub    sp,0x4
@@ -30565,6 +30953,8 @@ Disassembly of section .data:
    f326b:	8b e5                	mov    sp,bp
    f326d:	5d                   	pop    bp
    f326e:	cb                   	retf   
+
+
    f326f:	55                   	push   bp
    f3270:	8b ec                	mov    bp,sp
    f3272:	a0 4d 64             	mov    al,ds:0x644d
@@ -30574,6 +30964,8 @@ Disassembly of section .data:
    f327d:	eb 00                	jmp    0xf327f
    f327f:	5d                   	pop    bp
    f3280:	cb                   	retf   
+
+
    f3281:	55                   	push   bp
    f3282:	8b ec                	mov    bp,sp
    f3284:	83 ec 02             	sub    sp,0x2
@@ -30600,6 +30992,8 @@ Disassembly of section .data:
    f32b4:	8b e5                	mov    sp,bp
    f32b6:	5d                   	pop    bp
    f32b7:	cb                   	retf   
+
+
    f32b8:	55                   	push   bp
    f32b9:	8b ec                	mov    bp,sp
    f32bb:	83 ec 04             	sub    sp,0x4
@@ -30621,6 +31015,8 @@ Disassembly of section .data:
    f32e3:	8b e5                	mov    sp,bp
    f32e5:	5d                   	pop    bp
    f32e6:	cb                   	retf   
+
+
    f32e7:	55                   	push   bp
    f32e8:	8b ec                	mov    bp,sp
    f32ea:	83 ec 06             	sub    sp,0x6
@@ -30653,6 +31049,8 @@ Disassembly of section .data:
    f332f:	8b e5                	mov    sp,bp
    f3331:	5d                   	pop    bp
    f3332:	cb                   	retf   
+
+
    f3333:	55                   	push   bp
    f3334:	8b ec                	mov    bp,sp
    f3336:	83 ec 04             	sub    sp,0x4
@@ -30671,6 +31069,8 @@ Disassembly of section .data:
    f335d:	8b e5                	mov    sp,bp
    f335f:	5d                   	pop    bp
    f3360:	cb                   	retf   
+
+
    f3361:	55                   	push   bp
    f3362:	8b ec                	mov    bp,sp
    f3364:	83 ec 04             	sub    sp,0x4
@@ -30691,6 +31091,8 @@ Disassembly of section .data:
    f338b:	8b e5                	mov    sp,bp
    f338d:	5d                   	pop    bp
    f338e:	cb                   	retf   
+
+
    f338f:	55                   	push   bp
    f3390:	8b ec                	mov    bp,sp
    f3392:	83 ec 02             	sub    sp,0x2
@@ -30700,6 +31102,8 @@ Disassembly of section .data:
    f339f:	8b e5                	mov    sp,bp
    f33a1:	5d                   	pop    bp
    f33a2:	cb                   	retf   
+
+
    f33a3:	55                   	push   bp
    f33a4:	8b ec                	mov    bp,sp
    f33a6:	83 ec 04             	sub    sp,0x4
@@ -30722,6 +31126,8 @@ Disassembly of section .data:
    f33d7:	8b e5                	mov    sp,bp
    f33d9:	5d                   	pop    bp
    f33da:	cb                   	retf   
+
+
    f33db:	55                   	push   bp
    f33dc:	8b ec                	mov    bp,sp
    f33de:	83 ec 02             	sub    sp,0x2
@@ -30755,6 +31161,8 @@ Disassembly of section .data:
    f3421:	8b e5                	mov    sp,bp
    f3423:	5d                   	pop    bp
    f3424:	cb                   	retf   
+
+
    f3425:	55                   	push   bp
    f3426:	8b ec                	mov    bp,sp
    f3428:	83 ec 02             	sub    sp,0x2
@@ -30788,6 +31196,8 @@ Disassembly of section .data:
    f346a:	8b e5                	mov    sp,bp
    f346c:	5d                   	pop    bp
    f346d:	cb                   	retf   
+
+
    f346e:	55                   	push   bp
    f346f:	8b ec                	mov    bp,sp
    f3471:	83 ec 02             	sub    sp,0x2
@@ -30828,6 +31238,8 @@ Disassembly of section .data:
    f34c6:	8b e5                	mov    sp,bp
    f34c8:	5d                   	pop    bp
    f34c9:	cb                   	retf   
+
+
    f34ca:	55                   	push   bp
    f34cb:	8b ec                	mov    bp,sp
    f34cd:	83 ec 04             	sub    sp,0x4
@@ -30900,6 +31312,8 @@ Disassembly of section .data:
    f357f:	8b e5                	mov    sp,bp
    f3581:	5d                   	pop    bp
    f3582:	cb                   	retf   
+
+
    f3583:	55                   	push   bp
    f3584:	8b ec                	mov    bp,sp
    f3586:	83 ec 02             	sub    sp,0x2
@@ -30926,6 +31340,8 @@ Disassembly of section .data:
    f35b5:	8b e5                	mov    sp,bp
    f35b7:	5d                   	pop    bp
    f35b8:	cb                   	retf   
+
+
    f35b9:	55                   	push   bp
    f35ba:	8b ec                	mov    bp,sp
    f35bc:	83 ec 02             	sub    sp,0x2
@@ -30952,6 +31368,8 @@ Disassembly of section .data:
    f35eb:	8b e5                	mov    sp,bp
    f35ed:	5d                   	pop    bp
    f35ee:	cb                   	retf   
+
+
    f35ef:	55                   	push   bp
    f35f0:	8b ec                	mov    bp,sp
    f35f2:	83 ec 02             	sub    sp,0x2
@@ -30977,6 +31395,8 @@ Disassembly of section .data:
    f361e:	8b e5                	mov    sp,bp
    f3620:	5d                   	pop    bp
    f3621:	cb                   	retf   
+
+
    f3622:	55                   	push   bp
    f3623:	8b ec                	mov    bp,sp
    f3625:	83 ec 02             	sub    sp,0x2
@@ -31002,6 +31422,8 @@ Disassembly of section .data:
    f364f:	8b e5                	mov    sp,bp
    f3651:	5d                   	pop    bp
    f3652:	cb                   	retf   
+
+
    f3653:	55                   	push   bp
    f3654:	8b ec                	mov    bp,sp
    f3656:	83 ec 02             	sub    sp,0x2
@@ -31027,6 +31449,8 @@ Disassembly of section .data:
    f3682:	8b e5                	mov    sp,bp
    f3684:	5d                   	pop    bp
    f3685:	cb                   	retf   
+
+
    f3686:	55                   	push   bp
    f3687:	8b ec                	mov    bp,sp
    f3689:	83 ec 02             	sub    sp,0x2
@@ -31078,6 +31502,8 @@ Disassembly of section .data:
    f36f8:	8b e5                	mov    sp,bp
    f36fa:	5d                   	pop    bp
    f36fb:	cb                   	retf   
+
+
    f36fc:	55                   	push   bp
    f36fd:	8b ec                	mov    bp,sp
    f36ff:	83 ec 02             	sub    sp,0x2
@@ -31103,6 +31529,8 @@ Disassembly of section .data:
    f372b:	8b e5                	mov    sp,bp
    f372d:	5d                   	pop    bp
    f372e:	cb                   	retf   
+
+
    f372f:	55                   	push   bp
    f3730:	8b ec                	mov    bp,sp
    f3732:	83 ec 02             	sub    sp,0x2
@@ -31127,6 +31555,8 @@ Disassembly of section .data:
    f3765:	8b e5                	mov    sp,bp
    f3767:	5d                   	pop    bp
    f3768:	cb                   	retf   
+
+
    f3769:	55                   	push   bp
    f376a:	8b ec                	mov    bp,sp
    f376c:	83 ec 02             	sub    sp,0x2
@@ -31148,6 +31578,8 @@ Disassembly of section .data:
    f3796:	8b e5                	mov    sp,bp
    f3798:	5d                   	pop    bp
    f3799:	cb                   	retf   
+
+
    f379a:	55                   	push   bp
    f379b:	8b ec                	mov    bp,sp
    f379d:	83 ec 02             	sub    sp,0x2
@@ -31157,6 +31589,8 @@ Disassembly of section .data:
    f37aa:	8b e5                	mov    sp,bp
    f37ac:	5d                   	pop    bp
    f37ad:	cb                   	retf   
+
+
    f37ae:	55                   	push   bp
    f37af:	8b ec                	mov    bp,sp
    f37b1:	83 ec 02             	sub    sp,0x2
@@ -31174,6 +31608,8 @@ Disassembly of section .data:
    f37d0:	8b e5                	mov    sp,bp
    f37d2:	5d                   	pop    bp
    f37d3:	cb                   	retf   
+
+
    f37d4:	55                   	push   bp
    f37d5:	8b ec                	mov    bp,sp
    f37d7:	83 ec 02             	sub    sp,0x2
@@ -31199,6 +31635,8 @@ Disassembly of section .data:
    f3812:	8b e5                	mov    sp,bp
    f3814:	5d                   	pop    bp
    f3815:	cb                   	retf   
+
+
    f3816:	55                   	push   bp
    f3817:	8b ec                	mov    bp,sp
    f3819:	83 ec 02             	sub    sp,0x2
@@ -31211,6 +31649,8 @@ Disassembly of section .data:
    f3831:	8b e5                	mov    sp,bp
    f3833:	5d                   	pop    bp
    f3834:	cb                   	retf   
+
+
    f3835:	55                   	push   bp
    f3836:	8b ec                	mov    bp,sp
    f3838:	83 ec 02             	sub    sp,0x2
@@ -31260,6 +31700,8 @@ Disassembly of section .data:
    f38b9:	8b e5                	mov    sp,bp
    f38bb:	5d                   	pop    bp
    f38bc:	cb                   	retf   
+
+
    f38bd:	55                   	push   bp
    f38be:	8b ec                	mov    bp,sp
    f38c0:	83 ec 04             	sub    sp,0x4
@@ -31336,6 +31778,8 @@ Disassembly of section .data:
    f3984:	8b e5                	mov    sp,bp
    f3986:	5d                   	pop    bp
    f3987:	cb                   	retf   
+
+
    f3988:	55                   	push   bp
    f3989:	8b ec                	mov    bp,sp
    f398b:	83 ec 06             	sub    sp,0x6
@@ -31358,6 +31802,8 @@ Disassembly of section .data:
    f39bc:	8b e5                	mov    sp,bp
    f39be:	5d                   	pop    bp
    f39bf:	cb                   	retf   
+
+
    f39c0:	55                   	push   bp
    f39c1:	8b ec                	mov    bp,sp
    f39c3:	83 ec 06             	sub    sp,0x6
@@ -31373,6 +31819,8 @@ Disassembly of section .data:
    f39e4:	8b e5                	mov    sp,bp
    f39e6:	5d                   	pop    bp
    f39e7:	cb                   	retf   
+
+
    f39e8:	55                   	push   bp
    f39e9:	8b ec                	mov    bp,sp
    f39eb:	c6 06 3f 63 00       	mov    BYTE PTR ds:0x633f,0x0
@@ -31380,6 +31828,8 @@ Disassembly of section .data:
    f39f3:	eb 00                	jmp    0xf39f5
    f39f5:	5d                   	pop    bp
    f39f6:	cb                   	retf   
+
+
    f39f7:	55                   	push   bp
    f39f8:	8b ec                	mov    bp,sp
    f39fa:	c6 06 3f 63 01       	mov    BYTE PTR ds:0x633f,0x1
@@ -31400,6 +31850,8 @@ Disassembly of section .data:
    f3a27:	eb 00                	jmp    0xf3a29
    f3a29:	5d                   	pop    bp
    f3a2a:	cb                   	retf   
+
+
    f3a2b:	55                   	push   bp
    f3a2c:	8b ec                	mov    bp,sp
    f3a2e:	83 ec 02             	sub    sp,0x2
@@ -31424,6 +31876,8 @@ Disassembly of section .data:
    f3a60:	8b e5                	mov    sp,bp
    f3a62:	5d                   	pop    bp
    f3a63:	cb                   	retf   
+
+
    f3a64:	55                   	push   bp
    f3a65:	8b ec                	mov    bp,sp
    f3a67:	c6 06 3f 63 01       	mov    BYTE PTR ds:0x633f,0x1
@@ -31432,6 +31886,8 @@ Disassembly of section .data:
    f3a74:	eb 00                	jmp    0xf3a76
    f3a76:	5d                   	pop    bp
    f3a77:	cb                   	retf   
+
+
    f3a78:	55                   	push   bp
    f3a79:	8b ec                	mov    bp,sp
    f3a7b:	83 ec 08             	sub    sp,0x8
@@ -31471,6 +31927,8 @@ Disassembly of section .data:
    f3ade:	8b e5                	mov    sp,bp
    f3ae0:	5d                   	pop    bp
    f3ae1:	cb                   	retf   
+
+
    f3ae2:	55                   	push   bp
    f3ae3:	8b ec                	mov    bp,sp
    f3ae5:	83 ec 06             	sub    sp,0x6
@@ -31499,6 +31957,8 @@ Disassembly of section .data:
    f3b2d:	8b e5                	mov    sp,bp
    f3b2f:	5d                   	pop    bp
    f3b30:	cb                   	retf   
+
+
    f3b31:	55                   	push   bp
    f3b32:	8b ec                	mov    bp,sp
    f3b34:	83 ec 02             	sub    sp,0x2
@@ -31520,6 +31980,8 @@ Disassembly of section .data:
    f3b68:	8b e5                	mov    sp,bp
    f3b6a:	5d                   	pop    bp
    f3b6b:	cb                   	retf   
+
+
    f3b6c:	55                   	push   bp
    f3b6d:	8b ec                	mov    bp,sp
    f3b6f:	83 ec 02             	sub    sp,0x2
@@ -31529,6 +31991,8 @@ Disassembly of section .data:
    f3b7c:	8b e5                	mov    sp,bp
    f3b7e:	5d                   	pop    bp
    f3b7f:	cb                   	retf   
+
+
    f3b80:	55                   	push   bp
    f3b81:	8b ec                	mov    bp,sp
    f3b83:	83 ec 14             	sub    sp,0x14
@@ -31608,6 +32072,8 @@ Disassembly of section .data:
    f3c48:	8b e5                	mov    sp,bp
    f3c4a:	5d                   	pop    bp
    f3c4b:	cb                   	retf   
+
+
    f3c4c:	55                   	push   bp
    f3c4d:	8b ec                	mov    bp,sp
    f3c4f:	83 ec 02             	sub    sp,0x2
@@ -31638,6 +32104,8 @@ Disassembly of section .data:
    f3c9a:	8b e5                	mov    sp,bp
    f3c9c:	5d                   	pop    bp
    f3c9d:	cb                   	retf   
+
+
    f3c9e:	55                   	push   bp
    f3c9f:	8b ec                	mov    bp,sp
    f3ca1:	83 ec 02             	sub    sp,0x2
@@ -31672,6 +32140,8 @@ Disassembly of section .data:
    f3cef:	8b e5                	mov    sp,bp
    f3cf1:	5d                   	pop    bp
    f3cf2:	cb                   	retf   
+
+
    f3cf3:	55                   	push   bp
    f3cf4:	8b ec                	mov    bp,sp
    f3cf6:	83 ec 02             	sub    sp,0x2
@@ -31706,6 +32176,8 @@ Disassembly of section .data:
    f3d44:	8b e5                	mov    sp,bp
    f3d46:	5d                   	pop    bp
    f3d47:	cb                   	retf   
+
+
    f3d48:	55                   	push   bp
    f3d49:	8b ec                	mov    bp,sp
    f3d4b:	83 ec 02             	sub    sp,0x2
@@ -31757,6 +32229,8 @@ Disassembly of section .data:
    f3dba:	8b e5                	mov    sp,bp
    f3dbc:	5d                   	pop    bp
    f3dbd:	cb                   	retf   
+
+
    f3dbe:	55                   	push   bp
    f3dbf:	8b ec                	mov    bp,sp
    f3dc1:	83 ec 02             	sub    sp,0x2
@@ -31767,6 +32241,8 @@ Disassembly of section .data:
    f3dd3:	8b e5                	mov    sp,bp
    f3dd5:	5d                   	pop    bp
    f3dd6:	cb                   	retf   
+
+
    f3dd7:	55                   	push   bp
    f3dd8:	8b ec                	mov    bp,sp
    f3dda:	83 ec 02             	sub    sp,0x2
@@ -31777,6 +32253,8 @@ Disassembly of section .data:
    f3dec:	8b e5                	mov    sp,bp
    f3dee:	5d                   	pop    bp
    f3def:	cb                   	retf   
+
+
    f3df0:	55                   	push   bp
    f3df1:	8b ec                	mov    bp,sp
    f3df3:	83 ec 02             	sub    sp,0x2
@@ -31787,6 +32265,8 @@ Disassembly of section .data:
    f3e05:	8b e5                	mov    sp,bp
    f3e07:	5d                   	pop    bp
    f3e08:	cb                   	retf   
+
+
    f3e09:	55                   	push   bp
    f3e0a:	8b ec                	mov    bp,sp
    f3e0c:	83 ec 02             	sub    sp,0x2
@@ -31797,6 +32277,8 @@ Disassembly of section .data:
    f3e1e:	8b e5                	mov    sp,bp
    f3e20:	5d                   	pop    bp
    f3e21:	cb                   	retf   
+
+
    f3e22:	55                   	push   bp
    f3e23:	8b ec                	mov    bp,sp
    f3e25:	83 ec 08             	sub    sp,0x8
@@ -31919,6 +32401,8 @@ Disassembly of section .data:
    f3f52:	8b e5                	mov    sp,bp
    f3f54:	5d                   	pop    bp
    f3f55:	cb                   	retf   
+
+
    f3f56:	55                   	push   bp
    f3f57:	8b ec                	mov    bp,sp
    f3f59:	83 ec 04             	sub    sp,0x4
@@ -32032,6 +32516,8 @@ Disassembly of section .data:
    f4076:	8b e5                	mov    sp,bp
    f4078:	5d                   	pop    bp
    f4079:	cb                   	retf   
+
+
    f407a:	55                   	push   bp
    f407b:	8b ec                	mov    bp,sp
    f407d:	83 ec 04             	sub    sp,0x4
@@ -32083,6 +32569,8 @@ Disassembly of section .data:
    f40f0:	8b e5                	mov    sp,bp
    f40f2:	5d                   	pop    bp
    f40f3:	cb                   	retf   
+
+
    f40f4:	55                   	push   bp
    f40f5:	8b ec                	mov    bp,sp
    f40f7:	83 ec 04             	sub    sp,0x4
@@ -32145,6 +32633,8 @@ Disassembly of section .data:
    f4195:	8b e5                	mov    sp,bp
    f4197:	5d                   	pop    bp
    f4198:	cb                   	retf   
+
+
    f4199:	55                   	push   bp
    f419a:	8b ec                	mov    bp,sp
    f419c:	83 ec 02             	sub    sp,0x2
@@ -32172,6 +32662,8 @@ Disassembly of section .data:
    f41ce:	8b e5                	mov    sp,bp
    f41d0:	5d                   	pop    bp
    f41d1:	cb                   	retf   
+
+
    f41d2:	55                   	push   bp
    f41d3:	8b ec                	mov    bp,sp
    f41d5:	83 ec 02             	sub    sp,0x2
@@ -32181,6 +32673,8 @@ Disassembly of section .data:
    f41e2:	8b e5                	mov    sp,bp
    f41e4:	5d                   	pop    bp
    f41e5:	cb                   	retf   
+
+
    f41e6:	55                   	push   bp
    f41e7:	8b ec                	mov    bp,sp
    f41e9:	83 ec 02             	sub    sp,0x2
@@ -32190,6 +32684,8 @@ Disassembly of section .data:
    f41f6:	8b e5                	mov    sp,bp
    f41f8:	5d                   	pop    bp
    f41f9:	cb                   	retf   
+
+
    f41fa:	55                   	push   bp
    f41fb:	8b ec                	mov    bp,sp
    f41fd:	83 ec 04             	sub    sp,0x4
@@ -32544,6 +33040,8 @@ Disassembly of section .data:
    f45ed:	8b e5                	mov    sp,bp
    f45ef:	5d                   	pop    bp
    f45f0:	cb                   	retf   
+
+
    f45f1:	55                   	push   bp
    f45f2:	8b ec                	mov    bp,sp
    f45f4:	83 ec 0a             	sub    sp,0xa
@@ -32719,6 +33217,8 @@ Disassembly of section .data:
    f47e8:	04 20                	add    al,0x20
    f47ea:	05 3b 05             	add    ax,0x53b
    f47ed:	70 05                	jo     0xf47f4
+
+
    f47ef:	55                   	push   bp
    f47f0:	8b ec                	mov    bp,sp
    f47f2:	80 3e 1a 66 00       	cmp    BYTE PTR ds:0x661a,0x0
@@ -32798,6 +33298,8 @@ Disassembly of section .data:
    f48a3:	c6 06 4b 63 ff       	mov    BYTE PTR ds:0x634b,0xff
    f48a8:	5d                   	pop    bp
    f48a9:	cb                   	retf   
+
+
    f48aa:	55                   	push   bp
    f48ab:	8b ec                	mov    bp,sp
    f48ad:	83 ec 10             	sub    sp,0x10
@@ -32950,6 +33452,8 @@ Disassembly of section .data:
    f4a3c:	8b e5                	mov    sp,bp
    f4a3e:	5d                   	pop    bp
    f4a3f:	cb                   	retf   
+
+
    f4a40:	55                   	push   bp
    f4a41:	8b ec                	mov    bp,sp
    f4a43:	83 ec 02             	sub    sp,0x2
@@ -33084,6 +33588,8 @@ Disassembly of section .data:
    f4b8f:	8b e5                	mov    sp,bp
    f4b91:	5d                   	pop    bp
    f4b92:	cb                   	retf   
+
+
    f4b93:	55                   	push   bp
    f4b94:	8b ec                	mov    bp,sp
    f4b96:	83 ec 04             	sub    sp,0x4
@@ -33184,6 +33690,8 @@ Disassembly of section .data:
    f4c92:	8b e5                	mov    sp,bp
    f4c94:	5d                   	pop    bp
    f4c95:	cb                   	retf   
+
+
    f4c96:	55                   	push   bp
    f4c97:	8b ec                	mov    bp,sp
    f4c99:	83 ec 74             	sub    sp,0x74
@@ -33379,6 +33887,8 @@ Disassembly of section .data:
    f4e5e:	8b e5                	mov    sp,bp
    f4e60:	5d                   	pop    bp
    f4e61:	cb                   	retf   
+
+
    f4e62:	55                   	push   bp
    f4e63:	8b ec                	mov    bp,sp
    f4e65:	83 ec 04             	sub    sp,0x4
@@ -33718,6 +34228,8 @@ Disassembly of section .data:
    f5256:	0e                   	push   cs
    f5257:	6d                   	ins    WORD PTR es:[di],dx
    f5258:	0e                   	push   cs
+
+
    f5259:	55                   	push   bp
    f525a:	8b ec                	mov    bp,sp
    f525c:	83 ec 02             	sub    sp,0x2
@@ -33897,6 +34409,8 @@ Disassembly of section .data:
    f5441:	8b e5                	mov    sp,bp
    f5443:	5d                   	pop    bp
    f5444:	cb                   	retf   
+
+
    f5445:	55                   	push   bp
    f5446:	8b ec                	mov    bp,sp
    f5448:	83 ec 04             	sub    sp,0x4
@@ -34075,6 +34589,8 @@ Disassembly of section .data:
    f5657:	8b ec                	mov    bp,sp
    f5659:	5d                   	pop    bp
    f565a:	cb                   	retf   
+
+
    f565b:	55                   	push   bp
    f565c:	8b ec                	mov    bp,sp
    f565e:	b0 06                	mov    al,0x6
@@ -34104,6 +34620,8 @@ Disassembly of section .data:
    f56a0:	c6 06 47 63 07       	mov    BYTE PTR ds:0x6347,0x7
    f56a5:	5d                   	pop    bp
    f56a6:	cb                   	retf   
+
+
    f56a7:	55                   	push   bp
    f56a8:	8b ec                	mov    bp,sp
    f56aa:	83 ec 02             	sub    sp,0x2
@@ -34177,12 +34695,16 @@ Disassembly of section .data:
    f5766:	8b e5                	mov    sp,bp
    f5768:	5d                   	pop    bp
    f5769:	cb                   	retf   
+
+
    f576a:	55                   	push   bp
    f576b:	8b ec                	mov    bp,sp
    f576d:	9a 1a 00 96 f8       	call   0xf896:0x1a
    f5772:	eb fe                	jmp    0xf5772
    f5774:	5d                   	pop    bp
    f5775:	cb                   	retf   
+
+
    f5776:	55                   	push   bp
    f5777:	8b ec                	mov    bp,sp
    f5779:	83 ec 02             	sub    sp,0x2
@@ -34243,6 +34765,8 @@ Disassembly of section .data:
    f5813:	8b e5                	mov    sp,bp
    f5815:	5d                   	pop    bp
    f5816:	cb                   	retf   
+
+
    f5817:	55                   	push   bp
    f5818:	8b ec                	mov    bp,sp
    f581a:	83 ec 14             	sub    sp,0x14
@@ -34303,10 +34827,14 @@ Disassembly of section .data:
    f58ae:	8b e5                	mov    sp,bp
    f58b0:	5d                   	pop    bp
    f58b1:	cb                   	retf   
+
+
    f58b2:	55                   	push   bp
    f58b3:	8b ec                	mov    bp,sp
    f58b5:	5d                   	pop    bp
    f58b6:	cb                   	retf   
+
+
    f58b7:	55                   	push   bp
    f58b8:	8b ec                	mov    bp,sp
    f58ba:	83 ec 06             	sub    sp,0x6
@@ -34325,6 +34853,8 @@ Disassembly of section .data:
    f58e5:	8b e5                	mov    sp,bp
    f58e7:	5d                   	pop    bp
    f58e8:	cb                   	retf   
+
+
    f58e9:	55                   	push   bp
    f58ea:	8b ec                	mov    bp,sp
    f58ec:	83 ec 02             	sub    sp,0x2
@@ -34472,6 +35002,8 @@ Disassembly of section .data:
    f5ac2:	8b e5                	mov    sp,bp
    f5ac4:	5d                   	pop    bp
    f5ac5:	cb                   	retf   
+
+
    f5ac6:	55                   	push   bp
    f5ac7:	8b ec                	mov    bp,sp
    f5ac9:	83 ec 08             	sub    sp,0x8
@@ -34497,6 +35029,8 @@ Disassembly of section .data:
    f5b10:	8b e5                	mov    sp,bp
    f5b12:	5d                   	pop    bp
    f5b13:	cb                   	retf   
+
+
    f5b14:	55                   	push   bp
    f5b15:	8b ec                	mov    bp,sp
    f5b17:	83 ec 06             	sub    sp,0x6
@@ -34513,6 +35047,8 @@ Disassembly of section .data:
    f5b3c:	8b e5                	mov    sp,bp
    f5b3e:	5d                   	pop    bp
    f5b3f:	cb                   	retf   
+
+
    f5b40:	55                   	push   bp
    f5b41:	8b ec                	mov    bp,sp
    f5b43:	83 ec 20             	sub    sp,0x20
@@ -34596,6 +35132,8 @@ Disassembly of section .data:
    f5c2a:	8b e5                	mov    sp,bp
    f5c2c:	5d                   	pop    bp
    f5c2d:	cb                   	retf   
+
+
    f5c2e:	55                   	push   bp
    f5c2f:	8b ec                	mov    bp,sp
    f5c31:	83 ec 12             	sub    sp,0x12
@@ -34770,6 +35308,8 @@ Disassembly of section .data:
    f5e49:	8b e5                	mov    sp,bp
    f5e4b:	5d                   	pop    bp
    f5e4c:	cb                   	retf   
+
+
    f5e4d:	55                   	push   bp
    f5e4e:	8b ec                	mov    bp,sp
    f5e50:	83 ec 08             	sub    sp,0x8
@@ -34820,6 +35360,8 @@ Disassembly of section .data:
    f5ecc:	8b e5                	mov    sp,bp
    f5ece:	5d                   	pop    bp
    f5ecf:	cb                   	retf   
+
+
    f5ed0:	55                   	push   bp
    f5ed1:	8b ec                	mov    bp,sp
    f5ed3:	83 ec 12             	sub    sp,0x12
@@ -34917,6 +35459,8 @@ Disassembly of section .data:
    f600c:	8b e5                	mov    sp,bp
    f600e:	5d                   	pop    bp
    f600f:	cb                   	retf   
+
+
    f6010:	55                   	push   bp
    f6011:	8b ec                	mov    bp,sp
    f6013:	83 ec 0a             	sub    sp,0xa
@@ -34956,6 +35500,8 @@ Disassembly of section .data:
    f6087:	8b e5                	mov    sp,bp
    f6089:	5d                   	pop    bp
    f608a:	cb                   	retf   
+
+
    f608b:	55                   	push   bp
    f608c:	8b ec                	mov    bp,sp
    f608e:	83 ec 02             	sub    sp,0x2
@@ -34999,6 +35545,8 @@ Disassembly of section .data:
    f6112:	8b e5                	mov    sp,bp
    f6114:	5d                   	pop    bp
    f6115:	cb                   	retf   
+
+
    f6116:	55                   	push   bp
    f6117:	8b ec                	mov    bp,sp
    f6119:	83 ec 08             	sub    sp,0x8
@@ -35157,6 +35705,8 @@ Disassembly of section .data:
    f62c3:	8b e5                	mov    sp,bp
    f62c5:	5d                   	pop    bp
    f62c6:	cb                   	retf   
+
+
    f62c7:	55                   	push   bp
    f62c8:	8b ec                	mov    bp,sp
    f62ca:	83 ec 04             	sub    sp,0x4
@@ -35192,6 +35742,8 @@ Disassembly of section .data:
    f6327:	8b e5                	mov    sp,bp
    f6329:	5d                   	pop    bp
    f632a:	cb                   	retf   
+
+
    f632b:	55                   	push   bp
    f632c:	8b ec                	mov    bp,sp
    f632e:	83 ec 0c             	sub    sp,0xc
@@ -35310,6 +35862,8 @@ Disassembly of section .data:
    f6478:	8b e5                	mov    sp,bp
    f647a:	5d                   	pop    bp
    f647b:	cb                   	retf   
+
+
    f647c:	55                   	push   bp
    f647d:	8b ec                	mov    bp,sp
    f647f:	83 ec 02             	sub    sp,0x2
@@ -35337,6 +35891,8 @@ Disassembly of section .data:
    f64c1:	8b e5                	mov    sp,bp
    f64c3:	5d                   	pop    bp
    f64c4:	cb                   	retf   
+
+
    f64c5:	55                   	push   bp
    f64c6:	8b ec                	mov    bp,sp
    f64c8:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
@@ -35376,6 +35932,8 @@ Disassembly of section .data:
    f6523:	26 88 07             	mov    BYTE PTR es:[bx],al
    f6526:	5d                   	pop    bp
    f6527:	cb                   	retf   
+
+
    f6528:	55                   	push   bp
    f6529:	8b ec                	mov    bp,sp
    f652b:	8a 46 0a             	mov    al,BYTE PTR [bp+0xa]
@@ -35437,6 +35995,8 @@ Disassembly of section .data:
    f65b9:	26 88 07             	mov    BYTE PTR es:[bx],al
    f65bc:	5d                   	pop    bp
    f65bd:	cb                   	retf   
+
+
    f65be:	55                   	push   bp
    f65bf:	8b ec                	mov    bp,sp
    f65c1:	8a 46 08             	mov    al,BYTE PTR [bp+0x8]
@@ -35454,6 +36014,8 @@ Disassembly of section .data:
    f65d9:	83 c4 06             	add    sp,0x6
    f65dc:	5d                   	pop    bp
    f65dd:	cb                   	retf   
+
+
    f65de:	55                   	push   bp
    f65df:	8b ec                	mov    bp,sp
    f65e1:	83 ec 02             	sub    sp,0x2
@@ -35479,6 +36041,8 @@ Disassembly of section .data:
    f6613:	8b e5                	mov    sp,bp
    f6615:	5d                   	pop    bp
    f6616:	cb                   	retf   
+
+
    f6617:	55                   	push   bp
    f6618:	8b ec                	mov    bp,sp
    f661a:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
@@ -35503,6 +36067,8 @@ Disassembly of section .data:
    f6648:	eb 00                	jmp    0xf664a
    f664a:	5d                   	pop    bp
    f664b:	cb                   	retf   
+
+
    f664c:	55                   	push   bp
    f664d:	8b ec                	mov    bp,sp
    f664f:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
@@ -35516,6 +36082,8 @@ Disassembly of section .data:
    f6663:	eb 00                	jmp    0xf6665
    f6665:	5d                   	pop    bp
    f6666:	cb                   	retf   
+
+
    f6667:	55                   	push   bp
    f6668:	8b ec                	mov    bp,sp
    f666a:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
@@ -35534,6 +36102,8 @@ Disassembly of section .data:
    f668c:	26 88 07             	mov    BYTE PTR es:[bx],al
    f668f:	5d                   	pop    bp
    f6690:	cb                   	retf   
+
+
    f6691:	55                   	push   bp
    f6692:	8b ec                	mov    bp,sp
    f6694:	80 7e 0a 01          	cmp    BYTE PTR [bp+0xa],0x1
@@ -35570,6 +36140,8 @@ Disassembly of section .data:
    f66e2:	26 88 07             	mov    BYTE PTR es:[bx],al
    f66e5:	5d                   	pop    bp
    f66e6:	cb                   	retf   
+
+
    f66e7:	55                   	push   bp
    f66e8:	8b ec                	mov    bp,sp
    f66ea:	83 ec 02             	sub    sp,0x2
@@ -35615,6 +36187,8 @@ Disassembly of section .data:
    f6750:	8b e5                	mov    sp,bp
    f6752:	5d                   	pop    bp
    f6753:	cb                   	retf   
+
+
    f6754:	55                   	push   bp
    f6755:	8b ec                	mov    bp,sp
    f6757:	fa                   	cli    
@@ -35646,6 +36220,8 @@ Disassembly of section .data:
    f679c:	fb                   	sti    
    f679d:	5d                   	pop    bp
    f679e:	cb                   	retf   
+
+
    f679f:	55                   	push   bp
    f67a0:	8b ec                	mov    bp,sp
    f67a2:	83 ec 02             	sub    sp,0x2
@@ -35707,6 +36283,8 @@ Disassembly of section .data:
    f683f:	8b e5                	mov    sp,bp
    f6841:	5d                   	pop    bp
    f6842:	cb                   	retf   
+
+
    f6843:	55                   	push   bp
    f6844:	8b ec                	mov    bp,sp
    f6846:	83 ec 0a             	sub    sp,0xa
@@ -35944,6 +36522,8 @@ Disassembly of section .data:
    f6a72:	5b                   	pop    bx
    f6a73:	58                   	pop    ax
    f6a74:	cf                   	iret   
+
+
    f6a75:	55                   	push   bp
    f6a76:	8b ec                	mov    bp,sp
    f6a78:	83 ec 02             	sub    sp,0x2
@@ -36010,6 +36590,8 @@ Disassembly of section .data:
    f6b39:	8b e5                	mov    sp,bp
    f6b3b:	5d                   	pop    bp
    f6b3c:	cb                   	retf   
+
+
    f6b3d:	55                   	push   bp
    f6b3e:	8b ec                	mov    bp,sp
    f6b40:	83 ec 04             	sub    sp,0x4
@@ -36030,6 +36612,8 @@ Disassembly of section .data:
    f6b61:	8b e5                	mov    sp,bp
    f6b63:	5d                   	pop    bp
    f6b64:	cb                   	retf   
+
+
    f6b65:	55                   	push   bp
    f6b66:	8b ec                	mov    bp,sp
    f6b68:	83 ec 04             	sub    sp,0x4
@@ -36056,6 +36640,8 @@ Disassembly of section .data:
    f6b9a:	8b e5                	mov    sp,bp
    f6b9c:	5d                   	pop    bp
    f6b9d:	cb                   	retf   
+
+
    f6b9e:	55                   	push   bp
    f6b9f:	8b ec                	mov    bp,sp
    f6ba1:	83 ec 06             	sub    sp,0x6
@@ -36266,6 +36852,8 @@ Disassembly of section .data:
    f6e10:	8b e5                	mov    sp,bp
    f6e12:	5d                   	pop    bp
    f6e13:	cb                   	retf   
+
+
    f6e14:	55                   	push   bp
    f6e15:	8b ec                	mov    bp,sp
    f6e17:	83 ec 06             	sub    sp,0x6
@@ -36451,6 +37039,8 @@ Disassembly of section .data:
    f702f:	8b e5                	mov    sp,bp
    f7031:	5d                   	pop    bp
    f7032:	cb                   	retf   
+
+
    f7033:	55                   	push   bp
    f7034:	8b ec                	mov    bp,sp
    f7036:	83 ec 02             	sub    sp,0x2
@@ -36482,6 +37072,8 @@ Disassembly of section .data:
    f708f:	8b e5                	mov    sp,bp
    f7091:	5d                   	pop    bp
    f7092:	cb                   	retf   
+
+
    f7093:	55                   	push   bp
    f7094:	8b ec                	mov    bp,sp
    f7096:	83 ec 04             	sub    sp,0x4
@@ -36549,6 +37141,8 @@ Disassembly of section .data:
    f714e:	8b e5                	mov    sp,bp
    f7150:	5d                   	pop    bp
    f7151:	cb                   	retf   
+
+
    f7152:	55                   	push   bp
    f7153:	8b ec                	mov    bp,sp
    f7155:	83 ec 08             	sub    sp,0x8
@@ -36639,6 +37233,8 @@ Disassembly of section .data:
    f7248:	8b e5                	mov    sp,bp
    f724a:	5d                   	pop    bp
    f724b:	cb                   	retf   
+
+
    f724c:	55                   	push   bp
    f724d:	8b ec                	mov    bp,sp
    f724f:	b0 00                	mov    al,0x0
@@ -36656,6 +37252,8 @@ Disassembly of section .data:
    f726c:	eb 00                	jmp    0xf726e
    f726e:	5d                   	pop    bp
    f726f:	cb                   	retf   
+
+
    f7270:	55                   	push   bp
    f7271:	8b ec                	mov    bp,sp
    f7273:	b0 01                	mov    al,0x1
@@ -36673,6 +37271,8 @@ Disassembly of section .data:
    f7290:	eb 00                	jmp    0xf7292
    f7292:	5d                   	pop    bp
    f7293:	cb                   	retf   
+
+
    f7294:	55                   	push   bp
    f7295:	8b ec                	mov    bp,sp
    f7297:	83 ec 40             	sub    sp,0x40
@@ -36708,6 +37308,8 @@ Disassembly of section .data:
    f72e4:	8b e5                	mov    sp,bp
    f72e6:	5d                   	pop    bp
    f72e7:	cb                   	retf   
+
+
    f72e8:	55                   	push   bp
    f72e9:	8b ec                	mov    bp,sp
    f72eb:	83 ec 06             	sub    sp,0x6
@@ -36778,6 +37380,8 @@ Disassembly of section .data:
    f73b2:	8b e5                	mov    sp,bp
    f73b4:	5d                   	pop    bp
    f73b5:	cb                   	retf   
+
+
    f73b6:	55                   	push   bp
    f73b7:	8b ec                	mov    bp,sp
    f73b9:	83 ec 08             	sub    sp,0x8
@@ -36834,6 +37438,8 @@ Disassembly of section .data:
    f744a:	8b e5                	mov    sp,bp
    f744c:	5d                   	pop    bp
    f744d:	cb                   	retf   
+
+
    f744e:	55                   	push   bp
    f744f:	8b ec                	mov    bp,sp
    f7451:	83 ec 08             	sub    sp,0x8
@@ -36881,6 +37487,8 @@ Disassembly of section .data:
    f74cb:	8b e5                	mov    sp,bp
    f74cd:	5d                   	pop    bp
    f74ce:	cb                   	retf   
+
+
    f74cf:	55                   	push   bp
    f74d0:	8b ec                	mov    bp,sp
    f74d2:	83 ec 12             	sub    sp,0x12
@@ -36938,6 +37546,8 @@ Disassembly of section .data:
    f7570:	8b e5                	mov    sp,bp
    f7572:	5d                   	pop    bp
    f7573:	cb                   	retf   
+
+
    f7574:	55                   	push   bp
    f7575:	8b ec                	mov    bp,sp
    f7577:	83 ec 18             	sub    sp,0x18
@@ -37114,6 +37724,8 @@ Disassembly of section .data:
    f7747:	8b e5                	mov    sp,bp
    f7749:	5d                   	pop    bp
    f774a:	cb                   	retf   
+
+
    f774b:	55                   	push   bp
    f774c:	8b ec                	mov    bp,sp
    f774e:	83 ec 08             	sub    sp,0x8
@@ -37157,6 +37769,8 @@ Disassembly of section .data:
    f77b8:	8b e5                	mov    sp,bp
    f77ba:	5d                   	pop    bp
    f77bb:	cb                   	retf   
+
+
    f77bc:	55                   	push   bp
    f77bd:	8b ec                	mov    bp,sp
    f77bf:	83 ec 02             	sub    sp,0x2
@@ -37309,6 +37923,8 @@ Disassembly of section .data:
    f7936:	5b                   	pop    bx
    f7937:	58                   	pop    ax
    f7938:	cf                   	iret   
+
+
    f7939:	55                   	push   bp
    f793a:	8b ec                	mov    bp,sp
    f793c:	b8 84 f6             	mov    ax,0xf684
@@ -37335,6 +37951,8 @@ Disassembly of section .data:
    f7978:	26 c6 47 0c 07       	mov    BYTE PTR es:[bx+0xc],0x7
    f797d:	5d                   	pop    bp
    f797e:	cb                   	retf   
+
+
    f797f:	55                   	push   bp
    f7980:	8b ec                	mov    bp,sp
    f7982:	83 ec 02             	sub    sp,0x2
@@ -37396,6 +38014,8 @@ Disassembly of section .data:
    f7a25:	8b e5                	mov    sp,bp
    f7a27:	5d                   	pop    bp
    f7a28:	cb                   	retf   
+
+
    f7a29:	55                   	push   bp
    f7a2a:	8b ec                	mov    bp,sp
    f7a2c:	83 ec 02             	sub    sp,0x2
@@ -37483,6 +38103,8 @@ Disassembly of section .data:
    f7b24:	8b e5                	mov    sp,bp
    f7b26:	5d                   	pop    bp
    f7b27:	cb                   	retf   
+
+
    f7b28:	55                   	push   bp
    f7b29:	8b ec                	mov    bp,sp
    f7b2b:	83 ec 02             	sub    sp,0x2
@@ -37502,6 +38124,8 @@ Disassembly of section .data:
    f7b5f:	8b e5                	mov    sp,bp
    f7b61:	5d                   	pop    bp
    f7b62:	cb                   	retf   
+
+
    f7b63:	55                   	push   bp
    f7b64:	8b ec                	mov    bp,sp
    f7b66:	83 ec 02             	sub    sp,0x2
@@ -37521,6 +38145,8 @@ Disassembly of section .data:
    f7b9a:	8b e5                	mov    sp,bp
    f7b9c:	5d                   	pop    bp
    f7b9d:	cb                   	retf   
+
+
    f7b9e:	55                   	push   bp
    f7b9f:	8b ec                	mov    bp,sp
    f7ba1:	83 ec 02             	sub    sp,0x2
@@ -37541,6 +38167,8 @@ Disassembly of section .data:
    f7bd4:	8b e5                	mov    sp,bp
    f7bd6:	5d                   	pop    bp
    f7bd7:	cb                   	retf   
+
+
    f7bd8:	55                   	push   bp
    f7bd9:	8b ec                	mov    bp,sp
    f7bdb:	83 ec 02             	sub    sp,0x2
@@ -37586,6 +38214,8 @@ Disassembly of section .data:
    f7c48:	8b e5                	mov    sp,bp
    f7c4a:	5d                   	pop    bp
    f7c4b:	cb                   	retf   
+
+
    f7c4c:	55                   	push   bp
    f7c4d:	8b ec                	mov    bp,sp
    f7c4f:	83 ec 02             	sub    sp,0x2
@@ -37606,6 +38236,8 @@ Disassembly of section .data:
    f7c7c:	8b e5                	mov    sp,bp
    f7c7e:	5d                   	pop    bp
    f7c7f:	cb                   	retf   
+
+
    f7c80:	55                   	push   bp
    f7c81:	8b ec                	mov    bp,sp
    f7c83:	83 ec 0a             	sub    sp,0xa
@@ -37697,6 +38329,8 @@ Disassembly of section .data:
    f7d6a:	8b e5                	mov    sp,bp
    f7d6c:	5d                   	pop    bp
    f7d6d:	cb                   	retf   
+
+
    f7d6e:	55                   	push   bp
    f7d6f:	8b ec                	mov    bp,sp
    f7d71:	83 ec 02             	sub    sp,0x2
@@ -37722,6 +38356,8 @@ Disassembly of section .data:
    f7db0:	8b e5                	mov    sp,bp
    f7db2:	5d                   	pop    bp
    f7db3:	cb                   	retf   
+
+
    f7db4:	55                   	push   bp
    f7db5:	8b ec                	mov    bp,sp
    f7db7:	83 ec 14             	sub    sp,0x14
@@ -37979,6 +38615,8 @@ Disassembly of section .data:
    f803f:	5b                   	pop    bx
    f8040:	58                   	pop    ax
    f8041:	cf                   	iret   
+
+
    f8042:	55                   	push   bp
    f8043:	8b ec                	mov    bp,sp
    f8045:	83 ec 04             	sub    sp,0x4
@@ -38054,6 +38692,8 @@ Disassembly of section .data:
    f8115:	8b e5                	mov    sp,bp
    f8117:	5d                   	pop    bp
    f8118:	cb                   	retf   
+
+
    f8119:	55                   	push   bp
    f811a:	8b ec                	mov    bp,sp
    f811c:	83 ec 02             	sub    sp,0x2
@@ -38096,6 +38736,8 @@ Disassembly of section .data:
    f8181:	8b e5                	mov    sp,bp
    f8183:	5d                   	pop    bp
    f8184:	cb                   	retf   
+
+
    f8185:	55                   	push   bp
    f8186:	8b ec                	mov    bp,sp
    f8188:	83 ec 02             	sub    sp,0x2
@@ -38197,6 +38839,8 @@ Disassembly of section .data:
    f8298:	8b e5                	mov    sp,bp
    f829a:	5d                   	pop    bp
    f829b:	cb                   	retf   
+
+
    f829c:	55                   	push   bp
    f829d:	8b ec                	mov    bp,sp
    f829f:	83 ec 02             	sub    sp,0x2
@@ -38229,6 +38873,8 @@ Disassembly of section .data:
    f82eb:	8b e5                	mov    sp,bp
    f82ed:	5d                   	pop    bp
    f82ee:	cb                   	retf   
+
+
    f82ef:	55                   	push   bp
    f82f0:	8b ec                	mov    bp,sp
    f82f2:	83 ec 02             	sub    sp,0x2
@@ -38283,6 +38929,8 @@ Disassembly of section .data:
    f837f:	8b e5                	mov    sp,bp
    f8381:	5d                   	pop    bp
    f8382:	cb                   	retf   
+
+
    f8383:	55                   	push   bp
    f8384:	8b ec                	mov    bp,sp
    f8386:	83 ec 02             	sub    sp,0x2
@@ -38344,6 +38992,8 @@ Disassembly of section .data:
    f8427:	8b e5                	mov    sp,bp
    f8429:	5d                   	pop    bp
    f842a:	cb                   	retf   
+
+
    f842b:	55                   	push   bp
    f842c:	8b ec                	mov    bp,sp
    f842e:	83 ec 04             	sub    sp,0x4
@@ -38410,6 +39060,8 @@ Disassembly of section .data:
    f84ef:	8b e5                	mov    sp,bp
    f84f1:	5d                   	pop    bp
    f84f2:	cb                   	retf   
+
+
    f84f3:	55                   	push   bp
    f84f4:	8b ec                	mov    bp,sp
    f84f6:	83 ec 04             	sub    sp,0x4
@@ -38477,6 +39129,8 @@ Disassembly of section .data:
    f85b8:	8b e5                	mov    sp,bp
    f85ba:	5d                   	pop    bp
    f85bb:	cb                   	retf   
+
+
    f85bc:	55                   	push   bp
    f85bd:	8b ec                	mov    bp,sp
    f85bf:	83 ec 04             	sub    sp,0x4
@@ -38535,6 +39189,8 @@ Disassembly of section .data:
    f8664:	8b e5                	mov    sp,bp
    f8666:	5d                   	pop    bp
    f8667:	cb                   	retf   
+
+
    f8668:	55                   	push   bp
    f8669:	8b ec                	mov    bp,sp
    f866b:	b8 b0 00             	mov    ax,0xb0
@@ -38624,6 +39280,8 @@ Disassembly of section .data:
    f8706:	5b                   	pop    bx
    f8707:	58                   	pop    ax
    f8708:	cf                   	iret   
+
+
    f8709:	55                   	push   bp
    f870a:	8b ec                	mov    bp,sp
    f870c:	83 ec 08             	sub    sp,0x8
@@ -38669,6 +39327,8 @@ Disassembly of section .data:
    f8786:	8b e5                	mov    sp,bp
    f8788:	5d                   	pop    bp
    f8789:	cb                   	retf   
+
+
    f878a:	55                   	push   bp
    f878b:	8b ec                	mov    bp,sp
    f878d:	83 ec 0a             	sub    sp,0xa
@@ -38717,6 +39377,8 @@ Disassembly of section .data:
    f8814:	8b e5                	mov    sp,bp
    f8816:	5d                   	pop    bp
    f8817:	cb                   	retf   
+
+
    f8818:	55                   	push   bp
    f8819:	8b ec                	mov    bp,sp
    f881b:	b8 6c f8             	mov    ax,0xf86c
@@ -38915,6 +39577,8 @@ Disassembly of section .data:
    f89c9:	3b 36 0f 28          	cmp    si,WORD PTR ds:0x280f
    f89cd:	74 c9                	je     0xf8998
    f89cf:	eb cf                	jmp    0xf89a0
+
+
    f89d1:	55                   	push   bp
    f89d2:	8b ec                	mov    bp,sp
    f89d4:	8b 5e 06             	mov    bx,WORD PTR [bp+0x6]
@@ -38929,6 +39593,8 @@ Disassembly of section .data:
    f89f0:	ee                   	out    dx,al
    f89f1:	5d                   	pop    bp
    f89f2:	cb                   	retf   
+
+
    f89f3:	55                   	push   bp
    f89f4:	8b ec                	mov    bp,sp
    f89f6:	8a 46 08             	mov    al,BYTE PTR [bp+0x8]
@@ -38967,6 +39633,8 @@ Disassembly of section .data:
    f8a36:	5b                   	pop    bx
    f8a37:	58                   	pop    ax
    f8a38:	cf                   	iret   
+
+
    f8a39:	55                   	push   bp
    f8a3a:	8b ec                	mov    bp,sp
    f8a3c:	8b 5e 06             	mov    bx,WORD PTR [bp+0x6]
@@ -38985,6 +39653,8 @@ Disassembly of section .data:
    f8a60:	eb f7                	jmp    0xf8a59
    f8a62:	5d                   	pop    bp
    f8a63:	cb                   	retf   
+
+
    f8a64:	55                   	push   bp
    f8a65:	8b ec                	mov    bp,sp
    f8a67:	8b 5e 06             	mov    bx,WORD PTR [bp+0x6]
@@ -39020,6 +39690,8 @@ Disassembly of section .data:
    f8ab1:	eb f5                	jmp    0xf8aa8
    f8ab3:	5d                   	pop    bp
    f8ab4:	cb                   	retf   
+
+
    f8ab5:	55                   	push   bp
    f8ab6:	8b ec                	mov    bp,sp
    f8ab8:	83 ec 06             	sub    sp,0x6
@@ -39109,6 +39781,8 @@ Disassembly of section .data:
    f8b71:	5b                   	pop    bx
    f8b72:	58                   	pop    ax
    f8b73:	cf                   	iret   
+
+
    f8b74:	55                   	push   bp
    f8b75:	8b ec                	mov    bp,sp
    f8b77:	83 ec 16             	sub    sp,0x16
@@ -39230,6 +39904,8 @@ Disassembly of section .data:
    f8c82:	8b e5                	mov    sp,bp
    f8c84:	5d                   	pop    bp
    f8c85:	cb                   	retf   
+
+
    f8c86:	55                   	push   bp
    f8c87:	8b ec                	mov    bp,sp
    f8c89:	83 ec 0c             	sub    sp,0xc
@@ -39300,6 +39976,8 @@ Disassembly of section .data:
    f8d34:	8b e5                	mov    sp,bp
    f8d36:	5d                   	pop    bp
    f8d37:	cb                   	retf   
+
+
    f8d38:	55                   	push   bp
    f8d39:	8b ec                	mov    bp,sp
    f8d3b:	83 ec 0c             	sub    sp,0xc
@@ -39408,6 +40086,8 @@ Disassembly of section .data:
    f8e31:	8b e5                	mov    sp,bp
    f8e33:	5d                   	pop    bp
    f8e34:	cb                   	retf   
+
+
    f8e35:	55                   	push   bp
    f8e36:	8b ec                	mov    bp,sp
    f8e38:	83 ec 0c             	sub    sp,0xc
@@ -39485,6 +40165,8 @@ Disassembly of section .data:
    f8eec:	8b e5                	mov    sp,bp
    f8eee:	5d                   	pop    bp
    f8eef:	cb                   	retf   
+
+
    f8ef0:	55                   	push   bp
    f8ef1:	8b ec                	mov    bp,sp
    f8ef3:	83 ec 0e             	sub    sp,0xe
@@ -39560,6 +40242,8 @@ Disassembly of section .data:
    f8fb0:	8b e5                	mov    sp,bp
    f8fb2:	5d                   	pop    bp
    f8fb3:	cb                   	retf   
+
+
    f8fb4:	55                   	push   bp
    f8fb5:	8b ec                	mov    bp,sp
    f8fb7:	83 ec 10             	sub    sp,0x10
@@ -39665,6 +40349,8 @@ Disassembly of section .data:
    f90b7:	8b e5                	mov    sp,bp
    f90b9:	5d                   	pop    bp
    f90ba:	cb                   	retf   
+
+
    f90bb:	55                   	push   bp
    f90bc:	8b ec                	mov    bp,sp
    f90be:	83 ec 04             	sub    sp,0x4
@@ -39714,6 +40400,8 @@ Disassembly of section .data:
    f9131:	8b e5                	mov    sp,bp
    f9133:	5d                   	pop    bp
    f9134:	cb                   	retf   
+
+
    f9135:	55                   	push   bp
    f9136:	8b ec                	mov    bp,sp
    f9138:	83 ec 1a             	sub    sp,0x1a
@@ -39755,6 +40443,8 @@ Disassembly of section .data:
    f919a:	8b e5                	mov    sp,bp
    f919c:	5d                   	pop    bp
    f919d:	cb                   	retf   
+
+
    f919e:	55                   	push   bp
    f919f:	8b ec                	mov    bp,sp
    f91a1:	8a 46 08             	mov    al,BYTE PTR [bp+0x8]
@@ -39776,6 +40466,8 @@ Disassembly of section .data:
    f91c9:	9a 1a 00 96 f8       	call   0xf896:0x1a
    f91ce:	5d                   	pop    bp
    f91cf:	cb                   	retf   
+
+
    f91d0:	55                   	push   bp
    f91d1:	8b ec                	mov    bp,sp
    f91d3:	83 ec 04             	sub    sp,0x4
@@ -39890,6 +40582,8 @@ Disassembly of section .data:
    f92e1:	08 6b 08             	or     BYTE PTR [bp+di+0x8],ch
    f92e4:	7f 08                	jg     0xf92ee
    f92e6:	b7 08                	mov    bh,0x8
+
+
    f92e8:	55                   	push   bp
    f92e9:	8b ec                	mov    bp,sp
    f92eb:	83 ec 0a             	sub    sp,0xa
@@ -39973,6 +40667,8 @@ Disassembly of section .data:
    f93b3:	8b e5                	mov    sp,bp
    f93b5:	5d                   	pop    bp
    f93b6:	cb                   	retf   
+
+
    f93b7:	55                   	push   bp
    f93b8:	8b ec                	mov    bp,sp
    f93ba:	83 ec 16             	sub    sp,0x16
@@ -40069,6 +40765,8 @@ Disassembly of section .data:
    f94a1:	8b e5                	mov    sp,bp
    f94a3:	5d                   	pop    bp
    f94a4:	cb                   	retf   
+
+
    f94a5:	55                   	push   bp
    f94a6:	8b ec                	mov    bp,sp
    f94a8:	b0 00                	mov    al,0x0
@@ -40108,6 +40806,8 @@ Disassembly of section .data:
    f94ee:	9a 1a 00 96 f8       	call   0xf896:0x1a
    f94f3:	5d                   	pop    bp
    f94f4:	cb                   	retf   
+
+
    f94f5:	55                   	push   bp
    f94f6:	8b ec                	mov    bp,sp
    f94f8:	b0 00                	mov    al,0x0
@@ -40147,6 +40847,8 @@ Disassembly of section .data:
    f953f:	9a 1a 00 96 f8       	call   0xf896:0x1a
    f9544:	5d                   	pop    bp
    f9545:	cb                   	retf   
+
+
    f9546:	55                   	push   bp
    f9547:	8b ec                	mov    bp,sp
    f9549:	83 ec 04             	sub    sp,0x4
@@ -40188,6 +40890,8 @@ Disassembly of section .data:
    f959f:	8b e5                	mov    sp,bp
    f95a1:	5d                   	pop    bp
    f95a2:	cb                   	retf   
+
+
    f95a3:	55                   	push   bp
    f95a4:	8b ec                	mov    bp,sp
    f95a6:	83 ec 08             	sub    sp,0x8
@@ -40278,6 +40982,8 @@ Disassembly of section .data:
    f9676:	8b e5                	mov    sp,bp
    f9678:	5d                   	pop    bp
    f9679:	cb                   	retf   
+
+
    f967a:	55                   	push   bp
    f967b:	8b ec                	mov    bp,sp
    f967d:	83 ec 02             	sub    sp,0x2
@@ -40332,6 +41038,8 @@ Disassembly of section .data:
    f96ee:	8b e5                	mov    sp,bp
    f96f0:	5d                   	pop    bp
    f96f1:	cb                   	retf   
+
+
    f96f2:	55                   	push   bp
    f96f3:	8b ec                	mov    bp,sp
    f96f5:	83 ec 04             	sub    sp,0x4
@@ -40390,6 +41098,8 @@ Disassembly of section .data:
    f9774:	8b e5                	mov    sp,bp
    f9776:	5d                   	pop    bp
    f9777:	cb                   	retf   
+
+
    f9778:	55                   	push   bp
    f9779:	8b ec                	mov    bp,sp
    f977b:	b0 02                	mov    al,0x2
@@ -40400,6 +41110,8 @@ Disassembly of section .data:
    f9786:	eb 00                	jmp    0xf9788
    f9788:	5d                   	pop    bp
    f9789:	cb                   	retf   
+
+
    f978a:	55                   	push   bp
    f978b:	8b ec                	mov    bp,sp
    f978d:	b0 02                	mov    al,0x2
@@ -40458,6 +41170,8 @@ Disassembly of section .data:
    f97fd:	5b                   	pop    bx
    f97fe:	58                   	pop    ax
    f97ff:	cf                   	iret   
+
+
    f9800:	55                   	push   bp
    f9801:	8b ec                	mov    bp,sp
    f9803:	b0 3f                	mov    al,0x3f
@@ -45487,6 +46201,8 @@ Disassembly of section .data:
    fc444:	8b e5                	mov    sp,bp
    fc446:	5d                   	pop    bp
    fc447:	cb                   	retf   
+
+
    fc448:	55                   	push   bp
    fc449:	8b ec                	mov    bp,sp
    fc44b:	83 ec 0e             	sub    sp,0xe
@@ -45562,6 +46278,8 @@ Disassembly of section .data:
    fc508:	8b e5                	mov    sp,bp
    fc50a:	5d                   	pop    bp
    fc50b:	cb                   	retf   
+
+
    fc50c:	55                   	push   bp
    fc50d:	8b ec                	mov    bp,sp
    fc50f:	83 ec 10             	sub    sp,0x10
@@ -45667,6 +46385,8 @@ Disassembly of section .data:
    fc60f:	8b e5                	mov    sp,bp
    fc611:	5d                   	pop    bp
    fc612:	cb                   	retf   
+
+
    fc613:	55                   	push   bp
    fc614:	8b ec                	mov    bp,sp
    fc616:	83 ec 04             	sub    sp,0x4
@@ -45716,6 +46436,8 @@ Disassembly of section .data:
    fc689:	8b e5                	mov    sp,bp
    fc68b:	5d                   	pop    bp
    fc68c:	cb                   	retf   
+
+
    fc68d:	55                   	push   bp
    fc68e:	8b ec                	mov    bp,sp
    fc690:	83 ec 1a             	sub    sp,0x1a
@@ -45757,6 +46479,8 @@ Disassembly of section .data:
    fc6f2:	8b e5                	mov    sp,bp
    fc6f4:	5d                   	pop    bp
    fc6f5:	cb                   	retf   
+
+
    fc6f6:	55                   	push   bp
    fc6f7:	8b ec                	mov    bp,sp
    fc6f9:	8a 46 08             	mov    al,BYTE PTR [bp+0x8]
@@ -45778,6 +46502,8 @@ Disassembly of section .data:
    fc721:	9a 22 00 eb fb       	call   0xfbeb:0x22
    fc726:	5d                   	pop    bp
    fc727:	cb                   	retf   
+
+
    fc728:	55                   	push   bp
    fc729:	8b ec                	mov    bp,sp
    fc72b:	83 ec 04             	sub    sp,0x4
@@ -45974,6 +46700,8 @@ Disassembly of section .data:
    fc90b:	8b e5                	mov    sp,bp
    fc90d:	5d                   	pop    bp
    fc90e:	cb                   	retf   
+
+
    fc90f:	55                   	push   bp
    fc910:	8b ec                	mov    bp,sp
    fc912:	83 ec 16             	sub    sp,0x16
@@ -46070,6 +46798,8 @@ Disassembly of section .data:
    fc9f9:	8b e5                	mov    sp,bp
    fc9fb:	5d                   	pop    bp
    fc9fc:	cb                   	retf   
+
+
    fc9fd:	55                   	push   bp
    fc9fe:	8b ec                	mov    bp,sp
    fca00:	b0 00                	mov    al,0x0
@@ -46109,6 +46839,8 @@ Disassembly of section .data:
    fca46:	9a 22 00 eb fb       	call   0xfbeb:0x22
    fca4b:	5d                   	pop    bp
    fca4c:	cb                   	retf   
+
+
    fca4d:	55                   	push   bp
    fca4e:	8b ec                	mov    bp,sp
    fca50:	b0 00                	mov    al,0x0
@@ -46148,6 +46880,8 @@ Disassembly of section .data:
    fca97:	9a 22 00 eb fb       	call   0xfbeb:0x22
    fca9c:	5d                   	pop    bp
    fca9d:	cb                   	retf   
+
+
    fca9e:	55                   	push   bp
    fca9f:	8b ec                	mov    bp,sp
    fcaa1:	83 ec 04             	sub    sp,0x4
@@ -46189,6 +46923,8 @@ Disassembly of section .data:
    fcaf7:	8b e5                	mov    sp,bp
    fcaf9:	5d                   	pop    bp
    fcafa:	cb                   	retf   
+
+
    fcafb:	55                   	push   bp
    fcafc:	8b ec                	mov    bp,sp
    fcafe:	83 ec 08             	sub    sp,0x8
@@ -46279,6 +47015,8 @@ Disassembly of section .data:
    fcbce:	8b e5                	mov    sp,bp
    fcbd0:	5d                   	pop    bp
    fcbd1:	cb                   	retf   
+
+
    fcbd2:	55                   	push   bp
    fcbd3:	8b ec                	mov    bp,sp
    fcbd5:	83 ec 02             	sub    sp,0x2
@@ -46333,6 +47071,8 @@ Disassembly of section .data:
    fcc46:	8b e5                	mov    sp,bp
    fcc48:	5d                   	pop    bp
    fcc49:	cb                   	retf   
+
+
    fcc4a:	55                   	push   bp
    fcc4b:	8b ec                	mov    bp,sp
    fcc4d:	83 ec 04             	sub    sp,0x4
@@ -46391,6 +47131,8 @@ Disassembly of section .data:
    fcccc:	8b e5                	mov    sp,bp
    fccce:	5d                   	pop    bp
    fcccf:	cb                   	retf   
+
+
    fccd0:	55                   	push   bp
    fccd1:	8b ec                	mov    bp,sp
    fccd3:	b0 02                	mov    al,0x2
@@ -46401,6 +47143,8 @@ Disassembly of section .data:
    fccde:	eb 00                	jmp    0xfcce0
    fcce0:	5d                   	pop    bp
    fcce1:	cb                   	retf   
+
+
    fcce2:	55                   	push   bp
    fcce3:	8b ec                	mov    bp,sp
    fcce5:	b0 02                	mov    al,0x2
@@ -46459,6 +47203,8 @@ Disassembly of section .data:
    fcd55:	5b                   	pop    bx
    fcd56:	58                   	pop    ax
    fcd57:	cf                   	iret   
+
+
    fcd58:	55                   	push   bp
    fcd59:	8b ec                	mov    bp,sp
    fcd5b:	b0 3f                	mov    al,0x3f
