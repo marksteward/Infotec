@@ -4,7 +4,7 @@ infotec.bin:     file format binary
 
 Disassembly of section .data:
 
-00000000 <.data>:
+.code
        0:	fa                   	cli    
        1:	fc                   	cld    
        2:	b8 40 00             	mov    ax,0x40
@@ -41222,6 +41222,9 @@ Disassembly of section .data:
    19862:	eb 00                	jmp    0x19864
    19864:	5d                   	pop    bp
    19865:	cb                   	retf   
+
+
+.data
    19866:	8b ec                	mov    bp,sp
    19868:	80 3e 01 2a 01       	cmp    BYTE PTR ds:0x2a01,0x1
    1986d:	75 07                	jne    0x19876
@@ -46198,6 +46201,9 @@ Disassembly of section .data:
    1c43a:	9a 22 00 eb fb       	call   0xfbeb:0x22
    1c43f:	8b 46 f4             	mov    ax,WORD PTR [bp-0xc]
    1c442:	eb 00                	jmp    0x1c444
+
+
+.code
    1c444:	8b e5                	mov    sp,bp
    1c446:	5d                   	pop    bp
    1c447:	cb                   	retf   
@@ -47255,6 +47261,9 @@ Disassembly of section .data:
    1cdba:	eb 00                	jmp    0x1cdbc
    1cdbc:	5d                   	pop    bp
    1cdbd:	cb                   	retf   
+
+
+.data
    1cdbe:	44                   	inc    sp
    1cdbf:	fb                   	sti    
 	...
