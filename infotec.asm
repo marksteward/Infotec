@@ -27,7 +27,7 @@ __init:
    e0025:	b8 40 00             	mov    ax,0x40
    e0028:	8e d8                	mov    ds,ax
    e002a:	8e c0                	mov    es,ax
-; array of 6-byte initfuncs at f988:0
+; array of 6-byte initfuncs at f9880
    e002c:	be 00 00             	mov    si,0x0
    e002f:	bf 06 00             	mov    di,0x6
    e0032:	b8 88 f9             	mov    ax,0xf988
@@ -55,7 +55,7 @@ __init:
    e0059:	57                   	push   di
    e005a:	26 80 3f 00          	cmp    BYTE PTR es:[bx],0x0
    e005e:	74 06                	je     0xe0066
-;     call far if f[0] is set
+;     call far if initfunc[0] is set
    e0060:	26 ff 5f 02          	call   DWORD PTR es:[bx+0x2]
    e0064:	eb 04                	jmp    0xe006a
    e0066:	26 ff 57 02          	call   WORD PTR es:[bx+0x2]
@@ -6911,11 +6911,11 @@ output_something11:
    e4211:	e9 9f 00             	jmp    0xe42b3
    e4214:	8d 46 f0             	lea    ax,[bp-0x10]
    e4217:	50                   	push   ax
-   e4218:	9a b6 02 9d f8       	call   0xf89d:0x2b6
+   e4218:	9a b6 02 9d f8       	call   0xf89d:0x2b6 ; read_something
    e421d:	59                   	pop    cx
    e421e:	8d 46 ea             	lea    ax,[bp-0x16]
    e4221:	50                   	push   ax
-   e4222:	9a 20 05 9d f8       	call   0xf89d:0x520
+   e4222:	9a 20 05 9d f8       	call   0xf89d:0x520 ; read_something2
    e4227:	59                   	pop    cx
    e4228:	b8 02 00             	mov    ax,0x2
    e422b:	50                   	push   ax
@@ -7184,13 +7184,13 @@ output_something11:
    e4513:	83 ec 08             	sub    sp,0x8
    e4516:	c7 46 fe 00 00       	mov    WORD PTR [bp-0x2],0x0
    e451b:	ff 76 06             	push   WORD PTR [bp+0x6]
-   e451e:	9a 69 00 9d f8       	call   0xf89d:0x69
+   e451e:	9a 69 00 9d f8       	call   0xf89d:0x69 ; test_something
    e4523:	59                   	pop    cx
    e4524:	3d fe ff             	cmp    ax,0xfffe
    e4527:	74 03                	je     0xe452c
    e4529:	e9 ec 00             	jmp    0xe4618
    e452c:	ff 76 0a             	push   WORD PTR [bp+0xa]
-   e452f:	9a 69 00 9d f8       	call   0xf89d:0x69
+   e452f:	9a 69 00 9d f8       	call   0xf89d:0x69 ; test_something
    e4534:	59                   	pop    cx
    e4535:	3d fe ff             	cmp    ax,0xfffe
    e4538:	74 03                	je     0xe453d
@@ -7350,11 +7350,11 @@ output_something11:
    e46b4:	83 ec 0a             	sub    sp,0xa
    e46b7:	8d 46 fc             	lea    ax,[bp-0x4]
    e46ba:	50                   	push   ax
-   e46bb:	9a b6 02 9d f8       	call   0xf89d:0x2b6
+   e46bb:	9a b6 02 9d f8       	call   0xf89d:0x2b6 ; read_something
    e46c0:	59                   	pop    cx
    e46c1:	8d 46 f6             	lea    ax,[bp-0xa]
    e46c4:	50                   	push   ax
-   e46c5:	9a 20 05 9d f8       	call   0xf89d:0x520
+   e46c5:	9a 20 05 9d f8       	call   0xf89d:0x520 ; read_something2
    e46ca:	59                   	pop    cx
    e46cb:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
    e46ce:	8b 56 fc             	mov    dx,WORD PTR [bp-0x4]
@@ -7437,7 +7437,7 @@ output_something11:
    e478d:	75 17                	jne    0xe47a6
    e478f:	8d 46 fa             	lea    ax,[bp-0x6]
    e4792:	50                   	push   ax
-   e4793:	9a 20 05 9d f8       	call   0xf89d:0x520
+   e4793:	9a 20 05 9d f8       	call   0xf89d:0x520 ; read_something2
    e4798:	59                   	pop    cx
    e4799:	8d 46 fa             	lea    ax,[bp-0x6]
    e479c:	50                   	push   ax
@@ -7461,7 +7461,7 @@ output_something11:
    e47be:	e9 9b 00             	jmp    0xe485c
    e47c1:	b8 fa 29             	mov    ax,0x29fa
    e47c4:	50                   	push   ax
-   e47c5:	9a 20 05 9d f8       	call   0xf89d:0x520
+   e47c5:	9a 20 05 9d f8       	call   0xf89d:0x520 ; read_something2
    e47ca:	59                   	pop    cx
    e47cb:	a0 fe 29             	mov    al,ds:0x29fe
    e47ce:	b4 00                	mov    ah,0x0
@@ -7530,7 +7530,7 @@ init_something2:
    e4864:	56                   	push   si
    e4865:	ff 06 13 28          	inc    WORD PTR ds:0x2813
    e4869:	ff 76 06             	push   WORD PTR [bp+0x6]
-   e486c:	9a b6 02 9d f8       	call   0xf89d:0x2b6
+   e486c:	9a b6 02 9d f8       	call   0xf89d:0x2b6 ; read_something
    e4871:	59                   	pop    cx
    e4872:	ff 06 ff 2d          	inc    WORD PTR ds:0x2dff
    e4876:	a1 ff 2d             	mov    ax,ds:0x2dff
@@ -7757,11 +7757,11 @@ init_something3:
    e4af5:	74 f7                	je     0xe4aee
    e4af7:	8d 46 f8             	lea    ax,[bp-0x8]
    e4afa:	50                   	push   ax
-   e4afb:	9a b6 02 9d f8       	call   0xf89d:0x2b6
+   e4afb:	9a b6 02 9d f8       	call   0xf89d:0x2b6 ; read_something
    e4b00:	59                   	pop    cx
    e4b01:	8d 46 f2             	lea    ax,[bp-0xe]
    e4b04:	50                   	push   ax
-   e4b05:	9a 20 05 9d f8       	call   0xf89d:0x520
+   e4b05:	9a 20 05 9d f8       	call   0xf89d:0x520 ; read_something2
    e4b0a:	59                   	pop    cx
    e4b0b:	c7 06 29 2e 00 00    	mov    WORD PTR ds:0x2e29,0x0
    e4b11:	8b 46 f4             	mov    ax,WORD PTR [bp-0xc]
@@ -15943,7 +15943,7 @@ init_something3:
    e9e21:	c6 87 4a 45 00       	mov    BYTE PTR [bx+0x454a],0x0
    e9e26:	8d 46 fc             	lea    ax,[bp-0x4]
    e9e29:	50                   	push   ax
-   e9e2a:	9a b6 02 9d f8       	call   0xf89d:0x2b6
+   e9e2a:	9a b6 02 9d f8       	call   0xf89d:0x2b6 ; read_something
    e9e2f:	59                   	pop    cx
    e9e30:	80 7e fe 00          	cmp    BYTE PTR [bp-0x2],0x0
    e9e34:	75 30                	jne    0xe9e66
@@ -24889,11 +24889,11 @@ interesting:
    ef90f:	c7 46 ee 00 00       	mov    WORD PTR [bp-0x12],0x0
    ef914:	8d 46 fa             	lea    ax,[bp-0x6]
    ef917:	50                   	push   ax
-   ef918:	9a 20 05 9d f8       	call   0xf89d:0x520
+   ef918:	9a 20 05 9d f8       	call   0xf89d:0x520 ; read_something2
    ef91d:	59                   	pop    cx
    ef91e:	8d 46 f6             	lea    ax,[bp-0xa]
    ef921:	50                   	push   ax
-   ef922:	9a b6 02 9d f8       	call   0xf89d:0x2b6
+   ef922:	9a b6 02 9d f8       	call   0xf89d:0x2b6 ; read_something
    ef927:	59                   	pop    cx
    ef928:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    ef92b:	b4 00                	mov    ah,0x0
@@ -26090,11 +26090,11 @@ interesting:
    f054b:	83 ec 0a             	sub    sp,0xa
    f054e:	8d 46 fc             	lea    ax,[bp-0x4]
    f0551:	50                   	push   ax
-   f0552:	9a b6 02 9d f8       	call   0xf89d:0x2b6
+   f0552:	9a b6 02 9d f8       	call   0xf89d:0x2b6 ; read_something
    f0557:	59                   	pop    cx
    f0558:	8d 46 f6             	lea    ax,[bp-0xa]
    f055b:	50                   	push   ax
-   f055c:	9a 20 05 9d f8       	call   0xf89d:0x520
+   f055c:	9a 20 05 9d f8       	call   0xf89d:0x520 ; read_something2
    f0561:	59                   	pop    cx
    f0562:	8d 46 f6             	lea    ax,[bp-0xa]
    f0565:	50                   	push   ax
@@ -26504,6 +26504,7 @@ init_something4:
    f09da:	cb                   	retf   
 
 
+init_something5:
    f09db:	55                   	push   bp
    f09dc:	8b ec                	mov    bp,sp
    f09de:	83 ec 02             	sub    sp,0x2
@@ -30038,7 +30039,7 @@ compare_lizz:
    f2d78:	72 33                	jb     0xf2dad
    f2d7a:	8d 46 fa             	lea    ax,[bp-0x6]
    f2d7d:	50                   	push   ax
-   f2d7e:	9a b6 02 9d f8       	call   0xf89d:0x2b6
+   f2d7e:	9a b6 02 9d f8       	call   0xf89d:0x2b6 ; read_something
    f2d83:	59                   	pop    cx
    f2d84:	a0 4d 64             	mov    al,ds:0x644d
    f2d87:	88 46 fa             	mov    BYTE PTR [bp-0x6],al
@@ -30068,7 +30069,7 @@ compare_lizz:
    f2dc6:	72 47                	jb     0xf2e0f
    f2dc8:	8d 46 f8             	lea    ax,[bp-0x8]
    f2dcb:	50                   	push   ax
-   f2dcc:	9a 20 05 9d f8       	call   0xf89d:0x520
+   f2dcc:	9a 20 05 9d f8       	call   0xf89d:0x520 ; read_something2
    f2dd1:	59                   	pop    cx
    f2dd2:	a0 4d 64             	mov    al,ds:0x644d
    f2dd5:	88 46 f8             	mov    BYTE PTR [bp-0x8],al
@@ -31432,7 +31433,7 @@ compare_lizz:
    f395b:	83 ec 04             	sub    sp,0x4
    f395e:	8d 46 fc             	lea    ax,[bp-0x4]
    f3961:	50                   	push   ax
-   f3962:	9a b6 02 9d f8       	call   0xf89d:0x2b6
+   f3962:	9a b6 02 9d f8       	call   0xf89d:0x2b6 ; read_something
    f3967:	59                   	pop    cx
    f3968:	c6 06 3f 63 03       	mov    BYTE PTR ds:0x633f,0x3
    f396d:	8a 46 fc             	mov    al,BYTE PTR [bp-0x4]
@@ -31453,7 +31454,7 @@ compare_lizz:
    f398b:	83 ec 06             	sub    sp,0x6
    f398e:	8d 46 fa             	lea    ax,[bp-0x6]
    f3991:	50                   	push   ax
-   f3992:	9a 20 05 9d f8       	call   0xf89d:0x520
+   f3992:	9a 20 05 9d f8       	call   0xf89d:0x520 ; read_something2
    f3997:	59                   	pop    cx
    f3998:	c6 06 3f 63 03       	mov    BYTE PTR ds:0x633f,0x3
    f399d:	8a 46 fa             	mov    al,BYTE PTR [bp-0x6]
@@ -31477,7 +31478,7 @@ compare_lizz:
    f39c3:	83 ec 06             	sub    sp,0x6
    f39c6:	8d 46 fa             	lea    ax,[bp-0x6]
    f39c9:	50                   	push   ax
-   f39ca:	9a 20 05 9d f8       	call   0xf89d:0x520
+   f39ca:	9a 20 05 9d f8       	call   0xf89d:0x520 ; read_something2
    f39cf:	59                   	pop    cx
    f39d0:	c6 06 3f 63 02       	mov    BYTE PTR ds:0x633f,0x2
    f39d5:	c6 06 3a 63 04       	mov    BYTE PTR ds:0x633a,0x4
@@ -31610,7 +31611,7 @@ compare_lizz:
    f3b00:	c6 46 fc 00          	mov    BYTE PTR [bp-0x4],0x0
    f3b04:	8d 46 fa             	lea    ax,[bp-0x6]
    f3b07:	50                   	push   ax
-   f3b08:	9a 69 00 9d f8       	call   0xf89d:0x69
+   f3b08:	9a 69 00 9d f8       	call   0xf89d:0x69 ; test_something
    f3b0d:	59                   	pop    cx
    f3b0e:	89 46 fe             	mov    WORD PTR [bp-0x2],ax
    f3b11:	3d fe ff             	cmp    ax,0xfffe
@@ -31721,11 +31722,11 @@ compare_lizz:
    f3c19:	7d 8f                	jge    0xf3baa
    f3c1b:	8d 46 f8             	lea    ax,[bp-0x8]
    f3c1e:	50                   	push   ax
-   f3c1f:	9a 20 05 9d f8       	call   0xf89d:0x520
+   f3c1f:	9a 20 05 9d f8       	call   0xf89d:0x520 ; read_something2
    f3c24:	59                   	pop    cx
    f3c25:	8d 46 f4             	lea    ax,[bp-0xc]
    f3c28:	50                   	push   ax
-   f3c29:	9a b6 02 9d f8       	call   0xf89d:0x2b6
+   f3c29:	9a b6 02 9d f8       	call   0xf89d:0x2b6 ; read_something
    f3c2e:	59                   	pop    cx
    f3c2f:	8d 46 f8             	lea    ax,[bp-0x8]
    f3c32:	50                   	push   ax
@@ -32581,7 +32582,7 @@ compare_lizz:
    f4489:	81 06 3f 02 6c 07    	add    WORD PTR ds:0x23f,0x76c
    f448f:	b8 42 02             	mov    ax,0x242
    f4492:	50                   	push   ax
-   f4493:	9a 69 00 9d f8       	call   0xf89d:0x69
+   f4493:	9a 69 00 9d f8       	call   0xf89d:0x69 ; test_something
    f4498:	59                   	pop    cx
    f4499:	3d fe ff             	cmp    ax,0xfffe
    f449c:	75 3d                	jne    0xf44db
@@ -34312,38 +34313,38 @@ main:
    f5817:	55                   	push   bp
    f5818:	8b ec                	mov    bp,sp
    f581a:	83 ec 14             	sub    sp,0x14
-   f581d:	a1 fe 25             	mov    ax,ds:0x25fe
+   f581d:	a1 fe 25             	mov    ax,ds:0x25fe ; fbe9e
    f5820:	8b 16 fc 25          	mov    dx,WORD PTR ds:0x25fc
    f5824:	89 46 fa             	mov    WORD PTR [bp-0x6],ax
    f5827:	89 56 f8             	mov    WORD PTR [bp-0x8],dx
    f582a:	8d 46 ec             	lea    ax,[bp-0x14]
    f582d:	16                   	push   ss
    f582e:	50                   	push   ax
-   f582f:	b8 00 26             	mov    ax,0x2600
+   f582f:	b8 00 26             	mov    ax,0x2600 ; fbea0
    f5832:	1e                   	push   ds
    f5833:	50                   	push   ax
    f5834:	b9 05 00             	mov    cx,0x5
    f5837:	9a cd 00 00 e0       	call   0xe000:0xcd ; memcpy
-   f583c:	9a 8b 05 45 f0       	call   0xf045:0x58b
+   f583c:	9a 8b 05 45 f0       	call   0xf045:0x58b ; init_something5
    f5841:	3d fe ff             	cmp    ax,0xfffe
    f5844:	75 68                	jne    0xf58ae
-   f5846:	9a 2b 08 09 f2       	call   0xf209:0x82b
-   f584b:	9a b7 14 1f f4       	call   0xf41f:0x14b7
+   f5846:	9a 2b 08 09 f2       	call   0xf209:0x82b ; f28bb
+   f584b:	9a b7 14 1f f4       	call   0xf41f:0x14b7 ; f56a7
    f5850:	b8 1f f4             	mov    ax,0xf41f
    f5853:	50                   	push   ax
-   f5854:	b8 55 12             	mov    ax,0x1255
+   f5854:	b8 55 12             	mov    ax,0x1255 ; f5445
    f5857:	50                   	push   ax
    f5858:	b0 01                	mov    al,0x1
    f585a:	50                   	push   ax
-   f585b:	9a 60 01 b2 f7       	call   0xf7b2:0x160
+   f585b:	9a 60 01 b2 f7       	call   0xf7b2:0x160 ; f7c80
    f5860:	83 c4 06             	add    sp,0x6
    f5863:	8d 46 fc             	lea    ax,[bp-0x4]
    f5866:	50                   	push   ax
-   f5867:	9a b6 02 9d f8       	call   0xf89d:0x2b6
+   f5867:	9a b6 02 9d f8       	call   0xf89d:0x2b6 ; read_something
    f586c:	59                   	pop    cx
    f586d:	8d 46 fc             	lea    ax,[bp-0x4]
    f5870:	50                   	push   ax
-   f5871:	9a 69 00 9d f8       	call   0xf89d:0x69
+   f5871:	9a 69 00 9d f8       	call   0xf89d:0x69 ; test_something
    f5876:	59                   	pop    cx
    f5877:	3d ff ff             	cmp    ax,0xffff
    f587a:	75 0a                	jne    0xf5886
@@ -34353,7 +34354,7 @@ main:
    f5885:	59                   	pop    cx
    f5886:	8d 46 f2             	lea    ax,[bp-0xe]
    f5889:	50                   	push   ax
-   f588a:	9a 20 05 9d f8       	call   0xf89d:0x520
+   f588a:	9a 20 05 9d f8       	call   0xf89d:0x520 ; read_something2
    f588f:	59                   	pop    cx
    f5890:	8d 46 f2             	lea    ax,[bp-0xe]
    f5893:	50                   	push   ax
@@ -34365,6 +34366,7 @@ main:
    f58a2:	50                   	push   ax
    f58a3:	9a e4 05 9d f8       	call   0xf89d:0x5e4
    f58a8:	59                   	pop    cx
+; main_loop?
    f58a9:	9a 94 02 b2 f7       	call   0xf7b2:0x294
    f58ae:	8b e5                	mov    sp,bp
    f58b0:	5d                   	pop    bp
@@ -39213,6 +39215,7 @@ return_flash:
    f8a38:	cf                   	iret   
 
 
+test_something:
    f8a39:	55                   	push   bp
    f8a3a:	8b ec                	mov    bp,sp
    f8a3c:	8b 5e 06             	mov    bx,WORD PTR [bp+0x6]
@@ -39236,10 +39239,10 @@ return_flash:
    f8a64:	55                   	push   bp
    f8a65:	8b ec                	mov    bp,sp
    f8a67:	8b 5e 06             	mov    bx,WORD PTR [bp+0x6]
-   f8a6a:	81 7f 02 bc 07       	cmp    WORD PTR [bx+0x2],0x7bc
+   f8a6a:	81 7f 02 bc 07       	cmp    WORD PTR [bx+0x2],0x7bc ; 1980
    f8a6f:	72 3d                	jb     0xf8aae
    f8a71:	8b 5e 06             	mov    bx,WORD PTR [bp+0x6]
-   f8a74:	81 7f 02 98 08       	cmp    WORD PTR [bx+0x2],0x898
+   f8a74:	81 7f 02 98 08       	cmp    WORD PTR [bx+0x2],0x898 ; 2200
    f8a79:	73 33                	jae    0xf8aae
    f8a7b:	8b 5e 06             	mov    bx,WORD PTR [bp+0x6]
    f8a7e:	80 7f 01 0c          	cmp    BYTE PTR [bx+0x1],0xc
@@ -39445,18 +39448,18 @@ return_flash:
    f8c3c:	50                   	push   ax
    f8c3d:	90                   	nop
    f8c3e:	0e                   	push   cs
-   f8c3f:	e8 44 00             	call   0xf8c86
+   f8c3f:	e8 44 00             	call   0xf8c86 ; read_something
    f8c42:	59                   	pop    cx
    f8c43:	8d 46 ec             	lea    ax,[bp-0x14]
    f8c46:	50                   	push   ax
    f8c47:	90                   	nop
    f8c48:	0e                   	push   cs
-   f8c49:	e8 a4 02             	call   0xf8ef0
+   f8c49:	e8 a4 02             	call   0xf8ef0 ; read_something2
    f8c4c:	59                   	pop    cx
    f8c4d:	8d 46 f2             	lea    ax,[bp-0xe]
    f8c50:	50                   	push   ax
    f8c51:	0e                   	push   cs
-   f8c52:	e8 e4 fd             	call   0xf8a39
+   f8c52:	e8 e4 fd             	call   0xf8a39 ; test_something
    f8c55:	59                   	pop    cx
    f8c56:	3d ff ff             	cmp    ax,0xffff
    f8c59:	75 0a                	jne    0xf8c65
@@ -39486,6 +39489,7 @@ return_flash:
    f8c85:	cb                   	retf   
 
 
+read_something:
    f8c86:	55                   	push   bp
    f8c87:	8b ec                	mov    bp,sp
    f8c89:	83 ec 0c             	sub    sp,0xc
@@ -39563,7 +39567,7 @@ return_flash:
    f8d3b:	83 ec 0c             	sub    sp,0xc
    f8d3e:	ff 76 06             	push   WORD PTR [bp+0x6]
    f8d41:	0e                   	push   cs
-   f8d42:	e8 f4 fc             	call   0xf8a39
+   f8d42:	e8 f4 fc             	call   0xf8a39 ; test_something
    f8d45:	59                   	pop    cx
    f8d46:	89 46 f4             	mov    WORD PTR [bp-0xc],ax
    f8d49:	3d fe ff             	cmp    ax,0xfffe
@@ -39673,7 +39677,7 @@ return_flash:
    f8e38:	83 ec 0c             	sub    sp,0xc
    f8e3b:	ff 76 06             	push   WORD PTR [bp+0x6]
    f8e3e:	0e                   	push   cs
-   f8e3f:	e8 f7 fb             	call   0xf8a39
+   f8e3f:	e8 f7 fb             	call   0xf8a39 ; test_something
    f8e42:	59                   	pop    cx
    f8e43:	89 46 f4             	mov    WORD PTR [bp-0xc],ax
    f8e46:	3d fe ff             	cmp    ax,0xfffe
@@ -39747,6 +39751,7 @@ return_flash:
    f8eef:	cb                   	retf   
 
 
+read_something2:
    f8ef0:	55                   	push   bp
    f8ef1:	8b ec                	mov    bp,sp
    f8ef3:	83 ec 0e             	sub    sp,0xe
@@ -39835,7 +39840,7 @@ return_flash:
    f8fc7:	59                   	pop    cx
    f8fc8:	89 46 f2             	mov    WORD PTR [bp-0xe],ax
    f8fcb:	8b 5e 06             	mov    bx,WORD PTR [bp+0x6]
-   f8fce:	81 7f 02 d0 07       	cmp    WORD PTR [bx+0x2],0x7d0
+   f8fce:	81 7f 02 d0 07       	cmp    WORD PTR [bx+0x2],0x7d0 ; 2000
    f8fd3:	72 0a                	jb     0xf8fdf
    f8fd5:	8b 5e 06             	mov    bx,WORD PTR [bp+0x6]
    f8fd8:	8a 47 02             	mov    al,BYTE PTR [bx+0x2]
