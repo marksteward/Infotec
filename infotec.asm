@@ -5,11 +5,14 @@ infotec.bin:     file format binary
 Disassembly of section .data:
 
 .code
+__init:
    e0000:	fa                   	cli    
    e0001:	fc                   	cld    
+; ss:sp = 40:9ca0
    e0002:	b8 40 00             	mov    ax,0x40
    e0005:	8e d0                	mov    ss,ax
    e0007:	bc a0 9c             	mov    sp,0x9ca0
+; copy data segment to RAM at 40:0
    e000a:	b8 40 00             	mov    ax,0x40
    e000d:	8e c0                	mov    es,ax
    e000f:	b8 8a f9             	mov    ax,0xf98a
@@ -24,6 +27,7 @@ Disassembly of section .data:
    e0025:	b8 40 00             	mov    ax,0x40
    e0028:	8e d8                	mov    ds,ax
    e002a:	8e c0                	mov    es,ax
+; array of 6-byte initfuncs at f988:0
    e002c:	be 00 00             	mov    si,0x0
    e002f:	bf 06 00             	mov    di,0x6
    e0032:	b8 88 f9             	mov    ax,0xf988
@@ -37,8 +41,10 @@ Disassembly of section .data:
    e0044:	e3 36                	jcxz   0xe007c
    e0046:	2a e4                	sub    ah,ah
    e0048:	8b de                	mov    bx,si
+; for each initfunc {
    e004a:	3b df                	cmp    bx,di
    e004c:	73 2a                	jae    0xe0078
+;   if (initfunc[1] == 0) {
    e004e:	26 38 67 01          	cmp    BYTE PTR es:[bx+0x1],ah
    e0052:	75 1f                	jne    0xe0073
    e0054:	06                   	push   es
@@ -49,6 +55,7 @@ Disassembly of section .data:
    e0059:	57                   	push   di
    e005a:	26 80 3f 00          	cmp    BYTE PTR es:[bx],0x0
    e005e:	74 06                	je     0xe0066
+;     call far if f[0] is set
    e0060:	26 ff 5f 02          	call   DWORD PTR es:[bx+0x2]
    e0064:	eb 04                	jmp    0xe006a
    e0066:	26 ff 57 02          	call   WORD PTR es:[bx+0x2]
@@ -62,11 +69,15 @@ Disassembly of section .data:
    e0071:	74 09                	je     0xe007c
    e0073:	83 c3 06             	add    bx,0x6
    e0076:	eb d2                	jmp    0xe004a
+;   }
    e0078:	fe c4                	inc    ah
    e007a:	eb cc                	jmp    0xe0048
+; }
    e007c:	fb                   	sti    
    e007d:	33 ed                	xor    bp,bp
+; call main
    e007f:	9a b7 00 76 f5       	call   0xf576:0xb7
+; reset
    e0084:	e9 79 ff             	jmp    0xe0000
 
 
@@ -34296,6 +34307,7 @@ call_table:
    f5816:	cb                   	retf   
 
 
+main:
    f5817:	55                   	push   bp
    f5818:	8b ec                	mov    bp,sp
    f581a:	83 ec 14             	sub    sp,0x14
