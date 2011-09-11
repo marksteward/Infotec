@@ -8,11 +8,11 @@ Disassembly of section .data:
 __init:
    e0000:	fa                   	cli    
    e0001:	fc                   	cld    
-; ss:sp = 40:9ca0
+; ss:sp = 40:9ca0 (a0a0)
    e0002:	b8 40 00             	mov    ax,0x40
    e0005:	8e d0                	mov    ss,ax
    e0007:	bc a0 9c             	mov    sp,0x9ca0
-; copy data segment to RAM at 40:0
+; copy data segment to RAM at 40:0 (avoid vector area)
    e000a:	b8 40 00             	mov    ax,0x40
    e000d:	8e c0                	mov    es,ax
    e000f:	b8 8a f9             	mov    ax,0xf98a
