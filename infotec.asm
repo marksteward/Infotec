@@ -2216,7 +2216,9 @@ init_something:
    e1233:	8e dd                	mov    ds,bp
    e1235:	8b ec                	mov    bp,sp
    e1237:	fb                   	sti    
-   e1238:	0f 92 5d 5f          	setb   BYTE PTR [di+0x5f]
+   e1238:	0f 92                	fint   
+   e123a:	5d                   	pop    bp
+   e123b:	5f                   	pop    di
    e123c:	5e                   	pop    si
    e123d:	1f                   	pop    ds
    e123e:	07                   	pop    es
@@ -2293,11 +2295,10 @@ init_something:
    e12ca:	8b ec                	mov    bp,sp
    e12cc:	83 ec 02             	sub    sp,0x2
    e12cf:	fb                   	sti    
-   e12d0:	0f 92 c4             	setb   ah
-   e12d3:	1e                   	push   ds
-   e12d4:	94                   	xchg   sp,ax
-   e12d5:	69 26 8a 07 88 46    	imul   sp,WORD PTR ds:0x78a,0x4688
-   e12db:	ff                   	(bad)  
+   e12d0:	0f 92                	fint   
+   e12d2:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994
+   e12d6:	26 8a 07             	mov    al,BYTE PTR es:[bx]
+   e12d9:	88 46 ff             	mov    BYTE PTR [bp-0x1],al
    e12dc:	ff 06 13 28          	inc    WORD PTR ds:0x2813
    e12e0:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994
    e12e4:	26 80 67 0d 7f       	and    BYTE PTR es:[bx+0xd],0x7f
@@ -2331,11 +2332,10 @@ init_something:
    e130f:	8b ec                	mov    bp,sp
    e1311:	83 ec 02             	sub    sp,0x2
    e1314:	fb                   	sti    
-   e1315:	0f 92 c4             	setb   ah
-   e1318:	1e                   	push   ds
-   e1319:	90                   	nop
-   e131a:	69 26 8a 07 88 46    	imul   sp,WORD PTR ds:0x78a,0x4688
-   e1320:	ff                   	(bad)  
+   e1315:	0f 92                	fint   
+   e1317:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990
+   e131b:	26 8a 07             	mov    al,BYTE PTR es:[bx]
+   e131e:	88 46 ff             	mov    BYTE PTR [bp-0x1],al
    e1321:	ff 06 13 28          	inc    WORD PTR ds:0x2813
    e1325:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990
    e1329:	26 80 67 0d 7f       	and    BYTE PTR es:[bx+0xd],0x7f
@@ -3061,9 +3061,8 @@ output_something4:
    e1a75:	8e dd                	mov    ds,bp
    e1a77:	8b ec                	mov    bp,sp
    e1a79:	fb                   	sti    
-   e1a7a:	0f 92 ff             	setb   bh
-   e1a7d:	06                   	push   es
-   e1a7e:	13 28                	adc    bp,WORD PTR [bx+si]
+   e1a7a:	0f 92                	fint   
+   e1a7c:	ff 06 13 28          	inc    WORD PTR ds:0x2813
    e1a80:	c6 06 0f 00 00       	mov    BYTE PTR ds:0xf,0x0
    e1a85:	e9 5c 07             	jmp    0xe21e4
    e1a88:	a0 0f 00             	mov    al,ds:0xf
@@ -7167,9 +7166,8 @@ output_something11:
    e44f4:	55                   	push   bp
    e44f5:	8b ec                	mov    bp,sp
    e44f7:	fb                   	sti    
-   e44f8:	0f 92 ff             	setb   bh
-   e44fb:	06                   	push   es
-   e44fc:	13 28                	adc    bp,WORD PTR [bx+si]
+   e44f8:	0f 92                	fint   
+   e44fa:	ff 06 13 28          	inc    WORD PTR ds:0x2813
    e44fe:	0e                   	push   cs
    e44ff:	e8 df fd             	call   0xe42e1
    e4502:	ff 0e 13 28          	dec    WORD PTR ds:0x2813
@@ -35881,7 +35879,8 @@ main:
    f68be:	8e dd                	mov    ds,bp
    f68c0:	8b ec                	mov    bp,sp
    f68c2:	fb                   	sti    
-   f68c3:	0f 92 a1 53 68       	setb   BYTE PTR [bx+di+0x6853]
+   f68c3:	0f 92                	fint   
+   f68c5:	a1 53 68             	mov    ax,ds:0x6853
    f68c8:	3b 06 51 68          	cmp    ax,WORD PTR ds:0x6851
    f68cc:	74 2a                	je     0xf68f8
    f68ce:	fa                   	cli    
@@ -35933,7 +35932,8 @@ main:
    f6930:	8e dd                	mov    ds,bp
    f6932:	8b ec                	mov    bp,sp
    f6934:	fb                   	sti    
-   f6935:	0f 92 a1 3a 68       	setb   BYTE PTR [bx+di+0x683a]
+   f6935:	0f 92                	fint   
+   f6937:	a1 3a 68             	mov    ax,ds:0x683a
    f693a:	3b 06 38 68          	cmp    ax,WORD PTR ds:0x6838
    f693e:	74 31                	je     0xf6971
    f6940:	80 3e 3e 68 00       	cmp    BYTE PTR ds:0x683e,0x0
@@ -36008,10 +36008,9 @@ main:
    f69e9:	75 06                	jne    0xf69f1
    f69eb:	c7 06 45 68 00 00    	mov    WORD PTR ds:0x6845,0x0
    f69f1:	fb                   	sti    
-   f69f2:	0f 92 c4             	setb   ah
-   f69f5:	1e                   	push   ds
-   f69f6:	94                   	xchg   sp,ax
-   f69f7:	69 26 80 67 0d 7f    	imul   sp,WORD PTR ds:0x6780,0x7f0d
+   f69f2:	0f 92                	fint   
+   f69f4:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994
+   f69f8:	26 80 67 0d 7f       	and    BYTE PTR es:[bx+0xd],0x7f
    f69fd:	8b e5                	mov    sp,bp
    f69ff:	5d                   	pop    bp
    f6a00:	5f                   	pop    di
@@ -36059,10 +36058,9 @@ main:
    f6a55:	75 06                	jne    0xf6a5d
    f6a57:	c7 06 2c 68 00 00    	mov    WORD PTR ds:0x682c,0x0
    f6a5d:	fb                   	sti    
-   f6a5e:	0f 92 c4             	setb   ah
-   f6a61:	1e                   	push   ds
-   f6a62:	90                   	nop
-   f6a63:	69 26 80 67 0d 7f    	imul   sp,WORD PTR ds:0x6780,0x7f0d
+   f6a5e:	0f 92                	fint   
+   f6a60:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990
+   f6a64:	26 80 67 0d 7f       	and    BYTE PTR es:[bx+0xd],0x7f
    f6a69:	8b e5                	mov    sp,bp
    f6a6b:	5d                   	pop    bp
    f6a6c:	5f                   	pop    di
@@ -37404,9 +37402,9 @@ main:
    f7894:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994
    f7898:	26 80 67 0d 7f       	and    BYTE PTR es:[bx+0xd],0x7f
    f789d:	fb                   	sti    
-   f789e:	0f 92 80 3e f2       	setb   BYTE PTR [bx+si-0xdc2]
-   f78a3:	27                   	daa    
-   f78a4:	01 75 25             	add    WORD PTR [di+0x25],si
+   f789e:	0f 92                	fint   
+   f78a0:	80 3e f2 27 01       	cmp    BYTE PTR ds:0x27f2,0x1
+   f78a5:	75 25                	jne    0xf78cc
    f78a7:	ff 06 13 28          	inc    WORD PTR ds:0x2813
    f78ab:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994
    f78af:	26 8a 47 0b          	mov    al,BYTE PTR es:[bx+0xb]
@@ -37452,9 +37450,9 @@ main:
    f78f5:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990
    f78f9:	26 80 67 0d 7f       	and    BYTE PTR es:[bx+0xd],0x7f
    f78fe:	fb                   	sti    
-   f78ff:	0f 92 80 3e f2       	setb   BYTE PTR [bx+si-0xdc2]
-   f7904:	27                   	daa    
-   f7905:	01 75 25             	add    WORD PTR [di+0x25],si
+   f78ff:	0f 92                	fint   
+   f7901:	80 3e f2 27 01       	cmp    BYTE PTR ds:0x27f2,0x1
+   f7906:	75 25                	jne    0xf792d
    f7908:	ff 06 13 28          	inc    WORD PTR ds:0x2813
    f790c:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990
    f7910:	26 8a 47 0b          	mov    al,BYTE PTR es:[bx+0xb]
@@ -38031,9 +38029,9 @@ main:
    f7eeb:	8e dd                	mov    ds,bp
    f7eed:	8b ec                	mov    bp,sp
    f7eef:	fb                   	sti    
-   f7ef0:	0f 92 80 3e f1       	setb   BYTE PTR [bx+si-0xec2]
-   f7ef5:	27                   	daa    
-   f7ef6:	01 75 05             	add    WORD PTR [di+0x5],si
+   f7ef0:	0f 92                	fint   
+   f7ef2:	80 3e f1 27 01       	cmp    BYTE PTR ds:0x27f1,0x1
+   f7ef7:	75 05                	jne    0xf7efe
    f7ef9:	9a b4 04 04 e4       	call   0xe404:0x4b4
    f7efe:	32 c0                	xor    al,al
    f7f00:	3a 06 07 28          	cmp    al,BYTE PTR ds:0x2807
@@ -38112,9 +38110,9 @@ main:
    f7fa8:	8e dd                	mov    ds,bp
    f7faa:	8b ec                	mov    bp,sp
    f7fac:	fb                   	sti    
-   f7fad:	0f 92 33             	setb   BYTE PTR [bp+di]
-   f7fb0:	f6 32                	div    BYTE PTR [bp+si]
-   f7fb2:	c9                   	leave  
+   f7fad:	0f 92                	fint   
+   f7faf:	33 f6                	xor    si,si
+   f7fb1:	32 c9                	xor    cl,cl
    f7fb3:	3a 0e d5 6b          	cmp    cl,BYTE PTR ds:0x6bd5
    f7fb7:	74 7f                	je     0xf8038
    f7fb9:	74 75                	je     0xf8030
@@ -38811,7 +38809,9 @@ main:
    f86d8:	9e                   	sahf   
    f86d9:	89 e5                	mov    bp,sp
    f86db:	81 4e 16 02 00       	or     WORD PTR [bp+0x16],0x2
-   f86e0:	0f 92 5d 5f          	setb   BYTE PTR [di+0x5f]
+   f86e0:	0f 92                	fint   
+   f86e2:	5d                   	pop    bp
+   f86e3:	5f                   	pop    di
    f86e4:	5e                   	pop    si
    f86e5:	1f                   	pop    ds
    f86e6:	07                   	pop    es
@@ -38835,7 +38835,9 @@ main:
    f86f8:	8e dd                	mov    ds,bp
    f86fa:	8b ec                	mov    bp,sp
    f86fc:	fb                   	sti    
-   f86fd:	0f 92 5d 5f          	setb   BYTE PTR [di+0x5f]
+   f86fd:	0f 92                	fint   
+   f86ff:	5d                   	pop    bp
+   f8700:	5f                   	pop    di
    f8701:	5e                   	pop    si
    f8702:	1f                   	pop    ds
    f8703:	07                   	pop    es
@@ -39204,7 +39206,9 @@ return_flash:
    f8a25:	8b ec                	mov    bp,sp
    f8a27:	83 06 84 29 51       	add    WORD PTR ds:0x2984,0x51
    f8a2c:	fb                   	sti    
-   f8a2d:	0f 92 5d 5f          	setb   BYTE PTR [di+0x5f]
+   f8a2d:	0f 92                	fint   
+   f8a2f:	5d                   	pop    bp
+   f8a30:	5f                   	pop    di
    f8a31:	5e                   	pop    si
    f8a32:	1f                   	pop    ds
    f8a33:	07                   	pop    es
@@ -39338,7 +39342,9 @@ test_something:
    f8b37:	8b ec                	mov    bp,sp
    f8b39:	83 ec 04             	sub    sp,0x4
    f8b3c:	fb                   	sti    
-   f8b3d:	0f 92 b0 04 50       	setb   BYTE PTR [bx+si+0x5004]
+   f8b3d:	0f 92                	fint   
+   f8b3f:	b0 04                	mov    al,0x4
+   f8b41:	50                   	push   ax
    f8b42:	b8 0d 00             	mov    ax,0xd
    f8b45:	50                   	push   ax
    f8b46:	0e                   	push   cs
