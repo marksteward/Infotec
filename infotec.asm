@@ -127,7 +127,7 @@ __init:
    e00cc:	cb                   	retf   
 
 
-memcpy:
+memcpy: ; fastcall
    e00cd:	55                   	push   bp
    e00ce:	8b ec                	mov    bp,sp
    e00d0:	56                   	push   si
@@ -1193,6 +1193,7 @@ crazy_bcd:
    e09aa:	c3                   	ret    
 
 
+n_sprintf:
    e09ab:	55                   	push   bp
    e09ac:	8b ec                	mov    bp,sp
    e09ae:	81 ec 96 00          	sub    sp,0x96
@@ -1672,6 +1673,7 @@ crazy_bcd:
 
 
 .code
+n_memcpy:
    e0e6e:	55                   	push   bp
    e0e6f:	8b ec                	mov    bp,sp
    e0e71:	56                   	push   si
@@ -1693,6 +1695,7 @@ crazy_bcd:
    e0e8c:	cb                   	retf   
 
 
+n_memset:
    e0e8d:	55                   	push   bp
    e0e8e:	8b ec                	mov    bp,sp
    e0e90:	57                   	push   di
@@ -1717,6 +1720,7 @@ crazy_bcd:
    e0eb2:	cb                   	retf   
 
 
+f_memset:
    e0eb3:	55                   	push   bp
    e0eb4:	8b ec                	mov    bp,sp
    e0eb6:	56                   	push   si
@@ -1726,7 +1730,7 @@ crazy_bcd:
    e0ebe:	ff 76 0a             	push   WORD PTR [bp+0xa]
    e0ec1:	56                   	push   si
    e0ec2:	0e                   	push   cs
-   e0ec3:	e8 c7 ff             	call   0xe0e8d
+   e0ec3:	e8 c7 ff             	call   0xe0e8d ; n_memset
    e0ec6:	83 c4 06             	add    sp,0x6
    e0ec9:	8b c6                	mov    ax,si
    e0ecb:	5e                   	pop    si
@@ -1734,6 +1738,7 @@ crazy_bcd:
    e0ecd:	cb                   	retf   
 
 
+n_memmove:
    e0ece:	55                   	push   bp
    e0ecf:	8b ec                	mov    bp,sp
    e0ed1:	56                   	push   si
@@ -1777,6 +1782,7 @@ crazy_bcd:
    e0f16:	cb                   	retf   
 
 
+f_memmove:
    e0f17:	55                   	push   bp
    e0f18:	8b ec                	mov    bp,sp
    e0f1a:	56                   	push   si
@@ -1785,7 +1791,7 @@ crazy_bcd:
    e0f21:	56                   	push   si
    e0f22:	ff 76 08             	push   WORD PTR [bp+0x8]
    e0f25:	0e                   	push   cs
-   e0f26:	e8 a5 ff             	call   0xe0ece
+   e0f26:	e8 a5 ff             	call   0xe0ece ; n_memmove
    e0f29:	83 c4 06             	add    sp,0x6
    e0f2c:	8b c6                	mov    ax,si
    e0f2e:	5e                   	pop    si
@@ -1793,6 +1799,7 @@ crazy_bcd:
    e0f30:	cb                   	retf   
 
 
+f_memcpy:
    e0f31:	55                   	push   bp
    e0f32:	8b ec                	mov    bp,sp
    e0f34:	56                   	push   si
@@ -1804,7 +1811,7 @@ crazy_bcd:
    e0f40:	ff 34                	push   WORD PTR [si]
    e0f42:	90                   	nop
    e0f43:	0e                   	push   cs
-   e0f44:	e8 27 ff             	call   0xe0e6e
+   e0f44:	e8 27 ff             	call   0xe0e6e ; n_memcpy
    e0f47:	83 c4 06             	add    sp,0x6
    e0f4a:	01 3c                	add    WORD PTR [si],di
    e0f4c:	8b 1c                	mov    bx,WORD PTR [si]
@@ -1816,6 +1823,7 @@ crazy_bcd:
    e0f56:	c2 06 00             	ret    0x6
 
 
+f_sprintf: ; cdecl
    e0f59:	55                   	push   bp
    e0f5a:	8b ec                	mov    bp,sp
    e0f5c:	8b 5e 06             	mov    bx,WORD PTR [bp+0x6]
@@ -1827,11 +1835,12 @@ crazy_bcd:
    e0f6a:	ff 76 08             	push   WORD PTR [bp+0x8]
    e0f6d:	8d 46 0a             	lea    ax,[bp+0xa]
    e0f70:	50                   	push   ax
-   e0f71:	e8 37 fa             	call   0xe09ab
+   e0f71:	e8 37 fa             	call   0xe09ab ; n_sprintf
    e0f74:	5d                   	pop    bp
    e0f75:	cb                   	retf   
 
 
+fi_sprintf: ; indirect (rargs)
    e0f76:	55                   	push   bp
    e0f77:	8b ec                	mov    bp,sp
    e0f79:	8b 5e 06             	mov    bx,WORD PTR [bp+0x6]
@@ -1842,7 +1851,7 @@ crazy_bcd:
    e0f86:	50                   	push   ax
    e0f87:	ff 76 08             	push   WORD PTR [bp+0x8]
    e0f8a:	ff 76 0a             	push   WORD PTR [bp+0xa]
-   e0f8d:	e8 1b fa             	call   0xe09ab
+   e0f8d:	e8 1b fa             	call   0xe09ab ; n_sprintf
    e0f90:	5d                   	pop    bp
    e0f91:	cb                   	retf   
 
@@ -1909,6 +1918,7 @@ crazy_bcd:
    e0ff7:	cb                   	retf   
 
 
+n_strcat:
    e0ff8:	55                   	push   bp
    e0ff9:	8b ec                	mov    bp,sp
    e0ffb:	56                   	push   si
@@ -1943,6 +1953,7 @@ crazy_bcd:
    e1030:	cb                   	retf   
 
 
+strcmp:
    e1031:	55                   	push   bp
    e1032:	8b ec                	mov    bp,sp
    e1034:	56                   	push   si
@@ -1970,6 +1981,7 @@ crazy_bcd:
    e105f:	cb                   	retf   
 
 
+strcpy:
    e1060:	55                   	push   bp
    e1061:	8b ec                	mov    bp,sp
    e1063:	56                   	push   si
@@ -1992,6 +2004,7 @@ crazy_bcd:
    e1081:	cb                   	retf   
 
 
+n_strlen:
    e1082:	55                   	push   bp
    e1083:	8b ec                	mov    bp,sp
    e1085:	57                   	push   di
@@ -2132,6 +2145,7 @@ crazy_bcd:
    e1175:	cb                   	retf   
 
 
+f_strcpy:
    e1176:	55                   	push   bp
    e1177:	8b ec                	mov    bp,sp
    e1179:	56                   	push   si
@@ -2157,6 +2171,7 @@ crazy_bcd:
    e119e:	cb                   	retf   
 
 
+f_strlen:
    e119f:	55                   	push   bp
    e11a0:	8b ec                	mov    bp,sp
    e11a2:	57                   	push   di
@@ -4082,7 +4097,7 @@ output_something4:
    e2471:	50                   	push   ax
    e2472:	8d 86 d6 fe          	lea    ax,[bp-0x12a]
    e2476:	50                   	push   ax
-   e2477:	9a b3 0e 00 e0       	call   0xe000:0xeb3
+   e2477:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
    e247c:	83 c4 06             	add    sp,0x6
    e247f:	b8 20 01             	mov    ax,0x120
    e2482:	50                   	push   ax
@@ -4090,7 +4105,7 @@ output_something4:
    e2485:	50                   	push   ax
    e2486:	8d 86 b6 fd          	lea    ax,[bp-0x24a]
    e248a:	50                   	push   ax
-   e248b:	9a b3 0e 00 e0       	call   0xe000:0xeb3
+   e248b:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
    e2490:	83 c4 06             	add    sp,0x6
    e2493:	b8 f0 00             	mov    ax,0xf0
    e2496:	50                   	push   ax
@@ -4098,7 +4113,7 @@ output_something4:
    e2499:	50                   	push   ax
    e249a:	8d 86 c6 fc          	lea    ax,[bp-0x33a]
    e249e:	50                   	push   ax
-   e249f:	9a b3 0e 00 e0       	call   0xe000:0xeb3
+   e249f:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
    e24a4:	83 c4 06             	add    sp,0x6
    e24a7:	8d 86 c6 fc          	lea    ax,[bp-0x33a]
    e24ab:	50                   	push   ax
@@ -4140,7 +4155,7 @@ output_something4:
    e250d:	50                   	push   ax
    e250e:	8d 86 c6 fc          	lea    ax,[bp-0x33a]
    e2512:	50                   	push   ax
-   e2513:	9a b3 0e 00 e0       	call   0xe000:0xeb3
+   e2513:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
    e2518:	83 c4 06             	add    sp,0x6
    e251b:	8a 46 f7             	mov    al,BYTE PTR [bp-0x9]
    e251e:	fe c0                	inc    al
@@ -4175,7 +4190,7 @@ output_something4:
    e2569:	50                   	push   ax
    e256a:	8d 86 d6 fe          	lea    ax,[bp-0x12a]
    e256e:	50                   	push   ax
-   e256f:	9a b3 0e 00 e0       	call   0xe000:0xeb3
+   e256f:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
    e2574:	83 c4 06             	add    sp,0x6
    e2577:	b8 20 01             	mov    ax,0x120
    e257a:	50                   	push   ax
@@ -4183,7 +4198,7 @@ output_something4:
    e257d:	50                   	push   ax
    e257e:	8d 86 b6 fd          	lea    ax,[bp-0x24a]
    e2582:	50                   	push   ax
-   e2583:	9a b3 0e 00 e0       	call   0xe000:0xeb3
+   e2583:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
    e2588:	83 c4 06             	add    sp,0x6
    e258b:	9a e4 02 47 f6       	call   0xf647:0x2e4
    e2590:	ff 46 fe             	inc    WORD PTR [bp-0x2]
@@ -4204,7 +4219,7 @@ output_something4:
    e25b2:	50                   	push   ax
    e25b3:	8d 86 d6 fe          	lea    ax,[bp-0x12a]
    e25b7:	50                   	push   ax
-   e25b8:	9a b3 0e 00 e0       	call   0xe000:0xeb3
+   e25b8:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
    e25bd:	83 c4 06             	add    sp,0x6
    e25c0:	b8 f0 00             	mov    ax,0xf0
    e25c3:	50                   	push   ax
@@ -4212,7 +4227,7 @@ output_something4:
    e25c7:	50                   	push   ax
    e25c8:	8d 86 c6 fc          	lea    ax,[bp-0x33a]
    e25cc:	50                   	push   ax
-   e25cd:	9a b3 0e 00 e0       	call   0xe000:0xeb3
+   e25cd:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
    e25d2:	83 c4 06             	add    sp,0x6
    e25d5:	8d 86 c6 fc          	lea    ax,[bp-0x33a]
    e25d9:	50                   	push   ax
@@ -4258,7 +4273,7 @@ output_something4:
    e2644:	50                   	push   ax
    e2645:	8d 86 c6 fc          	lea    ax,[bp-0x33a]
    e2649:	50                   	push   ax
-   e264a:	9a b3 0e 00 e0       	call   0xe000:0xeb3
+   e264a:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
    e264f:	83 c4 06             	add    sp,0x6
    e2652:	b8 20 01             	mov    ax,0x120
    e2655:	50                   	push   ax
@@ -4268,7 +4283,7 @@ output_something4:
    e265e:	50                   	push   ax
    e265f:	8d 86 d6 fe          	lea    ax,[bp-0x12a]
    e2663:	50                   	push   ax
-   e2664:	9a b3 0e 00 e0       	call   0xe000:0xeb3
+   e2664:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
    e2669:	83 c4 06             	add    sp,0x6
    e266c:	8d 86 c6 fc          	lea    ax,[bp-0x33a]
    e2670:	50                   	push   ax
@@ -4304,7 +4319,7 @@ output_something4:
    e26c1:	50                   	push   ax
    e26c2:	8d 86 d6 fe          	lea    ax,[bp-0x12a]
    e26c6:	50                   	push   ax
-   e26c7:	9a b3 0e 00 e0       	call   0xe000:0xeb3
+   e26c7:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
    e26cc:	83 c4 06             	add    sp,0x6
    e26cf:	b8 20 01             	mov    ax,0x120
    e26d2:	50                   	push   ax
@@ -4312,7 +4327,7 @@ output_something4:
    e26d5:	50                   	push   ax
    e26d6:	8d 86 b6 fd          	lea    ax,[bp-0x24a]
    e26da:	50                   	push   ax
-   e26db:	9a b3 0e 00 e0       	call   0xe000:0xeb3
+   e26db:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
    e26e0:	83 c4 06             	add    sp,0x6
    e26e3:	9a e4 02 47 f6       	call   0xf647:0x2e4
    e26e8:	c7 46 fa 00 00       	mov    WORD PTR [bp-0x6],0x0
@@ -4350,7 +4365,7 @@ output_something4:
    e273f:	50                   	push   ax
    e2740:	8d 86 c6 fc          	lea    ax,[bp-0x33a]
    e2744:	50                   	push   ax
-   e2745:	9a b3 0e 00 e0       	call   0xe000:0xeb3
+   e2745:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
    e274a:	83 c4 06             	add    sp,0x6
    e274d:	8d 86 c6 fc          	lea    ax,[bp-0x33a]
    e2751:	50                   	push   ax
@@ -4383,7 +4398,7 @@ output_something4:
    e2797:	50                   	push   ax
    e2798:	8d 86 d6 fe          	lea    ax,[bp-0x12a]
    e279c:	50                   	push   ax
-   e279d:	9a b3 0e 00 e0       	call   0xe000:0xeb3
+   e279d:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
    e27a2:	83 c4 06             	add    sp,0x6
    e27a5:	c7 46 fe 00 00       	mov    WORD PTR [bp-0x2],0x0
    e27aa:	eb 3b                	jmp    0xe27e7
@@ -6750,7 +6765,7 @@ output_something11:
    e4062:	50                   	push   ax
    e4063:	b8 ba 2a             	mov    ax,0x2aba
    e4066:	50                   	push   ax
-   e4067:	9a b3 0e 00 e0       	call   0xe000:0xeb3
+   e4067:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
    e406c:	83 c4 06             	add    sp,0x6
    e406f:	b8 04 00             	mov    ax,0x4
    e4072:	50                   	push   ax
@@ -6758,7 +6773,7 @@ output_something11:
    e4075:	50                   	push   ax
    e4076:	b8 bf 2a             	mov    ax,0x2abf
    e4079:	50                   	push   ax
-   e407a:	9a b3 0e 00 e0       	call   0xe000:0xeb3
+   e407a:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
    e407f:	83 c4 06             	add    sp,0x6
    e4082:	b8 06 00             	mov    ax,0x6
    e4085:	50                   	push   ax
@@ -6766,7 +6781,7 @@ output_something11:
    e4088:	50                   	push   ax
    e4089:	8d 46 fa             	lea    ax,[bp-0x6]
    e408c:	50                   	push   ax
-   e408d:	9a b3 0e 00 e0       	call   0xe000:0xeb3
+   e408d:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
    e4092:	83 c4 06             	add    sp,0x6
    e4095:	c6 46 f6 00          	mov    BYTE PTR [bp-0xa],0x0
    e4099:	e9 ba 00             	jmp    0xe4156
@@ -7153,7 +7168,7 @@ output_something11:
    e44d7:	50                   	push   ax
    e44d8:	b8 b0 2a             	mov    ax,0x2ab0
    e44db:	50                   	push   ax
-   e44dc:	9a b3 0e 00 e0       	call   0xe000:0xeb3
+   e44dc:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
    e44e1:	83 c4 06             	add    sp,0x6
    e44e4:	c6 06 2e 00 00       	mov    BYTE PTR ds:0x2e,0x0
    e44e9:	eb 00                	jmp    0xe44eb
@@ -7484,10 +7499,11 @@ output_something11:
    e47f8:	b4 00                	mov    ah,0x0
    e47fa:	50                   	push   ax
    e47fb:	b8 5d 00             	mov    ax,0x5d
+   ; ">PR#0#00#%02d,%02d,%02d#%02d,%02d,%04d,%d#"
    e47fe:	50                   	push   ax
    e47ff:	b8 34 00             	mov    ax,0x34
    e4802:	50                   	push   ax
-   e4803:	9a 59 0f 00 e0       	call   0xe000:0xf59
+   e4803:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; f_sprintf
    e4808:	83 c4 12             	add    sp,0x12
    e480b:	c6 06 5c 00 00       	mov    BYTE PTR ds:0x5c,0x0
    e4810:	c7 06 f8 29 00 00    	mov    WORD PTR ds:0x29f8,0x0
@@ -7501,21 +7517,21 @@ output_something11:
    e482f:	a0 5c 00             	mov    al,ds:0x5c
    e4832:	b4 00                	mov    ah,0x0
    e4834:	50                   	push   ax
-   e4835:	b8 88 00             	mov    ax,0x88
+   e4835:	b8 88 00             	mov    ax,0x88 ; "%02X<"
    e4838:	50                   	push   ax
    e4839:	b8 ff 29             	mov    ax,0x29ff
    e483c:	50                   	push   ax
-   e483d:	9a 59 0f 00 e0       	call   0xe000:0xf59
+   e483d:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; f_sprintf
    e4842:	83 c4 06             	add    sp,0x6
    e4845:	b8 ff 29             	mov    ax,0x29ff
    e4848:	50                   	push   ax
-   e4849:	b8 34 00             	mov    ax,0x34
+   e4849:	b8 34 00             	mov    ax,0x34 ; see above
    e484c:	50                   	push   ax
-   e484d:	b8 8e 00             	mov    ax,0x8e
+   e484d:	b8 8e 00             	mov    ax,0x8e ; "%s%s"
    e4850:	50                   	push   ax
    e4851:	b0 00                	mov    al,0x0
    e4853:	50                   	push   ax
-   e4854:	9a 25 03 84 f6       	call   0xf684:0x325
+   e4854:	9a 25 03 84 f6       	call   0xf684:0x325 ; something_printf
    e4859:	83 c4 08             	add    sp,0x8
    e485c:	5d                   	pop    bp
    e485d:	cb                   	retf   
@@ -8642,7 +8658,7 @@ init_something3:
    e53e0:	88 97 f5 4a          	mov    BYTE PTR [bx+0x4af5],dl
    e53e4:	b8 92 61             	mov    ax,0x6192
    e53e7:	50                   	push   ax
-   e53e8:	9a 82 10 00 e0       	call   0xe000:0x1082
+   e53e8:	9a 82 10 00 e0       	call   0xe000:0x1082 ; n_strlen
    e53ed:	59                   	pop    cx
    e53ee:	89 46 fc             	mov    WORD PTR [bp-0x4],ax
    e53f1:	83 7e fc 00          	cmp    WORD PTR [bp-0x4],0x0
@@ -9807,7 +9823,7 @@ init_something3:
    e5f83:	50                   	push   ax
    e5f84:	b8 89 01             	mov    ax,0x189
    e5f87:	50                   	push   ax
-   e5f88:	9a b3 0e 00 e0       	call   0xe000:0xeb3
+   e5f88:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
    e5f8d:	83 c4 06             	add    sp,0x6
    e5f90:	8a 46 ff             	mov    al,BYTE PTR [bp-0x1]
    e5f93:	b4 00                	mov    ah,0x0
@@ -9853,7 +9869,7 @@ init_something3:
    e5ff5:	50                   	push   ax
    e5ff6:	b8 89 01             	mov    ax,0x189
    e5ff9:	50                   	push   ax
-   e5ffa:	9a b3 0e 00 e0       	call   0xe000:0xeb3
+   e5ffa:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
    e5fff:	83 c4 06             	add    sp,0x6
    e6002:	8a 46 ff             	mov    al,BYTE PTR [bp-0x1]
    e6005:	b4 00                	mov    ah,0x0
@@ -12208,7 +12224,7 @@ init_something3:
    e77c5:	50                   	push   ax
    e77c6:	b8 04 2a             	mov    ax,0x2a04
    e77c9:	50                   	push   ax
-   e77ca:	9a b3 0e 00 e0       	call   0xe000:0xeb3
+   e77ca:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
    e77cf:	83 c4 06             	add    sp,0x6
    e77d2:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    e77d5:	b4 00                	mov    ah,0x0
@@ -13756,7 +13772,7 @@ init_something3:
    e87d2:	50                   	push   ax
    e87d3:	b8 07 2a             	mov    ax,0x2a07
    e87d6:	50                   	push   ax
-   e87d7:	9a b3 0e 00 e0       	call   0xe000:0xeb3
+   e87d7:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
    e87dc:	83 c4 06             	add    sp,0x6
    e87df:	b8 03 00             	mov    ax,0x3
    e87e2:	50                   	push   ax
@@ -13764,7 +13780,7 @@ init_something3:
    e87e5:	50                   	push   ax
    e87e6:	b8 0a 2a             	mov    ax,0x2a0a
    e87e9:	50                   	push   ax
-   e87ea:	9a b3 0e 00 e0       	call   0xe000:0xeb3
+   e87ea:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
    e87ef:	83 c4 06             	add    sp,0x6
    e87f2:	8b 46 10             	mov    ax,WORD PTR [bp+0x10]
    e87f5:	0b 46 12             	or     ax,WORD PTR [bp+0x12]
@@ -19780,7 +19796,7 @@ init_something3:
    ec50d:	50                   	push   ax
    ec50e:	8d 46 f8             	lea    ax,[bp-0x8]
    ec511:	50                   	push   ax
-   ec512:	9a b3 0e 00 e0       	call   0xe000:0xeb3
+   ec512:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
    ec517:	83 c4 06             	add    sp,0x6
    ec51a:	8b 5e 0a             	mov    bx,WORD PTR [bp+0xa]
    ec51d:	8a 07                	mov    al,BYTE PTR [bx]
@@ -24952,11 +24968,11 @@ interesting:
    ef9c9:	a0 26 2e             	mov    al,ds:0x2e26
    ef9cc:	98                   	cbw    
    ef9cd:	50                   	push   ax
-   ef9ce:	b8 9c 00             	mov    ax,0x9c
+   ef9ce:	b8 9c 00             	mov    ax,0x9c ; "%02d"
    ef9d1:	50                   	push   ax
    ef9d2:	b8 b5 38             	mov    ax,0x38b5
    ef9d5:	50                   	push   ax
-   ef9d6:	9a 59 0f 00 e0       	call   0xe000:0xf59
+   ef9d6:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; f_sprintf
    ef9db:	83 c4 06             	add    sp,0x6
    ef9de:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    ef9e1:	b4 00                	mov    ah,0x0
@@ -24992,29 +25008,29 @@ interesting:
    efa20:	50                   	push   ax
    efa21:	b8 35 3a             	mov    ax,0x3a35
    efa24:	e9 c0 00             	jmp    0xefae7
-   efa27:	b8 bd 00             	mov    ax,0xbd
+   efa27:	b8 bd 00             	mov    ax,0xbd ; "V4.71"
    efa2a:	50                   	push   ax
    efa2b:	b8 b5 3a             	mov    ax,0x3ab5
    efa2e:	50                   	push   ax
-   efa2f:	9a 59 0f 00 e0       	call   0xe000:0xf59
+   efa2f:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; f_sprintf
    efa34:	59                   	pop    cx
    efa35:	59                   	pop    cx
    efa36:	e9 ba 00             	jmp    0xefaf3
    efa39:	81 3e 29 2e e8 03    	cmp    WORD PTR ds:0x2e29,0x3e8
    efa3f:	73 16                	jae    0xefa57
    efa41:	ff 36 29 2e          	push   WORD PTR ds:0x2e29
-   efa45:	b8 c3 00             	mov    ax,0xc3
+   efa45:	b8 c3 00             	mov    ax,0xc3 ; "%03d"
    efa48:	50                   	push   ax
    efa49:	b8 35 3b             	mov    ax,0x3b35
    efa4c:	50                   	push   ax
-   efa4d:	9a 59 0f 00 e0       	call   0xe000:0xf59
+   efa4d:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; f_sprintf
    efa52:	83 c4 06             	add    sp,0x6
    efa55:	eb 0f                	jmp    0xefa66
-   efa57:	b8 c8 00             	mov    ax,0xc8
+   efa57:	b8 c8 00             	mov    ax,0xc8 ; "+++"
    efa5a:	50                   	push   ax
    efa5b:	b8 35 3b             	mov    ax,0x3b35
    efa5e:	50                   	push   ax
-   efa5f:	9a 59 0f 00 e0       	call   0xe000:0xf59
+   efa5f:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; f_sprintf
    efa64:	59                   	pop    cx
    efa65:	59                   	pop    cx
    efa66:	e9 8a 00             	jmp    0xefaf3
@@ -25025,11 +25041,11 @@ interesting:
    efa72:	8a 46 fa             	mov    al,BYTE PTR [bp-0x6]
    efa75:	b4 00                	mov    ah,0x0
    efa77:	50                   	push   ax
-   efa78:	b8 cc 00             	mov    ax,0xcc
+   efa78:	b8 cc 00             	mov    ax,0xcc ; "%2d/%02d/%02d"
    efa7b:	50                   	push   ax
    efa7c:	b8 b5 3b             	mov    ax,0x3bb5
    efa7f:	50                   	push   ax
-   efa80:	9a 59 0f 00 e0       	call   0xe000:0xf59
+   efa80:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; f_sprintf
    efa85:	eb 23                	jmp    0xefaaa
    efa87:	b8 04 00             	mov    ax,0x4
    efa8a:	50                   	push   ax
@@ -25043,7 +25059,7 @@ interesting:
    efa9b:	8c d2                	mov    dx,ss
    efa9d:	b9 06 00             	mov    cx,0x6
    efaa0:	9a 46 02 00 e0       	call   0xe000:0x246
-   efaa5:	9a 00 08 9d f8       	call   0xf89d:0x800
+   efaa5:	9a 00 08 9d f8       	call   0xf89d:0x800 ; strfdate
    efaaa:	83 c4 0a             	add    sp,0xa
    efaad:	eb 44                	jmp    0xefaf3
    efaaf:	8a 46 f7             	mov    al,BYTE PTR [bp-0x9]
@@ -25052,11 +25068,11 @@ interesting:
    efab5:	8a 46 f6             	mov    al,BYTE PTR [bp-0xa]
    efab8:	b4 00                	mov    ah,0x0
    efaba:	50                   	push   ax
-   efabb:	b8 da 00             	mov    ax,0xda
+   efabb:	b8 da 00             	mov    ax,0xda ; "%2d:%02d"
    efabe:	50                   	push   ax
    efabf:	b8 35 3d             	mov    ax,0x3d35
    efac2:	50                   	push   ax
-   efac3:	9a 59 0f 00 e0       	call   0xe000:0xf59
+   efac3:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; f_sprintf
    efac8:	83 c4 08             	add    sp,0x8
    efacb:	e9 10 ff             	jmp    0xef9de
    eface:	8a 46 f8             	mov    al,BYTE PTR [bp-0x8]
@@ -25068,11 +25084,11 @@ interesting:
    efada:	8a 46 f6             	mov    al,BYTE PTR [bp-0xa]
    efadd:	b4 00                	mov    ah,0x0
    efadf:	50                   	push   ax
-   efae0:	b8 e3 00             	mov    ax,0xe3
+   efae0:	b8 e3 00             	mov    ax,0xe3 ; "%2d:%02d^T.^T%02d"
    efae3:	50                   	push   ax
    efae4:	b8 b5 3d             	mov    ax,0x3db5
    efae7:	50                   	push   ax
-   efae8:	9a 59 0f 00 e0       	call   0xe000:0xf59
+   efae8:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; f_sprintf
    efaed:	83 c4 0a             	add    sp,0xa
    efaf0:	e9 eb fe             	jmp    0xef9de
    efaf3:	8b 46 ec             	mov    ax,WORD PTR [bp-0x14]
@@ -25080,7 +25096,7 @@ interesting:
    efaf8:	d3 e0                	shl    ax,cl
    efafa:	05 35 2e             	add    ax,0x2e35
    efafd:	50                   	push   ax
-   efafe:	9a 82 10 00 e0       	call   0xe000:0x1082
+   efafe:	9a 82 10 00 e0       	call   0xe000:0x1082 ; n_strlen
    efb03:	59                   	pop    cx
    efb04:	89 46 f4             	mov    WORD PTR [bp-0xc],ax
    efb07:	ff 76 0e             	push   WORD PTR [bp+0xe]
@@ -25204,7 +25220,7 @@ interesting:
    efc38:	03 d0                	add    dx,ax
    efc3a:	81 c2 69 2d          	add    dx,0x2d69
    efc3e:	52                   	push   dx
-   efc3f:	9a 82 10 00 e0       	call   0xe000:0x1082
+   efc3f:	9a 82 10 00 e0       	call   0xe000:0x1082 ; n_strlen
    efc44:	59                   	pop    cx
    efc45:	89 46 f4             	mov    WORD PTR [bp-0xc],ax
    efc48:	ff 76 0e             	push   WORD PTR [bp+0xe]
@@ -25476,11 +25492,11 @@ interesting:
    eff10:	c7 06 f9 2d 00 00    	mov    WORD PTR ds:0x2df9,0x0
    eff16:	ff 36 fb 2d          	push   WORD PTR ds:0x2dfb
    eff1a:	ff 36 f9 2d          	push   WORD PTR ds:0x2df9
-   eff1e:	b8 f5 00             	mov    ax,0xf5
+   eff1e:	b8 f5 00             	mov    ax,0xf5 ; "%ld"
    eff21:	50                   	push   ax
    eff22:	8d 46 e0             	lea    ax,[bp-0x20]
    eff25:	50                   	push   ax
-   eff26:	9a 59 0f 00 e0       	call   0xe000:0xf59
+   eff26:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; f_sprintf
    eff2b:	83 c4 08             	add    sp,0x8
    eff2e:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    eff31:	b4 00                	mov    ah,0x0
@@ -25492,81 +25508,81 @@ interesting:
    eff42:	8a 46 f8             	mov    al,BYTE PTR [bp-0x8]
    eff45:	b4 00                	mov    ah,0x0
    eff47:	50                   	push   ax
-   eff48:	b8 f9 00             	mov    ax,0xf9
+   eff48:	b8 f9 00             	mov    ax,0xf9 ; "%02d"
    eff4b:	e9 8f 00             	jmp    0xeffdd
    eff4e:	8a 46 f7             	mov    al,BYTE PTR [bp-0x9]
    eff51:	b4 00                	mov    ah,0x0
    eff53:	50                   	push   ax
-   eff54:	b8 fe 00             	mov    ax,0xfe
+   eff54:	b8 fe 00             	mov    ax,0xfe ; "%02d"
    eff57:	e9 83 00             	jmp    0xeffdd
    eff5a:	8a 46 f6             	mov    al,BYTE PTR [bp-0xa]
    eff5d:	b4 00                	mov    ah,0x0
    eff5f:	50                   	push   ax
-   eff60:	b8 03 01             	mov    ax,0x103
+   eff60:	b8 03 01             	mov    ax,0x103 ; "%02d"
    eff63:	eb 78                	jmp    0xeffdd
    eff65:	8a 46 f6             	mov    al,BYTE PTR [bp-0xa]
    eff68:	b4 00                	mov    ah,0x0
    eff6a:	50                   	push   ax
-   eff6b:	b8 08 01             	mov    ax,0x108
+   eff6b:	b8 08 01             	mov    ax,0x108 ; "%2d"
    eff6e:	eb 6d                	jmp    0xeffdd
    eff70:	33 c0                	xor    ax,ax
    eff72:	50                   	push   ax
    eff73:	9a 9a 06 70 e4       	call   0xe470:0x69a
    eff78:	59                   	pop    cx
    eff79:	50                   	push   ax
-   eff7a:	b8 0c 01             	mov    ax,0x10c
+   eff7a:	b8 0c 01             	mov    ax,0x10c ; "%2d~C"
    eff7d:	e9 68 01             	jmp    0xe00e8
    eff80:	b8 01 00             	mov    ax,0x1
    eff83:	50                   	push   ax
    eff84:	9a 9a 06 70 e4       	call   0xe470:0x69a
    eff89:	59                   	pop    cx
    eff8a:	50                   	push   ax
-   eff8b:	b8 12 01             	mov    ax,0x112
+   eff8b:	b8 12 01             	mov    ax,0x112 ; "%2d~F"
    eff8e:	e9 57 01             	jmp    0xe00e8
    eff91:	a0 d1 62             	mov    al,ds:0x62d1
    eff94:	b4 00                	mov    ah,0x0
    eff96:	50                   	push   ax
-   eff97:	b8 18 01             	mov    ax,0x118
+   eff97:	b8 18 01             	mov    ax,0x118 ; "%2d"
    eff9a:	e9 4b 01             	jmp    0xe00e8
    eff9d:	a0 0a 2e             	mov    al,ds:0x2e0a
    effa0:	b4 00                	mov    ah,0x0
    effa2:	50                   	push   ax
-   effa3:	b8 1c 01             	mov    ax,0x11c
+   effa3:	b8 1c 01             	mov    ax,0x11c ; "%02d"
    effa6:	eb 35                	jmp    0xeffdd
    effa8:	a0 0b 2e             	mov    al,ds:0x2e0b
    effab:	b4 00                	mov    ah,0x0
    effad:	50                   	push   ax
-   effae:	b8 21 01             	mov    ax,0x121
+   effae:	b8 21 01             	mov    ax,0x121 ; "%02d"
    effb1:	eb 2a                	jmp    0xeffdd
    effb3:	a0 0c 2e             	mov    al,ds:0x2e0c
    effb6:	b4 00                	mov    ah,0x0
    effb8:	50                   	push   ax
-   effb9:	b8 26 01             	mov    ax,0x126
+   effb9:	b8 26 01             	mov    ax,0x126 ; %02d"
    effbc:	eb 1f                	jmp    0xeffdd
    effbe:	a0 10 2e             	mov    al,ds:0x2e10
    effc1:	b4 00                	mov    ah,0x0
    effc3:	50                   	push   ax
-   effc4:	b8 2b 01             	mov    ax,0x12b
+   effc4:	b8 2b 01             	mov    ax,0x12b ; %02d"
    effc7:	eb 14                	jmp    0xeffdd
    effc9:	a0 11 2e             	mov    al,ds:0x2e11
    effcc:	b4 00                	mov    ah,0x0
    effce:	50                   	push   ax
-   effcf:	b8 30 01             	mov    ax,0x130
+   effcf:	b8 30 01             	mov    ax,0x130 ; %02d"
    effd2:	eb 09                	jmp    0xeffdd
    effd4:	a0 12 2e             	mov    al,ds:0x2e12
    effd7:	b4 00                	mov    ah,0x0
    effd9:	50                   	push   ax
-   effda:	b8 35 01             	mov    ax,0x135
+   effda:	b8 35 01             	mov    ax,0x135 ; "%02d"
    effdd:	50                   	push   ax
    effde:	8d 46 e0             	lea    ax,[bp-0x20]
    effe1:	50                   	push   ax
-   effe2:	9a 59 0f 00 e0       	call   0xe000:0xf59
+   effe2:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; f_sprintf
    effe7:	83 c4 06             	add    sp,0x6
    effea:	e9 41 ff             	jmp    0xeff2e
    effed:	a0 c3 2a             	mov    al,ds:0x2ac3
    efff0:	b4 00                	mov    ah,0x0
    efff2:	50                   	push   ax
-   efff3:	b8 3a 01             	mov    ax,0x13a
+   efff3:	b8 3a 01             	mov    ax,0x13a ; "%02d"
    efff6:	e9 ef 00             	jmp    0xe00e8
    efff9:	8a 46 fe             	mov    al,BYTE PTR [bp-0x2]
    efffc:	b4 00                	mov    ah,0x0
@@ -25574,7 +25590,7 @@ interesting:
    f0001:	f7 ea                	imul   dx
    f0003:	05 5c 28             	add    ax,0x285c
    f0006:	50                   	push   ax
-   f0007:	b8 3f 01             	mov    ax,0x13f
+   f0007:	b8 3f 01             	mov    ax,0x13f ; "%.3s"
    f000a:	e9 db 00             	jmp    0xf00e8
    f000d:	8a 46 fe             	mov    al,BYTE PTR [bp-0x2]
    f0010:	b4 00                	mov    ah,0x0
@@ -25582,12 +25598,12 @@ interesting:
    f0015:	f7 ea                	imul   dx
    f0017:	05 5c 28             	add    ax,0x285c
    f001a:	50                   	push   ax
-   f001b:	b8 44 01             	mov    ax,0x144
+   f001b:	b8 44 01             	mov    ax,0x144 ; "%s"
    f001e:	e9 c7 00             	jmp    0xf00e8
    f0021:	8a 46 fa             	mov    al,BYTE PTR [bp-0x6]
    f0024:	b4 00                	mov    ah,0x0
    f0026:	50                   	push   ax
-   f0027:	b8 47 01             	mov    ax,0x147
+   f0027:	b8 47 01             	mov    ax,0x147 ; "%2d"
    f002a:	e9 bb 00             	jmp    0xf00e8
    f002d:	8a 46 fa             	mov    al,BYTE PTR [bp-0x6]
    f0030:	b4 00                	mov    ah,0x0
@@ -25595,12 +25611,12 @@ interesting:
    f0035:	f7 ea                	imul   dx
    f0037:	05 24 29             	add    ax,0x2924
    f003a:	50                   	push   ax
-   f003b:	b8 4b 01             	mov    ax,0x14b
+   f003b:	b8 4b 01             	mov    ax,0x14b ; "%s"
    f003e:	e9 a7 00             	jmp    0xf00e8
    f0041:	8a 46 fb             	mov    al,BYTE PTR [bp-0x5]
    f0044:	b4 00                	mov    ah,0x0
    f0046:	50                   	push   ax
-   f0047:	b8 4e 01             	mov    ax,0x14e
+   f0047:	b8 4e 01             	mov    ax,0x14e ; "%02d"
    f004a:	e9 9b 00             	jmp    0xf00e8
    f004d:	8a 46 fb             	mov    al,BYTE PTR [bp-0x5]
    f0050:	b4 00                	mov    ah,0x0
@@ -25608,7 +25624,7 @@ interesting:
    f0055:	f7 ea                	imul   dx
    f0057:	05 a2 28             	add    ax,0x28a2
    f005a:	50                   	push   ax
-   f005b:	b8 53 01             	mov    ax,0x153
+   f005b:	b8 53 01             	mov    ax,0x153 ; "%.3s"
    f005e:	e9 87 00             	jmp    0xf00e8
    f0061:	8a 46 fb             	mov    al,BYTE PTR [bp-0x5]
    f0064:	b4 00                	mov    ah,0x0
@@ -25616,66 +25632,66 @@ interesting:
    f0069:	f7 ea                	imul   dx
    f006b:	05 a2 28             	add    ax,0x28a2
    f006e:	50                   	push   ax
-   f006f:	b8 58 01             	mov    ax,0x158
+   f006f:	b8 58 01             	mov    ax,0x158 ; "%2d"
    f0072:	eb 74                	jmp    0xf00e8
    f0074:	81 7e fc d0 07       	cmp    WORD PTR [bp-0x4],0x7d0
    f0079:	73 0c                	jae    0xf0087
    f007b:	8b 46 fc             	mov    ax,WORD PTR [bp-0x4]
    f007e:	2d 6c 07             	sub    ax,0x76c
    f0081:	50                   	push   ax
-   f0082:	b8 5b 01             	mov    ax,0x15b
+   f0082:	b8 5b 01             	mov    ax,0x15b ; "%02d"
    f0085:	eb 0a                	jmp    0xf0091
    f0087:	8b 46 fc             	mov    ax,WORD PTR [bp-0x4]
    f008a:	2d d0 07             	sub    ax,0x7d0
    f008d:	50                   	push   ax
-   f008e:	b8 60 01             	mov    ax,0x160
+   f008e:	b8 60 01             	mov    ax,0x160 ; "%02d"
    f0091:	50                   	push   ax
    f0092:	8d 46 e0             	lea    ax,[bp-0x20]
    f0095:	50                   	push   ax
-   f0096:	9a 59 0f 00 e0       	call   0xe000:0xf59
+   f0096:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; f_sprintf
    f009b:	83 c4 06             	add    sp,0x6
    f009e:	eb 57                	jmp    0xf00f7
    f00a0:	ff 76 fc             	push   WORD PTR [bp-0x4]
-   f00a3:	b8 65 01             	mov    ax,0x165
+   f00a3:	b8 65 01             	mov    ax,0x165 ; "%4d"
    f00a6:	eb 40                	jmp    0xf00e8
    f00a8:	a0 21 2e             	mov    al,ds:0x2e21
    f00ab:	b4 00                	mov    ah,0x0
    f00ad:	50                   	push   ax
-   f00ae:	b8 69 01             	mov    ax,0x169
+   f00ae:	b8 69 01             	mov    ax,0x169 ; "%02d"
    f00b1:	eb 35                	jmp    0xf00e8
    f00b3:	a0 22 2e             	mov    al,ds:0x2e22
    f00b6:	b4 00                	mov    ah,0x0
    f00b8:	50                   	push   ax
-   f00b9:	b8 6e 01             	mov    ax,0x16e
+   f00b9:	b8 6e 01             	mov    ax,0x16e ; "%02d"
    f00bc:	eb 2a                	jmp    0xf00e8
    f00be:	a0 23 2e             	mov    al,ds:0x2e23
    f00c1:	b4 00                	mov    ah,0x0
    f00c3:	50                   	push   ax
-   f00c4:	b8 73 01             	mov    ax,0x173
+   f00c4:	b8 73 01             	mov    ax,0x173 ; "%02d"
    f00c7:	eb 1f                	jmp    0xf00e8
    f00c9:	a0 18 2e             	mov    al,ds:0x2e18
    f00cc:	b4 00                	mov    ah,0x0
    f00ce:	50                   	push   ax
-   f00cf:	b8 78 01             	mov    ax,0x178
+   f00cf:	b8 78 01             	mov    ax,0x178 ; "%02d"
    f00d2:	eb 14                	jmp    0xf00e8
    f00d4:	a0 19 2e             	mov    al,ds:0x2e19
    f00d7:	b4 00                	mov    ah,0x0
    f00d9:	50                   	push   ax
-   f00da:	b8 7d 01             	mov    ax,0x17d
+   f00da:	b8 7d 01             	mov    ax,0x17d ; "%02d"
    f00dd:	eb 09                	jmp    0xf00e8
    f00df:	a0 1a 2e             	mov    al,ds:0x2e1a
    f00e2:	b4 00                	mov    ah,0x0
    f00e4:	50                   	push   ax
-   f00e5:	b8 82 01             	mov    ax,0x182
+   f00e5:	b8 82 01             	mov    ax,0x182 ; "%02d"
    f00e8:	50                   	push   ax
    f00e9:	8d 46 e0             	lea    ax,[bp-0x20]
    f00ec:	50                   	push   ax
-   f00ed:	9a 59 0f 00 e0       	call   0xe000:0xf59
+   f00ed:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; f_sprintf
    f00f2:	83 c4 06             	add    sp,0x6
    f00f5:	eb 00                	jmp    0xf00f7
    f00f7:	8d 46 e0             	lea    ax,[bp-0x20]
    f00fa:	50                   	push   ax
-   f00fb:	9a 82 10 00 e0       	call   0xe000:0x1082
+   f00fb:	9a 82 10 00 e0       	call   0xe000:0x1082 ; n_strlen
    f0100:	59                   	pop    cx
    f0101:	89 46 f2             	mov    WORD PTR [bp-0xe],ax
    f0104:	ff 76 0e             	push   WORD PTR [bp+0xe]
@@ -26044,7 +26060,7 @@ interesting:
    f04e5:	50                   	push   ax
    f04e6:	b8 5e 2a             	mov    ax,0x2a5e
    f04e9:	50                   	push   ax
-   f04ea:	9a 17 0f 00 e0       	call   0xe000:0xf17
+   f04ea:	9a 17 0f 00 e0       	call   0xe000:0xf17 ; f_memmove
    f04ef:	83 c4 06             	add    sp,0x6
    f04f2:	c6 46 fb 00          	mov    BYTE PTR [bp-0x5],0x0
    f04f6:	eb 25                	jmp    0xf051d
@@ -26862,10 +26878,10 @@ init_something5:
    f0d6e:	0b 87 37 3e          	or     ax,WORD PTR [bx+0x3e37]
    f0d72:	75 03                	jne    0xf0d77
    f0d74:	e9 07 01             	jmp    0xf0e7e
-   f0d77:	b8 57 02             	mov    ax,0x257
+   f0d77:	b8 57 02             	mov    ax,0x257 ; f9af7 ""
    f0d7a:	50                   	push   ax
    f0d7b:	ff 76 0a             	push   WORD PTR [bp+0xa]
-   f0d7e:	9a 31 10 00 e0       	call   0xe000:0x1031
+   f0d7e:	9a 31 10 00 e0       	call   0xe000:0x1031 ; strcmp
    f0d83:	59                   	pop    cx
    f0d84:	59                   	pop    cx
    f0d85:	0b c0                	or     ax,ax
@@ -28950,14 +28966,14 @@ init_something5:
    f2249:	8b 46 06             	mov    ax,WORD PTR [bp+0x6]
    f224c:	05 05 00             	add    ax,0x5
    f224f:	50                   	push   ax
-   f2250:	9a 82 10 00 e0       	call   0xe000:0x1082
+   f2250:	9a 82 10 00 e0       	call   0xe000:0x1082 ; n_strlen
    f2255:	59                   	pop    cx
    f2256:	0b c0                	or     ax,ax
    f2258:	74 6a                	je     0xf22c4
    f225a:	8b 46 06             	mov    ax,WORD PTR [bp+0x6]
    f225d:	05 05 00             	add    ax,0x5
    f2260:	50                   	push   ax
-   f2261:	9a 82 10 00 e0       	call   0xe000:0x1082
+   f2261:	9a 82 10 00 e0       	call   0xe000:0x1082 ; n_strlen
    f2266:	59                   	pop    cx
    f2267:	fe c0                	inc    al
    f2269:	c4 5e fa             	les    bx,DWORD PTR [bp-0x6]
@@ -29154,7 +29170,7 @@ init_something5:
    f24b3:	50                   	push   ax
    f24b4:	b8 dd 62             	mov    ax,0x62dd
    f24b7:	50                   	push   ax
-   f24b8:	9a b3 0e 00 e0       	call   0xe000:0xeb3
+   f24b8:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
    f24bd:	83 c4 06             	add    sp,0x6
    f24c0:	ff 06 db 62          	inc    WORD PTR ds:0x62db
    f24c4:	a1 db 62             	mov    ax,ds:0x62db
@@ -29362,7 +29378,7 @@ init_something5:
    f26d8:	50                   	push   ax
    f26d9:	b8 dd 62             	mov    ax,0x62dd
    f26dc:	50                   	push   ax
-   f26dd:	9a b3 0e 00 e0       	call   0xe000:0xeb3
+   f26dd:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
    f26e2:	83 c4 06             	add    sp,0x6
    f26e5:	c7 06 db 62 04 00    	mov    WORD PTR ds:0x62db,0x4
    f26eb:	c6 06 da 62 00       	mov    BYTE PTR ds:0x62da,0x0
@@ -31147,7 +31163,7 @@ compare_lizz:
    f36c5:	50                   	push   ax
    f36c6:	b8 89 01             	mov    ax,0x189
    f36c9:	50                   	push   ax
-   f36ca:	9a b3 0e 00 e0       	call   0xe000:0xeb3
+   f36ca:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
    f36cf:	83 c4 06             	add    sp,0x6
    f36d2:	a0 4d 64             	mov    al,ds:0x644d
    f36d5:	b4 00                	mov    ah,0x0
@@ -31160,7 +31176,7 @@ compare_lizz:
    f36e6:	50                   	push   ax
    f36e7:	b8 89 01             	mov    ax,0x189
    f36ea:	50                   	push   ax
-   f36eb:	9a b3 0e 00 e0       	call   0xe000:0xeb3
+   f36eb:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
    f36f0:	83 c4 06             	add    sp,0x6
    f36f3:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
    f36f6:	eb 00                	jmp    0xf36f8
@@ -32143,7 +32159,7 @@ compare_lizz:
    f4011:	50                   	push   ax
    f4012:	b8 4d 63             	mov    ax,0x634d
    f4015:	50                   	push   ax
-   f4016:	9a 82 10 00 e0       	call   0xe000:0x1082
+   f4016:	9a 82 10 00 e0       	call   0xe000:0x1082 ; n_strlen
    f401b:	59                   	pop    cx
    f401c:	05 02 00             	add    ax,0x2
    f401f:	50                   	push   ax
@@ -32726,7 +32742,7 @@ compare_lizz:
    f4615:	50                   	push   ax
    f4616:	b8 0e 66             	mov    ax,0x660e
    f4619:	50                   	push   ax
-   f461a:	9a b3 0e 00 e0       	call   0xe000:0xeb3
+   f461a:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
    f461f:	83 c4 06             	add    sp,0x6
    f4622:	b8 00 01             	mov    ax,0x100
    f4625:	50                   	push   ax
@@ -32734,7 +32750,7 @@ compare_lizz:
    f4628:	50                   	push   ax
    f4629:	b8 4d 63             	mov    ax,0x634d
    f462c:	50                   	push   ax
-   f462d:	9a b3 0e 00 e0       	call   0xe000:0xeb3
+   f462d:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
    f4632:	83 c4 06             	add    sp,0x6
    f4635:	8b 5e f6             	mov    bx,WORD PTR [bp-0xa]
    f4638:	8a 87 69 02          	mov    al,BYTE PTR [bx+0x269]
@@ -33492,17 +33508,17 @@ compare_lizz:
    f4dc5:	8a 87 3a 63          	mov    al,BYTE PTR [bx+0x633a]
    f4dc9:	b4 00                	mov    ah,0x0
    f4dcb:	50                   	push   ax
-   f4dcc:	b8 e1 05             	mov    ax,0x5e1
+   f4dcc:	b8 e1 05             	mov    ax,0x5e1 ; "%02X,"
    f4dcf:	50                   	push   ax
    f4dd0:	8d 46 f4             	lea    ax,[bp-0xc]
    f4dd3:	50                   	push   ax
-   f4dd4:	9a 59 0f 00 e0       	call   0xe000:0xf59
+   f4dd4:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; f_sprintf
    f4dd9:	83 c4 06             	add    sp,0x6
    f4ddc:	8d 46 f4             	lea    ax,[bp-0xc]
    f4ddf:	50                   	push   ax
    f4de0:	8d 46 dc             	lea    ax,[bp-0x24]
    f4de3:	50                   	push   ax
-   f4de4:	9a f8 0f 00 e0       	call   0xe000:0xff8
+   f4de4:	9a f8 0f 00 e0       	call   0xe000:0xff8 ; strcat
    f4de9:	59                   	pop    cx
    f4dea:	59                   	pop    cx
    f4deb:	ff 46 f0             	inc    WORD PTR [bp-0x10]
@@ -33521,11 +33537,11 @@ compare_lizz:
    f4e08:	a0 32 63             	mov    al,ds:0x6332
    f4e0b:	b4 00                	mov    ah,0x0
    f4e0d:	50                   	push   ax
-   f4e0e:	b8 e7 05             	mov    ax,0x5e7
+   f4e0e:	b8 e7 05             	mov    ax,0x5e7 ; ">%02X#%02X#%02X#%s#"
    f4e11:	50                   	push   ax
    f4e12:	8d 46 8c             	lea    ax,[bp-0x74]
    f4e15:	50                   	push   ax
-   f4e16:	9a 59 0f 00 e0       	call   0xe000:0xf59
+   f4e16:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; f_sprintf
    f4e1b:	83 c4 0c             	add    sp,0xc
    f4e1e:	c7 46 f0 00 00       	mov    WORD PTR [bp-0x10],0x0
    f4e23:	eb 10                	jmp    0xf4e35
@@ -33537,7 +33553,7 @@ compare_lizz:
    f4e32:	ff 46 f0             	inc    WORD PTR [bp-0x10]
    f4e35:	8d 46 8c             	lea    ax,[bp-0x74]
    f4e38:	50                   	push   ax
-   f4e39:	9a 82 10 00 e0       	call   0xe000:0x1082
+   f4e39:	9a 82 10 00 e0       	call   0xe000:0x1082 ; n_strlen
    f4e3e:	59                   	pop    cx
    f4e3f:	3b 46 f0             	cmp    ax,WORD PTR [bp-0x10]
    f4e42:	77 e1                	ja     0xf4e25
@@ -33546,11 +33562,11 @@ compare_lizz:
    f4e49:	50                   	push   ax
    f4e4a:	8d 46 8c             	lea    ax,[bp-0x74]
    f4e4d:	50                   	push   ax
-   f4e4e:	b8 fb 05             	mov    ax,0x5fb
+   f4e4e:	b8 fb 05             	mov    ax,0x5fb ; "%s%02X<"
    f4e51:	50                   	push   ax
    f4e52:	a0 40 63             	mov    al,ds:0x6340
    f4e55:	50                   	push   ax
-   f4e56:	9a 25 03 84 f6       	call   0xf684:0x325
+   f4e56:	9a 25 03 84 f6       	call   0xf684:0x325 ; something_printf
    f4e5b:	83 c4 08             	add    sp,0x8
    f4e5e:	8b e5                	mov    sp,bp
    f4e60:	5d                   	pop    bp
@@ -34214,7 +34230,7 @@ call_table:
    f5729:	50                   	push   ax
    f572a:	b8 0e 65             	mov    ax,0x650e
    f572d:	50                   	push   ax
-   f572e:	9a b3 0e 00 e0       	call   0xe000:0xeb3
+   f572e:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
    f5733:	83 c4 06             	add    sp,0x6
    f5736:	c7 46 fe 00 00       	mov    WORD PTR [bp-0x2],0x0
    f573b:	eb 19                	jmp    0xf5756
@@ -34389,7 +34405,7 @@ main:
    f58d1:	33 c0                	xor    ax,ax
    f58d3:	50                   	push   ax
    f58d4:	ff 76 fe             	push   WORD PTR [bp-0x2]
-   f58d7:	9a b3 0e 00 e0       	call   0xe000:0xeb3
+   f58d7:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
    f58dc:	83 c4 06             	add    sp,0x6
    f58df:	c7 06 13 28 01 00    	mov    WORD PTR ds:0x2813,0x1
    f58e5:	8b e5                	mov    sp,bp
@@ -34413,11 +34429,11 @@ main:
    f5916:	83 7e 06 02          	cmp    WORD PTR [bp+0x6],0x2
    f591a:	75 72                	jne    0xf598e
    f591c:	c7 46 06 00 00       	mov    WORD PTR [bp+0x6],0x0
-   f5921:	b8 15 28             	mov    ax,0x2815
+   f5921:	b8 15 28             	mov    ax,0x2815 ; "Infotec K3 : V1.9"
    f5924:	50                   	push   ax
    f5925:	b8 00 68             	mov    ax,0x6800
    f5928:	50                   	push   ax
-   f5929:	9a 31 10 00 e0       	call   0xe000:0x1031
+   f5929:	9a 31 10 00 e0       	call   0xe000:0x1031 ; strcmp
    f592e:	59                   	pop    cx
    f592f:	59                   	pop    cx
    f5930:	0b c0                	or     ax,ax
@@ -36164,6 +36180,7 @@ main:
    f6b64:	cb                   	retf   
 
 
+something_printf:
    f6b65:	55                   	push   bp
    f6b66:	8b ec                	mov    bp,sp
    f6b68:	83 ec 04             	sub    sp,0x4
@@ -36173,7 +36190,7 @@ main:
    f6b74:	ff 76 08             	push   WORD PTR [bp+0x8]
    f6b77:	b8 ae 69             	mov    ax,0x69ae
    f6b7a:	50                   	push   ax
-   f6b7b:	9a 76 0f 00 e0       	call   0xe000:0xf76
+   f6b7b:	9a 76 0f 00 e0       	call   0xe000:0xf76 ; fi_sprintf
    f6b80:	83 c4 06             	add    sp,0x6
    f6b83:	89 46 fe             	mov    WORD PTR [bp-0x2],ax
    f6b86:	b8 ae 69             	mov    ax,0x69ae
@@ -37923,7 +37940,7 @@ main:
    f7dca:	50                   	push   ax
    f7dcb:	b8 58 68             	mov    ax,0x6858
    f7dce:	50                   	push   ax
-   f7dcf:	9a b3 0e 00 e0       	call   0xe000:0xeb3
+   f7dcf:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
    f7dd4:	83 c4 06             	add    sp,0x6
    f7dd7:	8c 5e f2             	mov    WORD PTR [bp-0xe],ds
    f7dda:	8b 46 f2             	mov    ax,WORD PTR [bp-0xe]
@@ -38505,7 +38522,7 @@ main:
    f83a8:	50                   	push   ax
    f83a9:	b8 d9 6b             	mov    ax,0x6bd9
    f83ac:	50                   	push   ax
-   f83ad:	9a b3 0e 00 e0       	call   0xe000:0xeb3
+   f83ad:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
    f83b2:	83 c4 06             	add    sp,0x6
    f83b5:	c7 06 d5 6b 00 00    	mov    WORD PTR ds:0x6bd5,0x0
    f83bb:	eb 59                	jmp    0xf8416
@@ -38518,7 +38535,7 @@ main:
    f83ca:	f7 ea                	imul   dx
    f83cc:	05 d9 6b             	add    ax,0x6bd9
    f83cf:	50                   	push   ax
-   f83d0:	9a b3 0e 00 e0       	call   0xe000:0xeb3
+   f83d0:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
    f83d5:	83 c4 06             	add    sp,0x6
    f83d8:	b8 01 00             	mov    ax,0x1
    f83db:	8a 4e 06             	mov    cl,BYTE PTR [bp+0x6]
@@ -38757,7 +38774,7 @@ main:
    f8671:	50                   	push   ax
    f8672:	b8 d9 6b             	mov    ax,0x6bd9
    f8675:	50                   	push   ax
-   f8676:	9a b3 0e 00 e0       	call   0xe000:0xeb3
+   f8676:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
    f867b:	83 c4 06             	add    sp,0x6
    f867e:	b8 2b 00             	mov    ax,0x2b
    f8681:	50                   	push   ax
@@ -38765,7 +38782,7 @@ main:
    f8684:	50                   	push   ax
    f8685:	b8 ae 6b             	mov    ax,0x6bae
    f8688:	50                   	push   ax
-   f8689:	9a b3 0e 00 e0       	call   0xe000:0xeb3
+   f8689:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
    f868e:	83 c4 06             	add    sp,0x6
    f8691:	b8 ed f7             	mov    ax,0xf7ed
    f8694:	50                   	push   ax
@@ -40047,10 +40064,10 @@ read_something2:
    f91ad:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    f91b0:	b4 00                	mov    ah,0x0
    f91b2:	50                   	push   ax
-   f91b3:	b8 ac 29             	mov    ax,0x29ac
+   f91b3:	b8 ac 29             	mov    ax,0x29ac ; "%2d:%02d.%02d"
    f91b6:	50                   	push   ax
    f91b7:	ff 76 0a             	push   WORD PTR [bp+0xa]
-   f91ba:	9a 59 0f 00 e0       	call   0xe000:0xf59
+   f91ba:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; f_sprintf
    f91bf:	83 c4 0a             	add    sp,0xa
    f91c2:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    f91c7:	75 05                	jne    0xf91ce
@@ -40059,6 +40076,7 @@ read_something2:
    f91cf:	cb                   	retf   
 
 
+strfdate:
    f91d0:	55                   	push   bp
    f91d1:	8b ec                	mov    bp,sp
    f91d3:	83 ec 04             	sub    sp,0x4
@@ -40094,10 +40112,10 @@ read_something2:
    f9223:	8a 46 07             	mov    al,BYTE PTR [bp+0x7]
    f9226:	b4 00                	mov    ah,0x0
    f9228:	50                   	push   ax
-   f9229:	b8 ba 29             	mov    ax,0x29ba
+   f9229:	b8 ba 29             	mov    ax,0x29ba ; "%d\%d\%02d"
    f922c:	50                   	push   ax
    f922d:	ff 76 0c             	push   WORD PTR [bp+0xc]
-   f9230:	9a 59 0f 00 e0       	call   0xe000:0xf59
+   f9230:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; f_sprintf
    f9235:	83 c4 0a             	add    sp,0xa
    f9238:	e9 90 00             	jmp    0xf92cb
    f923b:	ff 76 fc             	push   WORD PTR [bp-0x4]
@@ -40107,20 +40125,20 @@ read_something2:
    f9244:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    f9247:	b4 00                	mov    ah,0x0
    f9249:	50                   	push   ax
-   f924a:	b8 c5 29             	mov    ax,0x29c5
+   f924a:	b8 c5 29             	mov    ax,0x29c5 ; "%d\%d\%02d"
    f924d:	eb dd                	jmp    0xf922c
    f924f:	ff 76 08             	push   WORD PTR [bp+0x8]
    f9252:	8a 46 07             	mov    al,BYTE PTR [bp+0x7]
    f9255:	b4 00                	mov    ah,0x0
    f9257:	ba 0a 00             	mov    dx,0xa
    f925a:	f7 ea                	imul   dx
-   f925c:	05 a2 28             	add    ax,0x28a2
+   f925c:	05 a2 28             	add    ax,0x28a2 ; "January", ...
    f925f:	50                   	push   ax
    f9260:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    f9263:	b4 00                	mov    ah,0x0
    f9265:	ba 03 00             	mov    dx,0x3
    f9268:	f7 ea                	imul   dx
-   f926a:	05 24 29             	add    ax,0x2924
+   f926a:	05 24 29             	add    ax,0x2924 ; "st", "nd", ...
    f926d:	50                   	push   ax
    f926e:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    f9271:	b4 00                	mov    ah,0x0
@@ -40129,7 +40147,7 @@ read_something2:
    f9277:	b4 00                	mov    ah,0x0
    f9279:	ba 0a 00             	mov    dx,0xa
    f927c:	f7 ea                	imul   dx
-   f927e:	05 5c 28             	add    ax,0x285c
+   f927e:	05 5c 28             	add    ax,0x285c ; "Sunday", ...
    f9281:	50                   	push   ax
    f9282:	b8 d0 29             	mov    ax,0x29d0
    f9285:	eb 36                	jmp    0xf92bd
@@ -40138,13 +40156,13 @@ read_something2:
    f928d:	b4 00                	mov    ah,0x0
    f928f:	ba 0a 00             	mov    dx,0xa
    f9292:	f7 ea                	imul   dx
-   f9294:	05 a2 28             	add    ax,0x28a2
+   f9294:	05 a2 28             	add    ax,0x28a2 ; "January", ...
    f9297:	50                   	push   ax
    f9298:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    f929b:	b4 00                	mov    ah,0x0
    f929d:	ba 03 00             	mov    dx,0x3
    f92a0:	f7 ea                	imul   dx
-   f92a2:	05 24 29             	add    ax,0x2924
+   f92a2:	05 24 29             	add    ax,0x2924 ; "st", "nd", ...
    f92a5:	50                   	push   ax
    f92a6:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    f92a9:	b4 00                	mov    ah,0x0
@@ -40153,12 +40171,13 @@ read_something2:
    f92af:	b4 00                	mov    ah,0x0
    f92b1:	ba 0a 00             	mov    dx,0xa
    f92b4:	f7 ea                	imul   dx
-   f92b6:	05 5c 28             	add    ax,0x285c
+   f92b6:	05 5c 28             	add    ax,0x285c ; "Sunday", ...
    f92b9:	50                   	push   ax
-   f92ba:	b8 de 29             	mov    ax,0x29de
+   f92ba:	b8 de 29             	mov    ax,0x29de ; "%.3s %2d%s %.3s %4d"
+   ; i.e. "Sat 01st Jan 2011"
    f92bd:	50                   	push   ax
    f92be:	ff 76 0c             	push   WORD PTR [bp+0xc]
-   f92c1:	9a 59 0f 00 e0       	call   0xe000:0xf59
+   f92c1:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; f_sprintf
    f92c6:	83 c4 0e             	add    sp,0xe
    f92c9:	eb 00                	jmp    0xf92cb
    f92cb:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
@@ -41942,7 +41961,7 @@ reset_proc3:
    fc70b:	b8 9e 1f             	mov    ax,0x1f9e
    fc70e:	50                   	push   ax
    fc70f:	ff 76 0a             	push   WORD PTR [bp+0xa]
-   fc712:	9a 59 0f 00 e0       	call   0xe000:0xf59
+   fc712:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; f_sprintf
    fc717:	83 c4 0a             	add    sp,0xa
    fc71a:	83 3e 05 1e 00       	cmp    WORD PTR ds:0x1e05,0x0
    fc71f:	75 05                	jne    0xfc726
@@ -41989,7 +42008,7 @@ reset_proc3:
    fc781:	b8 ac 1f             	mov    ax,0x1fac
    fc784:	50                   	push   ax
    fc785:	ff 76 0c             	push   WORD PTR [bp+0xc]
-   fc788:	9a 59 0f 00 e0       	call   0xe000:0xf59
+   fc788:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; f_sprintf
    fc78d:	83 c4 0a             	add    sp,0xa
    fc790:	e9 90 00             	jmp    0xfc823
    fc793:	ff 76 fc             	push   WORD PTR [bp-0x4]
@@ -42050,7 +42069,7 @@ reset_proc3:
    fc812:	b8 d0 1f             	mov    ax,0x1fd0
    fc815:	50                   	push   ax
    fc816:	ff 76 0c             	push   WORD PTR [bp+0xc]
-   fc819:	9a 59 0f 00 e0       	call   0xe000:0xf59
+   fc819:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; f_sprintf
    fc81e:	83 c4 0e             	add    sp,0xe
    fc821:	eb 00                	jmp    0xfc823
    fc823:	83 3e 05 1e 00       	cmp    WORD PTR ds:0x1e05,0x0
