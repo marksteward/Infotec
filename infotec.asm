@@ -20066,7 +20066,7 @@ init_something3:
 
 
 .code
-something_font:
+something_font1:
    ec7d8:	55                   	push   bp
    ec7d9:	8b ec                	mov    bp,sp
    ec7db:	83 ec 16             	sub    sp,0x16
@@ -21588,7 +21588,7 @@ struct FONTINFO {
 }
 
 .code
-int load_font(short fontnum, FONTHEADER h, near *data):
+int _cdecl load_font(short fontnum, FONTHEADER h, near *data):
    ed6e9:	55                   	push   bp
    ed6ea:	8b ec                	mov    bp,sp
    ed6ec:	83 ec 02             	sub    sp,0x2
@@ -21601,11 +21601,11 @@ int load_font(short fontnum, FONTHEADER h, near *data):
    ed6fb:	e9 df 00             	jmp    0xed7dd
    ed6fe:	80 7e 08 30          	cmp    BYTE PTR [bp+0x8],0x30
    ed702:	76 03                	jbe    0xed707
-; if h.width > 0x30 return -1
+; if h.width > 48 return -1
    ed704:	e9 d6 00             	jmp    0xed7dd
    ed707:	80 7e 09 18          	cmp    BYTE PTR [bp+0x9],0x18
    ed70b:	76 03                	jbe    0xed710
-; if h.height > 0x18 return -1
+; if h.height > 24 return -1
    ed70d:	e9 cd 00             	jmp    0xed7dd
    ed710:	80 7e 09 01          	cmp    BYTE PTR [bp+0x9],0x1
    ed714:	77 03                	ja     0xed719
@@ -21620,7 +21620,7 @@ int load_font(short fontnum, FONTHEADER h, near *data):
    ed727:	b4 00                	mov    ah,0x0
    ed729:	ba 0f 00             	mov    dx,0xf
    ed72c:	f7 ea                	imul   dx
-   ed72e:	05 3a 42             	add    ax,0x423a ; 0xfdada
+   ed72e:	05 3a 42             	add    ax,0x423a
    ed731:	1e                   	push   ds
    ed732:	50                   	push   ax
    ed733:	8d 46 08             	lea    ax,[bp+0x8]
@@ -21708,30 +21708,41 @@ int load_font(short fontnum, FONTHEADER h, near *data):
    ed7e6:	cb                   	retf   
 
 
-reload_font:
+int create_user_font(short fontnum, short width, short height, short start, short end):
    ed7e7:	55                   	push   bp
    ed7e8:	8b ec                	mov    bp,sp
+; FONTHEADER h
+; void * data
+; int cb
+; short charbytes
    ed7ea:	83 ec 10             	sub    sp,0x10
+; result = -1
    ed7ed:	c7 46 fe ff ff       	mov    WORD PTR [bp-0x2],0xffff
    ed7f2:	80 7e 06 08          	cmp    BYTE PTR [bp+0x6],0x8
    ed7f6:	72 03                	jb     0xed7fb
+; if fontnum >= 8 return -1
    ed7f8:	e9 1c 01             	jmp    0xed917
    ed7fb:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    ed7fe:	3a 06 88 01          	cmp    al,BYTE PTR ds:0x188
    ed802:	73 03                	jae    0xed807
+; if fontnum < g_builtin_fonts return -1
    ed804:	e9 10 01             	jmp    0xed917
    ed807:	80 7e 08 30          	cmp    BYTE PTR [bp+0x8],0x30
    ed80b:	76 03                	jbe    0xed810
+; if width > 48 return -1
    ed80d:	e9 07 01             	jmp    0xed917
    ed810:	80 7e 0a 18          	cmp    BYTE PTR [bp+0xa],0x18
    ed814:	76 03                	jbe    0xed819
+; if height > 24 return -1
    ed816:	e9 fe 00             	jmp    0xed917
    ed819:	80 7e 0a 01          	cmp    BYTE PTR [bp+0xa],0x1
    ed81d:	77 03                	ja     0xed822
+; if height <= 1 return -1
    ed81f:	e9 f5 00             	jmp    0xed917
    ed822:	8a 46 0c             	mov    al,BYTE PTR [bp+0xc]
    ed825:	3a 46 0e             	cmp    al,BYTE PTR [bp+0xe]
    ed828:	76 03                	jbe    0xed82d
+; if start >= end return -1
    ed82a:	e9 ea 00             	jmp    0xed917
    ed82d:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    ed830:	b4 00                	mov    ah,0x0
@@ -21739,16 +21750,16 @@ reload_font:
    ed835:	f7 ea                	imul   dx
    ed837:	8b d8                	mov    bx,ax
    ed839:	80 bf 35 42 01       	cmp    BYTE PTR [bx+0x4235],0x1
-; if g_fonts[fontnum].loaded == 1
+; if g_fonts[fontnum].loaded == 1:
    ed83e:	75 33                	jne    0xed873
    ed840:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    ed843:	b4 00                	mov    ah,0x0
    ed845:	ba 0f 00             	mov    dx,0xf
    ed848:	f7 ea                	imul   dx
    ed84a:	8b d8                	mov    bx,ax
-; g_fonts[fontnum].data
    ed84c:	ff b7 33 42          	push   WORD PTR [bx+0x4233]
    ed850:	ff b7 31 42          	push   WORD PTR [bx+0x4231]
+;   free_font(g_fonts[fontnum].data)
    ed854:	9a 10 04 ac f5       	call   0xf5ac:0x410
    ed859:	59                   	pop    cx
    ed85a:	59                   	pop    cx
@@ -21757,9 +21768,10 @@ reload_font:
    ed860:	ba 0f 00             	mov    dx,0xf
    ed863:	f7 ea                	imul   dx
    ed865:	8b d8                	mov    bx,ax
-; g_fonts[fontnum].data = 0
+;   g_fonts[fontnum].data = 0
    ed867:	c7 87 33 42 00 00    	mov    WORD PTR [bx+0x4233],0x0
    ed86d:	c7 87 31 42 00 00    	mov    WORD PTR [bx+0x4231],0x0
+
    ed873:	8a 46 08             	mov    al,BYTE PTR [bp+0x8]
    ed876:	b4 00                	mov    ah,0x0
    ed878:	8a 56 0a             	mov    dl,BYTE PTR [bp+0xa]
@@ -21775,6 +21787,7 @@ reload_font:
    ed88a:	58                   	pop    ax
    ed88b:	f7 ea                	imul   dx
    ed88d:	fe c0                	inc    al
+; charbytes = width * (height - 1) / 8 + 1
    ed88f:	88 46 fd             	mov    BYTE PTR [bp-0x3],al
    ed892:	8a 46 0e             	mov    al,BYTE PTR [bp+0xe]
    ed895:	b4 00                	mov    ah,0x0
@@ -21786,32 +21799,42 @@ reload_font:
    ed8a2:	b6 00                	mov    dh,0x0
    ed8a4:	f7 ea                	imul   dx
    ed8a6:	89 46 fa             	mov    WORD PTR [bp-0x6],ax
+; cb = (end - start + 1) * charbytes
    ed8a9:	ff 76 fa             	push   WORD PTR [bp-0x6]
    ed8ac:	b0 01                	mov    al,0x1
    ed8ae:	50                   	push   ax
+; data = alloc_font(1, cb)
    ed8af:	9a 6e 01 ac f5       	call   0xf5ac:0x16e
    ed8b4:	59                   	pop    cx
    ed8b5:	59                   	pop    cx
    ed8b6:	89 56 f8             	mov    WORD PTR [bp-0x8],dx
    ed8b9:	89 46 f6             	mov    WORD PTR [bp-0xa],ax
    ed8bc:	0b c2                	or     ax,dx
+; if data == 0 return -1
    ed8be:	74 57                	je     0xed917
    ed8c0:	ff 76 fa             	push   WORD PTR [bp-0x6]
    ed8c3:	33 c0                	xor    ax,ax
    ed8c5:	50                   	push   ax
    ed8c6:	ff 76 f8             	push   WORD PTR [bp-0x8]
    ed8c9:	ff 76 f6             	push   WORD PTR [bp-0xa]
+; memset(data, 0, cb)
    ed8cc:	9a e4 10 00 e0       	call   0xe000:0x10e4
    ed8d1:	83 c4 08             	add    sp,0x8
    ed8d4:	8a 46 08             	mov    al,BYTE PTR [bp+0x8]
+; h.width = width
    ed8d7:	88 46 f0             	mov    BYTE PTR [bp-0x10],al
    ed8da:	8a 46 0a             	mov    al,BYTE PTR [bp+0xa]
+; h.height = height
    ed8dd:	88 46 f1             	mov    BYTE PTR [bp-0xf],al
    ed8e0:	8a 46 0c             	mov    al,BYTE PTR [bp+0xc]
+; h.start = start
    ed8e3:	88 46 f2             	mov    BYTE PTR [bp-0xe],al
    ed8e6:	8a 46 0e             	mov    al,BYTE PTR [bp+0xe]
+; h.end = end
    ed8e9:	88 46 f3             	mov    BYTE PTR [bp-0xd],al
+; h.u1 = 1
    ed8ec:	c6 46 f4 01          	mov    BYTE PTR [bp-0xc],0x1
+; h.u2 = 2
    ed8f0:	c6 46 f5 02          	mov    BYTE PTR [bp-0xb],0x2
    ed8f4:	ff 76 f8             	push   WORD PTR [bp-0x8]
    ed8f7:	ff 76 f6             	push   WORD PTR [bp-0xa]
@@ -21822,10 +21845,12 @@ reload_font:
    ed907:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    ed90a:	50                   	push   ax
    ed90b:	0e                   	push   cs
+; result = near load_font(p1, &h, data)
    ed90c:	e8 da fd             	call   0xed6e9 ; load_font
    ed90f:	83 c4 0c             	add    sp,0xc
    ed912:	89 46 fe             	mov    WORD PTR [bp-0x2],ax
    ed915:	eb 00                	jmp    0xed917
+; return result
    ed917:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
    ed91a:	eb 00                	jmp    0xed91c
    ed91c:	8b e5                	mov    sp,bp
@@ -21833,10 +21858,11 @@ reload_font:
    ed91f:	cb                   	retf   
 
 
-something_font:
+int something_font2(short fontnum, ):
    ed920:	55                   	push   bp
    ed921:	8b ec                	mov    bp,sp
    ed923:	83 ec 10             	sub    sp,0x10
+; result = -1
    ed926:	c7 46 fe ff ff       	mov    WORD PTR [bp-0x2],0xffff
    ed92b:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    ed92e:	b4 00                	mov    ah,0x0
@@ -21961,7 +21987,9 @@ something_font:
    eda7c:	f7 ea                	imul   dx
    eda7e:	c4 5e fa             	les    bx,DWORD PTR [bp-0x6]
    eda81:	26 88 07             	mov    BYTE PTR es:[bx],al
+; result = -2
    eda84:	c7 46 fe fe ff       	mov    WORD PTR [bp-0x2],0xfffe
+; return result
    eda89:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
    eda8c:	eb 00                	jmp    0xeda8e
    eda8e:	8b e5                	mov    sp,bp
@@ -21969,7 +21997,7 @@ something_font:
    eda91:	cb                   	retf   
 
 
-something_font:
+something_font3:
    eda92:	55                   	push   bp
    eda93:	8b ec                	mov    bp,sp
    eda95:	83 ec 06             	sub    sp,0x6
@@ -22028,7 +22056,7 @@ something_font:
    edb25:	cb                   	retf   
 
 
-something_font:
+something_font4:
    edb26:	55                   	push   bp
    edb27:	8b ec                	mov    bp,sp
    edb29:	83 ec 0c             	sub    sp,0xc
@@ -26666,7 +26694,7 @@ init_something5:
    f0a73:	eb fe                	jmp    0xf0a73
    f0a75:	9a d2 20 f1 e4       	call   0xe4f1:0x20d2
    f0a7a:	9a e4 02 47 f6       	call   0xf647:0x2e4
-   f0a7f:	9a 2f 14 7d ec       	call   0xec7d:0x142f
+   f0a7f:	9a 2f 14 7d ec       	call   0xec7d:0x142f ; unload_font
    f0a84:	9a 67 03 b2 f0       	call   0xf0b2:0x367
    f0a89:	9a 1a 0e 60 ef       	call   0xef60:0xe1a
    f0a8e:	9a 71 06 04 e4       	call   0xe404:0x671
@@ -26730,7 +26758,7 @@ init_something5:
    f0b08:	9a b8 00 b2 f7       	call   0xf7b2:0xb8
    f0b0d:	83 c4 0a             	add    sp,0xa
    f0b10:	9a e4 02 47 f6       	call   0xf647:0x2e4
-   f0b15:	9a 16 00 76 f5       	call   0xf576:0x16
+   f0b15:	9a 16 00 76 f5       	call   0xf576:0x16 ; load_builtin_fonts
    f0b1a:	b8 fe ff             	mov    ax,0xfffe
    f0b1d:	eb 00                	jmp    0xf0b1f
    f0b1f:	8b e5                	mov    sp,bp
@@ -31303,10 +31331,13 @@ compare_lizz:
    f372e:	cb                   	retf   
 
 
+int do_create_user_font(void):
    f372f:	55                   	push   bp
    f3730:	8b ec                	mov    bp,sp
    f3732:	83 ec 02             	sub    sp,0x2
+; result = -2
    f3735:	c7 46 fe fe ff       	mov    WORD PTR [bp-0x2],0xfffe
+; if g_cinargs < 5 return -2 ; do nothing
    f373a:	80 3e 0d 65 05       	cmp    BYTE PTR ds:0x650d,0x5
    f373f:	72 1f                	jb     0xf3760
    f3741:	a0 51 64             	mov    al,ds:0x6451
@@ -31319,9 +31350,11 @@ compare_lizz:
    f3750:	50                   	push   ax
    f3751:	a0 4d 64             	mov    al,ds:0x644d
    f3754:	50                   	push   ax
+; result = create_user_font(g_inargs[0], g_inargs[1], g_inargs[2], g_inargs[3], g_inargs[4])
    f3755:	9a 17 10 7d ec       	call   0xec7d:0x1017
    f375a:	83 c4 0a             	add    sp,0xa
    f375d:	89 46 fe             	mov    WORD PTR [bp-0x2],ax
+; return result
    f3760:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
    f3763:	eb 00                	jmp    0xf3765
    f3765:	8b e5                	mov    sp,bp
@@ -31329,9 +31362,11 @@ compare_lizz:
    f3768:	cb                   	retf   
 
 
+int do_something_font2(void):
    f3769:	55                   	push   bp
    f376a:	8b ec                	mov    bp,sp
    f376c:	83 ec 02             	sub    sp,0x2
+; result = -2
    f376f:	c7 46 fe fe ff       	mov    WORD PTR [bp-0x2],0xfffe
    f3774:	a0 0d 65             	mov    al,ds:0x650d
    f3777:	04 fe                	add    al,0xfe
@@ -31342,9 +31377,11 @@ compare_lizz:
    f3781:	50                   	push   ax
    f3782:	a0 4d 64             	mov    al,ds:0x644d
    f3785:	50                   	push   ax
+; result = something_font2(g_inargs[0], g_inargs[1], g_inargs[2], g_cinargs - 2)
    f3786:	9a 50 11 7d ec       	call   0xec7d:0x1150
    f378b:	83 c4 08             	add    sp,0x8
    f378e:	89 46 fe             	mov    WORD PTR [bp-0x2],ax
+; return result
    f3791:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
    f3794:	eb 00                	jmp    0xf3796
    f3796:	8b e5                	mov    sp,bp
@@ -31355,7 +31392,9 @@ compare_lizz:
    f379a:	55                   	push   bp
    f379b:	8b ec                	mov    bp,sp
    f379d:	83 ec 02             	sub    sp,0x2
+; result = -2
    f37a0:	c7 46 fe fe ff       	mov    WORD PTR [bp-0x2],0xfffe
+; return result
    f37a5:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
    f37a8:	eb 00                	jmp    0xf37aa
    f37aa:	8b e5                	mov    sp,bp
@@ -31363,6 +31402,7 @@ compare_lizz:
    f37ad:	cb                   	retf   
 
 
+int do_something_font3(void):
    f37ae:	55                   	push   bp
    f37af:	8b ec                	mov    bp,sp
    f37b1:	83 ec 02             	sub    sp,0x2
@@ -31372,9 +31412,11 @@ compare_lizz:
    f37bb:	50                   	push   ax
    f37bc:	a0 4d 64             	mov    al,ds:0x644d
    f37bf:	50                   	push   ax
+; result = something_font3(g_inargs[0], g_inargs[1], g_inargs[2])
    f37c0:	9a c2 12 7d ec       	call   0xec7d:0x12c2
    f37c5:	83 c4 06             	add    sp,0x6
    f37c8:	89 46 fe             	mov    WORD PTR [bp-0x2],ax
+; return result
    f37cb:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
    f37ce:	eb 00                	jmp    0xf37d0
    f37d0:	8b e5                	mov    sp,bp
@@ -31382,9 +31424,11 @@ compare_lizz:
    f37d3:	cb                   	retf   
 
 
+int do_something_font4(void):
    f37d4:	55                   	push   bp
    f37d5:	8b ec                	mov    bp,sp
    f37d7:	83 ec 02             	sub    sp,0x2
+; result = -2
    f37da:	c7 46 fe fe ff       	mov    WORD PTR [bp-0x2],0xfffe
    f37df:	a0 4d 64             	mov    al,ds:0x644d
    f37e2:	b4 00                	mov    ah,0x0
@@ -31392,17 +31436,20 @@ compare_lizz:
    f37e7:	f7 ea                	imul   dx
    f37e9:	8b d8                	mov    bx,ax
    f37eb:	80 bf 35 42 01       	cmp    BYTE PTR [bx+0x4235],0x1
-; if g_fonts[fontnum].loaded == 1
+; if g_fonts[g_inargs[0]].loaded != 1: return -1
    f37f0:	75 16                	jne    0xf3808
+; g_coutargs = 1
    f37f2:	c6 06 3f 63 01       	mov    BYTE PTR ds:0x633f,0x1
    f37f7:	a0 4d 64             	mov    al,ds:0x644d
    f37fa:	b4 00                	mov    ah,0x0
    f37fc:	50                   	push   ax
+; g_outargs[0] = something_font4(g_inargs[0])
    f37fd:	9a 56 13 7d ec       	call   0xec7d:0x1356
    f3802:	59                   	pop    cx
    f3803:	a2 3a 63             	mov    ds:0x633a,al
    f3806:	eb 05                	jmp    0xf380d
    f3808:	c7 46 fe ff ff       	mov    WORD PTR [bp-0x2],0xffff
+; return result
    f380d:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
    f3810:	eb 00                	jmp    0xf3812
    f3812:	8b e5                	mov    sp,bp
@@ -31579,6 +31626,7 @@ compare_lizz:
    f39bf:	cb                   	retf   
 
 
+do_get_version:
    f39c0:	55                   	push   bp
    f39c1:	8b ec                	mov    bp,sp
    f39c3:	83 ec 06             	sub    sp,0x6
@@ -31587,9 +31635,13 @@ compare_lizz:
    f39ca:	9a 20 05 9d f8       	call   0xf89d:0x520 ; read_something2
    f39cf:	59                   	pop    cx
    f39d0:	c6 06 3f 63 02       	mov    BYTE PTR ds:0x633f,0x2
+; g_coutargs = 2
    f39d5:	c6 06 3a 63 04       	mov    BYTE PTR ds:0x633a,0x4
+; g_outargs[0] = 4
    f39da:	c6 06 3b 63 07       	mov    BYTE PTR ds:0x633b,0x7
+; g_outargs[1] = 7
    f39df:	b8 fe ff             	mov    ax,0xfffe
+; result = -2
    f39e2:	eb 00                	jmp    0xf39e4
    f39e4:	8b e5                	mov    sp,bp
    f39e6:	5d                   	pop    bp
@@ -33022,6 +33074,7 @@ compare_lizz:
    f482a:	9a 67 09 00 e0       	call   0xe000:0x967
    f482f:	59                   	pop    cx
    f4830:	04 d0                	add    al,0xd0
+; g_cmdnum = () - 0x30
    f4832:	a2 4b 63             	mov    ds:0x634b,al
    f4835:	eb 6a                	jmp    0xf48a1
    f4837:	a0 1a 66             	mov    al,ds:0x661a
@@ -33069,8 +33122,10 @@ compare_lizz:
    f4898:	04 d0                	add    al,0xd0
    f489a:	5a                   	pop    dx
    f489b:	02 d0                	add    dl,al
+; g_cmdnum = g_661b + () - 0x30
    f489d:	88 16 4b 63          	mov    BYTE PTR ds:0x634b,dl
    f48a1:	eb 05                	jmp    0xf48a8
+; g_cmdnum = -1
    f48a3:	c6 06 4b 63 ff       	mov    BYTE PTR ds:0x634b,0xff
    f48a8:	5d                   	pop    bp
    f48a9:	cb                   	retf   
@@ -33238,6 +33293,7 @@ compare_lizz:
    f4a4e:	b4 00                	mov    ah,0x0
    f4a50:	8b d8                	mov    bx,ax
    f4a52:	80 bf 0e 65 ff       	cmp    BYTE PTR [bx+0x650e],0xff
+; if g_650e[g_cmdnum] == 0xff return -2
    f4a57:	75 03                	jne    0xf4a5c
    f4a59:	e9 29 01             	jmp    0xf4b85
    f4a5c:	a0 4b 63             	mov    al,ds:0x634b
@@ -33454,11 +33510,17 @@ compare_lizz:
    f4c61:	a2 4a 63             	mov    ds:0x634a,al
    f4c64:	a0 48 63             	mov    al,ds:0x6348
    f4c67:	a2 32 63             	mov    ds:0x6332,al
+; g_coutargs = 0
    f4c6a:	c6 06 3f 63 00       	mov    BYTE PTR ds:0x633f,0x0
+; g_coutargs[0] = -2
    f4c6f:	c6 06 33 63 fe       	mov    BYTE PTR ds:0x6333,0xfe
+; g_coutargs[3] = -2
    f4c74:	c6 06 36 63 fe       	mov    BYTE PTR ds:0x6336,0xfe
+; g_coutargs[4] = -2
    f4c79:	c6 06 37 63 fe       	mov    BYTE PTR ds:0x6337,0xfe
+; g_coutargs[1] = -2
    f4c7e:	c6 06 34 63 fe       	mov    BYTE PTR ds:0x6334,0xfe
+; g_coutargs[2] = -2
    f4c83:	c6 06 35 63 fe       	mov    BYTE PTR ds:0x6335,0xfe
    f4c88:	c7 46 fc fe ff       	mov    WORD PTR [bp-0x4],0xfffe
    f4c8d:	8b 46 fc             	mov    ax,WORD PTR [bp-0x4]
@@ -33468,6 +33530,7 @@ compare_lizz:
    f4c95:	cb                   	retf   
 
 
+send_response:
    f4c96:	55                   	push   bp
    f4c97:	8b ec                	mov    bp,sp
    f4c99:	83 ec 74             	sub    sp,0x74
@@ -33533,6 +33596,7 @@ compare_lizz:
    f4d25:	5a                   	pop    dx
    f4d26:	02 d0                	add    dl,al
    f4d28:	52                   	push   dx
+; if g_coutargs == 0:
    f4d29:	80 3e 3f 63 00       	cmp    BYTE PTR ds:0x633f,0x0
    f4d2e:	76 05                	jbe    0xf4d35
    f4d30:	b8 01 00             	mov    ax,0x1
@@ -33582,25 +33646,31 @@ compare_lizz:
    f4d97:	02 d0                	add    dl,al
    f4d99:	02 56 ff             	add    dl,BYTE PTR [bp-0x1]
    f4d9c:	88 56 ff             	mov    BYTE PTR [bp-0x1],dl
+
+; for i = 0; i < g_coutargs; i++:
    f4d9f:	c7 46 f0 00 00       	mov    WORD PTR [bp-0x10],0x0
    f4da4:	eb 48                	jmp    0xf4dee
-   f4da6:	a0 3f 63             	mov    al,ds:0x633f
+   f4da6:	a0 3f 63             	mov    al,ds:0x633f ; g_coutargs
    f4da9:	b4 00                	mov    ah,0x0
    f4dab:	8b 56 f0             	mov    dx,WORD PTR [bp-0x10]
    f4dae:	42                   	inc    dx
    f4daf:	3b c2                	cmp    ax,dx
+; if i == g_coutargs:
    f4db1:	75 0f                	jne    0xf4dc2
    f4db3:	8b 5e f0             	mov    bx,WORD PTR [bp-0x10]
    f4db6:	8a 87 3a 63          	mov    al,BYTE PTR [bx+0x633a]
    f4dba:	b4 00                	mov    ah,0x0
    f4dbc:	50                   	push   ax
    f4dbd:	b8 dc 05             	mov    ax,0x5dc
+; 
    f4dc0:	eb 0d                	jmp    0xf4dcf
+; else:
    f4dc2:	8b 5e f0             	mov    bx,WORD PTR [bp-0x10]
    f4dc5:	8a 87 3a 63          	mov    al,BYTE PTR [bx+0x633a]
    f4dc9:	b4 00                	mov    ah,0x0
    f4dcb:	50                   	push   ax
    f4dcc:	b8 e1 05             	mov    ax,0x5e1 ; "%02X,"
+
    f4dcf:	50                   	push   ax
    f4dd0:	8d 46 f4             	lea    ax,[bp-0xc]
    f4dd3:	50                   	push   ax
@@ -33614,10 +33684,12 @@ compare_lizz:
    f4de9:	59                   	pop    cx
    f4dea:	59                   	pop    cx
    f4deb:	ff 46 f0             	inc    WORD PTR [bp-0x10]
-   f4dee:	a0 3f 63             	mov    al,ds:0x633f
+
+   f4dee:	a0 3f 63             	mov    al,ds:0x633f ; g_coutargs
    f4df1:	b4 00                	mov    ah,0x0
    f4df3:	3b 46 f0             	cmp    ax,WORD PTR [bp-0x10]
    f4df6:	7f ae                	jg     0xf4da6
+
    f4df8:	8d 46 dc             	lea    ax,[bp-0x24]
    f4dfb:	50                   	push   ax
    f4dfc:	a0 39 63             	mov    al,ds:0x6339
@@ -33665,7 +33737,7 @@ compare_lizz:
    f4e61:	cb                   	retf   
 
 
-call_table:
+int do_cmd(void):
    f4e62:	55                   	push   bp
    f4e63:	8b ec                	mov    bp,sp
    f4e65:	83 ec 04             	sub    sp,0x4
@@ -33675,177 +33747,262 @@ call_table:
    f4e70:	b9 51 00             	mov    cx,0x51
    f4e73:	bb 25 0f             	mov    bx,0xf25
    f4e76:	2e 8b 07             	mov    ax,WORD PTR cs:[bx]
+; switch(g_cmdnum):
    f4e79:	3b 46 fc             	cmp    ax,WORD PTR [bp-0x4]
    f4e7c:	74 08                	je     0xf4e86
    f4e7e:	83 c3 02             	add    bx,0x2
    f4e81:	e2 f3                	loop   0xf4e76
+;   default: return -1
    f4e83:	e9 7f 02             	jmp    0xf5105
    f4e86:	2e ff a7 a2 00       	jmp    WORD PTR cs:[bx+0xa2]
+;   case 0x80:
    f4e8b:	9a 06 00 90 f2       	call   0xf290:0x6
    f4e90:	89 46 fe             	mov    WORD PTR [bp-0x2],ax
    f4e93:	e9 76 02             	jmp    0xf510c
+;   case 0x81:
    f4e96:	9a 71 00 90 f2       	call   0xf290:0x71
    f4e9b:	eb f3                	jmp    0xf4e90
+;   case 0x82:
    f4e9d:	9a a4 00 90 f2       	call   0xf290:0xa4
    f4ea2:	eb ec                	jmp    0xf4e90
+;   case 0x83:
    f4ea4:	9a f8 01 90 f2       	call   0xf290:0x1f8
    f4ea9:	eb e5                	jmp    0xf4e90
+;   case 0x84:
    f4eab:	9a 5f 02 90 f2       	call   0xf290:0x25f
    f4eb0:	eb de                	jmp    0xf4e90
+;   case 0x85:
    f4eb2:	9a 93 02 90 f2       	call   0xf290:0x293
    f4eb7:	eb d7                	jmp    0xf4e90
+;   case 0x86:
    f4eb9:	9a dd 02 90 f2       	call   0xf290:0x2dd
    f4ebe:	eb d0                	jmp    0xf4e90
+;   case 0x87:
    f4ec0:	9a 10 03 90 f2       	call   0xf290:0x310
    f4ec5:	eb c9                	jmp    0xf4e90
+;   case 0x88:
    f4ec7:	9a c0 03 90 f2       	call   0xf290:0x3c0
    f4ecc:	eb c2                	jmp    0xf4e90
+;   case 0x89:
    f4ece:	9a 4a 04 90 f2       	call   0xf290:0x44a
    f4ed3:	eb bb                	jmp    0xf4e90
+;   case 0x8a:
    f4ed5:	9a 59 04 90 f2       	call   0xf290:0x459
    f4eda:	eb b4                	jmp    0xf4e90
+;   case 0x8b:
    f4edc:	9a 68 04 90 f2       	call   0xf290:0x468
    f4ee1:	eb ad                	jmp    0xf4e90
+;   case 0x8c:
    f4ee3:	9a b6 04 90 f2       	call   0xf290:0x4b6
    f4ee8:	eb a6                	jmp    0xf4e90
+;   case 0x8d:
    f4eea:	9a 18 05 90 f2       	call   0xf290:0x518
    f4eef:	eb 9f                	jmp    0xf4e90
+;   case 0x8e:
    f4ef1:	9a 85 05 90 f2       	call   0xf290:0x585
    f4ef6:	eb 98                	jmp    0xf4e90
+;   case 0x8f:
    f4ef8:	9a 9e 05 90 f2       	call   0xf290:0x59e
    f4efd:	eb 91                	jmp    0xf4e90
+;   case 0x30:
    f4eff:	9a e0 05 90 f2       	call   0xf290:0x5e0
    f4f04:	eb 8a                	jmp    0xf4e90
+;   case 0x31:
    f4f06:	9a 15 06 90 f2       	call   0xf290:0x615
    f4f0b:	eb 83                	jmp    0xf4e90
+;   case 0x0:
    f4f0d:	9a 4d 06 90 f2       	call   0xf290:0x64d
    f4f12:	e9 7b ff             	jmp    0xf4e90
+;   case 0x1:
    f4f15:	9a 82 06 90 f2       	call   0xf290:0x682
    f4f1a:	e9 73 ff             	jmp    0xf4e90
+;   case 0x2:
    f4f1d:	9a 2f 07 90 f2       	call   0xf290:0x72f
    f4f22:	e9 6b ff             	jmp    0xf4e90
+;   case 0x3:
    f4f25:	9a 1a 08 90 f2       	call   0xf290:0x81a
    f4f2a:	e9 63 ff             	jmp    0xf4e90
+;   case 0x4:
    f4f2d:	9a 4f 08 90 f2       	call   0xf290:0x84f
    f4f32:	e9 5b ff             	jmp    0xf4e90
+;   case 0x5:
    f4f35:	9a 81 08 90 f2       	call   0xf290:0x881
    f4f3a:	e9 53 ff             	jmp    0xf4e90
+;   case 0x6:
    f4f3d:	9a bd 08 90 f2       	call   0xf290:0x8bd
    f4f42:	e9 4b ff             	jmp    0xf4e90
+;   case 0x7:
    f4f45:	9a f4 08 90 f2       	call   0xf290:0x8f4
    f4f4a:	e9 43 ff             	jmp    0xf4e90
+;   case 0x8:
    f4f4d:	9a 2b 09 90 f2       	call   0xf290:0x92b
    f4f52:	e9 3b ff             	jmp    0xf4e90
+;   case 0x9:
    f4f55:	9a 6f 09 90 f2       	call   0xf290:0x96f
    f4f5a:	e9 33 ff             	jmp    0xf4e90
+;   case 0xa:
    f4f5d:	9a 81 09 90 f2       	call   0xf290:0x981
    f4f62:	e9 2b ff             	jmp    0xf4e90
+;   case 0x40:
    f4f65:	9a b8 09 90 f2       	call   0xf290:0x9b8
    f4f6a:	e9 23 ff             	jmp    0xf4e90
+;   case 0x41:
    f4f6d:	9a e7 09 90 f2       	call   0xf290:0x9e7
    f4f72:	e9 1b ff             	jmp    0xf4e90
+;   case 0x42:
    f4f75:	9a 33 0a 90 f2       	call   0xf290:0xa33
    f4f7a:	e9 13 ff             	jmp    0xf4e90
+;   case 0x43:
    f4f7d:	9a 61 0a 90 f2       	call   0xf290:0xa61
    f4f82:	e9 0b ff             	jmp    0xf4e90
+;   case 0x44:
    f4f85:	9a 8f 0a 90 f2       	call   0xf290:0xa8f
    f4f8a:	e9 03 ff             	jmp    0xf4e90
+;   case 0x45:
    f4f8d:	9a a3 0a 90 f2       	call   0xf290:0xaa3
    f4f92:	e9 fb fe             	jmp    0xf4e90
+;   case 0x50:
    f4f95:	9a db 0a 90 f2       	call   0xf290:0xadb
    f4f9a:	e9 f3 fe             	jmp    0xf4e90
+;   case 0x51:
    f4f9d:	9a 25 0b 90 f2       	call   0xf290:0xb25
    f4fa2:	e9 eb fe             	jmp    0xf4e90
+;   case 0x52:
    f4fa5:	9a 6e 0b 90 f2       	call   0xf290:0xb6e
    f4faa:	e9 e3 fe             	jmp    0xf4e90
+;   case 0x53:
    f4fad:	9a ca 0b 90 f2       	call   0xf290:0xbca
    f4fb2:	e9 db fe             	jmp    0xf4e90
+;   case 0x54:
    f4fb5:	9a 83 0c 90 f2       	call   0xf290:0xc83
    f4fba:	e9 d3 fe             	jmp    0xf4e90
+;   case 0x55:
    f4fbd:	9a b9 0c 90 f2       	call   0xf290:0xcb9
    f4fc2:	e9 cb fe             	jmp    0xf4e90
+;   case 0x56:
    f4fc5:	9a ef 0c 90 f2       	call   0xf290:0xcef
    f4fca:	e9 c3 fe             	jmp    0xf4e90
+;   case 0x5a:
    f4fcd:	9a fc 0d 90 f2       	call   0xf290:0xdfc
    f4fd2:	e9 bb fe             	jmp    0xf4e90
+;   case 0x57:
    f4fd5:	9a 22 0d 90 f2       	call   0xf290:0xd22
    f4fda:	e9 b3 fe             	jmp    0xf4e90
+;   case 0x58:
    f4fdd:	9a 53 0d 90 f2       	call   0xf290:0xd53
    f4fe2:	e9 ab fe             	jmp    0xf4e90
+;   case 0x59:
    f4fe5:	9a 86 0d 90 f2       	call   0xf290:0xd86
    f4fea:	e9 a3 fe             	jmp    0xf4e90
+;   case 0x60: result = do_create_user_font()
    f4fed:	9a 2f 0e 90 f2       	call   0xf290:0xe2f
    f4ff2:	e9 9b fe             	jmp    0xf4e90
+;   case 0x61: result = do_something_font2()
    f4ff5:	9a 69 0e 90 f2       	call   0xf290:0xe69
    f4ffa:	e9 93 fe             	jmp    0xf4e90
+;   case 0x62:
    f4ffd:	9a 9a 0e 90 f2       	call   0xf290:0xe9a
    f5002:	e9 8b fe             	jmp    0xf4e90
+;   case 0x63: result = do_something_font3()
    f5005:	9a ae 0e 90 f2       	call   0xf290:0xeae
    f500a:	e9 83 fe             	jmp    0xf4e90
+;   case 0x64: result = do_something_font4()
    f500d:	9a d4 0e 90 f2       	call   0xf290:0xed4
    f5012:	e9 7b fe             	jmp    0xf4e90
+;   case 0xf0:
    f5015:	9a 16 0f 90 f2       	call   0xf290:0xf16
    f501a:	e9 73 fe             	jmp    0xf4e90
+;   case 0xf1:
    f501d:	9a 35 0f 90 f2       	call   0xf290:0xf35
    f5022:	e9 6b fe             	jmp    0xf4e90
+;   case 0xf2:
    f5025:	9a bd 0f 90 f2       	call   0xf290:0xfbd
    f502a:	e9 63 fe             	jmp    0xf4e90
+;   case 0xf3:
    f502d:	9a 58 10 90 f2       	call   0xf290:0x1058
    f5032:	e9 5b fe             	jmp    0xf4e90
+;   case 0xf4:
    f5035:	9a 88 10 90 f2       	call   0xf290:0x1088
    f503a:	e9 53 fe             	jmp    0xf4e90
+;   case 0xf5: result = do_get_version()
    f503d:	9a c0 10 90 f2       	call   0xf290:0x10c0
    f5042:	e9 4b fe             	jmp    0xf4e90
+;   case 0xf6:
    f5045:	9a e8 10 90 f2       	call   0xf290:0x10e8
    f504a:	e9 43 fe             	jmp    0xf4e90
+;   case 0xf7:
    f504d:	9a f7 10 90 f2       	call   0xf290:0x10f7
    f5052:	e9 3b fe             	jmp    0xf4e90
+;   case 0xf8:
    f5055:	9a 2b 11 90 f2       	call   0xf290:0x112b
    f505a:	e9 33 fe             	jmp    0xf4e90
+;   case 0xf9:
    f505d:	9a 64 11 90 f2       	call   0xf290:0x1164
    f5062:	e9 2b fe             	jmp    0xf4e90
+;   case 0x70:
    f5065:	9a 78 11 90 f2       	call   0xf290:0x1178
    f506a:	e9 23 fe             	jmp    0xf4e90
+;   case 0x71:
    f506d:	9a e2 11 90 f2       	call   0xf290:0x11e2
    f5072:	e9 1b fe             	jmp    0xf4e90
+;   case 0x72:
    f5075:	9a 31 12 90 f2       	call   0xf290:0x1231
    f507a:	e9 13 fe             	jmp    0xf4e90
+;   case 0x73:
    f507d:	9a 6c 12 90 f2       	call   0xf290:0x126c
    f5082:	e9 0b fe             	jmp    0xf4e90
+;   case 0x74:
    f5085:	9a 80 12 90 f2       	call   0xf290:0x1280
    f508a:	e9 03 fe             	jmp    0xf4e90
+;   case 0x75:
    f508d:	9a 4c 13 90 f2       	call   0xf290:0x134c
    f5092:	e9 fb fd             	jmp    0xf4e90
+;   case 0x76:
    f5095:	9a 9e 13 90 f2       	call   0xf290:0x139e
    f509a:	e9 f3 fd             	jmp    0xf4e90
+;   case 0x77:
    f509d:	9a f3 13 90 f2       	call   0xf290:0x13f3
    f50a2:	e9 eb fd             	jmp    0xf4e90
+;   case 0x78:
    f50a5:	9a 48 14 90 f2       	call   0xf290:0x1448
    f50aa:	e9 e3 fd             	jmp    0xf4e90
+;   case 0x90:
    f50ad:	9a be 14 90 f2       	call   0xf290:0x14be
    f50b2:	e9 db fd             	jmp    0xf4e90
+;   case 0x91:
    f50b5:	9a d7 14 90 f2       	call   0xf290:0x14d7
    f50ba:	e9 d3 fd             	jmp    0xf4e90
+;   case 0x92:
    f50bd:	9a f0 14 90 f2       	call   0xf290:0x14f0
    f50c2:	e9 cb fd             	jmp    0xf4e90
+;   case 0x93:
    f50c5:	9a 09 15 90 f2       	call   0xf290:0x1509
    f50ca:	e9 c3 fd             	jmp    0xf4e90
+;   case 0xa0:
    f50cd:	9a 22 15 90 f2       	call   0xf290:0x1522
    f50d2:	e9 bb fd             	jmp    0xf4e90
+;   case 0xa1:
    f50d5:	9a 56 16 90 f2       	call   0xf290:0x1656
    f50da:	e9 b3 fd             	jmp    0xf4e90
+;   case 0xa2:
    f50dd:	9a 7a 17 90 f2       	call   0xf290:0x177a
    f50e2:	e9 ab fd             	jmp    0xf4e90
+;   case 0xa3:
    f50e5:	9a f4 17 90 f2       	call   0xf290:0x17f4
    f50ea:	e9 a3 fd             	jmp    0xf4e90
+;   case 0xa4:
    f50ed:	9a 99 18 90 f2       	call   0xf290:0x1899
    f50f2:	e9 9b fd             	jmp    0xf4e90
+;   case 0xa5:
    f50f5:	9a d2 18 90 f2       	call   0xf290:0x18d2
    f50fa:	e9 93 fd             	jmp    0xf4e90
+;   case 0xa6:
    f50fd:	9a e6 18 90 f2       	call   0xf290:0x18e6
    f5102:	e9 8b fd             	jmp    0xf4e90
    f5105:	c7 46 fe ff ff       	mov    WORD PTR [bp-0x2],0xffff
+; return -1
    f510a:	eb 00                	jmp    0xf510c
+; return result
    f510c:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
    f510f:	eb 00                	jmp    0xf5111
    f5111:	8b e5                	mov    sp,bp
@@ -33864,20 +34021,22 @@ call_table:
 000f5185  008c 008d 008e 008f 0090 0091 0092 0093  |................|
 000f5195  00a0 00a1 00a2 00a3 00a4 00a5 00a6 00f0  |................|
 000f51a5  00f1 00f2 00f3 00f4 00f5 00f6 00f7 00f8  |................|
-000f51b5  00f9 0d1d 0d25 0d2d 0d35 0d3d 0d45 0d4d  |....%.-.5.=.E.M.|
-000f51c5  0d55 0d5d 0d65 0d6d 0d0f 0d16 0d75 0d7d  |U.].e.m.....u.}.|
-000f51d5  0d85 0d8d 0d95 0d9d 0da5 0dad 0db5 0dbd  |................|
-000f51e5  0dc5 0dcd 0dd5 0de5 0ded 0df5 0ddd 0dfd  |................|
-000f51f5  0e05 0e0d 0e15 0e1d 0e75 0e7d 0e85 0e8d  |........u.}.....|
-000f5205  0e95 0e9d 0ea5 0ead 0eb5 0c9b 0ca6 0cad  |................|
-000f5215  0cb4 0cbb 0cc2 0cc9 0cd0 0cd7 0cde 0ce5  |................|
-000f5225  0cec 0cf3 0cfa 0d01 0d08 0ebd 0ec5 0ecd  |................|
-000f5235  0ed5 0edd 0ee5 0eed 0ef5 0efd 0f05 0f0d  |................|
-000f5245  0e25 0e2d 0e35 0e3d 0e45 0e4d 0e55 0e5d  |%.-.5.=.E.M.U.].|
-000f5255  0e65 0e6d                                |e.m.|
+000f51b5  00f9                                     |..|
 
+000f51b7  0d1d 0d25 0d2d 0d35 0d3d 0d45 0d4d 0d55  |..%.-.5.=.E.M.U.|
+000f51c7  0d5d 0d65 0d6d 0d0f 0d16 0d75 0d7d 0d85  |].e.m.....u.}...|
+000f51d7  0d8d 0d95 0d9d 0da5 0dad 0db5 0dbd 0dc5  |................|
+000f51e7  0dcd 0dd5 0de5 0ded 0df5 0ddd 0dfd 0e05  |................|
+000f51f7  0e0d 0e15 0e1d 0e75 0e7d 0e85 0e8d 0e95  |......u.}.......|
+000f5207  0e9d 0ea5 0ead 0eb5 0c9b 0ca6 0cad 0cb4  |................|
+000f5217  0cbb 0cc2 0cc9 0cd0 0cd7 0cde 0ce5 0cec  |................|
+000f5227  0cf3 0cfa 0d01 0d08 0ebd 0ec5 0ecd 0ed5  |................|
+000f5237  0edd 0ee5 0eed 0ef5 0efd 0f05 0f0d 0e25  |..............%.|
+000f5247  0e2d 0e35 0e3d 0e45 0e4d 0e55 0e5d 0e65  |-.5.=.E.M.U.].e.|
+000f5257  0e6d                                     |m.|
 
 .code
+process_cmd:
    f5259:	55                   	push   bp
    f525a:	8b ec                	mov    bp,sp
    f525c:	83 ec 02             	sub    sp,0x2
@@ -34025,7 +34184,7 @@ call_table:
    f53dd:	9a 68 00 09 f2       	call   0xf209:0x68
    f53e2:	59                   	pop    cx
    f53e3:	0e                   	push   cs
-   f53e4:	e8 7b fa             	call   0xf4e62
+   f53e4:	e8 7b fa             	call   0xf4e62 ; do_cmd
    f53e7:	8a 46 fe             	mov    al,BYTE PTR [bp-0x2]
    f53ea:	a2 37 63             	mov    ds:0x6337,al
    f53ed:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
@@ -34044,7 +34203,7 @@ call_table:
    f5417:	8a 46 fe             	mov    al,BYTE PTR [bp-0x2]
    f541a:	a2 33 63             	mov    ds:0x6333,al
    f541d:	0e                   	push   cs
-   f541e:	e8 75 f8             	call   0xf4c96
+   f541e:	e8 75 f8             	call   0xf4c96 ; send_response
    f5421:	c6 06 39 63 00       	mov    BYTE PTR ds:0x6339,0x0
    f5426:	c6 06 c8 62 00       	mov    BYTE PTR ds:0x62c8,0x0
    f542b:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
@@ -34059,6 +34218,7 @@ call_table:
    f5444:	cb                   	retf   
 
 
+process_summat:
    f5445:	55                   	push   bp
    f5446:	8b ec                	mov    bp,sp
    f5448:	83 ec 04             	sub    sp,0x4
@@ -34159,7 +34319,7 @@ call_table:
    f5570:	c6 06 69 04 01       	mov    BYTE PTR ds:0x469,0x1
    f5575:	c6 06 66 02 00       	mov    BYTE PTR ds:0x266,0x0
    f557a:	0e                   	push   cs
-   f557b:	e8 db fc             	call   0xf5259
+   f557b:	e8 db fc             	call   0xf5259 ; process_cmd
    f557e:	8b 1e 67 02          	mov    bx,WORD PTR ds:0x267
    f5582:	8a 46 ff             	mov    al,BYTE PTR [bp-0x1]
    f5585:	88 87 69 02          	mov    BYTE PTR [bx+0x269],al
@@ -34218,7 +34378,7 @@ call_table:
    f562a:	3d fe ff             	cmp    ax,0xfffe
    f562d:	75 04                	jne    0xf5633
    f562f:	0e                   	push   cs
-   f5630:	e8 2f f8             	call   0xf4e62
+   f5630:	e8 2f f8             	call   0xf4e62 ; do_cmd
    f5633:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    f5638:	75 05                	jne    0xf563f
    f563a:	9a 1a 00 96 f8       	call   0xf896:0x1a
@@ -34353,60 +34513,70 @@ call_table:
    f5775:	cb                   	retf   
 
 
+int load_builtin_fonts():
    f5776:	55                   	push   bp
    f5777:	8b ec                	mov    bp,sp
    f5779:	83 ec 02             	sub    sp,0x2
+; result = -2
    f577c:	c7 46 fe fe ff       	mov    WORD PTR [bp-0x2],0xfffe
    f5781:	80 3e 15 68 01       	cmp    BYTE PTR ds:0x6815,0x1
+; if g_6815 == 1
    f5786:	75 74                	jne    0xf57fc
    f5788:	1e                   	push   ds
-   f5789:	b8 0a 06             	mov    ax,0x60a ; font_sm.data
+   f5789:	b8 0a 06             	mov    ax,0x60a
    f578c:	50                   	push   ax
-   f578d:	b8 04 06             	mov    ax,0x604 ; font_sm.header
+   f578d:	b8 04 06             	mov    ax,0x604
    f5790:	8c da                	mov    dx,ds
    f5792:	b9 06 00             	mov    cx,0x6
    f5795:	9a 46 02 00 e0       	call   0xe000:0x246 ; _pushstruct
    f579a:	b0 00                	mov    al,0x0
    f579c:	50                   	push   ax
-   f579d:	9a 19 0f 7d ec       	call   0xec7d:0xf19 ; load_font
+;   load_font(0, font_sm.header, &font_sm.data)
+   f579d:	9a 19 0f 7d ec       	call   0xec7d:0xf19
    f57a2:	83 c4 0c             	add    sp,0xc
    f57a5:	1e                   	push   ds
-   f57a6:	b8 50 08             	mov    ax,0x850 ; font_bold.data
+   f57a6:	b8 50 08             	mov    ax,0x850
    f57a9:	50                   	push   ax
-   f57aa:	b8 4a 08             	mov    ax,0x84a ; font_bold.header
+   f57aa:	b8 4a 08             	mov    ax,0x84a
    f57ad:	8c da                	mov    dx,ds
    f57af:	b9 06 00             	mov    cx,0x6
    f57b2:	9a 46 02 00 e0       	call   0xe000:0x246 ; _pushstruct
    f57b7:	b0 01                	mov    al,0x1
    f57b9:	50                   	push   ax
-   f57ba:	9a 19 0f 7d ec       	call   0xec7d:0xf19 ; load_font
+;   load_font(1, font_bold.header, &font_bold.data)
+   f57ba:	9a 19 0f 7d ec       	call   0xec7d:0xf19
    f57bf:	83 c4 0c             	add    sp,0xc
    f57c2:	1e                   	push   ds
-   f57c3:	b8 56 0b             	mov    ax,0xb56 ; font_big.data
+   f57c3:	b8 56 0b             	mov    ax,0xb56
    f57c6:	50                   	push   ax
-   f57c7:	b8 50 0b             	mov    ax,0xb50 ; font_big.header
+   f57c7:	b8 50 0b             	mov    ax,0xb50
    f57ca:	8c da                	mov    dx,ds
    f57cc:	b9 06 00             	mov    cx,0x6
    f57cf:	9a 46 02 00 e0       	call   0xe000:0x246 ; _pushstruct
    f57d4:	b0 02                	mov    al,0x2
    f57d6:	50                   	push   ax
-   f57d7:	9a 19 0f 7d ec       	call   0xec7d:0xf19 ; load_font
+;   load_font(2, font_big.header, &font_big.data)
+   f57d7:	9a 19 0f 7d ec       	call   0xec7d:0xf19
    f57dc:	83 c4 0c             	add    sp,0xc
    f57df:	1e                   	push   ds
-   f57e0:	b8 bc 14             	mov    ax,0x14bc ; font_huge.data
+   f57e0:	b8 bc 14             	mov    ax,0x14bc
    f57e3:	50                   	push   ax
-   f57e4:	b8 b6 14             	mov    ax,0x14b6 ; font_huge.header
+   f57e4:	b8 b6 14             	mov    ax,0x14b6
    f57e7:	8c da                	mov    dx,ds
    f57e9:	b9 06 00             	mov    cx,0x6
    f57ec:	9a 46 02 00 e0       	call   0xe000:0x246 ; _pushstruct
    f57f1:	b0 03                	mov    al,0x3
    f57f3:	50                   	push   ax
-   f57f4:	9a 19 0f 7d ec       	call   0xec7d:0xf19 ; load_font
+;   load_font(3, font_huge.header, &font_huge.data)
+   f57f4:	9a 19 0f 7d ec       	call   0xec7d:0xf19
    f57f9:	83 c4 0c             	add    sp,0xc
+; g_builtin_fonts = 4
    f57fc:	c6 06 88 01 04       	mov    BYTE PTR ds:0x188,0x4
+; result = (0xf06d8)()
    f5801:	9a 88 02 45 f0       	call   0xf045:0x288
    f5806:	89 46 fe             	mov    WORD PTR [bp-0x2],ax
    f5809:	3d ff ff             	cmp    ax,0xffff
+; if result != -1 return result
    f580c:	75 00                	jne    0xf580e
    f580e:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
    f5811:	eb 00                	jmp    0xf5813
@@ -34438,11 +34608,12 @@ main:
    f584b:	9a b7 14 1f f4       	call   0xf41f:0x14b7 ; f56a7
    f5850:	b8 1f f4             	mov    ax,0xf41f
    f5853:	50                   	push   ax
-   f5854:	b8 55 12             	mov    ax,0x1255 ; f5445
+   f5854:	b8 55 12             	mov    ax,0x1255
    f5857:	50                   	push   ax
    f5858:	b0 01                	mov    al,0x1
    f585a:	50                   	push   ax
-   f585b:	9a 60 01 b2 f7       	call   0xf7b2:0x160 ; f7c80
+; add_processor(1, &process_summat)
+   f585b:	9a 60 01 b2 f7       	call   0xf7b2:0x160
    f5860:	83 c4 06             	add    sp,0x6
    f5863:	8d 46 fc             	lea    ax,[bp-0x4]
    f5866:	50                   	push   ax
@@ -34784,6 +34955,7 @@ main:
    f5c2d:	cb                   	retf   
 
 
+void * _cdecl alloc_font(u1, int size):
    f5c2e:	55                   	push   bp
    f5c2f:	8b ec                	mov    bp,sp
    f5c31:	83 ec 12             	sub    sp,0x12
@@ -35012,6 +35184,7 @@ main:
    f5ecf:	cb                   	retf   
 
 
+int _cdecl free_font(void * ptr):
    f5ed0:	55                   	push   bp
    f5ed1:	8b ec                	mov    bp,sp
    f5ed3:	83 ec 12             	sub    sp,0x12
@@ -37901,6 +38074,7 @@ something_printf:
    f7c7f:	cb                   	retf   
 
 
+add_processor:
    f7c80:	55                   	push   bp
    f7c81:	8b ec                	mov    bp,sp
    f7c83:	83 ec 0a             	sub    sp,0xa
@@ -42543,6 +42717,7 @@ reset_proc3:
 000fdb90  0000 0d08 7f20 0101 000c 0000 0000 0000  |.... ...........|
 000fdba0  0000 0000 0000 0000 0400 06ff 06ff 0000  |................|
 000fdbb0  0000 0000 0000 0000 0000 0708 0700 0700  |................|
+
 000fdbc0  0700 0000 0000 0000 0000 1000 0080 0688  |................|
 000fdbd0  01fe 0089 0688 01fe 0089 0008 1c0e 2202  |..............."|
 000fdbe0  ff04 220f ff04 220f c404 0003 0e00 0606  |..."..."........|
