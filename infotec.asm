@@ -20066,6 +20066,7 @@ init_something3:
 
 
 .code
+something_font:
    ec7d8:	55                   	push   bp
    ec7d9:	8b ec                	mov    bp,sp
    ec7db:	83 ec 16             	sub    sp,0x16
@@ -20076,6 +20077,7 @@ init_something3:
    ec7ed:	ba 0f 00             	mov    dx,0xf
    ec7f0:	f7 ea                	imul   dx
    ec7f2:	8b d8                	mov    bx,ax
+; g_fonts[fontnum].header.start
    ec7f4:	8a 87 3c 42          	mov    al,BYTE PTR [bx+0x423c]
    ec7f8:	3a 46 08             	cmp    al,BYTE PTR [bp+0x8]
    ec7fb:	76 03                	jbe    0xec800
@@ -20085,6 +20087,7 @@ init_something3:
    ec805:	ba 0f 00             	mov    dx,0xf
    ec808:	f7 ea                	imul   dx
    ec80a:	8b d8                	mov    bx,ax
+; g_fonts[fontnum].header.end
    ec80c:	8a 87 3d 42          	mov    al,BYTE PTR [bx+0x423d]
    ec810:	3a 46 08             	cmp    al,BYTE PTR [bp+0x8]
    ec813:	73 03                	jae    0xec818
@@ -20094,6 +20097,7 @@ init_something3:
    ec81d:	ba 0f 00             	mov    dx,0xf
    ec820:	f7 ea                	imul   dx
    ec822:	8b d8                	mov    bx,ax
+; g_fonts[fontnum].data
    ec824:	8b 87 33 42          	mov    ax,WORD PTR [bx+0x4233]
    ec828:	8b 97 31 42          	mov    dx,WORD PTR [bx+0x4231]
    ec82c:	89 46 fc             	mov    WORD PTR [bp-0x4],ax
@@ -20107,6 +20111,7 @@ init_something3:
    ec840:	8b c2                	mov    ax,dx
    ec842:	f7 eb                	imul   bx
    ec844:	8b d8                	mov    bx,ax
+; g_fonts[fontnum].header.start
    ec846:	8a 87 3c 42          	mov    al,BYTE PTR [bx+0x423c]
    ec84a:	b4 00                	mov    ah,0x0
    ec84c:	8b d0                	mov    dx,ax
@@ -20119,6 +20124,7 @@ init_something3:
    ec85a:	8b c2                	mov    ax,dx
    ec85c:	f7 eb                	imul   bx
    ec85e:	8b d8                	mov    bx,ax
+; g_fonts[fontnum].charbytes
    ec860:	8a 87 38 42          	mov    al,BYTE PTR [bx+0x4238]
    ec864:	b4 00                	mov    ah,0x0
    ec866:	8b d0                	mov    dx,ax
@@ -20143,6 +20149,7 @@ init_something3:
    ec896:	ba 0f 00             	mov    dx,0xf
    ec899:	f7 ea                	imul   dx
    ec89b:	8b d8                	mov    bx,ax
+; g_fonts[fontnum].charbytes
    ec89d:	8a 87 38 42          	mov    al,BYTE PTR [bx+0x4238]
    ec8a1:	b4 00                	mov    ah,0x0
    ec8a3:	48                   	dec    ax
@@ -20155,6 +20162,7 @@ init_something3:
    ec8b5:	ba 0f 00             	mov    dx,0xf
    ec8b8:	f7 ea                	imul   dx
    ec8ba:	8b d8                	mov    bx,ax
+; g_fonts[fontnum].header.u2
    ec8bc:	8a 87 3f 42          	mov    al,BYTE PTR [bx+0x423f]
    ec8c0:	b4 00                	mov    ah,0x0
    ec8c2:	50                   	push   ax
@@ -20207,6 +20215,7 @@ init_something3:
    ec93e:	ba 0f 00             	mov    dx,0xf
    ec941:	f7 ea                	imul   dx
    ec943:	8b d8                	mov    bx,ax
+; g_fonts[fontnum].header.height
    ec945:	8a 87 3b 42          	mov    al,BYTE PTR [bx+0x423b]
    ec949:	b4 00                	mov    ah,0x0
    ec94b:	3b 46 f6             	cmp    ax,WORD PTR [bp-0xa]
@@ -20303,6 +20312,7 @@ init_something3:
    eca3c:	ba 0f 00             	mov    dx,0xf
    eca3f:	f7 ea                	imul   dx
    eca41:	8b d8                	mov    bx,ax
+; g_fonts[fontnum].heightbytes
    eca43:	8a 87 37 42          	mov    al,BYTE PTR [bx+0x4237]
    eca47:	b4 00                	mov    ah,0x0
    eca49:	01 46 fa             	add    WORD PTR [bp-0x6],ax
@@ -20311,6 +20321,7 @@ init_something3:
    eca51:	ba 0f 00             	mov    dx,0xf
    eca54:	f7 ea                	imul   dx
    eca56:	8b d8                	mov    bx,ax
+; g_fonts[fontnum].heightbytes
    eca58:	8a 87 37 42          	mov    al,BYTE PTR [bx+0x4237]
    eca5c:	b4 00                	mov    ah,0x0
    eca5e:	01 46 f0             	add    WORD PTR [bp-0x10],ax
@@ -20323,6 +20334,7 @@ init_something3:
    eca71:	ba 0f 00             	mov    dx,0xf
    eca74:	f7 ea                	imul   dx
    eca76:	8b d8                	mov    bx,ax
+; g_fonts[fontnum].header.u2
    eca78:	8a 87 3f 42          	mov    al,BYTE PTR [bx+0x423f]
    eca7c:	b4 00                	mov    ah,0x0
    eca7e:	f7 6e 0c             	imul   WORD PTR [bp+0xc]
@@ -20487,6 +20499,7 @@ init_something3:
    ecc2a:	f7 ea                	imul   dx
    ecc2c:	8b d8                	mov    bx,ax
    ecc2e:	80 bf 35 42 01       	cmp    BYTE PTR [bx+0x4235],0x1
+; if g_fonts[fontnum].loaded == 1
    ecc33:	75 06                	jne    0xecc3b
    ecc35:	8a 46 f6             	mov    al,BYTE PTR [bp-0xa]
    ecc38:	88 46 f5             	mov    BYTE PTR [bp-0xb],al
@@ -20737,6 +20750,7 @@ init_something3:
    eceb9:	ba 0f 00             	mov    dx,0xf
    ecebc:	f7 ea                	imul   dx
    ecebe:	8b d8                	mov    bx,ax
+; g_fonts[fontnum].header.start
    ecec0:	8a 87 3c 42          	mov    al,BYTE PTR [bx+0x423c]
    ecec4:	3a 46 08             	cmp    al,BYTE PTR [bp+0x8]
    ecec7:	76 03                	jbe    0xececc
@@ -20746,6 +20760,7 @@ init_something3:
    eced1:	ba 0f 00             	mov    dx,0xf
    eced4:	f7 ea                	imul   dx
    eced6:	8b d8                	mov    bx,ax
+; g_fonts[fontnum].header.end
    eced8:	8a 87 3d 42          	mov    al,BYTE PTR [bx+0x423d]
    ecedc:	3a 46 08             	cmp    al,BYTE PTR [bp+0x8]
    ecedf:	73 03                	jae    0xecee4
@@ -20755,6 +20770,7 @@ init_something3:
    ecee9:	ba 0f 00             	mov    dx,0xf
    eceec:	f7 ea                	imul   dx
    eceee:	8b d8                	mov    bx,ax
+; g_fonts[fontnum].data
    ecef0:	8b 87 33 42          	mov    ax,WORD PTR [bx+0x4233]
    ecef4:	8b 97 31 42          	mov    dx,WORD PTR [bx+0x4231]
    ecef8:	89 46 fc             	mov    WORD PTR [bp-0x4],ax
@@ -20768,6 +20784,7 @@ init_something3:
    ecf0c:	8b c2                	mov    ax,dx
    ecf0e:	f7 eb                	imul   bx
    ecf10:	8b d8                	mov    bx,ax
+; g_fonts[fontnum].header.start
    ecf12:	8a 87 3c 42          	mov    al,BYTE PTR [bx+0x423c]
    ecf16:	b4 00                	mov    ah,0x0
    ecf18:	8b d0                	mov    dx,ax
@@ -20780,6 +20797,7 @@ init_something3:
    ecf26:	8b c2                	mov    ax,dx
    ecf28:	f7 eb                	imul   bx
    ecf2a:	8b d8                	mov    bx,ax
+; g_fonts[fontnum].charbytes
    ecf2c:	8a 87 38 42          	mov    al,BYTE PTR [bx+0x4238]
    ecf30:	b4 00                	mov    ah,0x0
    ecf32:	8b d0                	mov    dx,ax
@@ -20804,6 +20822,7 @@ init_something3:
    ecf62:	ba 0f 00             	mov    dx,0xf
    ecf65:	f7 ea                	imul   dx
    ecf67:	8b d8                	mov    bx,ax
+; g_fonts[fontnum].charbytes
    ecf69:	8a 87 38 42          	mov    al,BYTE PTR [bx+0x4238]
    ecf6d:	b4 00                	mov    ah,0x0
    ecf6f:	48                   	dec    ax
@@ -20824,6 +20843,7 @@ init_something3:
    ecf96:	ba 0f 00             	mov    dx,0xf
    ecf99:	f7 ea                	imul   dx
    ecf9b:	8b d8                	mov    bx,ax
+; g_fonts[fontnum].header.u2
    ecf9d:	8a 87 3f 42          	mov    al,BYTE PTR [bx+0x423f]
    ecfa1:	b4 00                	mov    ah,0x0
    ecfa3:	50                   	push   ax
@@ -20903,6 +20923,7 @@ init_something3:
    ed067:	ba 0f 00             	mov    dx,0xf
    ed06a:	f7 ea                	imul   dx
    ed06c:	8b d8                	mov    bx,ax
+; g_fonts[fontnum].header.height
    ed06e:	8a 87 3b 42          	mov    al,BYTE PTR [bx+0x423b]
    ed072:	b4 00                	mov    ah,0x0
    ed074:	3b 46 f6             	cmp    ax,WORD PTR [bp-0xa]
@@ -20958,6 +20979,7 @@ init_something3:
    ed0e8:	52                   	push   dx
    ed0e9:	f7 eb                	imul   bx
    ed0eb:	8b d8                	mov    bx,ax
+; g_fonts[fontnum].heightbytes
    ed0ed:	8a 87 37 42          	mov    al,BYTE PTR [bx+0x4237]
    ed0f1:	b4 00                	mov    ah,0x0
    ed0f3:	5a                   	pop    dx
@@ -21039,6 +21061,7 @@ init_something3:
    ed1c3:	ba 0f 00             	mov    dx,0xf
    ed1c6:	f7 ea                	imul   dx
    ed1c8:	8b d8                	mov    bx,ax
+; g_fonts[fontnum].heightbytes
    ed1ca:	8a 87 37 42          	mov    al,BYTE PTR [bx+0x4237]
    ed1ce:	b4 00                	mov    ah,0x0
    ed1d0:	01 46 f0             	add    WORD PTR [bp-0x10],ax
@@ -21049,6 +21072,7 @@ init_something3:
    ed1de:	ba 0f 00             	mov    dx,0xf
    ed1e1:	f7 ea                	imul   dx
    ed1e3:	8b d8                	mov    bx,ax
+; g_fonts[fontnum].heightbytes
    ed1e5:	8a 87 37 42          	mov    al,BYTE PTR [bx+0x4237]
    ed1e9:	b4 00                	mov    ah,0x0
    ed1eb:	01 46 fa             	add    WORD PTR [bp-0x6],ax
@@ -21078,6 +21102,7 @@ init_something3:
    ed224:	52                   	push   dx
    ed225:	f7 eb                	imul   bx
    ed227:	8b d8                	mov    bx,ax
+; g_fonts[fontnum].heightbytes
    ed229:	8a 87 37 42          	mov    al,BYTE PTR [bx+0x4237]
    ed22d:	b4 00                	mov    ah,0x0
    ed22f:	5a                   	pop    dx
@@ -21108,6 +21133,7 @@ init_something3:
    ed267:	52                   	push   dx
    ed268:	f7 eb                	imul   bx
    ed26a:	8b d8                	mov    bx,ax
+; g_fonts[fontnum].heightbytes
    ed26c:	8a 87 37 42          	mov    al,BYTE PTR [bx+0x4237]
    ed270:	b4 00                	mov    ah,0x0
    ed272:	5a                   	pop    dx
@@ -21122,6 +21148,7 @@ init_something3:
    ed288:	ba 0f 00             	mov    dx,0xf
    ed28b:	f7 ea                	imul   dx
    ed28d:	8b d8                	mov    bx,ax
+; g_fonts[fontnum].header.u2
    ed28f:	8a 87 3f 42          	mov    al,BYTE PTR [bx+0x423f]
    ed293:	b4 00                	mov    ah,0x0
    ed295:	f7 6e 0c             	imul   WORD PTR [bp+0xc]
@@ -21144,6 +21171,7 @@ init_something3:
    ed2ba:	ba 0f 00             	mov    dx,0xf
    ed2bd:	f7 ea                	imul   dx
    ed2bf:	8b d8                	mov    bx,ax
+; g_fonts[fontnum].header.start
    ed2c1:	8a 87 3c 42          	mov    al,BYTE PTR [bx+0x423c]
    ed2c5:	3a 46 06             	cmp    al,BYTE PTR [bp+0x6]
    ed2c8:	76 03                	jbe    0xed2cd
@@ -21153,6 +21181,7 @@ init_something3:
    ed2d2:	ba 0f 00             	mov    dx,0xf
    ed2d5:	f7 ea                	imul   dx
    ed2d7:	8b d8                	mov    bx,ax
+; g_fonts[fontnum].header.end
    ed2d9:	8a 87 3d 42          	mov    al,BYTE PTR [bx+0x423d]
    ed2dd:	3a 46 06             	cmp    al,BYTE PTR [bp+0x6]
    ed2e0:	73 03                	jae    0xed2e5
@@ -21162,6 +21191,7 @@ init_something3:
    ed2ea:	ba 0f 00             	mov    dx,0xf
    ed2ed:	f7 ea                	imul   dx
    ed2ef:	8b d8                	mov    bx,ax
+; g_fonts[fontnum].data
    ed2f1:	8b 87 33 42          	mov    ax,WORD PTR [bx+0x4233]
    ed2f5:	8b 97 31 42          	mov    dx,WORD PTR [bx+0x4231]
    ed2f9:	89 46 fe             	mov    WORD PTR [bp-0x2],ax
@@ -21175,6 +21205,7 @@ init_something3:
    ed30d:	8b c2                	mov    ax,dx
    ed30f:	f7 eb                	imul   bx
    ed311:	8b d8                	mov    bx,ax
+; g_fonts[fontnum].header.start
    ed313:	8a 87 3c 42          	mov    al,BYTE PTR [bx+0x423c]
    ed317:	b4 00                	mov    ah,0x0
    ed319:	8b d0                	mov    dx,ax
@@ -21187,6 +21218,7 @@ init_something3:
    ed327:	8b c2                	mov    ax,dx
    ed329:	f7 eb                	imul   bx
    ed32b:	8b d8                	mov    bx,ax
+; g_fonts[fontnum].charbytes
    ed32d:	8a 87 38 42          	mov    al,BYTE PTR [bx+0x4238]
    ed331:	b4 00                	mov    ah,0x0
    ed333:	8b d0                	mov    dx,ax
@@ -21203,6 +21235,7 @@ init_something3:
    ed34e:	ba 0f 00             	mov    dx,0xf
    ed351:	f7 ea                	imul   dx
    ed353:	8b d8                	mov    bx,ax
+; g_fonts[fontnum].charbytes
    ed355:	8a 87 38 42          	mov    al,BYTE PTR [bx+0x4238]
    ed359:	88 46 fb             	mov    BYTE PTR [bp-0x5],al
    ed35c:	80 7e fb 00          	cmp    BYTE PTR [bp-0x5],0x0
@@ -21215,6 +21248,7 @@ init_something3:
    ed36f:	b6 00                	mov    dh,0x0
    ed371:	8b d8                	mov    bx,ax
    ed373:	8b c2                	mov    ax,dx
+; g_fonts[fontnum].heightbytes
    ed375:	f6 b7 37 42          	div    BYTE PTR [bx+0x4237]
    ed379:	88 46 fb             	mov    BYTE PTR [bp-0x5],al
    ed37c:	8a 46 fb             	mov    al,BYTE PTR [bp-0x5]
@@ -21226,6 +21260,7 @@ init_something3:
    ed38c:	ba 0f 00             	mov    dx,0xf
    ed38f:	f7 ea                	imul   dx
    ed391:	8b d8                	mov    bx,ax
+; g_fonts[fontnum].header.u2
    ed393:	8a 87 3f 42          	mov    al,BYTE PTR [bx+0x423f]
    ed397:	b4 00                	mov    ah,0x0
    ed399:	f7 6e 0a             	imul   WORD PTR [bp+0xa]
@@ -21350,6 +21385,7 @@ init_something3:
    ed4e3:	f7 ea                	imul   dx
    ed4e5:	8b d8                	mov    bx,ax
    ed4e7:	80 bf 35 42 01       	cmp    BYTE PTR [bx+0x4235],0x1
+; if g_fonts[fontnum].loaded == 1
    ed4ec:	75 08                	jne    0xed4f6
    ed4ee:	8b 5e 0c             	mov    bx,WORD PTR [bp+0xc]
    ed4f1:	8a 46 f6             	mov    al,BYTE PTR [bp-0xa]
@@ -21532,40 +21568,66 @@ init_something3:
 000ed6cd  0054 0057 005e 0c73 0dc7 0cea 0dee 0da9  |T.W.^.s.........|
 000ed6dd  0daf 0d77 0d29 0c8c 0cb5 0dec            |..w.).......|
 
+struct FONTHEADER {
+  ushort width;
+  ushort height;
+  ushort start;
+  ushort end;
+  ushort u1;
+  ushort u2;
+}
+
+struct FONTINFO {
+  far char * data;
+  ushort loaded;
+  ushort numchars;
+  ushort heightbytes;
+  ushort charbytes;
+  ushort u1;
+  FONTHEADER header;
+}
 
 .code
+int load_font(short fontnum, FONTHEADER h, near *data):
    ed6e9:	55                   	push   bp
    ed6ea:	8b ec                	mov    bp,sp
    ed6ec:	83 ec 02             	sub    sp,0x2
    ed6ef:	56                   	push   si
+; result = -1
    ed6f0:	c7 46 fe ff ff       	mov    WORD PTR [bp-0x2],0xffff
    ed6f5:	80 7e 06 08          	cmp    BYTE PTR [bp+0x6],0x8
    ed6f9:	72 03                	jb     0xed6fe
+; if fontnum >= 8 return -1
    ed6fb:	e9 df 00             	jmp    0xed7dd
    ed6fe:	80 7e 08 30          	cmp    BYTE PTR [bp+0x8],0x30
    ed702:	76 03                	jbe    0xed707
+; if h.width > 0x30 return -1
    ed704:	e9 d6 00             	jmp    0xed7dd
    ed707:	80 7e 09 18          	cmp    BYTE PTR [bp+0x9],0x18
    ed70b:	76 03                	jbe    0xed710
+; if h.height > 0x18 return -1
    ed70d:	e9 cd 00             	jmp    0xed7dd
    ed710:	80 7e 09 01          	cmp    BYTE PTR [bp+0x9],0x1
    ed714:	77 03                	ja     0xed719
+; if h.height <= 1 return -1
    ed716:	e9 c4 00             	jmp    0xed7dd
    ed719:	8a 46 0a             	mov    al,BYTE PTR [bp+0xa]
    ed71c:	3a 46 0b             	cmp    al,BYTE PTR [bp+0xb]
    ed71f:	72 03                	jb     0xed724
+; if h.start >= h.end return -1
    ed721:	e9 b9 00             	jmp    0xed7dd
    ed724:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    ed727:	b4 00                	mov    ah,0x0
    ed729:	ba 0f 00             	mov    dx,0xf
    ed72c:	f7 ea                	imul   dx
-   ed72e:	05 3a 42             	add    ax,0x423a
+   ed72e:	05 3a 42             	add    ax,0x423a ; 0xfdada
    ed731:	1e                   	push   ds
    ed732:	50                   	push   ax
    ed733:	8d 46 08             	lea    ax,[bp+0x8]
    ed736:	16                   	push   ss
    ed737:	50                   	push   ax
    ed738:	b9 06 00             	mov    cx,0x6
+; memcpy(&g_fonts[fontnum].header, &h, sizeof(FONTHEADER))
    ed73b:	9a cd 00 00 e0       	call   0xe000:0xcd ; memcpy
    ed740:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    ed743:	b4 00                	mov    ah,0x0
@@ -21574,6 +21636,7 @@ init_something3:
    ed74a:	8a 56 0b             	mov    dl,BYTE PTR [bp+0xb]
    ed74d:	2a 56 0a             	sub    dl,BYTE PTR [bp+0xa]
    ed750:	8b d8                	mov    bx,ax
+; g_fonts[fontnum].numchars = h.end - h.start
    ed752:	88 97 36 42          	mov    BYTE PTR [bx+0x4236],dl
    ed756:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    ed759:	b4 00                	mov    ah,0x0
@@ -21582,6 +21645,7 @@ init_something3:
    ed760:	8b 56 10             	mov    dx,WORD PTR [bp+0x10]
    ed763:	8b 5e 0e             	mov    bx,WORD PTR [bp+0xe]
    ed766:	8b f0                	mov    si,ax
+; g_fonts[fontnum].data = data
    ed768:	89 94 33 42          	mov    WORD PTR [si+0x4233],dx
    ed76c:	89 9c 31 42          	mov    WORD PTR [si+0x4231],bx
    ed770:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
@@ -21589,6 +21653,7 @@ init_something3:
    ed775:	ba 0f 00             	mov    dx,0xf
    ed778:	f7 ea                	imul   dx
    ed77a:	8b d8                	mov    bx,ax
+; g_fonts[fontnum].loaded = 1
    ed77c:	c6 87 35 42 01       	mov    BYTE PTR [bx+0x4235],0x1
    ed781:	8a 46 09             	mov    al,BYTE PTR [bp+0x9]
    ed784:	b4 00                	mov    ah,0x0
@@ -21605,6 +21670,7 @@ init_something3:
    ed79a:	f7 eb                	imul   bx
    ed79c:	8b d8                	mov    bx,ax
    ed79e:	58                   	pop    ax
+; g_fonts[fontnum].heightbytes = (h.height - 1) / 8 + 1
    ed79f:	88 87 37 42          	mov    BYTE PTR [bx+0x4237],al
    ed7a3:	8a 46 08             	mov    al,BYTE PTR [bp+0x8]
    ed7a6:	b4 00                	mov    ah,0x0
@@ -21629,8 +21695,11 @@ init_something3:
    ed7cf:	f7 eb                	imul   bx
    ed7d1:	8b d8                	mov    bx,ax
    ed7d3:	58                   	pop    ax
+; g_fonts[fontnum].charbytes = g_fonts[fontnum].heightbytes * h.width
    ed7d4:	88 87 38 42          	mov    BYTE PTR [bx+0x4238],al
+; result = -2
    ed7d8:	c7 46 fe fe ff       	mov    WORD PTR [bp-0x2],0xfffe
+; return result
    ed7dd:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
    ed7e0:	eb 00                	jmp    0xed7e2
    ed7e2:	5e                   	pop    si
@@ -21639,6 +21708,7 @@ init_something3:
    ed7e6:	cb                   	retf   
 
 
+reload_font:
    ed7e7:	55                   	push   bp
    ed7e8:	8b ec                	mov    bp,sp
    ed7ea:	83 ec 10             	sub    sp,0x10
@@ -21669,12 +21739,14 @@ init_something3:
    ed835:	f7 ea                	imul   dx
    ed837:	8b d8                	mov    bx,ax
    ed839:	80 bf 35 42 01       	cmp    BYTE PTR [bx+0x4235],0x1
+; if g_fonts[fontnum].loaded == 1
    ed83e:	75 33                	jne    0xed873
    ed840:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    ed843:	b4 00                	mov    ah,0x0
    ed845:	ba 0f 00             	mov    dx,0xf
    ed848:	f7 ea                	imul   dx
    ed84a:	8b d8                	mov    bx,ax
+; g_fonts[fontnum].data
    ed84c:	ff b7 33 42          	push   WORD PTR [bx+0x4233]
    ed850:	ff b7 31 42          	push   WORD PTR [bx+0x4231]
    ed854:	9a 10 04 ac f5       	call   0xf5ac:0x410
@@ -21685,6 +21757,7 @@ init_something3:
    ed860:	ba 0f 00             	mov    dx,0xf
    ed863:	f7 ea                	imul   dx
    ed865:	8b d8                	mov    bx,ax
+; g_fonts[fontnum].data = 0
    ed867:	c7 87 33 42 00 00    	mov    WORD PTR [bx+0x4233],0x0
    ed86d:	c7 87 31 42 00 00    	mov    WORD PTR [bx+0x4231],0x0
    ed873:	8a 46 08             	mov    al,BYTE PTR [bp+0x8]
@@ -21749,7 +21822,7 @@ init_something3:
    ed907:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    ed90a:	50                   	push   ax
    ed90b:	0e                   	push   cs
-   ed90c:	e8 da fd             	call   0xed6e9
+   ed90c:	e8 da fd             	call   0xed6e9 ; load_font
    ed90f:	83 c4 0c             	add    sp,0xc
    ed912:	89 46 fe             	mov    WORD PTR [bp-0x2],ax
    ed915:	eb 00                	jmp    0xed917
@@ -21760,6 +21833,7 @@ init_something3:
    ed91f:	cb                   	retf   
 
 
+something_font:
    ed920:	55                   	push   bp
    ed921:	8b ec                	mov    bp,sp
    ed923:	83 ec 10             	sub    sp,0x10
@@ -21768,6 +21842,7 @@ init_something3:
    ed92e:	b4 00                	mov    ah,0x0
    ed930:	ba 0f 00             	mov    dx,0xf
    ed933:	f7 ea                	imul   dx
+; &g_fonts[fontnum].data
    ed935:	05 31 42             	add    ax,0x4231
    ed938:	8c 5e f8             	mov    WORD PTR [bp-0x8],ds
    ed93b:	89 46 f6             	mov    WORD PTR [bp-0xa],ax
@@ -21894,6 +21969,7 @@ init_something3:
    eda91:	cb                   	retf   
 
 
+something_font:
    eda92:	55                   	push   bp
    eda93:	8b ec                	mov    bp,sp
    eda95:	83 ec 06             	sub    sp,0x6
@@ -21902,6 +21978,7 @@ init_something3:
    edaa0:	b4 00                	mov    ah,0x0
    edaa2:	ba 0f 00             	mov    dx,0xf
    edaa5:	f7 ea                	imul   dx
+; &g_fonts[fontnum].data
    edaa7:	05 31 42             	add    ax,0x4231
    edaaa:	8c 5e fc             	mov    WORD PTR [bp-0x4],ds
    edaad:	89 46 fa             	mov    WORD PTR [bp-0x6],ax
@@ -21951,6 +22028,7 @@ init_something3:
    edb25:	cb                   	retf   
 
 
+something_font:
    edb26:	55                   	push   bp
    edb27:	8b ec                	mov    bp,sp
    edb29:	83 ec 0c             	sub    sp,0xc
@@ -21967,6 +22045,7 @@ init_something3:
    edb4a:	f7 ea                	imul   dx
    edb4c:	8b d8                	mov    bx,ax
    edb4e:	80 bf 35 42 01       	cmp    BYTE PTR [bx+0x4235],0x1
+; if g_fonts[fontnum].loaded == 1
    edb53:	74 03                	je     0xedb58
    edb55:	e9 8f 00             	jmp    0xedbe7
    edb58:	8b 46 06             	mov    ax,WORD PTR [bp+0x6]
@@ -21981,6 +22060,7 @@ init_something3:
    edb73:	ba 0f 00             	mov    dx,0xf
    edb76:	f7 ea                	imul   dx
    edb78:	8b d8                	mov    bx,ax
+ ; g_fonts[fontnum].data
    edb7a:	8b 87 33 42          	mov    ax,WORD PTR [bx+0x4233]
    edb7e:	8b 97 31 42          	mov    dx,WORD PTR [bx+0x4231]
    edb82:	89 46 fe             	mov    WORD PTR [bp-0x2],ax
@@ -21989,6 +22069,7 @@ init_something3:
    edb8b:	ba 0f 00             	mov    dx,0xf
    edb8e:	f7 ea                	imul   dx
    edb90:	8b d8                	mov    bx,ax
+; g_fonts[fontnum].header.start
    edb92:	8a 87 3c 42          	mov    al,BYTE PTR [bx+0x423c]
    edb96:	b4 00                	mov    ah,0x0
    edb98:	89 46 f4             	mov    WORD PTR [bp-0xc],ax
@@ -22006,6 +22087,7 @@ init_something3:
    edbbc:	ba 0f 00             	mov    dx,0xf
    edbbf:	f7 ea                	imul   dx
    edbc1:	8b d8                	mov    bx,ax
+; g_fonts[fontnum].charbytes
    edbc3:	8a 87 38 42          	mov    al,BYTE PTR [bx+0x4238]
    edbc7:	b4 00                	mov    ah,0x0
    edbc9:	48                   	dec    ax
@@ -22016,6 +22098,7 @@ init_something3:
    edbd5:	ba 0f 00             	mov    dx,0xf
    edbd8:	f7 ea                	imul   dx
    edbda:	8b d8                	mov    bx,ax
+; g_fonts[fontnum].header.end
    edbdc:	8a 87 3d 42          	mov    al,BYTE PTR [bx+0x423d]
    edbe0:	b4 00                	mov    ah,0x0
    edbe2:	3b 46 f4             	cmp    ax,WORD PTR [bp-0xc]
@@ -22031,6 +22114,7 @@ init_something3:
    edbfe:	cb                   	retf   
 
 
+unload_font:
    edbff:	55                   	push   bp
    edc00:	8b ec                	mov    bp,sp
    edc02:	83 ec 02             	sub    sp,0x2
@@ -22044,12 +22128,14 @@ init_something3:
    edc1a:	ba 0f 00             	mov    dx,0xf
    edc1d:	f7 ea                	imul   dx
    edc1f:	8b d8                	mov    bx,ax
+; g_fonts[fontnum].loaded = 0
    edc21:	c6 87 35 42 00       	mov    BYTE PTR [bx+0x4235],0x0
    edc26:	8a 46 ff             	mov    al,BYTE PTR [bp-0x1]
    edc29:	b4 00                	mov    ah,0x0
    edc2b:	ba 0f 00             	mov    dx,0xf
    edc2e:	f7 ea                	imul   dx
    edc30:	8b d8                	mov    bx,ax
+; g_fonts[fontnum].data = 0
    edc32:	c7 87 33 42 00 00    	mov    WORD PTR [bx+0x4233],0x0
    edc38:	c7 87 31 42 00 00    	mov    WORD PTR [bx+0x4231],0x0
    edc3e:	fe 46 ff             	inc    BYTE PTR [bp-0x1]
@@ -25489,6 +25575,7 @@ interesting:
    efef9:	83 3e fb 2d 0f       	cmp    WORD PTR ds:0x2dfb,0xf
    efefe:	72 16                	jb     0xeff16
    eff00:	77 08                	ja     0xeff0a
+; &g_fonts[0].header.u2
    eff02:	81 3e f9 2d 3f 42    	cmp    WORD PTR ds:0x2df9,0x423f
    eff08:	76 0c                	jbe    0xeff16
    eff0a:	c7 06 fb 2d 00 00    	mov    WORD PTR ds:0x2dfb,0x0
@@ -29721,6 +29808,7 @@ compare_lizz:
    f2a93:	8a 56 fa             	mov    dl,BYTE PTR [bp-0x6]
    f2a96:	80 e2 07             	and    dl,0x7
    f2a99:	8b d8                	mov    bx,ax
+; g_fonts[fontnum].header.u2
    f2a9b:	88 97 3f 42          	mov    BYTE PTR [bx+0x423f],dl
    f2a9f:	eb 3e                	jmp    0xf2adf
    f2aa1:	83 7e fa 02          	cmp    WORD PTR [bp-0x6],0x2
@@ -31304,6 +31392,7 @@ compare_lizz:
    f37e7:	f7 ea                	imul   dx
    f37e9:	8b d8                	mov    bx,ax
    f37eb:	80 bf 35 42 01       	cmp    BYTE PTR [bx+0x4235],0x1
+; if g_fonts[fontnum].loaded == 1
    f37f0:	75 16                	jne    0xf3808
    f37f2:	c6 06 3f 63 01       	mov    BYTE PTR ds:0x633f,0x1
    f37f7:	a0 4d 64             	mov    al,ds:0x644d
@@ -34271,48 +34360,48 @@ call_table:
    f5781:	80 3e 15 68 01       	cmp    BYTE PTR ds:0x6815,0x1
    f5786:	75 74                	jne    0xf57fc
    f5788:	1e                   	push   ds
-   f5789:	b8 0a 06             	mov    ax,0x60a
+   f5789:	b8 0a 06             	mov    ax,0x60a ; font_sm.data
    f578c:	50                   	push   ax
-   f578d:	b8 04 06             	mov    ax,0x604
+   f578d:	b8 04 06             	mov    ax,0x604 ; font_sm.header
    f5790:	8c da                	mov    dx,ds
    f5792:	b9 06 00             	mov    cx,0x6
    f5795:	9a 46 02 00 e0       	call   0xe000:0x246 ; _pushstruct
    f579a:	b0 00                	mov    al,0x0
    f579c:	50                   	push   ax
-   f579d:	9a 19 0f 7d ec       	call   0xec7d:0xf19
+   f579d:	9a 19 0f 7d ec       	call   0xec7d:0xf19 ; load_font
    f57a2:	83 c4 0c             	add    sp,0xc
    f57a5:	1e                   	push   ds
-   f57a6:	b8 50 08             	mov    ax,0x850
+   f57a6:	b8 50 08             	mov    ax,0x850 ; font_bold.data
    f57a9:	50                   	push   ax
-   f57aa:	b8 4a 08             	mov    ax,0x84a
+   f57aa:	b8 4a 08             	mov    ax,0x84a ; font_bold.header
    f57ad:	8c da                	mov    dx,ds
    f57af:	b9 06 00             	mov    cx,0x6
    f57b2:	9a 46 02 00 e0       	call   0xe000:0x246 ; _pushstruct
    f57b7:	b0 01                	mov    al,0x1
    f57b9:	50                   	push   ax
-   f57ba:	9a 19 0f 7d ec       	call   0xec7d:0xf19
+   f57ba:	9a 19 0f 7d ec       	call   0xec7d:0xf19 ; load_font
    f57bf:	83 c4 0c             	add    sp,0xc
    f57c2:	1e                   	push   ds
-   f57c3:	b8 56 0b             	mov    ax,0xb56
+   f57c3:	b8 56 0b             	mov    ax,0xb56 ; font_big.data
    f57c6:	50                   	push   ax
-   f57c7:	b8 50 0b             	mov    ax,0xb50
+   f57c7:	b8 50 0b             	mov    ax,0xb50 ; font_big.header
    f57ca:	8c da                	mov    dx,ds
    f57cc:	b9 06 00             	mov    cx,0x6
    f57cf:	9a 46 02 00 e0       	call   0xe000:0x246 ; _pushstruct
    f57d4:	b0 02                	mov    al,0x2
    f57d6:	50                   	push   ax
-   f57d7:	9a 19 0f 7d ec       	call   0xec7d:0xf19
+   f57d7:	9a 19 0f 7d ec       	call   0xec7d:0xf19 ; load_font
    f57dc:	83 c4 0c             	add    sp,0xc
    f57df:	1e                   	push   ds
-   f57e0:	b8 bc 14             	mov    ax,0x14bc
+   f57e0:	b8 bc 14             	mov    ax,0x14bc ; font_huge.data
    f57e3:	50                   	push   ax
-   f57e4:	b8 b6 14             	mov    ax,0x14b6
+   f57e4:	b8 b6 14             	mov    ax,0x14b6 ; font_huge.header
    f57e7:	8c da                	mov    dx,ds
    f57e9:	b9 06 00             	mov    cx,0x6
    f57ec:	9a 46 02 00 e0       	call   0xe000:0x246 ; _pushstruct
    f57f1:	b0 03                	mov    al,0x3
    f57f3:	50                   	push   ax
-   f57f4:	9a 19 0f 7d ec       	call   0xec7d:0xf19
+   f57f4:	9a 19 0f 7d ec       	call   0xec7d:0xf19 ; load_font
    f57f9:	83 c4 0c             	add    sp,0xc
    f57fc:	c6 06 88 01 04       	mov    BYTE PTR ds:0x188,0x4
    f5801:	9a 88 02 45 f0       	call   0xf045:0x288
