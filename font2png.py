@@ -43,6 +43,7 @@ img = img.rotate(90)
 img.save(sys.argv[2], 'PNG')
 
 print 'Bitmap size: %dx%d' % (w, h)
-print 'Characters: %s - %s' % (start, end)
+print 'Characters: %s-%s' % (start, end)
+print 'Unknown: %d, %d' % (u1, u2)
 print 'Widths: %s' % charws
 
