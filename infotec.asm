@@ -7551,9 +7551,9 @@ init_something2:
    e4871:	59                   	pop    cx
    e4872:	ff 06 ff 2d          	inc    WORD PTR ds:0x2dff
    e4876:	a1 ff 2d             	mov    ax,ds:0x2dff
-   e4879:	3d 28 0a             	cmp    ax,0xa28
+   e4879:	3d 28 0a             	cmp    ax,0xa28 ; 2600
    e487c:	76 06                	jbe    0xe4884
-   e487e:	c7 06 ff 2d 28 0a    	mov    WORD PTR ds:0x2dff,0xa28
+   e487e:	c7 06 ff 2d 28 0a    	mov    WORD PTR ds:0x2dff,0xa28 ; 2600
    e4884:	80 3e 04 2e 01       	cmp    BYTE PTR ds:0x2e04,0x1
    e4889:	75 08                	jne    0xe4893
    e488b:	ff 76 06             	push   WORD PTR [bp+0x6]
