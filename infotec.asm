@@ -127,7 +127,7 @@ __init:
    e00cc:	cb                   	retf   
 
 
-fastcall memcpy:
+void far memcpy(far void *dest, far void *src, short n=cx):
    e00cd:	55                   	push   bp
    e00ce:	8b ec                	mov    bp,sp
    e00d0:	56                   	push   si
@@ -1158,22 +1158,28 @@ far proc _pushstruct(from=dx:ax, cb=cx):
    e0966:	c3                   	ret    
 
 
+(p1):
    e0967:	55                   	push   bp
    e0968:	8b ec                	mov    bp,sp
    e096a:	8b 56 06             	mov    dx,WORD PTR [bp+0x6]
    e096d:	83 fa ff             	cmp    dx,0xffffffff
+; if p1 == 0xffff:
    e0970:	75 05                	jne    0xe0977
+;   return 0xffff
    e0972:	b8 ff ff             	mov    ax,0xffff
    e0975:	eb 1a                	jmp    0xe0991
    e0977:	8a c2                	mov    al,dl
    e0979:	b4 00                	mov    ah,0x0
    e097b:	8b d8                	mov    bx,ax
    e097d:	f6 87 07 26 08       	test   BYTE PTR [bx+0x2607],0x8
+; if g_2607[(short) p1] & 0x8:
    e0982:	74 09                	je     0xe098d
    e0984:	8a c2                	mov    al,dl
    e0986:	b4 00                	mov    ah,0x0
    e0988:	05 e0 ff             	add    ax,0xffe0
+;   return (short) p1 - 0x20
    e098b:	eb 04                	jmp    0xe0991
+; return (short) p1
    e098d:	8a c2                	mov    al,dl
    e098f:	b4 00                	mov    ah,0x0
    e0991:	5d                   	pop    bp
@@ -1676,7 +1682,7 @@ n_sprintf:
 
 
 .code
-stdcall _memcpy_h: ; huge memory model
+near void * far memcpy(near void *dest, near void *src, short n):
    e0e6e:	55                   	push   bp
    e0e6f:	8b ec                	mov    bp,sp
    e0e71:	56                   	push   si
@@ -1698,7 +1704,7 @@ stdcall _memcpy_h: ; huge memory model
    e0e8c:	cb                   	retf   
 
 
-void * memset(far void *from, near void *to, short cb):
+void near memset(near void *ptr, int value, short cb):
    e0e8d:	55                   	push   bp
    e0e8e:	8b ec                	mov    bp,sp
    e0e90:	57                   	push   di
@@ -1723,7 +1729,7 @@ void * memset(far void *from, near void *to, short cb):
    e0eb2:	cb                   	retf   
 
 
-void * memset(near void *from, near void *to, short cb):
+near void * far memset(near void *ptr, int value, short cb):
    e0eb3:	55                   	push   bp
    e0eb4:	8b ec                	mov    bp,sp
    e0eb6:	56                   	push   si
@@ -1733,7 +1739,7 @@ void * memset(near void *from, near void *to, short cb):
    e0ebe:	ff 76 0a             	push   WORD PTR [bp+0xa]
    e0ec1:	56                   	push   si
    e0ec2:	0e                   	push   cs
-   e0ec3:	e8 c7 ff             	call   0xe0e8d ; memset_h
+   e0ec3:	e8 c7 ff             	call   0xe0e8d ; near memset
    e0ec6:	83 c4 06             	add    sp,0x6
    e0ec9:	8b c6                	mov    ax,si
    e0ecb:	5e                   	pop    si
@@ -1802,7 +1808,7 @@ f_memmove:
    e0f30:	cb                   	retf   
 
 
-far _memcpy:
+near void * near bufcat(near void *dest, short n, near void *src):
    e0f31:	55                   	push   bp
    e0f32:	8b ec                	mov    bp,sp
    e0f34:	56                   	push   si
@@ -1814,11 +1820,15 @@ far _memcpy:
    e0f40:	ff 34                	push   WORD PTR [si]
    e0f42:	90                   	nop
    e0f43:	0e                   	push   cs
-   e0f44:	e8 27 ff             	call   0xe0e6e ; _memcpy
+; memcpy(dest, src, n)
+   e0f44:	e8 27 ff             	call   0xe0e6e
    e0f47:	83 c4 06             	add    sp,0x6
+; *dest += n
    e0f4a:	01 3c                	add    WORD PTR [si],di
    e0f4c:	8b 1c                	mov    bx,WORD PTR [si]
+; *dest = 0;
    e0f4e:	c6 07 00             	mov    BYTE PTR [bx],0x0
+; return n
    e0f51:	8b c7                	mov    ax,di
    e0f53:	5f                   	pop    di
    e0f54:	5e                   	pop    si
@@ -2048,6 +2058,7 @@ n_strlen:
    e10bf:	cb                   	retf   
 
 
+void near memset(far void *ptr, int value, short cb):
    e10c0:	55                   	push   bp
    e10c1:	8b ec                	mov    bp,sp
    e10c3:	57                   	push   di
@@ -2070,6 +2081,7 @@ n_strlen:
    e10e3:	cb                   	retf   
 
 
+far void * far memset(far void *ptr, int value, short cb):
    e10e4:	55                   	push   bp
    e10e5:	8b ec                	mov    bp,sp
    e10e7:	8a 46 0a             	mov    al,BYTE PTR [bp+0xa]
@@ -2078,7 +2090,7 @@ n_strlen:
    e10ee:	ff 76 08             	push   WORD PTR [bp+0x8]
    e10f1:	ff 76 06             	push   WORD PTR [bp+0x6]
    e10f4:	0e                   	push   cs
-   e10f5:	e8 c8 ff             	call   0xe10c0
+   e10f5:	e8 c8 ff             	call   0xe10c0 ; near memset
    e10f8:	83 c4 08             	add    sp,0x8
    e10fb:	8b 56 08             	mov    dx,WORD PTR [bp+0x8]
    e10fe:	8b 46 06             	mov    ax,WORD PTR [bp+0x6]
@@ -4100,7 +4112,7 @@ output_something4:
    e2471:	50                   	push   ax
    e2472:	8d 86 d6 fe          	lea    ax,[bp-0x12a]
    e2476:	50                   	push   ax
-   e2477:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
+   e2477:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; memset
    e247c:	83 c4 06             	add    sp,0x6
    e247f:	b8 20 01             	mov    ax,0x120
    e2482:	50                   	push   ax
@@ -4108,7 +4120,7 @@ output_something4:
    e2485:	50                   	push   ax
    e2486:	8d 86 b6 fd          	lea    ax,[bp-0x24a]
    e248a:	50                   	push   ax
-   e248b:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
+   e248b:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; memset
    e2490:	83 c4 06             	add    sp,0x6
    e2493:	b8 f0 00             	mov    ax,0xf0
    e2496:	50                   	push   ax
@@ -4116,7 +4128,7 @@ output_something4:
    e2499:	50                   	push   ax
    e249a:	8d 86 c6 fc          	lea    ax,[bp-0x33a]
    e249e:	50                   	push   ax
-   e249f:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
+   e249f:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; memset
    e24a4:	83 c4 06             	add    sp,0x6
    e24a7:	8d 86 c6 fc          	lea    ax,[bp-0x33a]
    e24ab:	50                   	push   ax
@@ -4158,7 +4170,7 @@ output_something4:
    e250d:	50                   	push   ax
    e250e:	8d 86 c6 fc          	lea    ax,[bp-0x33a]
    e2512:	50                   	push   ax
-   e2513:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
+   e2513:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; memset
    e2518:	83 c4 06             	add    sp,0x6
    e251b:	8a 46 f7             	mov    al,BYTE PTR [bp-0x9]
    e251e:	fe c0                	inc    al
@@ -4193,7 +4205,7 @@ output_something4:
    e2569:	50                   	push   ax
    e256a:	8d 86 d6 fe          	lea    ax,[bp-0x12a]
    e256e:	50                   	push   ax
-   e256f:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
+   e256f:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; memset
    e2574:	83 c4 06             	add    sp,0x6
    e2577:	b8 20 01             	mov    ax,0x120
    e257a:	50                   	push   ax
@@ -4201,7 +4213,7 @@ output_something4:
    e257d:	50                   	push   ax
    e257e:	8d 86 b6 fd          	lea    ax,[bp-0x24a]
    e2582:	50                   	push   ax
-   e2583:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
+   e2583:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; memset
    e2588:	83 c4 06             	add    sp,0x6
    e258b:	9a e4 02 47 f6       	call   0xf647:0x2e4
    e2590:	ff 46 fe             	inc    WORD PTR [bp-0x2]
@@ -4222,7 +4234,7 @@ output_something4:
    e25b2:	50                   	push   ax
    e25b3:	8d 86 d6 fe          	lea    ax,[bp-0x12a]
    e25b7:	50                   	push   ax
-   e25b8:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
+   e25b8:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; memset
    e25bd:	83 c4 06             	add    sp,0x6
    e25c0:	b8 f0 00             	mov    ax,0xf0
    e25c3:	50                   	push   ax
@@ -4230,7 +4242,7 @@ output_something4:
    e25c7:	50                   	push   ax
    e25c8:	8d 86 c6 fc          	lea    ax,[bp-0x33a]
    e25cc:	50                   	push   ax
-   e25cd:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
+   e25cd:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; memset
    e25d2:	83 c4 06             	add    sp,0x6
    e25d5:	8d 86 c6 fc          	lea    ax,[bp-0x33a]
    e25d9:	50                   	push   ax
@@ -4276,7 +4288,7 @@ output_something4:
    e2644:	50                   	push   ax
    e2645:	8d 86 c6 fc          	lea    ax,[bp-0x33a]
    e2649:	50                   	push   ax
-   e264a:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
+   e264a:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; memset
    e264f:	83 c4 06             	add    sp,0x6
    e2652:	b8 20 01             	mov    ax,0x120
    e2655:	50                   	push   ax
@@ -4286,7 +4298,7 @@ output_something4:
    e265e:	50                   	push   ax
    e265f:	8d 86 d6 fe          	lea    ax,[bp-0x12a]
    e2663:	50                   	push   ax
-   e2664:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
+   e2664:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; memset
    e2669:	83 c4 06             	add    sp,0x6
    e266c:	8d 86 c6 fc          	lea    ax,[bp-0x33a]
    e2670:	50                   	push   ax
@@ -4322,7 +4334,7 @@ output_something4:
    e26c1:	50                   	push   ax
    e26c2:	8d 86 d6 fe          	lea    ax,[bp-0x12a]
    e26c6:	50                   	push   ax
-   e26c7:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
+   e26c7:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; memset
    e26cc:	83 c4 06             	add    sp,0x6
    e26cf:	b8 20 01             	mov    ax,0x120
    e26d2:	50                   	push   ax
@@ -4330,7 +4342,7 @@ output_something4:
    e26d5:	50                   	push   ax
    e26d6:	8d 86 b6 fd          	lea    ax,[bp-0x24a]
    e26da:	50                   	push   ax
-   e26db:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
+   e26db:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; memset
    e26e0:	83 c4 06             	add    sp,0x6
    e26e3:	9a e4 02 47 f6       	call   0xf647:0x2e4
    e26e8:	c7 46 fa 00 00       	mov    WORD PTR [bp-0x6],0x0
@@ -4368,7 +4380,7 @@ output_something4:
    e273f:	50                   	push   ax
    e2740:	8d 86 c6 fc          	lea    ax,[bp-0x33a]
    e2744:	50                   	push   ax
-   e2745:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
+   e2745:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; memset
    e274a:	83 c4 06             	add    sp,0x6
    e274d:	8d 86 c6 fc          	lea    ax,[bp-0x33a]
    e2751:	50                   	push   ax
@@ -4401,7 +4413,7 @@ output_something4:
    e2797:	50                   	push   ax
    e2798:	8d 86 d6 fe          	lea    ax,[bp-0x12a]
    e279c:	50                   	push   ax
-   e279d:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
+   e279d:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; memset
    e27a2:	83 c4 06             	add    sp,0x6
    e27a5:	c7 46 fe 00 00       	mov    WORD PTR [bp-0x2],0x0
    e27aa:	eb 3b                	jmp    0xe27e7
@@ -6768,7 +6780,7 @@ output_something11:
    e4062:	50                   	push   ax
    e4063:	b8 ba 2a             	mov    ax,0x2aba
    e4066:	50                   	push   ax
-   e4067:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
+   e4067:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; memset
    e406c:	83 c4 06             	add    sp,0x6
    e406f:	b8 04 00             	mov    ax,0x4
    e4072:	50                   	push   ax
@@ -6776,7 +6788,7 @@ output_something11:
    e4075:	50                   	push   ax
    e4076:	b8 bf 2a             	mov    ax,0x2abf
    e4079:	50                   	push   ax
-   e407a:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
+   e407a:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; memset
    e407f:	83 c4 06             	add    sp,0x6
    e4082:	b8 06 00             	mov    ax,0x6
    e4085:	50                   	push   ax
@@ -6784,7 +6796,7 @@ output_something11:
    e4088:	50                   	push   ax
    e4089:	8d 46 fa             	lea    ax,[bp-0x6]
    e408c:	50                   	push   ax
-   e408d:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
+   e408d:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; memset
    e4092:	83 c4 06             	add    sp,0x6
    e4095:	c6 46 f6 00          	mov    BYTE PTR [bp-0xa],0x0
    e4099:	e9 ba 00             	jmp    0xe4156
@@ -7171,7 +7183,7 @@ output_something11:
    e44d7:	50                   	push   ax
    e44d8:	b8 b0 2a             	mov    ax,0x2ab0
    e44db:	50                   	push   ax
-   e44dc:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
+   e44dc:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; memset
    e44e1:	83 c4 06             	add    sp,0x6
    e44e4:	c6 06 2e 00 00       	mov    BYTE PTR ds:0x2e,0x0
    e44e9:	eb 00                	jmp    0xe44eb
@@ -9826,7 +9838,7 @@ init_something3:
    e5f83:	50                   	push   ax
    e5f84:	b8 89 01             	mov    ax,0x189
    e5f87:	50                   	push   ax
-   e5f88:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
+   e5f88:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; memset
    e5f8d:	83 c4 06             	add    sp,0x6
    e5f90:	8a 46 ff             	mov    al,BYTE PTR [bp-0x1]
    e5f93:	b4 00                	mov    ah,0x0
@@ -9872,7 +9884,7 @@ init_something3:
    e5ff5:	50                   	push   ax
    e5ff6:	b8 89 01             	mov    ax,0x189
    e5ff9:	50                   	push   ax
-   e5ffa:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
+   e5ffa:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; memset
    e5fff:	83 c4 06             	add    sp,0x6
    e6002:	8a 46 ff             	mov    al,BYTE PTR [bp-0x1]
    e6005:	b4 00                	mov    ah,0x0
@@ -12227,7 +12239,7 @@ init_something3:
    e77c5:	50                   	push   ax
    e77c6:	b8 04 2a             	mov    ax,0x2a04
    e77c9:	50                   	push   ax
-   e77ca:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
+   e77ca:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; memset
    e77cf:	83 c4 06             	add    sp,0x6
    e77d2:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    e77d5:	b4 00                	mov    ah,0x0
@@ -13775,7 +13787,7 @@ init_something3:
    e87d2:	50                   	push   ax
    e87d3:	b8 07 2a             	mov    ax,0x2a07
    e87d6:	50                   	push   ax
-   e87d7:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
+   e87d7:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; memset
    e87dc:	83 c4 06             	add    sp,0x6
    e87df:	b8 03 00             	mov    ax,0x3
    e87e2:	50                   	push   ax
@@ -13783,7 +13795,7 @@ init_something3:
    e87e5:	50                   	push   ax
    e87e6:	b8 0a 2a             	mov    ax,0x2a0a
    e87e9:	50                   	push   ax
-   e87ea:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
+   e87ea:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; memset
    e87ef:	83 c4 06             	add    sp,0x6
    e87f2:	8b 46 10             	mov    ax,WORD PTR [bp+0x10]
    e87f5:	0b 46 12             	or     ax,WORD PTR [bp+0x12]
@@ -19799,7 +19811,7 @@ init_something3:
    ec50d:	50                   	push   ax
    ec50e:	8d 46 f8             	lea    ax,[bp-0x8]
    ec511:	50                   	push   ax
-   ec512:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
+   ec512:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; memset
    ec517:	83 c4 06             	add    sp,0x6
    ec51a:	8b 5e 0a             	mov    bx,WORD PTR [bp+0xa]
    ec51d:	8a 07                	mov    al,BYTE PTR [bx]
@@ -19814,6 +19826,7 @@ init_something3:
    ec532:	e9 83 01             	jmp    0xec6b8
    ec535:	e9 7c 02             	jmp    0xec7b4
    ec538:	c6 06 5b 2a 00       	mov    BYTE PTR ds:0x2a5b,0x0
+
    ec53d:	c6 46 ff 00          	mov    BYTE PTR [bp-0x1],0x0
    ec541:	8a 46 08             	mov    al,BYTE PTR [bp+0x8]
    ec544:	b4 00                	mov    ah,0x0
@@ -19822,7 +19835,9 @@ init_something3:
    ec54b:	76 03                	jbe    0xec550
    ec54d:	e9 f6 00             	jmp    0xec646
    ec550:	d1 e3                	shl    bx,1
+; switch(p2):
    ec552:	2e ff a7 60 56       	jmp    WORD PTR cs:[bx+0x5660]
+;   case 0:
    ec557:	8b 5e 0a             	mov    bx,WORD PTR [bp+0xa]
    ec55a:	c6 07 03             	mov    BYTE PTR [bx],0x3
    ec55d:	8d 46 f8             	lea    ax,[bp-0x8]
@@ -19830,6 +19845,8 @@ init_something3:
    ec561:	0e                   	push   cs
    ec562:	e8 30 b1             	call   0xe7695
    ec565:	59                   	pop    cx
+
+;     for g_2a5b = 0; g_2a5b < g_62c7; g_2a5b++:
    ec566:	c6 06 5b 2a 00       	mov    BYTE PTR ds:0x2a5b,0x0
    ec56b:	eb 16                	jmp    0xec583
    ec56d:	a0 5b 2a             	mov    al,ds:0x2a5b
@@ -19844,30 +19861,42 @@ init_something3:
    ec586:	3a 06 c7 62          	cmp    al,BYTE PTR ds:0x62c7
    ec58a:	72 e1                	jb     0xec56d
    ec58c:	e9 bf 00             	jmp    0xec64e
+
+; case 1:
    ec58f:	c6 46 ff 22          	mov    BYTE PTR [bp-0x1],0x22
    ec593:	eb 45                	jmp    0xec5da
+; case 2:
    ec595:	c6 46 ff 23          	mov    BYTE PTR [bp-0x1],0x23
    ec599:	eb 3f                	jmp    0xec5da
+; case 3:
    ec59b:	c6 46 ff 20          	mov    BYTE PTR [bp-0x1],0x20
    ec59f:	eb 39                	jmp    0xec5da
+; case 4:
    ec5a1:	c6 46 ff 21          	mov    BYTE PTR [bp-0x1],0x21
    ec5a5:	eb 33                	jmp    0xec5da
+; case 5:
    ec5a7:	c6 46 ff 24          	mov    BYTE PTR [bp-0x1],0x24
    ec5ab:	eb 04                	jmp    0xec5b1
+; case 6:
    ec5ad:	c6 46 ff 25          	mov    BYTE PTR [bp-0x1],0x25
    ec5b1:	c7 46 fc 31 00       	mov    WORD PTR [bp-0x4],0x31
    ec5b6:	e9 95 00             	jmp    0xec64e
+; case 8:
    ec5b9:	c6 46 ff 26          	mov    BYTE PTR [bp-0x1],0x26
    ec5bd:	eb 04                	jmp    0xec5c3
+; case 9:
    ec5bf:	c6 46 ff 27          	mov    BYTE PTR [bp-0x1],0x27
    ec5c3:	c7 46 fc 21 00       	mov    WORD PTR [bp-0x4],0x21
    ec5c8:	e9 83 00             	jmp    0xec64e
+; case 10:
    ec5cb:	c6 46 ff 28          	mov    BYTE PTR [bp-0x1],0x28
    ec5cf:	c7 46 fc 31 55       	mov    WORD PTR [bp-0x4],0x5531
    ec5d4:	eb 78                	jmp    0xec64e
+; case 11:
    ec5d6:	c6 46 ff 2a          	mov    BYTE PTR [bp-0x1],0x2a
    ec5da:	c7 46 fc c1 00       	mov    WORD PTR [bp-0x4],0xc1
    ec5df:	eb 6d                	jmp    0xec64e
+; case 7:
    ec5e1:	b8 01 00             	mov    ax,0x1
    ec5e4:	50                   	push   ax
    ec5e5:	8d 46 f8             	lea    ax,[bp-0x8]
@@ -19912,6 +19941,7 @@ init_something3:
    ec646:	8b 5e 0a             	mov    bx,WORD PTR [bp+0xa]
    ec649:	c6 07 03             	mov    BYTE PTR [bx],0x3
    ec64c:	eb 00                	jmp    0xec64e
+
    ec64e:	80 7e ff 00          	cmp    BYTE PTR [bp-0x1],0x0
    ec652:	74 61                	je     0xec6b5
    ec654:	b8 01 00             	mov    ax,0x1
@@ -20182,7 +20212,7 @@ something_font1:
    ec8e0:	03 46 16             	add    ax,WORD PTR [bp+0x16]
    ec8e3:	ff b7 f7 42          	push   WORD PTR [bx+0x42f7]
    ec8e7:	50                   	push   ax
-   ec8e8:	9a e4 10 00 e0       	call   0xe000:0x10e4
+   ec8e8:	9a e4 10 00 e0       	call   0xe000:0x10e4 ; memset
    ec8ed:	83 c4 08             	add    sp,0x8
    ec8f0:	e9 6e 01             	jmp    0xeca61
    ec8f3:	80 7e 0e 00          	cmp    BYTE PTR [bp+0xe],0x0
@@ -20863,7 +20893,7 @@ something_font1:
    ecfc1:	03 46 16             	add    ax,WORD PTR [bp+0x16]
    ecfc4:	ff b7 f7 42          	push   WORD PTR [bx+0x42f7]
    ecfc8:	50                   	push   ax
-   ecfc9:	9a e4 10 00 e0       	call   0xe000:0x10e4
+   ecfc9:	9a e4 10 00 e0       	call   0xe000:0x10e4 ; memset
    ecfce:	83 c4 08             	add    sp,0x8
    ecfd1:	fe 46 f4             	inc    BYTE PTR [bp-0xc]
    ecfd4:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
@@ -21818,7 +21848,7 @@ int create_user_font(short fontnum, short width, short height, short start, shor
    ed8c6:	ff 76 f8             	push   WORD PTR [bp-0x8]
    ed8c9:	ff 76 f6             	push   WORD PTR [bp-0xa]
 ; memset(data, 0, cb)
-   ed8cc:	9a e4 10 00 e0       	call   0xe000:0x10e4
+   ed8cc:	9a e4 10 00 e0       	call   0xe000:0x10e4 ; memset
    ed8d1:	83 c4 08             	add    sp,0x8
    ed8d4:	8a 46 08             	mov    al,BYTE PTR [bp+0x8]
 ; h.width = width
@@ -21915,7 +21945,7 @@ int something_font2(short fontnum, ):
    ed9b1:	50                   	push   ax
    ed9b2:	ff 76 fc             	push   WORD PTR [bp-0x4]
    ed9b5:	ff 76 fa             	push   WORD PTR [bp-0x6]
-   ed9b8:	9a e4 10 00 e0       	call   0xe000:0x10e4
+   ed9b8:	9a e4 10 00 e0       	call   0xe000:0x10e4 ; memset
    ed9bd:	83 c4 08             	add    sp,0x8
    ed9c0:	c4 5e f6             	les    bx,DWORD PTR [bp-0xa]
    ed9c3:	26 8a 47 07          	mov    al,BYTE PTR es:[bx+0x7]
@@ -22369,7 +22399,7 @@ unload_font:
    ede34:	5b                   	pop    bx
    ede35:	ff b7 f7 42          	push   WORD PTR [bx+0x42f7]
    ede39:	50                   	push   ax
-   ede3a:	9a e4 10 00 e0       	call   0xe000:0x10e4
+   ede3a:	9a e4 10 00 e0       	call   0xe000:0x10e4 ; memset
    ede3f:	83 c4 08             	add    sp,0x8
    ede42:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    ede45:	b4 00                	mov    ah,0x0
@@ -22482,7 +22512,7 @@ unload_font:
    edf4e:	8b d8                	mov    bx,ax
    edf50:	ff b7 f7 42          	push   WORD PTR [bx+0x42f7]
    edf54:	ff b7 f5 42          	push   WORD PTR [bx+0x42f5]
-   edf58:	9a e4 10 00 e0       	call   0xe000:0x10e4
+   edf58:	9a e4 10 00 e0       	call   0xe000:0x10e4 ; memset
    edf5d:	83 c4 08             	add    sp,0x8
    edf60:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    edf63:	b4 00                	mov    ah,0x0
@@ -22499,7 +22529,7 @@ unload_font:
    edf7d:	8b d8                	mov    bx,ax
    edf7f:	ff b7 f3 42          	push   WORD PTR [bx+0x42f3]
    edf83:	ff b7 f1 42          	push   WORD PTR [bx+0x42f1]
-   edf87:	9a e4 10 00 e0       	call   0xe000:0x10e4
+   edf87:	9a e4 10 00 e0       	call   0xe000:0x10e4 ; memset
    edf8c:	83 c4 08             	add    sp,0x8
    edf8f:	fe 46 ff             	inc    BYTE PTR [bp-0x1]
    edf92:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
@@ -22570,7 +22600,7 @@ unload_font:
    ee02f:	5b                   	pop    bx
    ee030:	ff b7 f7 42          	push   WORD PTR [bx+0x42f7]
    ee034:	50                   	push   ax
-   ee035:	9a e4 10 00 e0       	call   0xe000:0x10e4
+   ee035:	9a e4 10 00 e0       	call   0xe000:0x10e4 ; memset
    ee03a:	83 c4 08             	add    sp,0x8
    ee03d:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    ee040:	b4 00                	mov    ah,0x0
@@ -22703,7 +22733,7 @@ unload_font:
    ee174:	8b d8                	mov    bx,ax
    ee176:	ff b7 f7 42          	push   WORD PTR [bx+0x42f7]
    ee17a:	ff b7 f5 42          	push   WORD PTR [bx+0x42f5]
-   ee17e:	9a e4 10 00 e0       	call   0xe000:0x10e4
+   ee17e:	9a e4 10 00 e0       	call   0xe000:0x10e4 ; memset
    ee183:	83 c4 08             	add    sp,0x8
    ee186:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    ee189:	b4 00                	mov    ah,0x0
@@ -22720,7 +22750,7 @@ unload_font:
    ee1a3:	8b d8                	mov    bx,ax
    ee1a5:	ff b7 f3 42          	push   WORD PTR [bx+0x42f3]
    ee1a9:	ff b7 f1 42          	push   WORD PTR [bx+0x42f1]
-   ee1ad:	9a e4 10 00 e0       	call   0xe000:0x10e4
+   ee1ad:	9a e4 10 00 e0       	call   0xe000:0x10e4 ; memset
    ee1b2:	83 c4 08             	add    sp,0x8
    ee1b5:	fe 46 ff             	inc    BYTE PTR [bp-0x1]
    ee1b8:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
@@ -23041,7 +23071,7 @@ unload_font:
    ee4c6:	8b d8                	mov    bx,ax
    ee4c8:	ff b7 f7 42          	push   WORD PTR [bx+0x42f7]
    ee4cc:	ff b7 f5 42          	push   WORD PTR [bx+0x42f5]
-   ee4d0:	9a e4 10 00 e0       	call   0xe000:0x10e4
+   ee4d0:	9a e4 10 00 e0       	call   0xe000:0x10e4 ; memset
    ee4d5:	83 c4 08             	add    sp,0x8
    ee4d8:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    ee4db:	b4 00                	mov    ah,0x0
@@ -23058,7 +23088,7 @@ unload_font:
    ee4f5:	8b d8                	mov    bx,ax
    ee4f7:	ff b7 f3 42          	push   WORD PTR [bx+0x42f3]
    ee4fb:	ff b7 f1 42          	push   WORD PTR [bx+0x42f1]
-   ee4ff:	9a e4 10 00 e0       	call   0xe000:0x10e4
+   ee4ff:	9a e4 10 00 e0       	call   0xe000:0x10e4 ; memset
    ee504:	83 c4 08             	add    sp,0x8
    ee507:	fe 46 fd             	inc    BYTE PTR [bp-0x3]
    ee50a:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
@@ -23190,7 +23220,7 @@ unload_font:
    ee654:	8b d8                	mov    bx,ax
    ee656:	ff b7 f7 42          	push   WORD PTR [bx+0x42f7]
    ee65a:	ff b7 f5 42          	push   WORD PTR [bx+0x42f5]
-   ee65e:	9a e4 10 00 e0       	call   0xe000:0x10e4
+   ee65e:	9a e4 10 00 e0       	call   0xe000:0x10e4 ; memset
    ee663:	83 c4 08             	add    sp,0x8
    ee666:	ff 76 fe             	push   WORD PTR [bp-0x2]
    ee669:	33 c0                	xor    ax,ax
@@ -23202,7 +23232,7 @@ unload_font:
    ee676:	8b d8                	mov    bx,ax
    ee678:	ff b7 f3 42          	push   WORD PTR [bx+0x42f3]
    ee67c:	ff b7 f1 42          	push   WORD PTR [bx+0x42f1]
-   ee680:	9a e4 10 00 e0       	call   0xe000:0x10e4
+   ee680:	9a e4 10 00 e0       	call   0xe000:0x10e4 ; memset
    ee685:	83 c4 08             	add    sp,0x8
    ee688:	fe 46 fd             	inc    BYTE PTR [bp-0x3]
    ee68b:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
@@ -23554,7 +23584,7 @@ unload_font:
    ee9cf:	8b d8                	mov    bx,ax
    ee9d1:	ff b7 f7 42          	push   WORD PTR [bx+0x42f7]
    ee9d5:	ff b7 f5 42          	push   WORD PTR [bx+0x42f5]
-   ee9d9:	9a e4 10 00 e0       	call   0xe000:0x10e4
+   ee9d9:	9a e4 10 00 e0       	call   0xe000:0x10e4 ; memset
    ee9de:	83 c4 08             	add    sp,0x8
    ee9e1:	8a 46 fe             	mov    al,BYTE PTR [bp-0x2]
    ee9e4:	b4 00                	mov    ah,0x0
@@ -23571,7 +23601,7 @@ unload_font:
    ee9fe:	8b d8                	mov    bx,ax
    eea00:	ff b7 f3 42          	push   WORD PTR [bx+0x42f3]
    eea04:	ff b7 f1 42          	push   WORD PTR [bx+0x42f1]
-   eea08:	9a e4 10 00 e0       	call   0xe000:0x10e4
+   eea08:	9a e4 10 00 e0       	call   0xe000:0x10e4 ; memset
    eea0d:	83 c4 08             	add    sp,0x8
    eea10:	33 c0                	xor    ax,ax
    eea12:	50                   	push   ax
@@ -23777,7 +23807,7 @@ unload_font:
    eebf2:	5b                   	pop    bx
    eebf3:	ff b7 f7 42          	push   WORD PTR [bx+0x42f7]
    eebf7:	52                   	push   dx
-   eebf8:	9a e4 10 00 e0       	call   0xe000:0x10e4
+   eebf8:	9a e4 10 00 e0       	call   0xe000:0x10e4 ; memset
    eebfd:	83 c4 08             	add    sp,0x8
    eec00:	8a 46 ff             	mov    al,BYTE PTR [bp-0x1]
    eec03:	b4 00                	mov    ah,0x0
@@ -23796,7 +23826,7 @@ unload_font:
    eec23:	05 28 01             	add    ax,0x128
    eec26:	ff b7 f3 42          	push   WORD PTR [bx+0x42f3]
    eec2a:	50                   	push   ax
-   eec2b:	9a e4 10 00 e0       	call   0xe000:0x10e4
+   eec2b:	9a e4 10 00 e0       	call   0xe000:0x10e4 ; memset
    eec30:	83 c4 08             	add    sp,0x8
    eec33:	8a 46 ff             	mov    al,BYTE PTR [bp-0x1]
    eec36:	b4 00                	mov    ah,0x0
@@ -23813,7 +23843,7 @@ unload_font:
    eec50:	8b d8                	mov    bx,ax
    eec52:	ff b7 f3 42          	push   WORD PTR [bx+0x42f3]
    eec56:	ff b7 f1 42          	push   WORD PTR [bx+0x42f1]
-   eec5a:	9a e4 10 00 e0       	call   0xe000:0x10e4
+   eec5a:	9a e4 10 00 e0       	call   0xe000:0x10e4 ; memset
    eec5f:	83 c4 08             	add    sp,0x8
    eec62:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    eec65:	b4 00                	mov    ah,0x0
@@ -23922,7 +23952,7 @@ unload_font:
    eed74:	05 28 01             	add    ax,0x128
    eed77:	ff b7 f7 42          	push   WORD PTR [bx+0x42f7]
    eed7b:	50                   	push   ax
-   eed7c:	9a e4 10 00 e0       	call   0xe000:0x10e4
+   eed7c:	9a e4 10 00 e0       	call   0xe000:0x10e4 ; memset
    eed81:	83 c4 08             	add    sp,0x8
    eed84:	ff 76 fc             	push   WORD PTR [bp-0x4]
    eed87:	33 c0                	xor    ax,ax
@@ -23936,7 +23966,7 @@ unload_font:
    eed9a:	05 28 01             	add    ax,0x128
    eed9d:	ff b7 f3 42          	push   WORD PTR [bx+0x42f3]
    eeda1:	50                   	push   ax
-   eeda2:	9a e4 10 00 e0       	call   0xe000:0x10e4
+   eeda2:	9a e4 10 00 e0       	call   0xe000:0x10e4 ; memset
    eeda7:	83 c4 08             	add    sp,0x8
    eedaa:	fe 46 ff             	inc    BYTE PTR [bp-0x1]
    eedad:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
@@ -26577,7 +26607,7 @@ init_something4:
    f0924:	f7 ea                	imul   dx
    f0926:	05 c5 2a             	add    ax,0x2ac5
    f0929:	50                   	push   ax
-   f092a:	9a e4 10 00 e0       	call   0xe000:0x10e4
+   f092a:	9a e4 10 00 e0       	call   0xe000:0x10e4 ; memset
    f092f:	83 c4 08             	add    sp,0x8
    f0932:	ff 46 fc             	inc    WORD PTR [bp-0x4]
    f0935:	83 7e fc 07          	cmp    WORD PTR [bp-0x4],0x7
@@ -27284,7 +27314,7 @@ init_something5:
    f1045:	5b                   	pop    bx
    f1046:	ff b7 f7 42          	push   WORD PTR [bx+0x42f7]
    f104a:	50                   	push   ax
-   f104b:	9a e4 10 00 e0       	call   0xe000:0x10e4
+   f104b:	9a e4 10 00 e0       	call   0xe000:0x10e4 ; memset
    f1050:	83 c4 08             	add    sp,0x8
    f1053:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    f1056:	b4 00                	mov    ah,0x0
@@ -27397,7 +27427,7 @@ init_something5:
    f115f:	8b d8                	mov    bx,ax
    f1161:	ff b7 f7 42          	push   WORD PTR [bx+0x42f7]
    f1165:	ff b7 f5 42          	push   WORD PTR [bx+0x42f5]
-   f1169:	9a e4 10 00 e0       	call   0xe000:0x10e4
+   f1169:	9a e4 10 00 e0       	call   0xe000:0x10e4 ; memset
    f116e:	83 c4 08             	add    sp,0x8
    f1171:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    f1174:	b4 00                	mov    ah,0x0
@@ -27414,7 +27444,7 @@ init_something5:
    f118e:	8b d8                	mov    bx,ax
    f1190:	ff b7 f3 42          	push   WORD PTR [bx+0x42f3]
    f1194:	ff b7 f1 42          	push   WORD PTR [bx+0x42f1]
-   f1198:	9a e4 10 00 e0       	call   0xe000:0x10e4
+   f1198:	9a e4 10 00 e0       	call   0xe000:0x10e4 ; memset
    f119d:	83 c4 08             	add    sp,0x8
    f11a0:	e9 f2 01             	jmp    0xf1395
    f11a3:	80 7e ff 00          	cmp    BYTE PTR [bp-0x1],0x0
@@ -27467,7 +27497,7 @@ init_something5:
    f120f:	5b                   	pop    bx
    f1210:	ff b7 f7 42          	push   WORD PTR [bx+0x42f7]
    f1214:	50                   	push   ax
-   f1215:	9a e4 10 00 e0       	call   0xe000:0x10e4
+   f1215:	9a e4 10 00 e0       	call   0xe000:0x10e4 ; memset
    f121a:	83 c4 08             	add    sp,0x8
    f121d:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    f1220:	b4 00                	mov    ah,0x0
@@ -27600,7 +27630,7 @@ init_something5:
    f1354:	8b d8                	mov    bx,ax
    f1356:	ff b7 f7 42          	push   WORD PTR [bx+0x42f7]
    f135a:	ff b7 f5 42          	push   WORD PTR [bx+0x42f5]
-   f135e:	9a e4 10 00 e0       	call   0xe000:0x10e4
+   f135e:	9a e4 10 00 e0       	call   0xe000:0x10e4 ; memset
    f1363:	83 c4 08             	add    sp,0x8
    f1366:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    f1369:	b4 00                	mov    ah,0x0
@@ -27617,7 +27647,7 @@ init_something5:
    f1383:	8b d8                	mov    bx,ax
    f1385:	ff b7 f3 42          	push   WORD PTR [bx+0x42f3]
    f1389:	ff b7 f1 42          	push   WORD PTR [bx+0x42f1]
-   f138d:	9a e4 10 00 e0       	call   0xe000:0x10e4
+   f138d:	9a e4 10 00 e0       	call   0xe000:0x10e4 ; memset
    f1392:	83 c4 08             	add    sp,0x8
    f1395:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    f1398:	b4 00                	mov    ah,0x0
@@ -27915,7 +27945,7 @@ init_something5:
    f166a:	8b d8                	mov    bx,ax
    f166c:	ff b7 f7 42          	push   WORD PTR [bx+0x42f7]
    f1670:	ff b7 f5 42          	push   WORD PTR [bx+0x42f5]
-   f1674:	9a e4 10 00 e0       	call   0xe000:0x10e4
+   f1674:	9a e4 10 00 e0       	call   0xe000:0x10e4 ; memset
    f1679:	83 c4 08             	add    sp,0x8
    f167c:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    f167f:	b4 00                	mov    ah,0x0
@@ -27932,7 +27962,7 @@ init_something5:
    f1699:	8b d8                	mov    bx,ax
    f169b:	ff b7 f3 42          	push   WORD PTR [bx+0x42f3]
    f169f:	ff b7 f1 42          	push   WORD PTR [bx+0x42f1]
-   f16a3:	9a e4 10 00 e0       	call   0xe000:0x10e4
+   f16a3:	9a e4 10 00 e0       	call   0xe000:0x10e4 ; memset
    f16a8:	83 c4 08             	add    sp,0x8
    f16ab:	ff 76 0e             	push   WORD PTR [bp+0xe]
    f16ae:	ff 76 0c             	push   WORD PTR [bp+0xc]
@@ -28047,7 +28077,7 @@ init_something5:
    f17ca:	8b d8                	mov    bx,ax
    f17cc:	ff b7 f7 42          	push   WORD PTR [bx+0x42f7]
    f17d0:	ff b7 f5 42          	push   WORD PTR [bx+0x42f5]
-   f17d4:	9a e4 10 00 e0       	call   0xe000:0x10e4
+   f17d4:	9a e4 10 00 e0       	call   0xe000:0x10e4 ; memset
    f17d9:	83 c4 08             	add    sp,0x8
    f17dc:	ff 76 fe             	push   WORD PTR [bp-0x2]
    f17df:	33 c0                	xor    ax,ax
@@ -28059,7 +28089,7 @@ init_something5:
    f17ec:	8b d8                	mov    bx,ax
    f17ee:	ff b7 f3 42          	push   WORD PTR [bx+0x42f3]
    f17f2:	ff b7 f1 42          	push   WORD PTR [bx+0x42f1]
-   f17f6:	9a e4 10 00 e0       	call   0xe000:0x10e4
+   f17f6:	9a e4 10 00 e0       	call   0xe000:0x10e4 ; memset
    f17fb:	83 c4 08             	add    sp,0x8
    f17fe:	8b e5                	mov    sp,bp
    f1800:	5d                   	pop    bp
@@ -28310,7 +28340,7 @@ init_something5:
    f1a46:	8b d8                	mov    bx,ax
    f1a48:	ff b7 f7 42          	push   WORD PTR [bx+0x42f7]
    f1a4c:	ff b7 f5 42          	push   WORD PTR [bx+0x42f5]
-   f1a50:	9a e4 10 00 e0       	call   0xe000:0x10e4
+   f1a50:	9a e4 10 00 e0       	call   0xe000:0x10e4 ; memset
    f1a55:	83 c4 08             	add    sp,0x8
    f1a58:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    f1a5b:	b4 00                	mov    ah,0x0
@@ -28327,7 +28357,7 @@ init_something5:
    f1a75:	8b d8                	mov    bx,ax
    f1a77:	ff b7 f3 42          	push   WORD PTR [bx+0x42f3]
    f1a7b:	ff b7 f1 42          	push   WORD PTR [bx+0x42f1]
-   f1a7f:	9a e4 10 00 e0       	call   0xe000:0x10e4
+   f1a7f:	9a e4 10 00 e0       	call   0xe000:0x10e4 ; memset
    f1a84:	83 c4 08             	add    sp,0x8
    f1a87:	33 c0                	xor    ax,ax
    f1a89:	50                   	push   ax
@@ -28502,7 +28532,7 @@ init_something5:
    f1c16:	5b                   	pop    bx
    f1c17:	ff b7 f7 42          	push   WORD PTR [bx+0x42f7]
    f1c1b:	52                   	push   dx
-   f1c1c:	9a e4 10 00 e0       	call   0xe000:0x10e4
+   f1c1c:	9a e4 10 00 e0       	call   0xe000:0x10e4 ; memset
    f1c21:	83 c4 08             	add    sp,0x8
    f1c24:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    f1c27:	b4 00                	mov    ah,0x0
@@ -28543,7 +28573,7 @@ init_something5:
    f1c76:	5b                   	pop    bx
    f1c77:	ff b7 f3 42          	push   WORD PTR [bx+0x42f3]
    f1c7b:	52                   	push   dx
-   f1c7c:	9a e4 10 00 e0       	call   0xe000:0x10e4
+   f1c7c:	9a e4 10 00 e0       	call   0xe000:0x10e4 ; memset
    f1c81:	83 c4 08             	add    sp,0x8
    f1c84:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    f1c87:	b4 00                	mov    ah,0x0
@@ -28652,7 +28682,7 @@ init_something5:
    f1d96:	05 00 01             	add    ax,0x100
    f1d99:	ff b7 f7 42          	push   WORD PTR [bx+0x42f7]
    f1d9d:	50                   	push   ax
-   f1d9e:	9a e4 10 00 e0       	call   0xe000:0x10e4
+   f1d9e:	9a e4 10 00 e0       	call   0xe000:0x10e4 ; memset
    f1da3:	83 c4 08             	add    sp,0x8
    f1da6:	ff 76 fe             	push   WORD PTR [bp-0x2]
    f1da9:	33 c0                	xor    ax,ax
@@ -28666,7 +28696,7 @@ init_something5:
    f1dbc:	05 00 01             	add    ax,0x100
    f1dbf:	ff b7 f3 42          	push   WORD PTR [bx+0x42f3]
    f1dc3:	50                   	push   ax
-   f1dc4:	9a e4 10 00 e0       	call   0xe000:0x10e4
+   f1dc4:	9a e4 10 00 e0       	call   0xe000:0x10e4 ; memset
    f1dc9:	83 c4 08             	add    sp,0x8
    f1dcc:	8b 5e 08             	mov    bx,WORD PTR [bp+0x8]
    f1dcf:	c6 07 13             	mov    BYTE PTR [bx],0x13
@@ -29288,7 +29318,7 @@ init_something5:
    f24b3:	50                   	push   ax
    f24b4:	b8 dd 62             	mov    ax,0x62dd
    f24b7:	50                   	push   ax
-   f24b8:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
+   f24b8:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; memset
    f24bd:	83 c4 06             	add    sp,0x6
    f24c0:	ff 06 db 62          	inc    WORD PTR ds:0x62db
    f24c4:	a1 db 62             	mov    ax,ds:0x62db
@@ -29496,7 +29526,7 @@ init_something5:
    f26d8:	50                   	push   ax
    f26d9:	b8 dd 62             	mov    ax,0x62dd
    f26dc:	50                   	push   ax
-   f26dd:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
+   f26dd:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; memset
    f26e2:	83 c4 06             	add    sp,0x6
    f26e5:	c7 06 db 62 04 00    	mov    WORD PTR ds:0x62db,0x4
    f26eb:	c6 06 da 62 00       	mov    BYTE PTR ds:0x62da,0x0
@@ -30374,6 +30404,7 @@ compare_lizz:
    f2f4c:	cb                   	retf   
 
 
+int do_cmd_0(void):
    f2f4d:	55                   	push   bp
    f2f4e:	8b ec                	mov    bp,sp
    f2f50:	83 ec 02             	sub    sp,0x2
@@ -30391,9 +30422,11 @@ compare_lizz:
    f2f69:	50                   	push   ax
    f2f6a:	a0 4c 63             	mov    al,ds:0x634c
    f2f6d:	50                   	push   ax
+result = (g_634c, 2, g_634a, g_inargs[0], g_inargs[1], g_inargs[2], &g_inbuf)
    f2f6e:	9a 6a 06 f1 e4       	call   0xe4f1:0x66a
    f2f73:	83 c4 0e             	add    sp,0xe
    f2f76:	89 46 fe             	mov    WORD PTR [bp-0x2],ax
+return result
    f2f79:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
    f2f7c:	eb 00                	jmp    0xf2f7e
    f2f7e:	8b e5                	mov    sp,bp
@@ -30401,6 +30434,7 @@ compare_lizz:
    f2f81:	cb                   	retf   
 
 
+int do_cmd_1(void):
    f2f82:	55                   	push   bp
    f2f83:	8b ec                	mov    bp,sp
    f2f85:	83 ec 04             	sub    sp,0x4
@@ -31282,7 +31316,7 @@ compare_lizz:
    f36c5:	50                   	push   ax
    f36c6:	b8 89 01             	mov    ax,0x189
    f36c9:	50                   	push   ax
-   f36ca:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
+   f36ca:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; memset
    f36cf:	83 c4 06             	add    sp,0x6
    f36d2:	a0 4d 64             	mov    al,ds:0x644d
    f36d5:	b4 00                	mov    ah,0x0
@@ -31295,7 +31329,7 @@ compare_lizz:
    f36e6:	50                   	push   ax
    f36e7:	b8 89 01             	mov    ax,0x189
    f36ea:	50                   	push   ax
-   f36eb:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
+   f36eb:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; memset
    f36f0:	83 c4 06             	add    sp,0x6
    f36f3:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
    f36f6:	eb 00                	jmp    0xf36f8
@@ -31457,13 +31491,18 @@ int do_something_font4(void):
    f3815:	cb                   	retf   
 
 
+int do_get_g_62c7(void):
    f3816:	55                   	push   bp
    f3817:	8b ec                	mov    bp,sp
    f3819:	83 ec 02             	sub    sp,0x2
+; result = -2
    f381c:	c7 46 fe fe ff       	mov    WORD PTR [bp-0x2],0xfffe
+; g_coutargs = 1
    f3821:	c6 06 3f 63 01       	mov    BYTE PTR ds:0x633f,0x1
    f3826:	a0 c7 62             	mov    al,ds:0x62c7
+; g_outargs[0] = g_62c7
    f3829:	a2 3a 63             	mov    ds:0x633a,al
+; return result
    f382c:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
    f382f:	eb 00                	jmp    0xf3831
    f3831:	8b e5                	mov    sp,bp
@@ -31581,20 +31620,28 @@ int do_something_font4(void):
 
 
 .code
+int do_get_something(void):
    f3958:	55                   	push   bp
    f3959:	8b ec                	mov    bp,sp
+; SOMETHING u1
    f395b:	83 ec 04             	sub    sp,0x4
    f395e:	8d 46 fc             	lea    ax,[bp-0x4]
    f3961:	50                   	push   ax
-   f3962:	9a b6 02 9d f8       	call   0xf89d:0x2b6 ; read_something
+; read_something(&u1)
+   f3962:	9a b6 02 9d f8       	call   0xf89d:0x2b6
    f3967:	59                   	pop    cx
+; g_coutargs = 3
    f3968:	c6 06 3f 63 03       	mov    BYTE PTR ds:0x633f,0x3
    f396d:	8a 46 fc             	mov    al,BYTE PTR [bp-0x4]
+; g_outargs[0] = u1[0]
    f3970:	a2 3a 63             	mov    ds:0x633a,al
    f3973:	8a 46 fd             	mov    al,BYTE PTR [bp-0x3]
+; g_outargs[1] = u1[1]
    f3976:	a2 3b 63             	mov    ds:0x633b,al
    f3979:	8a 46 fe             	mov    al,BYTE PTR [bp-0x2]
+; g_outargs[2] = u1[2]
    f397c:	a2 3c 63             	mov    ds:0x633c,al
+; return -2
    f397f:	b8 fe ff             	mov    ax,0xfffe
    f3982:	eb 00                	jmp    0xf3984
    f3984:	8b e5                	mov    sp,bp
@@ -31602,23 +31649,31 @@ int do_something_font4(void):
    f3987:	cb                   	retf   
 
 
+int do_get_something2(void):
    f3988:	55                   	push   bp
    f3989:	8b ec                	mov    bp,sp
+; SOMETHING2 u1
    f398b:	83 ec 06             	sub    sp,0x6
    f398e:	8d 46 fa             	lea    ax,[bp-0x6]
    f3991:	50                   	push   ax
-   f3992:	9a 20 05 9d f8       	call   0xf89d:0x520 ; read_something2
+; read_something2(&u1)
+   f3992:	9a 20 05 9d f8       	call   0xf89d:0x520
    f3997:	59                   	pop    cx
+; g_coutargs = 3
    f3998:	c6 06 3f 63 03       	mov    BYTE PTR ds:0x633f,0x3
    f399d:	8a 46 fa             	mov    al,BYTE PTR [bp-0x6]
+; g_outargs[0] = u1[0]
    f39a0:	a2 3a 63             	mov    ds:0x633a,al
    f39a3:	8a 46 fb             	mov    al,BYTE PTR [bp-0x5]
+; g_outargs[1] = u1[1]
    f39a6:	a2 3b 63             	mov    ds:0x633b,al
    f39a9:	8b 46 fc             	mov    ax,WORD PTR [bp-0x4]
    f39ac:	bb 64 00             	mov    bx,0x64
    f39af:	33 d2                	xor    dx,dx
    f39b1:	f7 f3                	div    bx
+; g_outargs[2] = u1[2] / 100
    f39b3:	88 16 3c 63          	mov    BYTE PTR ds:0x633c,dl
+; return -2
    f39b7:	b8 fe ff             	mov    ax,0xfffe
    f39ba:	eb 00                	jmp    0xf39bc
    f39bc:	8b e5                	mov    sp,bp
@@ -31626,13 +31681,15 @@ int do_something_font4(void):
    f39bf:	cb                   	retf   
 
 
-do_get_version:
+int do_get_version(void):
    f39c0:	55                   	push   bp
    f39c1:	8b ec                	mov    bp,sp
+; SOMETHING2 u1
    f39c3:	83 ec 06             	sub    sp,0x6
    f39c6:	8d 46 fa             	lea    ax,[bp-0x6]
    f39c9:	50                   	push   ax
-   f39ca:	9a 20 05 9d f8       	call   0xf89d:0x520 ; read_something2
+; read_something2(&u1)
+   f39ca:	9a 20 05 9d f8       	call   0xf89d:0x520
    f39cf:	59                   	pop    cx
    f39d0:	c6 06 3f 63 02       	mov    BYTE PTR ds:0x633f,0x2
 ; g_coutargs = 2
@@ -31869,7 +31926,7 @@ do_get_version:
    f3bfa:	03 c2                	add    ax,dx
    f3bfc:	05 c5 2a             	add    ax,0x2ac5
    f3bff:	50                   	push   ax
-   f3c00:	9a e4 10 00 e0       	call   0xe000:0x10e4
+   f3c00:	9a e4 10 00 e0       	call   0xe000:0x10e4 ; memset
    f3c05:	83 c4 08             	add    sp,0x8
    f3c08:	83 46 f0 03          	add    WORD PTR [bp-0x10],0x3
    f3c0c:	a0 0d 65             	mov    al,ds:0x650d
@@ -32301,7 +32358,7 @@ do_get_version:
    f400d:	50                   	push   ax
    f400e:	b8 01 00             	mov    ax,0x1
    f4011:	50                   	push   ax
-   f4012:	b8 4d 63             	mov    ax,0x634d
+   f4012:	b8 4d 63             	mov    ax,0x634d ; g_inbuf
    f4015:	50                   	push   ax
    f4016:	9a 82 10 00 e0       	call   0xe000:0x1082 ; n_strlen
    f401b:	59                   	pop    cx
@@ -32309,6 +32366,7 @@ do_get_version:
    f401f:	50                   	push   ax
    f4020:	b0 01                	mov    al,0x1
    f4022:	50                   	push   ax
+; (1, n_strlen(g_inbuf) + 2, )
    f4023:	9a 8d 03 ac f5       	call   0xf5ac:0x38d
    f4028:	83 c4 06             	add    sp,0x6
    f402b:	5b                   	pop    bx
@@ -32886,7 +32944,8 @@ do_get_version:
    f4615:	50                   	push   ax
    f4616:	b8 0e 66             	mov    ax,0x660e
    f4619:	50                   	push   ax
-   f461a:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
+; memset(g_660e, 0, sizeof(g_660e))
+   f461a:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; memset
    f461f:	83 c4 06             	add    sp,0x6
    f4622:	b8 00 01             	mov    ax,0x100
    f4625:	50                   	push   ax
@@ -32894,7 +32953,8 @@ do_get_version:
    f4628:	50                   	push   ax
    f4629:	b8 4d 63             	mov    ax,0x634d
    f462c:	50                   	push   ax
-   f462d:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
+; memset(&g_inbuf, 0, sizeof(g_inbuf))
+   f462d:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; memset
    f4632:	83 c4 06             	add    sp,0x6
    f4635:	8b 5e f6             	mov    bx,WORD PTR [bp-0xa]
    f4638:	8a 87 69 02          	mov    al,BYTE PTR [bx+0x269]
@@ -33512,15 +33572,15 @@ do_get_version:
    f4c67:	a2 32 63             	mov    ds:0x6332,al
 ; g_coutargs = 0
    f4c6a:	c6 06 3f 63 00       	mov    BYTE PTR ds:0x633f,0x0
-; g_coutargs[0] = -2
+; g_outargs[0] = -2
    f4c6f:	c6 06 33 63 fe       	mov    BYTE PTR ds:0x6333,0xfe
-; g_coutargs[3] = -2
+; g_outargs[3] = -2
    f4c74:	c6 06 36 63 fe       	mov    BYTE PTR ds:0x6336,0xfe
-; g_coutargs[4] = -2
+; g_outargs[4] = -2
    f4c79:	c6 06 37 63 fe       	mov    BYTE PTR ds:0x6337,0xfe
-; g_coutargs[1] = -2
+; g_outargs[1] = -2
    f4c7e:	c6 06 34 63 fe       	mov    BYTE PTR ds:0x6334,0xfe
-; g_coutargs[2] = -2
+; g_outargs[2] = -2
    f4c83:	c6 06 35 63 fe       	mov    BYTE PTR ds:0x6335,0xfe
    f4c88:	c7 46 fc fe ff       	mov    WORD PTR [bp-0x4],0xfffe
    f4c8d:	8b 46 fc             	mov    ax,WORD PTR [bp-0x4]
@@ -33810,10 +33870,10 @@ int do_cmd(void):
 ;   case 0x31:
    f4f06:	9a 15 06 90 f2       	call   0xf290:0x615
    f4f0b:	eb 83                	jmp    0xf4e90
-;   case 0x0:
+;   case 0x0: result = do_cmd_0()
    f4f0d:	9a 4d 06 90 f2       	call   0xf290:0x64d
    f4f12:	e9 7b ff             	jmp    0xf4e90
-;   case 0x1:
+;   case 0x1: result = do_cmd_1()
    f4f15:	9a 82 06 90 f2       	call   0xf290:0x682
    f4f1a:	e9 73 ff             	jmp    0xf4e90
 ;   case 0x2:
@@ -33909,7 +33969,7 @@ int do_cmd(void):
 ;   case 0x64: result = do_something_font4()
    f500d:	9a d4 0e 90 f2       	call   0xf290:0xed4
    f5012:	e9 7b fe             	jmp    0xf4e90
-;   case 0xf0:
+;   case 0xf0: result = do_get_g_62c7()
    f5015:	9a 16 0f 90 f2       	call   0xf290:0xf16
    f501a:	e9 73 fe             	jmp    0xf4e90
 ;   case 0xf1:
@@ -33918,10 +33978,10 @@ int do_cmd(void):
 ;   case 0xf2:
    f5025:	9a bd 0f 90 f2       	call   0xf290:0xfbd
    f502a:	e9 63 fe             	jmp    0xf4e90
-;   case 0xf3:
+;   case 0xf3: result = do_get_something()
    f502d:	9a 58 10 90 f2       	call   0xf290:0x1058
    f5032:	e9 5b fe             	jmp    0xf4e90
-;   case 0xf4:
+;   case 0xf4: result = do_get_something2()
    f5035:	9a 88 10 90 f2       	call   0xf290:0x1088
    f503a:	e9 53 fe             	jmp    0xf4e90
 ;   case 0xf5: result = do_get_version()
@@ -34482,7 +34542,7 @@ process_summat:
    f5729:	50                   	push   ax
    f572a:	b8 0e 65             	mov    ax,0x650e
    f572d:	50                   	push   ax
-   f572e:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
+   f572e:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; memset
    f5733:	83 c4 06             	add    sp,0x6
    f5736:	c7 46 fe 00 00       	mov    WORD PTR [bp-0x2],0x0
    f573b:	eb 19                	jmp    0xf5756
@@ -34668,7 +34728,7 @@ main:
    f58d1:	33 c0                	xor    ax,ax
    f58d3:	50                   	push   ax
    f58d4:	ff 76 fe             	push   WORD PTR [bp-0x2]
-   f58d7:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
+   f58d7:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; memset
    f58dc:	83 c4 06             	add    sp,0x6
    f58df:	c7 06 13 28 01 00    	mov    WORD PTR ds:0x2813,0x1
    f58e5:	8b e5                	mov    sp,bp
@@ -35172,7 +35232,7 @@ void * _cdecl alloc_font(u1, int size):
    f5ead:	50                   	push   ax
    f5eae:	ff 76 fa             	push   WORD PTR [bp-0x6]
    f5eb1:	ff 76 f8             	push   WORD PTR [bp-0x8]
-   f5eb4:	9a e4 10 00 e0       	call   0xe000:0x10e4
+   f5eb4:	9a e4 10 00 e0       	call   0xe000:0x10e4 ; memset
    f5eb9:	83 c4 08             	add    sp,0x8
    f5ebc:	eb 06                	jmp    0xf5ec4
    f5ebe:	c7 06 22 68 9b ff    	mov    WORD PTR ds:0x6822,0xff9b
@@ -38206,7 +38266,7 @@ add_processor:
    f7dca:	50                   	push   ax
    f7dcb:	b8 58 68             	mov    ax,0x6858
    f7dce:	50                   	push   ax
-   f7dcf:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
+   f7dcf:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; memset
    f7dd4:	83 c4 06             	add    sp,0x6
    f7dd7:	8c 5e f2             	mov    WORD PTR [bp-0xe],ds
    f7dda:	8b 46 f2             	mov    ax,WORD PTR [bp-0xe]
@@ -38788,7 +38848,7 @@ add_processor:
    f83a8:	50                   	push   ax
    f83a9:	b8 d9 6b             	mov    ax,0x6bd9
    f83ac:	50                   	push   ax
-   f83ad:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
+   f83ad:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; memset
    f83b2:	83 c4 06             	add    sp,0x6
    f83b5:	c7 06 d5 6b 00 00    	mov    WORD PTR ds:0x6bd5,0x0
    f83bb:	eb 59                	jmp    0xf8416
@@ -38801,7 +38861,7 @@ add_processor:
    f83ca:	f7 ea                	imul   dx
    f83cc:	05 d9 6b             	add    ax,0x6bd9
    f83cf:	50                   	push   ax
-   f83d0:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
+   f83d0:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; memset
    f83d5:	83 c4 06             	add    sp,0x6
    f83d8:	b8 01 00             	mov    ax,0x1
    f83db:	8a 4e 06             	mov    cl,BYTE PTR [bp+0x6]
@@ -39040,7 +39100,7 @@ add_processor:
    f8671:	50                   	push   ax
    f8672:	b8 d9 6b             	mov    ax,0x6bd9
    f8675:	50                   	push   ax
-   f8676:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
+   f8676:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; memset
    f867b:	83 c4 06             	add    sp,0x6
    f867e:	b8 2b 00             	mov    ax,0x2b
    f8681:	50                   	push   ax
@@ -39048,7 +39108,7 @@ add_processor:
    f8684:	50                   	push   ax
    f8685:	b8 ae 6b             	mov    ax,0x6bae
    f8688:	50                   	push   ax
-   f8689:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; f_memset
+   f8689:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; memset
    f868e:	83 c4 06             	add    sp,0x6
    f8691:	b8 ed f7             	mov    ax,0xf7ed
    f8694:	50                   	push   ax
