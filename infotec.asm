@@ -2331,11 +2331,11 @@ init_something:
    e12cf:	fb                   	sti    
    e12d0:	0f 92                	fint   
    e12d2:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994
-   e12d6:	26 8a 07             	mov    al,BYTE PTR es:[bx]
+   e12d6:	26 8a 07             	mov    al,BYTE PTR es:[bx] ;  read serial port 1 rx
    e12d9:	88 46 ff             	mov    BYTE PTR [bp-0x1],al
    e12dc:	ff 06 13 28          	inc    WORD PTR ds:0x2813
    e12e0:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994
-   e12e4:	26 80 67 0d 7f       	and    BYTE PTR es:[bx+0xd],0x7f
+   e12e4:	26 80 67 0d 7f       	and    BYTE PTR es:[bx+0xd],0x7f ; sric1 - clear rx interrupt
    e12e9:	ff 0e 13 28          	dec    WORD PTR ds:0x2813
    e12ed:	7d 06                	jge    0xe12f5
    e12ef:	c7 06 13 28 00 00    	mov    WORD PTR ds:0x2813,0x0
@@ -2367,11 +2367,11 @@ init_something:
    e1311:	83 ec 02             	sub    sp,0x2
    e1314:	fb                   	sti    
    e1315:	0f 92                	fint   
-   e1317:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990
+   e1317:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ;  serial port 2
    e131b:	26 8a 07             	mov    al,BYTE PTR es:[bx]
    e131e:	88 46 ff             	mov    BYTE PTR [bp-0x1],al
    e1321:	ff 06 13 28          	inc    WORD PTR ds:0x2813
-   e1325:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990
+   e1325:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ;  serial port 2
    e1329:	26 80 67 0d 7f       	and    BYTE PTR es:[bx+0xd],0x7f
    e132e:	ff 0e 13 28          	dec    WORD PTR ds:0x2813
    e1332:	7d 06                	jge    0xe133a
@@ -34847,7 +34847,7 @@ main:
    f59a3:	b1 08                	mov    cl,0x8
    f59a5:	d3 e0                	shl    ax,cl
    f59a7:	a3 8e 69             	mov    ds:0x698e,ax
-   f59aa:	c7 06 8c 69 00 0f    	mov    WORD PTR ds:0x698c,0xf00
+   f59aa:	c7 06 8c 69 00 0f    	mov    WORD PTR ds:0x698c,0xf00	;  port mode registers
    f59b0:	b8 ff ff             	mov    ax,0xffff
    f59b3:	8e c0                	mov    es,ax
    f59b5:	26 a0 0f 00          	mov    al,es:0xf
@@ -34855,7 +34855,7 @@ main:
    f59bb:	b1 08                	mov    cl,0x8
    f59bd:	d3 e0                	shl    ax,cl
    f59bf:	a3 96 69             	mov    ds:0x6996,ax
-   f59c2:	c7 06 94 69 60 0f    	mov    WORD PTR ds:0x6994,0xf60
+   f59c2:	c7 06 94 69 60 0f    	mov    WORD PTR ds:0x6994,0xf60	;  serial channel 1 registers
    f59c8:	b8 ff ff             	mov    ax,0xffff
    f59cb:	8e c0                	mov    es,ax
    f59cd:	26 a0 0f 00          	mov    al,es:0xf
@@ -34863,7 +34863,7 @@ main:
    f59d3:	b1 08                	mov    cl,0x8
    f59d5:	d3 e0                	shl    ax,cl
    f59d7:	a3 92 69             	mov    ds:0x6992,ax
-   f59da:	c7 06 90 69 70 0f    	mov    WORD PTR ds:0x6990,0xf70
+   f59da:	c7 06 90 69 70 0f    	mov    WORD PTR ds:0x6990,0xf70	;  serial channel 2 registers
    f59e0:	83 7e 06 00          	cmp    WORD PTR [bp+0x6],0x0
    f59e4:	75 57                	jne    0xf5a3d
    f59e6:	9a 0e 00 1b e1       	call   0xe11b:0xe
@@ -36277,7 +36277,7 @@ int _cdecl free_font(void * ptr):
    f68d3:	03 1e 53 68          	add    bx,WORD PTR ds:0x6853
    f68d7:	26 8a 07             	mov    al,BYTE PTR es:[bx]
    f68da:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994
-   f68de:	26 88 47 02          	mov    BYTE PTR es:[bx+0x2],al
+   f68de:	26 88 47 02          	mov    BYTE PTR es:[bx+0x2],al ; write serial port 1 transmit register
    f68e2:	ff 06 53 68          	inc    WORD PTR ds:0x6853
    f68e6:	a1 53 68             	mov    ax,ds:0x6853
    f68e9:	3b 06 4a 68          	cmp    ax,WORD PTR ds:0x684a
@@ -36286,7 +36286,7 @@ int _cdecl free_font(void * ptr):
    f68f5:	fb                   	sti    
    f68f6:	eb 22                	jmp    0xf691a
    f68f8:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994
-   f68fc:	26 80 4f 0e c0       	or     BYTE PTR es:[bx+0xe],0xc0
+   f68fc:	26 80 4f 0e c0       	or     BYTE PTR es:[bx+0xe],0xc0 ; set STF0, STMK0 in STIC0
    f6901:	c6 06 50 68 01       	mov    BYTE PTR ds:0x6850,0x1
    f6906:	80 3e f5 27 01       	cmp    BYTE PTR ds:0x27f5,0x1
    f690b:	75 0d                	jne    0xf691a
@@ -36331,7 +36331,7 @@ int _cdecl free_font(void * ptr):
    f6948:	c4 1e 33 68          	les    bx,DWORD PTR ds:0x6833
    f694c:	03 1e 3a 68          	add    bx,WORD PTR ds:0x683a
    f6950:	26 8a 07             	mov    al,BYTE PTR es:[bx]
-   f6953:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990
+   f6953:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ;  serial port 2
    f6957:	26 88 47 02          	mov    BYTE PTR es:[bx+0x2],al
    f695b:	ff 06 3a 68          	inc    WORD PTR ds:0x683a
    f695f:	a1 3a 68             	mov    ax,ds:0x683a
@@ -36340,7 +36340,7 @@ int _cdecl free_font(void * ptr):
    f6968:	c7 06 3a 68 00 00    	mov    WORD PTR ds:0x683a,0x0
    f696e:	fb                   	sti    
    f696f:	eb 22                	jmp    0xf6993
-   f6971:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990
+   f6971:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ;  serial port 2
    f6975:	26 80 4f 0e c0       	or     BYTE PTR es:[bx+0xe],0xc0
    f697a:	c6 06 37 68 01       	mov    BYTE PTR ds:0x6837,0x1
    f697f:	80 3e f6 27 01       	cmp    BYTE PTR ds:0x27f6,0x1
@@ -36377,12 +36377,12 @@ int _cdecl free_font(void * ptr):
    f69ab:	8b ec                	mov    bp,sp
    f69ad:	83 ec 04             	sub    sp,0x4
    f69b0:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994
-   f69b4:	26 8a 07             	mov    al,BYTE PTR es:[bx]
+   f69b4:	26 8a 07             	mov    al,BYTE PTR es:[bx] ;  read serial port 1 rx reg
    f69b7:	88 46 ff             	mov    BYTE PTR [bp-0x1],al
    f69ba:	c4 1e 41 68          	les    bx,DWORD PTR ds:0x6841
    f69be:	03 1e 45 68          	add    bx,WORD PTR ds:0x6845
    f69c2:	8a 46 ff             	mov    al,BYTE PTR [bp-0x1]
-   f69c5:	26 88 07             	mov    BYTE PTR es:[bx],al
+   f69c5:	26 88 07             	mov    BYTE PTR es:[bx],al ;  write serial port 1 tx reg
    f69c8:	a1 45 68             	mov    ax,ds:0x6845
    f69cb:	40                   	inc    ax
    f69cc:	33 d2                	xor    dx,dx
@@ -36399,7 +36399,7 @@ int _cdecl free_font(void * ptr):
    f69f1:	fb                   	sti    
    f69f2:	0f 92                	fint   
    f69f4:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994
-   f69f8:	26 80 67 0d 7f       	and    BYTE PTR es:[bx+0xd],0x7f
+   f69f8:	26 80 67 0d 7f       	and    BYTE PTR es:[bx+0xd],0x7f ;  clear serial port 1 rx int
    f69fd:	8b e5                	mov    sp,bp
    f69ff:	5d                   	pop    bp
    f6a00:	5f                   	pop    di
@@ -36426,7 +36426,7 @@ int _cdecl free_font(void * ptr):
    f6a15:	8e dd                	mov    ds,bp
    f6a17:	8b ec                	mov    bp,sp
    f6a19:	83 ec 04             	sub    sp,0x4
-   f6a1c:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990
+   f6a1c:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ;  serial port 2
    f6a20:	26 8a 07             	mov    al,BYTE PTR es:[bx]
    f6a23:	88 46 ff             	mov    BYTE PTR [bp-0x1],al
    f6a26:	c4 1e 28 68          	les    bx,DWORD PTR ds:0x6828
@@ -36448,7 +36448,7 @@ int _cdecl free_font(void * ptr):
    f6a57:	c7 06 2c 68 00 00    	mov    WORD PTR ds:0x682c,0x0
    f6a5d:	fb                   	sti    
    f6a5e:	0f 92                	fint   
-   f6a60:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990
+   f6a60:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ;  serial port 2
    f6a64:	26 80 67 0d 7f       	and    BYTE PTR es:[bx+0xd],0x7f
    f6a69:	8b e5                	mov    sp,bp
    f6a6b:	5d                   	pop    bp
@@ -36666,9 +36666,9 @@ void far serial_send(short serial, near char *buf):
    f6c50:	75 4e                	jne    0xf6ca0
    f6c52:	eb 00                	jmp    0xf6c54
    f6c54:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994
-   f6c58:	26 8a 47 0e          	mov    al,BYTE PTR es:[bx+0xe]
+   f6c58:	26 8a 47 0e          	mov    al,BYTE PTR es:[bx+0xe] ;  read serial port 1 tx status
    f6c5c:	b4 00                	mov    ah,0x0
-   f6c5e:	a9 80 00             	test   ax,0x80
+   f6c5e:	a9 80 00             	test   ax,0x80 ;  test interrupt flag
    f6c61:	74 f1                	je     0xf6c54
    f6c63:	80 3e f3 27 01       	cmp    BYTE PTR ds:0x27f3,0x1
    f6c68:	75 05                	jne    0xf6c6f
@@ -36677,7 +36677,7 @@ void far serial_send(short serial, near char *buf):
    f6c6f:	8b 5e fa             	mov    bx,WORD PTR [bp-0x6]
    f6c72:	c6 47 11 00          	mov    BYTE PTR [bx+0x11],0x0
    f6c76:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994
-   f6c7a:	26 80 67 0e 3f       	and    BYTE PTR es:[bx+0xe],0x3f
+   f6c7a:	26 80 67 0e 3f       	and    BYTE PTR es:[bx+0xe],0x3f ;  clear STF0, STMK0
    f6c7f:	fa                   	cli    
    f6c80:	8b 5e fa             	mov    bx,WORD PTR [bp-0x6]
    f6c83:	ff 47 14             	inc    WORD PTR [bx+0x14]
@@ -36688,10 +36688,10 @@ void far serial_send(short serial, near char *buf):
    f6c91:	8b 5e fa             	mov    bx,WORD PTR [bp-0x6]
    f6c94:	c7 47 14 00 00       	mov    WORD PTR [bx+0x14],0x0
    f6c99:	fb                   	sti    
-   f6c9a:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994
+   f6c9a:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994 ;  serial port 1 ptr
    f6c9e:	eb 4c                	jmp    0xf6cec
    f6ca0:	eb 00                	jmp    0xf6ca2
-   f6ca2:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990
+   f6ca2:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ;  serial port 2 ptr
    f6ca6:	26 8a 47 0e          	mov    al,BYTE PTR es:[bx+0xe]
    f6caa:	b4 00                	mov    ah,0x0
    f6cac:	a9 80 00             	test   ax,0x80
@@ -36702,7 +36702,7 @@ void far serial_send(short serial, near char *buf):
 
    f6cbd:	8b 5e fa             	mov    bx,WORD PTR [bp-0x6]
    f6cc0:	c6 47 11 00          	mov    BYTE PTR [bx+0x11],0x0
-   f6cc4:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990
+   f6cc4:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ;  serial port 2
    f6cc8:	26 80 67 0e 3f       	and    BYTE PTR es:[bx+0xe],0x3f
    f6ccd:	fa                   	cli    
    f6cce:	8b 5e fa             	mov    bx,WORD PTR [bp-0x6]
@@ -36714,10 +36714,10 @@ void far serial_send(short serial, near char *buf):
    f6cdf:	8b 5e fa             	mov    bx,WORD PTR [bp-0x6]
    f6ce2:	c7 47 14 00 00       	mov    WORD PTR [bx+0x14],0x0
    f6ce7:	fb                   	sti    
-   f6ce8:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990
+   f6ce8:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ;  serial port 2
    f6cec:	8b 76 08             	mov    si,WORD PTR [bp+0x8]
    f6cef:	8a 04                	mov    al,BYTE PTR [si]
-   f6cf1:	26 88 47 02          	mov    BYTE PTR es:[bx+0x2],al
+   f6cf1:	26 88 47 02          	mov    BYTE PTR es:[bx+0x2],al ;  write serial port tx reg
    f6cf5:	e9 06 01             	jmp    0xf6dfe
    f6cf8:	80 7e 06 00          	cmp    BYTE PTR [bp+0x6],0x0
    f6cfc:	74 03                	je     0xf6d01
@@ -36738,17 +36738,17 @@ void far serial_send(short serial, near char *buf):
 
    f6d2a:	eb 00                	jmp    0xf6d2c
    f6d2c:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994
-   f6d30:	26 8a 47 0e          	mov    al,BYTE PTR es:[bx+0xe]
+   f6d30:	26 8a 47 0e          	mov    al,BYTE PTR es:[bx+0xe] ;  read serial port status
    f6d34:	b4 00                	mov    ah,0x0
-   f6d36:	a9 80 00             	test   ax,0x80
+   f6d36:	a9 80 00             	test   ax,0x80 ; tx int flag
    f6d39:	74 f1                	je     0xf6d2c
    f6d3b:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994
-   f6d3f:	26 80 67 0e 7f       	and    BYTE PTR es:[bx+0xe],0x7f
+   f6d3f:	26 80 67 0e 7f       	and    BYTE PTR es:[bx+0xe],0x7f ;  clear tx int flag
    f6d44:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994
    f6d48:	8b 76 08             	mov    si,WORD PTR [bp+0x8]
    f6d4b:	03 76 fe             	add    si,WORD PTR [bp-0x2]
    f6d4e:	8a 04                	mov    al,BYTE PTR [si]
-   f6d50:	26 88 47 02          	mov    BYTE PTR es:[bx+0x2],al
+   f6d50:	26 88 47 02          	mov    BYTE PTR es:[bx+0x2],al ;  write tx register
    f6d54:	ff 46 fe             	inc    WORD PTR [bp-0x2]
    f6d57:	8b 5e 08             	mov    bx,WORD PTR [bp+0x8]
    f6d5a:	03 5e fe             	add    bx,WORD PTR [bp-0x2]
@@ -36756,9 +36756,9 @@ void far serial_send(short serial, near char *buf):
    f6d60:	75 ad                	jne    0xf6d0f
    f6d62:	eb 00                	jmp    0xf6d64
    f6d64:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994
-   f6d68:	26 8a 47 0e          	mov    al,BYTE PTR es:[bx+0xe]
+   f6d68:	26 8a 47 0e          	mov    al,BYTE PTR es:[bx+0xe] ;  read tx sttaus reg
    f6d6c:	b4 00                	mov    ah,0x0
-   f6d6e:	a9 80 00             	test   ax,0x80
+   f6d6e:	a9 80 00             	test   ax,0x80 ;  test int flag
    f6d71:	74 f1                	je     0xf6d64
    f6d73:	80 3e f5 27 01       	cmp    BYTE PTR ds:0x27f5,0x1
    f6d78:	75 0d                	jne    0xf6d87
@@ -36786,14 +36786,14 @@ void far serial_send(short serial, near char *buf):
    f6dad:	9a 1a 00 96 f8       	call   0xf896:0x1a
 
    f6db2:	eb 00                	jmp    0xf6db4
-   f6db4:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990
+   f6db4:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ;  serial port 2
    f6db8:	26 8a 47 0e          	mov    al,BYTE PTR es:[bx+0xe]
    f6dbc:	b4 00                	mov    ah,0x0
    f6dbe:	a9 80 00             	test   ax,0x80
    f6dc1:	74 f1                	je     0xf6db4
-   f6dc3:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990
+   f6dc3:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ;  serial port 2
    f6dc7:	26 80 67 0e 7f       	and    BYTE PTR es:[bx+0xe],0x7f
-   f6dcc:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990
+   f6dcc:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ;  serial port 2
    f6dd0:	8b 76 08             	mov    si,WORD PTR [bp+0x8]
    f6dd3:	03 76 fe             	add    si,WORD PTR [bp-0x2]
    f6dd6:	8a 04                	mov    al,BYTE PTR [si]
@@ -36881,9 +36881,9 @@ void far serial_send(short serial, near char *buf):
    f6eaa:	75 4e                	jne    0xf6efa
    f6eac:	eb 00                	jmp    0xf6eae
    f6eae:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994
-   f6eb2:	26 8a 47 0e          	mov    al,BYTE PTR es:[bx+0xe]
+   f6eb2:	26 8a 47 0e          	mov    al,BYTE PTR es:[bx+0xe] ;  read tx status reg
    f6eb6:	b4 00                	mov    ah,0x0
-   f6eb8:	a9 80 00             	test   ax,0x80
+   f6eb8:	a9 80 00             	test   ax,0x80 ;  test int flag
    f6ebb:	74 f1                	je     0xf6eae
    f6ebd:	80 3e f3 27 01       	cmp    BYTE PTR ds:0x27f3,0x1
    f6ec2:	75 05                	jne    0xf6ec9
@@ -36891,7 +36891,7 @@ void far serial_send(short serial, near char *buf):
    f6ec9:	8b 5e fa             	mov    bx,WORD PTR [bp-0x6]
    f6ecc:	c6 47 11 00          	mov    BYTE PTR [bx+0x11],0x0
    f6ed0:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994
-   f6ed4:	26 80 67 0e 3f       	and    BYTE PTR es:[bx+0xe],0x3f
+   f6ed4:	26 80 67 0e 3f       	and    BYTE PTR es:[bx+0xe],0x3f ;  clear tx int
    f6ed9:	fa                   	cli    
    f6eda:	8b 5e fa             	mov    bx,WORD PTR [bp-0x6]
    f6edd:	ff 47 14             	inc    WORD PTR [bx+0x14]
@@ -36902,10 +36902,10 @@ void far serial_send(short serial, near char *buf):
    f6eeb:	8b 5e fa             	mov    bx,WORD PTR [bp-0x6]
    f6eee:	c7 47 14 00 00       	mov    WORD PTR [bx+0x14],0x0
    f6ef3:	fb                   	sti    
-   f6ef4:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994
+   f6ef4:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994 ;  serial port 1
    f6ef8:	eb 4c                	jmp    0xf6f46
    f6efa:	eb 00                	jmp    0xf6efc
-   f6efc:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990
+   f6efc:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990  ;  serial port 2
    f6f00:	26 8a 47 0e          	mov    al,BYTE PTR es:[bx+0xe]
    f6f04:	b4 00                	mov    ah,0x0
    f6f06:	a9 80 00             	test   ax,0x80
@@ -36915,7 +36915,7 @@ void far serial_send(short serial, near char *buf):
    f6f12:	9a b5 00 1b e1       	call   0xe11b:0xb5
    f6f17:	8b 5e fa             	mov    bx,WORD PTR [bp-0x6]
    f6f1a:	c6 47 11 00          	mov    BYTE PTR [bx+0x11],0x0
-   f6f1e:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990
+   f6f1e:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990  ;  serial port 2
    f6f22:	26 80 67 0e 3f       	and    BYTE PTR es:[bx+0xe],0x3f
    f6f27:	fa                   	cli    
    f6f28:	8b 5e fa             	mov    bx,WORD PTR [bp-0x6]
@@ -36927,10 +36927,10 @@ void far serial_send(short serial, near char *buf):
    f6f39:	8b 5e fa             	mov    bx,WORD PTR [bp-0x6]
    f6f3c:	c7 47 14 00 00       	mov    WORD PTR [bx+0x14],0x0
    f6f41:	fb                   	sti    
-   f6f42:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990
+   f6f42:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990  ;  serial port 2
    f6f46:	8b 76 08             	mov    si,WORD PTR [bp+0x8]
    f6f49:	8a 04                	mov    al,BYTE PTR [si]
-   f6f4b:	26 88 47 02          	mov    BYTE PTR es:[bx+0x2],al
+   f6f4b:	26 88 47 02          	mov    BYTE PTR es:[bx+0x2],al ;  write tx register
    f6f4f:	e9 cb 00             	jmp    0xf701d
    f6f52:	80 7e 06 00          	cmp    BYTE PTR [bp+0x6],0x0
    f6f56:	75 6c                	jne    0xf6fc4
@@ -36939,18 +36939,18 @@ void far serial_send(short serial, near char *buf):
    f6f5f:	9a 94 00 1b e1       	call   0xe11b:0x94
    f6f64:	eb 2d                	jmp    0xf6f93
    f6f66:	eb 00                	jmp    0xf6f68
-   f6f68:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994
-   f6f6c:	26 8a 47 0e          	mov    al,BYTE PTR es:[bx+0xe]
+   f6f68:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994 ;  serial port 1
+   f6f6c:	26 8a 47 0e          	mov    al,BYTE PTR es:[bx+0xe] ;  tx status reg
    f6f70:	b4 00                	mov    ah,0x0
-   f6f72:	a9 80 00             	test   ax,0x80
+   f6f72:	a9 80 00             	test   ax,0x80 ; tx interrupt flag
    f6f75:	74 f1                	je     0xf6f68
    f6f77:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994
-   f6f7b:	26 80 67 0e 7f       	and    BYTE PTR es:[bx+0xe],0x7f
+   f6f7b:	26 80 67 0e 7f       	and    BYTE PTR es:[bx+0xe],0x7f ;  clear tx interrupt
    f6f80:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994
    f6f84:	8b 76 08             	mov    si,WORD PTR [bp+0x8]
    f6f87:	03 76 fe             	add    si,WORD PTR [bp-0x2]
    f6f8a:	8a 04                	mov    al,BYTE PTR [si]
-   f6f8c:	26 88 47 02          	mov    BYTE PTR es:[bx+0x2],al
+   f6f8c:	26 88 47 02          	mov    BYTE PTR es:[bx+0x2],al ;  write tx register
    f6f90:	ff 46 fe             	inc    WORD PTR [bp-0x2]
    f6f93:	8a 46 0a             	mov    al,BYTE PTR [bp+0xa]
    f6f96:	b4 00                	mov    ah,0x0
@@ -36958,9 +36958,9 @@ void far serial_send(short serial, near char *buf):
    f6f9b:	75 c9                	jne    0xf6f66
    f6f9d:	eb 00                	jmp    0xf6f9f
    f6f9f:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994
-   f6fa3:	26 8a 47 0e          	mov    al,BYTE PTR es:[bx+0xe]
+   f6fa3:	26 8a 47 0e          	mov    al,BYTE PTR es:[bx+0xe] ;  read tx status register
    f6fa7:	b4 00                	mov    ah,0x0
-   f6fa9:	a9 80 00             	test   ax,0x80
+   f6fa9:	a9 80 00             	test   ax,0x80 ;  tx interupt
    f6fac:	74 f1                	je     0xf6f9f
    f6fae:	80 3e f5 27 01       	cmp    BYTE PTR ds:0x27f5,0x1
    f6fb3:	75 0d                	jne    0xf6fc2
@@ -36976,14 +36976,14 @@ void far serial_send(short serial, near char *buf):
    f6fcb:	9a b5 00 1b e1       	call   0xe11b:0xb5
    f6fd0:	eb 2d                	jmp    0xf6fff
    f6fd2:	eb 00                	jmp    0xf6fd4
-   f6fd4:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990
+   f6fd4:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990  ;  serial port 2
    f6fd8:	26 8a 47 0e          	mov    al,BYTE PTR es:[bx+0xe]
    f6fdc:	b4 00                	mov    ah,0x0
    f6fde:	a9 80 00             	test   ax,0x80
    f6fe1:	74 f1                	je     0xf6fd4
-   f6fe3:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990
+   f6fe3:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ;  serial port 2
    f6fe7:	26 80 67 0e 7f       	and    BYTE PTR es:[bx+0xe],0x7f
-   f6fec:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990
+   f6fec:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990  ;  serial port 2
    f6ff0:	8b 76 08             	mov    si,WORD PTR [bp+0x8]
    f6ff3:	03 76 fe             	add    si,WORD PTR [bp-0x2]
    f6ff6:	8a 04                	mov    al,BYTE PTR [si]
@@ -37665,33 +37665,33 @@ serial_putsomething(serial, ?)
    f76d5:	8b 46 ec             	mov    ax,WORD PTR [bp-0x14]
    f76d8:	f7 6e ea             	imul   WORD PTR [bp-0x16]
    f76db:	a3 55 68             	mov    ds:0x6855,ax
-   f76de:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994
-   f76e2:	8a 46 f8             	mov    al,BYTE PTR [bp-0x8]
+   f76de:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994 ;  serial port 1
+   f76e2:	8a 46 f8             	mov    al,BYTE PTR [bp-0x8] ;  get serial port mode bits from args
    f76e5:	02 46 fa             	add    al,BYTE PTR [bp-0x6]
    f76e8:	02 46 fc             	add    al,BYTE PTR [bp-0x4]
-   f76eb:	04 c1                	add    al,0xc1
-   f76ed:	26 88 47 08          	mov    BYTE PTR es:[bx+0x8],al
+   f76eb:	04 c1                	add    al,0xc1 ;  insert tx & rx enable bits
+   f76ed:	26 88 47 08          	mov    BYTE PTR es:[bx+0x8],al ;  write serial mode register
    f76f1:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994
    f76f5:	8a 46 f4             	mov    al,BYTE PTR [bp-0xc]
-   f76f8:	26 88 47 0a          	mov    BYTE PTR es:[bx+0xa],al
+   f76f8:	26 88 47 0a          	mov    BYTE PTR es:[bx+0xa],al ;  write baud rate generator
    f76fc:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994
    f7700:	eb 2b                	jmp    0xf772d
    f7702:	8b 46 ec             	mov    ax,WORD PTR [bp-0x14]
    f7705:	f7 6e ea             	imul   WORD PTR [bp-0x16]
    f7708:	a3 3c 68             	mov    ds:0x683c,ax
-   f770b:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990
+   f770b:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ;  serial port 2
    f770f:	8a 46 f8             	mov    al,BYTE PTR [bp-0x8]
    f7712:	02 46 fa             	add    al,BYTE PTR [bp-0x6]
    f7715:	02 46 fc             	add    al,BYTE PTR [bp-0x4]
    f7718:	04 c1                	add    al,0xc1
    f771a:	26 88 47 08          	mov    BYTE PTR es:[bx+0x8],al
-   f771e:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990
+   f771e:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ;  serial port 2
    f7722:	8a 46 f4             	mov    al,BYTE PTR [bp-0xc]
    f7725:	26 88 47 0a          	mov    BYTE PTR es:[bx+0xa],al
-   f7729:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990
+   f7729:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ;  serial port 2
    f772d:	8a 46 f7             	mov    al,BYTE PTR [bp-0x9]
    f7730:	04 ff                	add    al,0xff
-   f7732:	26 88 47 09          	mov    BYTE PTR es:[bx+0x9],al
+   f7732:	26 88 47 09          	mov    BYTE PTR es:[bx+0x9],al ;  write serial control register (clock divider)
    f7736:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    f773b:	75 05                	jne    0xf7742
    f773d:	9a 1a 00 96 f8       	call   0xf896:0x1a
@@ -37771,11 +37771,11 @@ serial_putsomething(serial, ?)
    f77f5:	83 3e 00 28 00       	cmp    WORD PTR ds:0x2800,0x0
    f77fa:	76 10                	jbe    0xf780c
    f77fc:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994
-   f7800:	26 80 67 0e bf       	and    BYTE PTR es:[bx+0xe],0xbf
+   f7800:	26 80 67 0e bf       	and    BYTE PTR es:[bx+0xe],0xbf ;  clear STMK0
    f7805:	c6 06 49 68 01       	mov    BYTE PTR ds:0x6849,0x1
    f780a:	eb 05                	jmp    0xf7811
    f780c:	c6 06 49 68 02       	mov    BYTE PTR ds:0x6849,0x2
-   f7811:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994
+   f7811:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994 ;  serial port 1
    f7815:	eb 3a                	jmp    0xf7851
    f7817:	b8 84 f6             	mov    ax,0xf684
    f781a:	50                   	push   ax
@@ -37789,13 +37789,13 @@ serial_putsomething(serial, ?)
    f782f:	75 17                	jne    0xf7848
    f7831:	83 3e 02 28 00       	cmp    WORD PTR ds:0x2802,0x0
    f7836:	76 10                	jbe    0xf7848
-   f7838:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990
+   f7838:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ;  serial port 2
    f783c:	26 80 67 0e bf       	and    BYTE PTR es:[bx+0xe],0xbf
    f7841:	c6 06 30 68 01       	mov    BYTE PTR ds:0x6830,0x1
    f7846:	eb 05                	jmp    0xf784d
    f7848:	c6 06 30 68 02       	mov    BYTE PTR ds:0x6830,0x2
-   f784d:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990
-   f7851:	26 80 4f 0e 80       	or     BYTE PTR es:[bx+0xe],0x80
+   f784d:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ;  serial port 2
+   f7851:	26 80 4f 0e 80       	or     BYTE PTR es:[bx+0xe],0x80 ;  set tx int flag
    f7856:	eb 0a                	jmp    0xf7862
    f7858:	c6 46 ff ff          	mov    BYTE PTR [bp-0x1],0xff
    f785c:	c7 06 22 68 9b ff    	mov    WORD PTR ds:0x6822,0xff9b
@@ -37823,18 +37823,18 @@ serial_putsomething(serial, ?)
    f7885:	8b ec                	mov    bp,sp
    f7887:	83 ec 02             	sub    sp,0x2
    f788a:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994
-   f788e:	26 8a 07             	mov    al,BYTE PTR es:[bx]
+   f788e:	26 8a 07             	mov    al,BYTE PTR es:[bx] ;  read serial port 1 rx reg
    f7891:	88 46 ff             	mov    BYTE PTR [bp-0x1],al
    f7894:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994
-   f7898:	26 80 67 0d 7f       	and    BYTE PTR es:[bx+0xd],0x7f
+   f7898:	26 80 67 0d 7f       	and    BYTE PTR es:[bx+0xd],0x7f ;  clear serial rx int flag
    f789d:	fb                   	sti    
    f789e:	0f 92                	fint   
    f78a0:	80 3e f2 27 01       	cmp    BYTE PTR ds:0x27f2,0x1
    f78a5:	75 25                	jne    0xf78cc
    f78a7:	ff 06 13 28          	inc    WORD PTR ds:0x2813
    f78ab:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994
-   f78af:	26 8a 47 0b          	mov    al,BYTE PTR es:[bx+0xb]
-   f78b3:	24 07                	and    al,0x7
+   f78af:	26 8a 47 0b          	mov    al,BYTE PTR es:[bx+0xb] ;  read serial 1 error register
+   f78b3:	24 07                	and    al,0x7 ;  overrun, framing, parity
    f78b5:	50                   	push   ax
    f78b6:	b0 00                	mov    al,0x0
    f78b8:	50                   	push   ax
@@ -37870,17 +37870,17 @@ serial_putsomething(serial, ?)
    f78e4:	8e dd                	mov    ds,bp
    f78e6:	8b ec                	mov    bp,sp
    f78e8:	83 ec 02             	sub    sp,0x2
-   f78eb:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990
+   f78eb:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ;  serial port 2
    f78ef:	26 8a 07             	mov    al,BYTE PTR es:[bx]
    f78f2:	88 46 ff             	mov    BYTE PTR [bp-0x1],al
-   f78f5:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990
+   f78f5:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ;  serial port 2
    f78f9:	26 80 67 0d 7f       	and    BYTE PTR es:[bx+0xd],0x7f
    f78fe:	fb                   	sti    
    f78ff:	0f 92                	fint   
    f7901:	80 3e f2 27 01       	cmp    BYTE PTR ds:0x27f2,0x1
    f7906:	75 25                	jne    0xf792d
    f7908:	ff 06 13 28          	inc    WORD PTR ds:0x2813
-   f790c:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990
+   f790c:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ;  serial port 2
    f7910:	26 8a 47 0b          	mov    al,BYTE PTR es:[bx+0xb]
    f7914:	24 07                	and    al,0x7
    f7916:	50                   	push   ax
@@ -37916,7 +37916,7 @@ serial_putsomething(serial, ?)
    f7948:	9a ca 00 6c f8       	call   0xf86c:0xca
    f794d:	83 c4 06             	add    sp,0x6
    f7950:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994
-   f7954:	26 c6 47 0c 07       	mov    BYTE PTR es:[bx+0xc],0x7
+   f7954:	26 c6 47 0c 07       	mov    BYTE PTR es:[bx+0xc],0x7	;  serial error interrupt register
    f7959:	80 3e 06 28 01       	cmp    BYTE PTR ds:0x2806,0x1
    f795e:	75 1d                	jne    0xf797d
    f7960:	b8 84 f6             	mov    ax,0xf684
@@ -37927,7 +37927,7 @@ serial_putsomething(serial, ?)
    f796b:	50                   	push   ax
    f796c:	9a ca 00 6c f8       	call   0xf86c:0xca
    f7971:	83 c4 06             	add    sp,0x6
-   f7974:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990
+   f7974:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ;  serial port 2
    f7978:	26 c6 47 0c 07       	mov    BYTE PTR es:[bx+0xc],0x7
    f797d:	5d                   	pop    bp
    f797e:	cb                   	retf   
@@ -38045,7 +38045,7 @@ serial_putsomething(serial, ?)
    f7a8e:	9a ca 00 6c f8       	call   0xf86c:0xca
    f7a93:	83 c4 06             	add    sp,0x6
    f7a96:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994
-   f7a9a:	26 80 67 0d bf       	and    BYTE PTR es:[bx+0xd],0xbf
+   f7a9a:	26 80 67 0d bf       	and    BYTE PTR es:[bx+0xd],0xbf ;  clear SRMK0
    f7a9f:	c7 06 45 68 00 00    	mov    WORD PTR ds:0x6845,0x0
    f7aa5:	c7 06 47 68 00 00    	mov    WORD PTR ds:0x6847,0x0
    f7aab:	c7 06 51 68 00 00    	mov    WORD PTR ds:0x6851,0x0
@@ -38067,7 +38067,7 @@ serial_putsomething(serial, ?)
    f7ade:	50                   	push   ax
    f7adf:	9a ca 00 6c f8       	call   0xf86c:0xca
    f7ae4:	83 c4 06             	add    sp,0x6
-   f7ae7:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990
+   f7ae7:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ;  serial port 2
    f7aeb:	26 80 67 0d bf       	and    BYTE PTR es:[bx+0xd],0xbf
    f7af0:	c7 06 2c 68 00 00    	mov    WORD PTR ds:0x682c,0x0
    f7af6:	c7 06 2e 68 00 00    	mov    WORD PTR ds:0x682e,0x0
