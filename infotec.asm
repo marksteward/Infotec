@@ -1202,7 +1202,7 @@ crazy_bcd:
    e09aa:	c3                   	ret    
 
 
-n_sprintf:
+int near _stdcall _sprintf(near void* args, near char *format, near char **str, bufcatfunc):
    e09ab:	55                   	push   bp
    e09ac:	8b ec                	mov    bp,sp
    e09ae:	81 ec 96 00          	sub    sp,0x96
@@ -1836,10 +1836,11 @@ near void * near bufcat(near void *dest, short n, near void *src):
    e0f56:	c2 06 00             	ret    0x6
 
 
-sprintf_fc: ; far cdecl
+int far sprintf(near char *str, near char *format, ...):
    e0f59:	55                   	push   bp
    e0f5a:	8b ec                	mov    bp,sp
    e0f5c:	8b 5e 06             	mov    bx,WORD PTR [bp+0x6]
+; str[0] = 0
    e0f5f:	c6 07 00             	mov    BYTE PTR [bx],0x0
    e0f62:	b8 31 0f             	mov    ax,0xf31
    e0f65:	50                   	push   ax
@@ -1848,15 +1849,17 @@ sprintf_fc: ; far cdecl
    e0f6a:	ff 76 08             	push   WORD PTR [bp+0x8]
    e0f6d:	8d 46 0a             	lea    ax,[bp+0xa]
    e0f70:	50                   	push   ax
-   e0f71:	e8 37 fa             	call   0xe09ab ; n_sprintf
+; return _sprintf(&args, format, &str, &bufcat)
+   e0f71:	e8 37 fa             	call   0xe09ab ; _sprintf
    e0f74:	5d                   	pop    bp
    e0f75:	cb                   	retf   
 
 
-fi_sprintf: ; indirect (rargs)
+int far sprintf(near char *str, near char *format, void *args):
    e0f76:	55                   	push   bp
    e0f77:	8b ec                	mov    bp,sp
    e0f79:	8b 5e 06             	mov    bx,WORD PTR [bp+0x6]
+; str[0] = 0
    e0f7c:	c6 07 00             	mov    BYTE PTR [bx],0x0
    e0f7f:	b8 31 0f             	mov    ax,0xf31
    e0f82:	50                   	push   ax
@@ -1864,7 +1867,8 @@ fi_sprintf: ; indirect (rargs)
    e0f86:	50                   	push   ax
    e0f87:	ff 76 08             	push   WORD PTR [bp+0x8]
    e0f8a:	ff 76 0a             	push   WORD PTR [bp+0xa]
-   e0f8d:	e8 1b fa             	call   0xe09ab ; n_sprintf
+; return _sprintf(args, format, &str, &bufcat)
+   e0f8d:	e8 1b fa             	call   0xe09ab ; _sprintf
    e0f90:	5d                   	pop    bp
    e0f91:	cb                   	retf   
 
@@ -2017,7 +2021,7 @@ strcpy:
    e1081:	cb                   	retf   
 
 
-n_strlen:
+int far strlen(near char *str):
    e1082:	55                   	push   bp
    e1083:	8b ec                	mov    bp,sp
    e1085:	57                   	push   di
@@ -2186,7 +2190,7 @@ f_strcpy:
    e119e:	cb                   	retf   
 
 
-f_strlen:
+int far strlen(far char *str):
    e119f:	55                   	push   bp
    e11a0:	8b ec                	mov    bp,sp
    e11a2:	57                   	push   di
@@ -7518,7 +7522,7 @@ output_something11:
    e47fe:	50                   	push   ax
    e47ff:	b8 34 00             	mov    ax,0x34
    e4802:	50                   	push   ax
-   e4803:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; f_sprintf
+   e4803:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; sprintf
    e4808:	83 c4 12             	add    sp,0x12
    e480b:	c6 06 5c 00 00       	mov    BYTE PTR ds:0x5c,0x0
    e4810:	c7 06 f8 29 00 00    	mov    WORD PTR ds:0x29f8,0x0
@@ -7536,7 +7540,8 @@ output_something11:
    e4838:	50                   	push   ax
    e4839:	b8 ff 29             	mov    ax,0x29ff
    e483c:	50                   	push   ax
-   e483d:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; f_sprintf
+; sprintf(g_checksumbuf, "%02X<", g_checksum)
+   e483d:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; sprintf
    e4842:	83 c4 06             	add    sp,0x6
    e4845:	b8 ff 29             	mov    ax,0x29ff
    e4848:	50                   	push   ax
@@ -7546,7 +7551,8 @@ output_something11:
    e4850:	50                   	push   ax
    e4851:	b0 00                	mov    al,0x0
    e4853:	50                   	push   ax
-   e4854:	9a 25 03 84 f6       	call   0xf684:0x325 ; something_printf
+; serial_printf(0, "%s%s", g_34, g_checksumbuf)
+   e4854:	9a 25 03 84 f6       	call   0xf684:0x325 ; serial_printf
    e4859:	83 c4 08             	add    sp,0x8
    e485c:	5d                   	pop    bp
    e485d:	cb                   	retf   
@@ -8673,7 +8679,7 @@ init_something3:
    e53e0:	88 97 f5 4a          	mov    BYTE PTR [bx+0x4af5],dl
    e53e4:	b8 92 61             	mov    ax,0x6192
    e53e7:	50                   	push   ax
-   e53e8:	9a 82 10 00 e0       	call   0xe000:0x1082 ; n_strlen
+   e53e8:	9a 82 10 00 e0       	call   0xe000:0x1082 ; near strlen
    e53ed:	59                   	pop    cx
    e53ee:	89 46 fc             	mov    WORD PTR [bp-0x4],ax
    e53f1:	83 7e fc 00          	cmp    WORD PTR [bp-0x4],0x0
@@ -13837,7 +13843,7 @@ init_something3:
    e8856:	50                   	push   ax
    e8857:	ff 76 12             	push   WORD PTR [bp+0x12]
    e885a:	ff 76 10             	push   WORD PTR [bp+0x10]
-   e885d:	9a 9f 11 00 e0       	call   0xe000:0x119f
+   e885d:	9a 9f 11 00 e0       	call   0xe000:0x119f ; far strlen
    e8862:	59                   	pop    cx
    e8863:	59                   	pop    cx
    e8864:	5a                   	pop    dx
@@ -21314,7 +21320,7 @@ something_font1:
    ed3c3:	c6 46 f5 00          	mov    BYTE PTR [bp-0xb],0x0
    ed3c7:	ff 76 0a             	push   WORD PTR [bp+0xa]
    ed3ca:	ff 76 08             	push   WORD PTR [bp+0x8]
-   ed3cd:	9a 9f 11 00 e0       	call   0xe000:0x119f
+   ed3cd:	9a 9f 11 00 e0       	call   0xe000:0x119f ; far strlen
    ed3d2:	59                   	pop    cx
    ed3d3:	59                   	pop    cx
    ed3d4:	3b 46 0e             	cmp    ax,WORD PTR [bp+0xe]
@@ -24848,7 +24854,7 @@ unload_font:
    ef6be:	56                   	push   si
    ef6bf:	ff 76 0c             	push   WORD PTR [bp+0xc]
    ef6c2:	ff 76 0a             	push   WORD PTR [bp+0xa]
-   ef6c5:	9a 9f 11 00 e0       	call   0xe000:0x119f
+   ef6c5:	9a 9f 11 00 e0       	call   0xe000:0x119f ; far strlen
    ef6ca:	59                   	pop    cx
    ef6cb:	59                   	pop    cx
    ef6cc:	40                   	inc    ax
@@ -25064,7 +25070,7 @@ interesting:
    ef934:	c6 87 57 45 00       	mov    BYTE PTR [bx+0x4557],0x0
    ef939:	ff 76 0a             	push   WORD PTR [bp+0xa]
    ef93c:	ff 76 08             	push   WORD PTR [bp+0x8]
-   ef93f:	9a 9f 11 00 e0       	call   0xe000:0x119f
+   ef93f:	9a 9f 11 00 e0       	call   0xe000:0x119f ; far strlen
    ef944:	59                   	pop    cx
    ef945:	59                   	pop    cx
    ef946:	3d ff 00             	cmp    ax,0xff
@@ -25119,7 +25125,7 @@ interesting:
    ef9d1:	50                   	push   ax
    ef9d2:	b8 b5 38             	mov    ax,0x38b5
    ef9d5:	50                   	push   ax
-   ef9d6:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; f_sprintf
+   ef9d6:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; sprintf
    ef9db:	83 c4 06             	add    sp,0x6
    ef9de:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    ef9e1:	b4 00                	mov    ah,0x0
@@ -25159,7 +25165,7 @@ interesting:
    efa2a:	50                   	push   ax
    efa2b:	b8 b5 3a             	mov    ax,0x3ab5
    efa2e:	50                   	push   ax
-   efa2f:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; f_sprintf
+   efa2f:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; sprintf
    efa34:	59                   	pop    cx
    efa35:	59                   	pop    cx
    efa36:	e9 ba 00             	jmp    0xefaf3
@@ -25170,14 +25176,14 @@ interesting:
    efa48:	50                   	push   ax
    efa49:	b8 35 3b             	mov    ax,0x3b35
    efa4c:	50                   	push   ax
-   efa4d:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; f_sprintf
+   efa4d:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; sprintf
    efa52:	83 c4 06             	add    sp,0x6
    efa55:	eb 0f                	jmp    0xefa66
    efa57:	b8 c8 00             	mov    ax,0xc8 ; "+++"
    efa5a:	50                   	push   ax
    efa5b:	b8 35 3b             	mov    ax,0x3b35
    efa5e:	50                   	push   ax
-   efa5f:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; f_sprintf
+   efa5f:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; sprintf
    efa64:	59                   	pop    cx
    efa65:	59                   	pop    cx
    efa66:	e9 8a 00             	jmp    0xefaf3
@@ -25192,7 +25198,7 @@ interesting:
    efa7b:	50                   	push   ax
    efa7c:	b8 b5 3b             	mov    ax,0x3bb5
    efa7f:	50                   	push   ax
-   efa80:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; f_sprintf
+   efa80:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; sprintf
    efa85:	eb 23                	jmp    0xefaaa
    efa87:	b8 04 00             	mov    ax,0x4
    efa8a:	50                   	push   ax
@@ -25219,7 +25225,7 @@ interesting:
    efabe:	50                   	push   ax
    efabf:	b8 35 3d             	mov    ax,0x3d35
    efac2:	50                   	push   ax
-   efac3:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; f_sprintf
+   efac3:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; sprintf
    efac8:	83 c4 08             	add    sp,0x8
    efacb:	e9 10 ff             	jmp    0xef9de
    eface:	8a 46 f8             	mov    al,BYTE PTR [bp-0x8]
@@ -25235,7 +25241,7 @@ interesting:
    efae3:	50                   	push   ax
    efae4:	b8 b5 3d             	mov    ax,0x3db5
    efae7:	50                   	push   ax
-   efae8:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; f_sprintf
+   efae8:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; sprintf
    efaed:	83 c4 0a             	add    sp,0xa
    efaf0:	e9 eb fe             	jmp    0xef9de
    efaf3:	8b 46 ec             	mov    ax,WORD PTR [bp-0x14]
@@ -25243,12 +25249,12 @@ interesting:
    efaf8:	d3 e0                	shl    ax,cl
    efafa:	05 35 2e             	add    ax,0x2e35
    efafd:	50                   	push   ax
-   efafe:	9a 82 10 00 e0       	call   0xe000:0x1082 ; n_strlen
+   efafe:	9a 82 10 00 e0       	call   0xe000:0x1082 ; near strlen
    efb03:	59                   	pop    cx
    efb04:	89 46 f4             	mov    WORD PTR [bp-0xc],ax
    efb07:	ff 76 0e             	push   WORD PTR [bp+0xe]
    efb0a:	ff 76 0c             	push   WORD PTR [bp+0xc]
-   efb0d:	9a 9f 11 00 e0       	call   0xe000:0x119f
+   efb0d:	9a 9f 11 00 e0       	call   0xe000:0x119f ; far strlen
    efb12:	59                   	pop    cx
    efb13:	59                   	pop    cx
    efb14:	89 46 f0             	mov    WORD PTR [bp-0x10],ax
@@ -25367,12 +25373,12 @@ interesting:
    efc38:	03 d0                	add    dx,ax
    efc3a:	81 c2 69 2d          	add    dx,0x2d69
    efc3e:	52                   	push   dx
-   efc3f:	9a 82 10 00 e0       	call   0xe000:0x1082 ; n_strlen
+   efc3f:	9a 82 10 00 e0       	call   0xe000:0x1082 ; near strlen
    efc44:	59                   	pop    cx
    efc45:	89 46 f4             	mov    WORD PTR [bp-0xc],ax
    efc48:	ff 76 0e             	push   WORD PTR [bp+0xe]
    efc4b:	ff 76 0c             	push   WORD PTR [bp+0xc]
-   efc4e:	9a 9f 11 00 e0       	call   0xe000:0x119f
+   efc4e:	9a 9f 11 00 e0       	call   0xe000:0x119f ; far strlen
    efc53:	59                   	pop    cx
    efc54:	59                   	pop    cx
    efc55:	89 46 f0             	mov    WORD PTR [bp-0x10],ax
@@ -25514,7 +25520,7 @@ interesting:
    efdb3:	8b d8                	mov    bx,ax
    efdb5:	ff b7 eb 2d          	push   WORD PTR [bx+0x2deb]
    efdb9:	ff b7 e9 2d          	push   WORD PTR [bx+0x2de9]
-   efdbd:	9a 9f 11 00 e0       	call   0xe000:0x119f
+   efdbd:	9a 9f 11 00 e0       	call   0xe000:0x119f ; far strlen
    efdc2:	59                   	pop    cx
    efdc3:	59                   	pop    cx
    efdc4:	89 46 f4             	mov    WORD PTR [bp-0xc],ax
@@ -25522,7 +25528,7 @@ interesting:
    efdc9:	c7 46 f4 00 00       	mov    WORD PTR [bp-0xc],0x0
    efdce:	ff 76 0e             	push   WORD PTR [bp+0xe]
    efdd1:	ff 76 0c             	push   WORD PTR [bp+0xc]
-   efdd4:	9a 9f 11 00 e0       	call   0xe000:0x119f
+   efdd4:	9a 9f 11 00 e0       	call   0xe000:0x119f ; far strlen
    efdd9:	59                   	pop    cx
    efdda:	59                   	pop    cx
    efddb:	89 46 f0             	mov    WORD PTR [bp-0x10],ax
@@ -25644,7 +25650,7 @@ interesting:
    eff21:	50                   	push   ax
    eff22:	8d 46 e0             	lea    ax,[bp-0x20]
    eff25:	50                   	push   ax
-   eff26:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; f_sprintf
+   eff26:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; sprintf
    eff2b:	83 c4 08             	add    sp,0x8
    eff2e:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    eff31:	b4 00                	mov    ah,0x0
@@ -25724,7 +25730,7 @@ interesting:
    effdd:	50                   	push   ax
    effde:	8d 46 e0             	lea    ax,[bp-0x20]
    effe1:	50                   	push   ax
-   effe2:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; f_sprintf
+   effe2:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; sprintf
    effe7:	83 c4 06             	add    sp,0x6
    effea:	e9 41 ff             	jmp    0xeff2e
    effed:	a0 c3 2a             	mov    al,ds:0x2ac3
@@ -25796,7 +25802,7 @@ interesting:
    f0091:	50                   	push   ax
    f0092:	8d 46 e0             	lea    ax,[bp-0x20]
    f0095:	50                   	push   ax
-   f0096:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; f_sprintf
+   f0096:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; sprintf
    f009b:	83 c4 06             	add    sp,0x6
    f009e:	eb 57                	jmp    0xf00f7
    f00a0:	ff 76 fc             	push   WORD PTR [bp-0x4]
@@ -25834,17 +25840,17 @@ interesting:
    f00e8:	50                   	push   ax
    f00e9:	8d 46 e0             	lea    ax,[bp-0x20]
    f00ec:	50                   	push   ax
-   f00ed:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; f_sprintf
+   f00ed:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; sprintf
    f00f2:	83 c4 06             	add    sp,0x6
    f00f5:	eb 00                	jmp    0xf00f7
    f00f7:	8d 46 e0             	lea    ax,[bp-0x20]
    f00fa:	50                   	push   ax
-   f00fb:	9a 82 10 00 e0       	call   0xe000:0x1082 ; n_strlen
+   f00fb:	9a 82 10 00 e0       	call   0xe000:0x1082 ; near strlen
    f0100:	59                   	pop    cx
    f0101:	89 46 f2             	mov    WORD PTR [bp-0xe],ax
    f0104:	ff 76 0e             	push   WORD PTR [bp+0xe]
    f0107:	ff 76 0c             	push   WORD PTR [bp+0xc]
-   f010a:	9a 9f 11 00 e0       	call   0xe000:0x119f
+   f010a:	9a 9f 11 00 e0       	call   0xe000:0x119f ; far strlen
    f010f:	59                   	pop    cx
    f0110:	59                   	pop    cx
    f0111:	89 46 f0             	mov    WORD PTR [bp-0x10],ax
@@ -26102,7 +26108,7 @@ interesting:
    f03d4:	73 3b                	jae    0xf0411
    f03d6:	ff 76 0a             	push   WORD PTR [bp+0xa]
    f03d9:	ff 76 08             	push   WORD PTR [bp+0x8]
-   f03dc:	9a 9f 11 00 e0       	call   0xe000:0x119f
+   f03dc:	9a 9f 11 00 e0       	call   0xe000:0x119f ; far strlen
    f03e1:	59                   	pop    cx
    f03e2:	59                   	pop    cx
    f03e3:	3d 80 00             	cmp    ax,0x80
@@ -26835,7 +26841,7 @@ init_something5:
    f0b82:	89 87 35 3e          	mov    WORD PTR [bx+0x3e35],ax
    f0b86:	ff 76 0c             	push   WORD PTR [bp+0xc]
    f0b89:	ff 76 0a             	push   WORD PTR [bp+0xa]
-   f0b8c:	9a 9f 11 00 e0       	call   0xe000:0x119f
+   f0b8c:	9a 9f 11 00 e0       	call   0xe000:0x119f ; far strlen
    f0b91:	59                   	pop    cx
    f0b92:	59                   	pop    cx
    f0b93:	8a 16 ce 62          	mov    dl,BYTE PTR ds:0x62ce
@@ -29114,14 +29120,14 @@ init_something5:
    f2249:	8b 46 06             	mov    ax,WORD PTR [bp+0x6]
    f224c:	05 05 00             	add    ax,0x5
    f224f:	50                   	push   ax
-   f2250:	9a 82 10 00 e0       	call   0xe000:0x1082 ; n_strlen
+   f2250:	9a 82 10 00 e0       	call   0xe000:0x1082 ; near strlen
    f2255:	59                   	pop    cx
    f2256:	0b c0                	or     ax,ax
    f2258:	74 6a                	je     0xf22c4
    f225a:	8b 46 06             	mov    ax,WORD PTR [bp+0x6]
    f225d:	05 05 00             	add    ax,0x5
    f2260:	50                   	push   ax
-   f2261:	9a 82 10 00 e0       	call   0xe000:0x1082 ; n_strlen
+   f2261:	9a 82 10 00 e0       	call   0xe000:0x1082 ; near strlen
    f2266:	59                   	pop    cx
    f2267:	fe c0                	inc    al
    f2269:	c4 5e fa             	les    bx,DWORD PTR [bp-0x6]
@@ -30502,6 +30508,7 @@ int do_cmd_1(void):
    f3019:	50                   	push   ax
    f301a:	a0 4c 63             	mov    al,ds:0x634c
    f301d:	50                   	push   ax
+(g_634c, 1, g_634a, 0, 0, &g_inbuf)
    f301e:	9a 6a 06 f1 e4       	call   0xe4f1:0x66a
    f3023:	83 c4 0e             	add    sp,0xe
    f3026:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
@@ -31523,6 +31530,7 @@ int do_get_g_62c7(void):
    f3852:	72 07                	jb     0xf385b
    f3854:	c7 46 fe ff ff       	mov    WORD PTR [bp-0x2],0xffff
    f3859:	eb 59                	jmp    0xf38b4
+; g_coutargs = 2
    f385b:	c6 06 3f 63 02       	mov    BYTE PTR ds:0x633f,0x2
    f3860:	a0 4c 63             	mov    al,ds:0x634c
    f3863:	b4 00                	mov    ah,0x0
@@ -31531,7 +31539,9 @@ int do_get_g_62c7(void):
    f386a:	8b d8                	mov    bx,ax
    f386c:	80 bf e3 42 00       	cmp    BYTE PTR [bx+0x42e3],0x0
    f3871:	75 0c                	jne    0xf387f
+; g_outargs[0] = 0
    f3873:	c6 06 3a 63 00       	mov    BYTE PTR ds:0x633a,0x0
+; g_outargs[1] = 0
    f3878:	c6 06 3b 63 00       	mov    BYTE PTR ds:0x633b,0x0
    f387d:	eb 35                	jmp    0xf38b4
    f387f:	a0 4c 63             	mov    al,ds:0x634c
@@ -31543,6 +31553,7 @@ int do_get_g_62c7(void):
    f388f:	bb ff 00             	mov    bx,0xff
    f3892:	33 d2                	xor    dx,dx
    f3894:	f7 f3                	div    bx
+; g_outargs[0] = LOWORD(g_42e4[g_634c] / 255)
    f3896:	a2 3a 63             	mov    ds:0x633a,al
    f3899:	a0 4c 63             	mov    al,ds:0x634c
    f389c:	b4 00                	mov    ah,0x0
@@ -31553,6 +31564,7 @@ int do_get_g_62c7(void):
    f38a9:	bb ff 00             	mov    bx,0xff
    f38ac:	33 d2                	xor    dx,dx
    f38ae:	f7 f3                	div    bx
+; g_outargs[1] = HIWORD(g_42e4[g_634c] / 255)
    f38b0:	88 16 3b 63          	mov    BYTE PTR ds:0x633b,dl
    f38b4:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
    f38b7:	eb 00                	jmp    0xf38b9
@@ -31569,6 +31581,7 @@ int do_get_g_62c7(void):
    f38cd:	a0 4d 64             	mov    al,ds:0x644d
    f38d0:	b4 00                	mov    ah,0x0
    f38d2:	89 46 fc             	mov    WORD PTR [bp-0x4],ax
+; g_coutargs = 1
    f38d5:	c6 06 3f 63 01       	mov    BYTE PTR ds:0x633f,0x1
    f38da:	8b 5e fc             	mov    bx,WORD PTR [bp-0x4]
    f38dd:	83 fb 06             	cmp    bx,0x6
@@ -31582,6 +31595,7 @@ int do_get_g_62c7(void):
    f38f4:	f7 ea                	imul   dx
    f38f6:	8b d8                	mov    bx,ax
    f38f8:	8a 87 dd 4a          	mov    al,BYTE PTR [bx+0x4add]
+; g_outargs[0] = g_4add
    f38fc:	a2 3a 63             	mov    ds:0x633a,al
    f38ff:	eb 40                	jmp    0xf3941
    f3901:	a0 4c 63             	mov    al,ds:0x634c
@@ -31691,12 +31705,12 @@ int do_get_version(void):
 ; read_something2(&u1)
    f39ca:	9a 20 05 9d f8       	call   0xf89d:0x520
    f39cf:	59                   	pop    cx
-   f39d0:	c6 06 3f 63 02       	mov    BYTE PTR ds:0x633f,0x2
 ; g_coutargs = 2
-   f39d5:	c6 06 3a 63 04       	mov    BYTE PTR ds:0x633a,0x4
+   f39d0:	c6 06 3f 63 02       	mov    BYTE PTR ds:0x633f,0x2
 ; g_outargs[0] = 4
-   f39da:	c6 06 3b 63 07       	mov    BYTE PTR ds:0x633b,0x7
+   f39d5:	c6 06 3a 63 04       	mov    BYTE PTR ds:0x633a,0x4
 ; g_outargs[1] = 7
+   f39da:	c6 06 3b 63 07       	mov    BYTE PTR ds:0x633b,0x7
    f39df:	b8 fe ff             	mov    ax,0xfffe
 ; result = -2
    f39e2:	eb 00                	jmp    0xf39e4
@@ -31707,6 +31721,7 @@ int do_get_version(void):
 
    f39e8:	55                   	push   bp
    f39e9:	8b ec                	mov    bp,sp
+; g_coutargs = 0
    f39eb:	c6 06 3f 63 00       	mov    BYTE PTR ds:0x633f,0x0
    f39f0:	b8 fe ff             	mov    ax,0xfffe
    f39f3:	eb 00                	jmp    0xf39f5
@@ -31716,9 +31731,11 @@ int do_get_version(void):
 
    f39f7:	55                   	push   bp
    f39f8:	8b ec                	mov    bp,sp
+; g_coutargs = 1
    f39fa:	c6 06 3f 63 01       	mov    BYTE PTR ds:0x633f,0x1
    f39ff:	80 3e fe 2d 00       	cmp    BYTE PTR ds:0x2dfe,0x0
    f3a04:	75 07                	jne    0xf3a0d
+; g_outargs[0] = 0
    f3a06:	c6 06 3a 63 00       	mov    BYTE PTR ds:0x633a,0x0
    f3a0b:	eb 17                	jmp    0xf3a24
    f3a0d:	a1 ff 2d             	mov    ax,ds:0x2dff
@@ -31729,6 +31746,7 @@ int do_get_version(void):
    f3a1b:	33 c0                	xor    ax,ax
    f3a1d:	d0 e0                	shl    al,1
    f3a1f:	fe c0                	inc    al
+; g_outargs[0] = (g_2dff < g_2e06) ? 1 : 0) * 2 + 1
    f3a21:	a2 3a 63             	mov    ds:0x633a,al
    f3a24:	b8 fe ff             	mov    ax,0xfffe
    f3a27:	eb 00                	jmp    0xf3a29
@@ -31742,6 +31760,7 @@ int do_get_version(void):
    f3a31:	a0 4d 64             	mov    al,ds:0x644d
    f3a34:	24 01                	and    al,0x1
    f3a36:	88 46 ff             	mov    BYTE PTR [bp-0x1],al
+; g_coutargs = 1
    f3a39:	c6 06 3f 63 01       	mov    BYTE PTR ds:0x633f,0x1
    f3a3e:	8a 46 ff             	mov    al,BYTE PTR [bp-0x1]
    f3a41:	b4 00                	mov    ah,0x0
@@ -31751,6 +31770,7 @@ int do_get_version(void):
    f3a4a:	74 0a                	je     0xf3a56
    f3a4c:	eb 0d                	jmp    0xf3a5b
    f3a4e:	a0 d4 62             	mov    al,ds:0x62d4
+; g_outargs[0] = g_62d4
    f3a51:	a2 3a 63             	mov    ds:0x633a,al
    f3a54:	eb 05                	jmp    0xf3a5b
    f3a56:	a0 d5 62             	mov    al,ds:0x62d5
@@ -31764,7 +31784,9 @@ int do_get_version(void):
 
    f3a64:	55                   	push   bp
    f3a65:	8b ec                	mov    bp,sp
+; g_coutargs = 1
    f3a67:	c6 06 3f 63 01       	mov    BYTE PTR ds:0x633f,0x1
+; g_outargs[0] = 0
    f3a6c:	c6 06 3a 63 00       	mov    BYTE PTR ds:0x633a,0x0
    f3a71:	b8 fe ff             	mov    ax,0xfffe
    f3a74:	eb 00                	jmp    0xf3a76
@@ -32360,13 +32382,13 @@ int do_get_version(void):
    f4011:	50                   	push   ax
    f4012:	b8 4d 63             	mov    ax,0x634d ; g_inbuf
    f4015:	50                   	push   ax
-   f4016:	9a 82 10 00 e0       	call   0xe000:0x1082 ; n_strlen
+   f4016:	9a 82 10 00 e0       	call   0xe000:0x1082 ; near strlen
    f401b:	59                   	pop    cx
    f401c:	05 02 00             	add    ax,0x2
    f401f:	50                   	push   ax
    f4020:	b0 01                	mov    al,0x1
    f4022:	50                   	push   ax
-; (1, n_strlen(g_inbuf) + 2, )
+; (1, near strlen(g_inbuf) + 2, )
    f4023:	9a 8d 03 ac f5       	call   0xf5ac:0x38d
    f4028:	83 c4 06             	add    sp,0x6
    f402b:	5b                   	pop    bx
@@ -33353,7 +33375,7 @@ int do_get_version(void):
    f4a4e:	b4 00                	mov    ah,0x0
    f4a50:	8b d8                	mov    bx,ax
    f4a52:	80 bf 0e 65 ff       	cmp    BYTE PTR [bx+0x650e],0xff
-; if g_650e[g_cmdnum] == 0xff return -2
+; if g_cmd_lookup[g_cmdnum] == 0xff return -2
    f4a57:	75 03                	jne    0xf4a5c
    f4a59:	e9 29 01             	jmp    0xf4b85
    f4a5c:	a0 4b 63             	mov    al,ds:0x634b
@@ -33593,23 +33615,31 @@ int do_get_version(void):
 send_response:
    f4c96:	55                   	push   bp
    f4c97:	8b ec                	mov    bp,sp
+; char[80] buf
+; char[20] linebuf
+; char checksum
+; char[10] argbuf
    f4c99:	83 ec 74             	sub    sp,0x74
    f4c9c:	8d 46 dc             	lea    ax,[bp-0x24]
    f4c9f:	16                   	push   ss
    f4ca0:	50                   	push   ax
-   f4ca1:	b8 be 05             	mov    ax,0x5be
+   f4ca1:	b8 be 05             	mov    ax,0x5be ; "\0" * 20
    f4ca4:	1e                   	push   ds
    f4ca5:	50                   	push   ax
    f4ca6:	b9 14 00             	mov    cx,0x14
+; memcpy(&linebuf, _send_response_linebuf_init)
    f4ca9:	9a cd 00 00 e0       	call   0xe000:0xcd ; memcpy
    f4cae:	8d 46 f4             	lea    ax,[bp-0xc]
    f4cb1:	16                   	push   ss
    f4cb2:	50                   	push   ax
-   f4cb3:	b8 d2 05             	mov    ax,0x5d2
+   f4cb3:	b8 d2 05             	mov    ax,0x5d2 ; "\0" * 10
    f4cb6:	1e                   	push   ds
    f4cb7:	50                   	push   ax
    f4cb8:	b9 0a 00             	mov    cx,0xa
+; memcpy(&argbuf, _send_response_argbuf_init)
    f4cbb:	9a cd 00 00 e0       	call   0xe000:0xcd ; memcpy
+
+; checksum = 0
    f4cc0:	c6 46 f3 00          	mov    BYTE PTR [bp-0xd],0x0
    f4cc4:	80 3e 33 63 ff       	cmp    BYTE PTR ds:0x6333,0xff
    f4cc9:	75 05                	jne    0xf4cd0
@@ -33656,12 +33686,14 @@ send_response:
    f4d25:	5a                   	pop    dx
    f4d26:	02 d0                	add    dl,al
    f4d28:	52                   	push   dx
-; if g_coutargs == 0:
    f4d29:	80 3e 3f 63 00       	cmp    BYTE PTR ds:0x633f,0x0
+; if g_coutargs == 0:
    f4d2e:	76 05                	jbe    0xf4d35
    f4d30:	b8 01 00             	mov    ax,0x1
+; else:
    f4d33:	eb 02                	jmp    0xf4d37
    f4d35:	33 c0                	xor    ax,ax
+
    f4d37:	b1 07                	mov    cl,0x7
    f4d39:	d2 e0                	shl    al,cl
    f4d3b:	5a                   	pop    dx
@@ -33715,16 +33747,15 @@ send_response:
    f4dab:	8b 56 f0             	mov    dx,WORD PTR [bp-0x10]
    f4dae:	42                   	inc    dx
    f4daf:	3b c2                	cmp    ax,dx
-; if i == g_coutargs:
    f4db1:	75 0f                	jne    0xf4dc2
+
    f4db3:	8b 5e f0             	mov    bx,WORD PTR [bp-0x10]
    f4db6:	8a 87 3a 63          	mov    al,BYTE PTR [bx+0x633a]
    f4dba:	b4 00                	mov    ah,0x0
    f4dbc:	50                   	push   ax
-   f4dbd:	b8 dc 05             	mov    ax,0x5dc
-; 
+   f4dbd:	b8 dc 05             	mov    ax,0x5dc ; "%02X"
    f4dc0:	eb 0d                	jmp    0xf4dcf
-; else:
+
    f4dc2:	8b 5e f0             	mov    bx,WORD PTR [bp-0x10]
    f4dc5:	8a 87 3a 63          	mov    al,BYTE PTR [bx+0x633a]
    f4dc9:	b4 00                	mov    ah,0x0
@@ -33734,12 +33765,14 @@ send_response:
    f4dcf:	50                   	push   ax
    f4dd0:	8d 46 f4             	lea    ax,[bp-0xc]
    f4dd3:	50                   	push   ax
-   f4dd4:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; f_sprintf
+;   sprintf(&argbuf, i + 1 == g_coutargs ? "%02X" : "%02X", g_outargs[i])
+   f4dd4:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; sprintf
    f4dd9:	83 c4 06             	add    sp,0x6
    f4ddc:	8d 46 f4             	lea    ax,[bp-0xc]
    f4ddf:	50                   	push   ax
    f4de0:	8d 46 dc             	lea    ax,[bp-0x24]
    f4de3:	50                   	push   ax
+;    strcat(&linebuf, &argbuf)
    f4de4:	9a f8 0f 00 e0       	call   0xe000:0xff8 ; strcat
    f4de9:	59                   	pop    cx
    f4dea:	59                   	pop    cx
@@ -33765,22 +33798,29 @@ send_response:
    f4e11:	50                   	push   ax
    f4e12:	8d 46 8c             	lea    ax,[bp-0x74]
    f4e15:	50                   	push   ax
-   f4e16:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; f_sprintf
+; fsprintf(&buf, ">%02X#%02X#%02X#%s#", g_6332, u1, g_6339, &linebuf)
+   f4e16:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; sprintf
    f4e1b:	83 c4 0c             	add    sp,0xc
+
+; for i = 0; i < strlen(&buf); i++):
    f4e1e:	c7 46 f0 00 00       	mov    WORD PTR [bp-0x10],0x0
    f4e23:	eb 10                	jmp    0xf4e35
+
    f4e25:	8d 46 8c             	lea    ax,[bp-0x74]
    f4e28:	8b 5e f0             	mov    bx,WORD PTR [bp-0x10]
    f4e2b:	03 d8                	add    bx,ax
    f4e2d:	8a 07                	mov    al,BYTE PTR [bx]
+;   checksum ^ = buf[i]
    f4e2f:	30 46 f3             	xor    BYTE PTR [bp-0xd],al
    f4e32:	ff 46 f0             	inc    WORD PTR [bp-0x10]
+
    f4e35:	8d 46 8c             	lea    ax,[bp-0x74]
    f4e38:	50                   	push   ax
-   f4e39:	9a 82 10 00 e0       	call   0xe000:0x1082 ; n_strlen
+   f4e39:	9a 82 10 00 e0       	call   0xe000:0x1082 ; near strlen
    f4e3e:	59                   	pop    cx
    f4e3f:	3b 46 f0             	cmp    ax,WORD PTR [bp-0x10]
    f4e42:	77 e1                	ja     0xf4e25
+
    f4e44:	8a 46 f3             	mov    al,BYTE PTR [bp-0xd]
    f4e47:	b4 00                	mov    ah,0x0
    f4e49:	50                   	push   ax
@@ -33790,7 +33830,8 @@ send_response:
    f4e51:	50                   	push   ax
    f4e52:	a0 40 63             	mov    al,ds:0x6340
    f4e55:	50                   	push   ax
-   f4e56:	9a 25 03 84 f6       	call   0xf684:0x325 ; something_printf
+; serial_printf(g_serial, "%s%02X<", &buf, checksum)
+   f4e56:	9a 25 03 84 f6       	call   0xf684:0x325 ; serial_printf
    f4e5b:	83 c4 08             	add    sp,0x8
    f4e5e:	8b e5                	mov    sp,bp
    f4e60:	5d                   	pop    bp
@@ -34244,7 +34285,7 @@ process_cmd:
    f53dd:	9a 68 00 09 f2       	call   0xf209:0x68
    f53e2:	59                   	pop    cx
    f53e3:	0e                   	push   cs
-   f53e4:	e8 7b fa             	call   0xf4e62 ; do_cmd
+   f53e4:	e8 7b fa             	call   0xf4e62 ; far do_cmd
    f53e7:	8a 46 fe             	mov    al,BYTE PTR [bp-0x2]
    f53ea:	a2 37 63             	mov    ds:0x6337,al
    f53ed:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
@@ -34254,6 +34295,8 @@ process_cmd:
    f53fd:	75 04                	jne    0xf5403
    f53ff:	fe 06 39 63          	inc    BYTE PTR ds:0x6339
    f5403:	80 3e 49 63 01       	cmp    BYTE PTR ds:0x6349,0x1
+
+; if g_6349 == 0:
    f5408:	75 21                	jne    0xf542b
    f540a:	a0 48 63             	mov    al,ds:0x6348
    f540d:	b4 00                	mov    ah,0x0
@@ -34266,9 +34309,12 @@ process_cmd:
    f541e:	e8 75 f8             	call   0xf4c96 ; send_response
    f5421:	c6 06 39 63 00       	mov    BYTE PTR ds:0x6339,0x0
    f5426:	c6 06 c8 62 00       	mov    BYTE PTR ds:0x62c8,0x0
+
    f542b:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
+; if g_2813 == 0:
    f5430:	75 05                	jne    0xf5437
    f5432:	9a 1a 00 96 f8       	call   0xf896:0x1a
+
    f5437:	80 3e bb 62 00       	cmp    BYTE PTR ds:0x62bb,0x0
    f543c:	74 03                	je     0xf5441
    f543e:	fa                   	cli    
@@ -34312,6 +34358,7 @@ process_summat:
    f5493:	83 c3 02             	add    bx,0x2
    f5496:	e2 f3                	loop   0xf548b
    f5498:	e9 7c 01             	jmp    0xf5617
+; switch(g_1456):
    f549b:	2e ff 67 08          	jmp    WORD PTR cs:[bx+0x8]
    f549f:	8a 46 ff             	mov    al,BYTE PTR [bp-0x1]
    f54a2:	b4 00                	mov    ah,0x0
@@ -34438,7 +34485,7 @@ process_summat:
    f562a:	3d fe ff             	cmp    ax,0xfffe
    f562d:	75 04                	jne    0xf5633
    f562f:	0e                   	push   cs
-   f5630:	e8 2f f8             	call   0xf4e62 ; do_cmd
+   f5630:	e8 2f f8             	call   0xf4e62 ; far do_cmd
    f5633:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    f5638:	75 05                	jne    0xf563f
    f563a:	9a 1a 00 96 f8       	call   0xf896:0x1a
@@ -34470,6 +34517,7 @@ process_summat:
    f566b:	b0 01                	mov    al,0x1
    f566d:	eb 02                	jmp    0xf5671
    f566f:	b0 00                	mov    al,0x0
+; g_serial = 0
    f5671:	a2 40 63             	mov    ds:0x6340,al
    f5674:	b0 05                	mov    al,0x5
    f5676:	50                   	push   ax
@@ -36483,11 +36531,15 @@ int _cdecl free_font(void * ptr):
    f6b3c:	cb                   	retf   
 
 
+char serial_putchar(short serial, char c):
    f6b3d:	55                   	push   bp
    f6b3e:	8b ec                	mov    bp,sp
+; char[2] buf
    f6b40:	83 ec 04             	sub    sp,0x4
    f6b43:	8a 46 08             	mov    al,BYTE PTR [bp+0x8]
+; buf[0] = c
    f6b46:	88 46 fc             	mov    BYTE PTR [bp-0x4],al
+; buf[1] = 0
    f6b49:	c6 46 fd 00          	mov    BYTE PTR [bp-0x3],0x0
    f6b4d:	8d 46 fc             	lea    ax,[bp-0x4]
    f6b50:	50                   	push   ax
@@ -36495,7 +36547,8 @@ int _cdecl free_font(void * ptr):
    f6b54:	50                   	push   ax
    f6b55:	90                   	nop
    f6b56:	0e                   	push   cs
-   f6b57:	e8 44 00             	call   0xf6b9e
+; serial_send(serial, &buf)
+   f6b57:	e8 44 00             	call   0xf6b9e ; serial_send
    f6b5a:	59                   	pop    cx
    f6b5b:	59                   	pop    cx
    f6b5c:	8b 46 08             	mov    ax,WORD PTR [bp+0x8]
@@ -36505,17 +36558,21 @@ int _cdecl free_font(void * ptr):
    f6b64:	cb                   	retf   
 
 
-something_printf:
+serial_printf(short serial, near char *format, void *args):
    f6b65:	55                   	push   bp
    f6b66:	8b ec                	mov    bp,sp
+; void *l_args
+; int cb
    f6b68:	83 ec 04             	sub    sp,0x4
    f6b6b:	8d 46 0a             	lea    ax,[bp+0xa]
+; l_args = &args
    f6b6e:	89 46 fc             	mov    WORD PTR [bp-0x4],ax
    f6b71:	ff 76 fc             	push   WORD PTR [bp-0x4]
    f6b74:	ff 76 08             	push   WORD PTR [bp+0x8]
    f6b77:	b8 ae 69             	mov    ax,0x69ae
    f6b7a:	50                   	push   ax
-   f6b7b:	9a 76 0f 00 e0       	call   0xe000:0xf76 ; fi_sprintf
+; cb = sprintf(g_serialbuf, format, l_args)
+   f6b7b:	9a 76 0f 00 e0       	call   0xe000:0xf76 ; indirect sprintf
    f6b80:	83 c4 06             	add    sp,0x6
    f6b83:	89 46 fe             	mov    WORD PTR [bp-0x2],ax
    f6b86:	b8 ae 69             	mov    ax,0x69ae
@@ -36524,9 +36581,11 @@ something_printf:
    f6b8d:	50                   	push   ax
    f6b8e:	90                   	nop
    f6b8f:	0e                   	push   cs
-   f6b90:	e8 0b 00             	call   0xf6b9e
+; serial_send(serial, g_serialbuf)
+   f6b90:	e8 0b 00             	call   0xf6b9e ; serial_send
    f6b93:	59                   	pop    cx
    f6b94:	59                   	pop    cx
+; return cb
    f6b95:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
    f6b98:	eb 00                	jmp    0xf6b9a
    f6b9a:	8b e5                	mov    sp,bp
@@ -36534,6 +36593,7 @@ something_printf:
    f6b9d:	cb                   	retf   
 
 
+void far serial_send(short serial, near char *buf):
    f6b9e:	55                   	push   bp
    f6b9f:	8b ec                	mov    bp,sp
    f6ba1:	83 ec 06             	sub    sp,0x6
@@ -36541,9 +36601,13 @@ something_printf:
    f6ba5:	c7 46 fe 00 00       	mov    WORD PTR [bp-0x2],0x0
    f6baa:	80 7e 06 00          	cmp    BYTE PTR [bp+0x6],0x0
    f6bae:	75 07                	jne    0xf6bb7
+; if serial == 0:
    f6bb0:	c7 46 fa 3f 68       	mov    WORD PTR [bp-0x6],0x683f
    f6bb5:	eb 05                	jmp    0xf6bbc
+; else:
    f6bb7:	c7 46 fa 26 68       	mov    WORD PTR [bp-0x6],0x6826
+
+; for:
    f6bbc:	8b 5e fa             	mov    bx,WORD PTR [bp-0x6]
    f6bbf:	80 7f 0a 01          	cmp    BYTE PTR [bx+0xa],0x1
    f6bc3:	74 03                	je     0xf6bc8
@@ -36557,6 +36621,7 @@ something_printf:
    f6bd9:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    f6bde:	75 05                	jne    0xf6be5
    f6be0:	9a 1a 00 96 f8       	call   0xf896:0x1a
+
    f6be5:	8b 5e fa             	mov    bx,WORD PTR [bp-0x6]
    f6be8:	8b 47 12             	mov    ax,WORD PTR [bx+0x12]
    f6beb:	40                   	inc    ax
@@ -36567,6 +36632,7 @@ something_printf:
    f6bf7:	c7 46 fc 00 00       	mov    WORD PTR [bp-0x4],0x0
    f6bfc:	eb 05                	jmp    0xf6c03
    f6bfe:	9a e4 02 47 f6       	call   0xf647:0x2e4
+
    f6c03:	8b 5e fa             	mov    bx,WORD PTR [bp-0x6]
    f6c06:	8b 47 14             	mov    ax,WORD PTR [bx+0x14]
    f6c09:	3b 46 fc             	cmp    ax,WORD PTR [bp-0x4]
@@ -36590,6 +36656,8 @@ something_printf:
    f6c38:	03 5e fe             	add    bx,WORD PTR [bp-0x2]
    f6c3b:	80 3f 00             	cmp    BYTE PTR [bx],0x0
    f6c3e:	75 8a                	jne    0xf6bca
+
+
    f6c40:	8b 5e fa             	mov    bx,WORD PTR [bp-0x6]
    f6c43:	80 7f 11 01          	cmp    BYTE PTR [bx+0x11],0x1
    f6c47:	74 03                	je     0xf6c4c
@@ -36605,6 +36673,7 @@ something_printf:
    f6c63:	80 3e f3 27 01       	cmp    BYTE PTR ds:0x27f3,0x1
    f6c68:	75 05                	jne    0xf6c6f
    f6c6a:	9a 94 00 1b e1       	call   0xe11b:0x94
+
    f6c6f:	8b 5e fa             	mov    bx,WORD PTR [bp-0x6]
    f6c72:	c6 47 11 00          	mov    BYTE PTR [bx+0x11],0x0
    f6c76:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994
@@ -36630,6 +36699,7 @@ something_printf:
    f6cb1:	80 3e f4 27 01       	cmp    BYTE PTR ds:0x27f4,0x1
    f6cb6:	75 05                	jne    0xf6cbd
    f6cb8:	9a b5 00 1b e1       	call   0xe11b:0xb5
+
    f6cbd:	8b 5e fa             	mov    bx,WORD PTR [bp-0x6]
    f6cc0:	c6 47 11 00          	mov    BYTE PTR [bx+0x11],0x0
    f6cc4:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990
@@ -36655,6 +36725,7 @@ something_printf:
    f6d01:	80 3e f3 27 01       	cmp    BYTE PTR ds:0x27f3,0x1
    f6d06:	75 05                	jne    0xf6d0d
    f6d08:	9a 94 00 1b e1       	call   0xe11b:0x94
+
    f6d0d:	eb 48                	jmp    0xf6d57
    f6d0f:	8b 1e 0d 28          	mov    bx,WORD PTR ds:0x280d
    f6d13:	b1 04                	mov    cl,0x4
@@ -36664,6 +36735,7 @@ something_printf:
    f6d1e:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    f6d23:	75 05                	jne    0xf6d2a
    f6d25:	9a 1a 00 96 f8       	call   0xf896:0x1a
+
    f6d2a:	eb 00                	jmp    0xf6d2c
    f6d2c:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994
    f6d30:	26 8a 47 0e          	mov    al,BYTE PTR es:[bx+0xe]
@@ -36695,11 +36767,14 @@ something_printf:
    f6d7d:	0e                   	push   cs
    f6d7e:	e8 c2 fa             	call   0xf6843
    f6d81:	59                   	pop    cx
+
    f6d82:	9a ca 00 1b e1       	call   0xe11b:0xca
+
    f6d87:	eb 75                	jmp    0xf6dfe
    f6d89:	80 3e f4 27 01       	cmp    BYTE PTR ds:0x27f4,0x1
    f6d8e:	75 05                	jne    0xf6d95
    f6d90:	9a b5 00 1b e1       	call   0xe11b:0xb5
+
    f6d95:	eb 48                	jmp    0xf6ddf
    f6d97:	8b 1e 0d 28          	mov    bx,WORD PTR ds:0x280d
    f6d9b:	b1 04                	mov    cl,0x4
@@ -36709,6 +36784,7 @@ something_printf:
    f6da6:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    f6dab:	75 05                	jne    0xf6db2
    f6dad:	9a 1a 00 96 f8       	call   0xf896:0x1a
+
    f6db2:	eb 00                	jmp    0xf6db4
    f6db4:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990
    f6db8:	26 8a 47 0e          	mov    al,BYTE PTR es:[bx+0xe]
@@ -36734,10 +36810,13 @@ something_printf:
    f6df4:	0e                   	push   cs
    f6df5:	e8 4b fa             	call   0xf6843
    f6df8:	59                   	pop    cx
+
    f6df9:	9a eb 00 1b e1       	call   0xe11b:0xeb
+
    f6dfe:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    f6e03:	75 05                	jne    0xf6e0a
    f6e05:	9a 1a 00 96 f8       	call   0xf896:0x1a
+
    f6e0a:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
    f6e0d:	eb 00                	jmp    0xf6e0f
    f6e0f:	5e                   	pop    si
@@ -37035,6 +37114,7 @@ something_printf:
    f7151:	cb                   	retf   
 
 
+serial_putsomething(serial, ?)
    f7152:	55                   	push   bp
    f7153:	8b ec                	mov    bp,sp
    f7155:	83 ec 08             	sub    sp,0x8
@@ -37054,6 +37134,7 @@ something_printf:
    f7182:	50                   	push   ax
    f7183:	9a b5 02 ed f7       	call   0xf7ed:0x2b5
    f7188:	83 c4 06             	add    sp,0x6
+
    f718b:	eb 1a                	jmp    0xf71a7
    f718d:	b0 0f                	mov    al,0xf
    f718f:	50                   	push   ax
@@ -37064,6 +37145,7 @@ something_printf:
    f719b:	c7 46 fa 00 fe       	mov    WORD PTR [bp-0x6],0xfe00
    f71a0:	eb 13                	jmp    0xf71b5
    f71a2:	9a e4 02 47 f6       	call   0xf647:0x2e4
+
    f71a7:	8b 5e f8             	mov    bx,WORD PTR [bp-0x8]
    f71aa:	8b 47 06             	mov    ax,WORD PTR [bx+0x6]
    f71ad:	8b 5e f8             	mov    bx,WORD PTR [bp-0x8]
@@ -37085,6 +37167,7 @@ something_printf:
    f71db:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    f71de:	50                   	push   ax
    f71df:	0e                   	push   cs
+; serial_putchar(serial, u1)
    f71e0:	e8 5a f9             	call   0xf6b3d
    f71e3:	59                   	pop    cx
    f71e4:	59                   	pop    cx
@@ -37113,6 +37196,7 @@ something_printf:
    f7225:	81 7e fa 00 fe       	cmp    WORD PTR [bp-0x6],0xfe00
    f722a:	74 03                	je     0xf722f
    f722c:	e9 5c ff             	jmp    0xf718b
+
    f722f:	c4 5e 08             	les    bx,DWORD PTR [bp+0x8]
    f7232:	03 5e fc             	add    bx,WORD PTR [bp-0x4]
    f7235:	26 c6 07 00          	mov    BYTE PTR es:[bx],0x0
@@ -37139,7 +37223,7 @@ something_printf:
    f7261:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    f7264:	50                   	push   ax
    f7265:	0e                   	push   cs
-   f7266:	e8 e9 fe             	call   0xf7152
+   f7266:	e8 e9 fe             	call   0xf7152 ; serial_putsomething
    f7269:	83 c4 0e             	add    sp,0xe
    f726c:	eb 00                	jmp    0xf726e
    f726e:	5d                   	pop    bp
@@ -37158,7 +37242,7 @@ something_printf:
    f7285:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    f7288:	50                   	push   ax
    f7289:	0e                   	push   cs
-   f728a:	e8 c5 fe             	call   0xf7152
+   f728a:	e8 c5 fe             	call   0xf7152 ; serial_putsomething
    f728d:	83 c4 0e             	add    sp,0xe
    f7290:	eb 00                	jmp    0xf7292
    f7292:	5d                   	pop    bp
@@ -40393,7 +40477,7 @@ read_something2:
    f91b3:	b8 ac 29             	mov    ax,0x29ac ; "%2d:%02d.%02d"
    f91b6:	50                   	push   ax
    f91b7:	ff 76 0a             	push   WORD PTR [bp+0xa]
-   f91ba:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; f_sprintf
+   f91ba:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; sprintf
    f91bf:	83 c4 0a             	add    sp,0xa
    f91c2:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    f91c7:	75 05                	jne    0xf91ce
@@ -40441,7 +40525,7 @@ strfdate:
    f9229:	b8 ba 29             	mov    ax,0x29ba ; "%d\%d\%02d"
    f922c:	50                   	push   ax
    f922d:	ff 76 0c             	push   WORD PTR [bp+0xc]
-   f9230:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; f_sprintf
+   f9230:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; sprintf
    f9235:	83 c4 0a             	add    sp,0xa
    f9238:	e9 90 00             	jmp    0xf92cb
    f923b:	ff 76 fc             	push   WORD PTR [bp-0x4]
@@ -40503,7 +40587,7 @@ strfdate:
    ; i.e. "Sat 01st Jan 2011"
    f92bd:	50                   	push   ax
    f92be:	ff 76 0c             	push   WORD PTR [bp+0xc]
-   f92c1:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; f_sprintf
+   f92c1:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; sprintf
    f92c6:	83 c4 0e             	add    sp,0xe
    f92c9:	eb 00                	jmp    0xf92cb
    f92cb:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
@@ -41783,7 +41867,7 @@ reset_proc3:
    fc70b:	b8 9e 1f             	mov    ax,0x1f9e
    fc70e:	50                   	push   ax
    fc70f:	ff 76 0a             	push   WORD PTR [bp+0xa]
-   fc712:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; f_sprintf
+   fc712:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; sprintf
    fc717:	83 c4 0a             	add    sp,0xa
    fc71a:	83 3e 05 1e 00       	cmp    WORD PTR ds:0x1e05,0x0
    fc71f:	75 05                	jne    0xfc726
@@ -41830,7 +41914,7 @@ reset_proc3:
    fc781:	b8 ac 1f             	mov    ax,0x1fac
    fc784:	50                   	push   ax
    fc785:	ff 76 0c             	push   WORD PTR [bp+0xc]
-   fc788:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; f_sprintf
+   fc788:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; sprintf
    fc78d:	83 c4 0a             	add    sp,0xa
    fc790:	e9 90 00             	jmp    0xfc823
    fc793:	ff 76 fc             	push   WORD PTR [bp-0x4]
@@ -41891,7 +41975,7 @@ reset_proc3:
    fc812:	b8 d0 1f             	mov    ax,0x1fd0
    fc815:	50                   	push   ax
    fc816:	ff 76 0c             	push   WORD PTR [bp+0xc]
-   fc819:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; f_sprintf
+   fc819:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; sprintf
    fc81e:	83 c4 0e             	add    sp,0xe
    fc821:	eb 00                	jmp    0xfc823
    fc823:	83 3e 05 1e 00       	cmp    WORD PTR ds:0x1e05,0x0
