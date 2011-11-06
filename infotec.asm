@@ -2653,7 +2653,7 @@ output_something:
    e15ed:	26 c6 87 9e 00 07    	mov    BYTE PTR es:[bx+0x9e],0x7
    e15f3:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    e15f8:	75 05                	jne    0xe15ff
-   e15fa:	9a 1a 00 96 f8       	call   0xf896:0x1a
+   e15fa:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
    e15ff:	8a 46 ff             	mov    al,BYTE PTR [bp-0x1]
    e1602:	eb 00                	jmp    0xe1604
    e1604:	8b e5                	mov    sp,bp
@@ -2939,7 +2939,7 @@ output_something2:
    e18e5:	26 c6 87 9e 00 07    	mov    BYTE PTR es:[bx+0x9e],0x7
    e18eb:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    e18f0:	75 05                	jne    0xe18f7
-   e18f2:	9a 1a 00 96 f8       	call   0xf896:0x1a
+   e18f2:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
    e18f7:	5d                   	pop    bp
    e18f8:	cb                   	retf   
 
@@ -3073,7 +3073,7 @@ output_something3:
    e1a4e:	26 c6 87 9e 00 07    	mov    BYTE PTR es:[bx+0x9e],0x7
    e1a54:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    e1a59:	75 05                	jne    0xe1a60
-   e1a5b:	9a 1a 00 96 f8       	call   0xf896:0x1a
+   e1a5b:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
    e1a60:	8a 46 ff             	mov    al,BYTE PTR [bp-0x1]
    e1a63:	eb 00                	jmp    0xe1a65
    e1a65:	8b e5                	mov    sp,bp
@@ -3984,7 +3984,7 @@ output_something4:
    e2353:	72 c8                	jb     0xe231d
    e2355:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    e235a:	75 05                	jne    0xe2361
-   e235c:	9a 1a 00 96 f8       	call   0xf896:0x1a
+   e235c:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
    e2361:	c6 46 ff 00          	mov    BYTE PTR [bp-0x1],0x0
    e2365:	eb 73                	jmp    0xe23da
    e2367:	8a 46 ff             	mov    al,BYTE PTR [bp-0x1]
@@ -4088,7 +4088,7 @@ output_something4:
    e2434:	72 c4                	jb     0xe23fa
    e2436:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    e243b:	75 05                	jne    0xe2442
-   e243d:	9a 1a 00 96 f8       	call   0xf896:0x1a
+   e243d:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
    e2442:	a0 d0 62             	mov    al,ds:0x62d0
    e2445:	b4 00                	mov    ah,0x0
    e2447:	eb 00                	jmp    0xe2449
@@ -4614,7 +4614,7 @@ output_something6:
    e2983:	26 c6 87 9e 00 07    	mov    BYTE PTR es:[bx+0x9e],0x7
    e2989:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    e298e:	75 05                	jne    0xe2995
-   e2990:	9a 1a 00 96 f8       	call   0xf896:0x1a
+   e2990:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
    e2995:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
    e2998:	eb 00                	jmp    0xe299a
    e299a:	8b e5                	mov    sp,bp
@@ -4936,7 +4936,7 @@ output_something7:
    e2ccb:	26 c6 87 9e 00 07    	mov    BYTE PTR es:[bx+0x9e],0x7
    e2cd1:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    e2cd6:	75 05                	jne    0xe2cdd
-   e2cd8:	9a 1a 00 96 f8       	call   0xf896:0x1a
+   e2cd8:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
    e2cdd:	5d                   	pop    bp
    e2cde:	cb                   	retf   
 
@@ -5274,7 +5274,7 @@ output_something9:
    e3040:	26 80 a7 9e 00 7f    	and    BYTE PTR es:[bx+0x9e],0x7f
    e3046:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    e304b:	75 05                	jne    0xe3052
-   e304d:	9a 1a 00 96 f8       	call   0xf896:0x1a
+   e304d:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
    e3052:	83 46 fe 02          	add    WORD PTR [bp-0x2],0x2
    e3056:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
    e3059:	3b 46 fc             	cmp    ax,WORD PTR [bp-0x4]
@@ -5282,7 +5282,7 @@ output_something9:
    e305e:	e9 c8 fe             	jmp    0xe2f29
    e3061:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    e3066:	75 05                	jne    0xe306d
-   e3068:	9a 1a 00 96 f8       	call   0xf896:0x1a
+   e3068:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
    e306d:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
    e3071:	26 c6 87 9e 00 07    	mov    BYTE PTR es:[bx+0x9e],0x7
    e3077:	8b e5                	mov    sp,bp
@@ -6074,7 +6074,7 @@ output_something11:
    e3812:	26 88 47 01          	mov    BYTE PTR es:[bx+0x1],al
    e3816:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    e381b:	75 05                	jne    0xe3822
-   e381d:	9a 1a 00 96 f8       	call   0xf896:0x1a
+   e381d:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
    e3822:	fe 46 fc             	inc    BYTE PTR [bp-0x4]
    e3825:	80 7e ff 01          	cmp    BYTE PTR [bp-0x1],0x1
    e3829:	75 09                	jne    0xe3834
@@ -6373,7 +6373,7 @@ output_something11:
    e3bc3:	26 08 07             	or     BYTE PTR es:[bx],al
    e3bc6:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    e3bcb:	75 05                	jne    0xe3bd2
-   e3bcd:	9a 1a 00 96 f8       	call   0xf896:0x1a
+   e3bcd:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
    e3bd2:	80 7e fd 00          	cmp    BYTE PTR [bp-0x3],0x0
    e3bd6:	75 07                	jne    0xe3bdf
    e3bd8:	8a 46 fe             	mov    al,BYTE PTR [bp-0x2]
@@ -6491,7 +6491,7 @@ output_something11:
    e3d29:	26 08 07             	or     BYTE PTR es:[bx],al
    e3d2c:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    e3d31:	75 05                	jne    0xe3d38
-   e3d33:	9a 1a 00 96 f8       	call   0xf896:0x1a
+   e3d33:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
    e3d38:	80 7e fd 00          	cmp    BYTE PTR [bp-0x3],0x0
    e3d3c:	75 07                	jne    0xe3d45
    e3d3e:	8a 46 fe             	mov    al,BYTE PTR [bp-0x2]
@@ -10966,7 +10966,7 @@ init_something3:
    e6b29:	ec                   	in     al,dx
    e6b2a:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    e6b2f:	75 05                	jne    0xe6b36
-   e6b31:	9a 1a 00 96 f8       	call   0xf896:0x1a
+   e6b31:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
    e6b36:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    e6b39:	b4 00                	mov    ah,0x0
    e6b3b:	b1 03                	mov    cl,0x3
@@ -16524,7 +16524,7 @@ init_something3:
    ea38a:	9a cd 00 00 e0       	call   0xe000:0xcd ; memcpy
    ea38f:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    ea394:	75 05                	jne    0xea39b
-   ea396:	9a 1a 00 96 f8       	call   0xf896:0x1a
+   ea396:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
    ea39b:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    ea39e:	b4 00                	mov    ah,0x0
    ea3a0:	b1 03                	mov    cl,0x3
@@ -22169,7 +22169,7 @@ something_font4:
    edbe5:	7d b6                	jge    0xedb9d
    edbe7:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    edbec:	75 05                	jne    0xedbf3
-   edbee:	9a 1a 00 96 f8       	call   0xf896:0x1a
+   edbee:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
    edbf3:	c4 5e f8             	les    bx,DWORD PTR [bp-0x8]
    edbf6:	26 8a 07             	mov    al,BYTE PTR es:[bx]
    edbf9:	eb 00                	jmp    0xedbfb
@@ -24134,7 +24134,7 @@ unload_font:
    eef55:	77 bb                	ja     0xeef12
    eef57:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    eef5c:	75 05                	jne    0xeef63
-   eef5e:	9a 1a 00 96 f8       	call   0xf896:0x1a
+   eef5e:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
    eef63:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    eef66:	b4 00                	mov    ah,0x0
    eef68:	ba 0a 00             	mov    dx,0xa
@@ -24650,7 +24650,7 @@ unload_font:
    ef4bb:	83 af b1 42 02       	sub    WORD PTR [bx+0x42b1],0x2
    ef4c0:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    ef4c5:	75 05                	jne    0xef4cc
-   ef4c7:	9a 1a 00 96 f8       	call   0xf896:0x1a
+   ef4c7:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
    ef4cc:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    ef4cf:	b4 00                	mov    ah,0x0
    ef4d1:	ba 0a 00             	mov    dx,0xa
@@ -25042,7 +25042,7 @@ unload_font:
    ef8f4:	83 46 fe 03          	add    WORD PTR [bp-0x2],0x3
    ef8f8:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    ef8fd:	75 05                	jne    0xef904
-   ef8ff:	9a 1a 00 96 f8       	call   0xf896:0x1a
+   ef8ff:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
    ef904:	5e                   	pop    si
    ef905:	8b e5                	mov    sp,bp
    ef907:	5d                   	pop    bp
@@ -26060,7 +26060,7 @@ interesting:
    f035f:	59                   	pop    cx
    f0360:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    f0365:	75 05                	jne    0xf036c
-   f0367:	9a 1a 00 96 f8       	call   0xf896:0x1a
+   f0367:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
    f036c:	33 c0                	xor    ax,ax
    f036e:	50                   	push   ax
    f036f:	b0 00                	mov    al,0x0
@@ -26079,7 +26079,7 @@ interesting:
    f0388:	83 c4 0e             	add    sp,0xe
    f038b:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    f0390:	75 05                	jne    0xf0397
-   f0392:	9a 1a 00 96 f8       	call   0xf896:0x1a
+   f0392:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
    f0397:	eb 05                	jmp    0xf039e
    f0399:	c7 46 ec ff ff       	mov    WORD PTR [bp-0x14],0xffff
    f039e:	8a 46 ee             	mov    al,BYTE PTR [bp-0x12]
@@ -26281,12 +26281,13 @@ interesting:
    f0582:	cb                   	retf   
 
 
+font_task_0:
    f0583:	55                   	push   bp
    f0584:	8b ec                	mov    bp,sp
    f0586:	83 ec 02             	sub    sp,0x2
    f0589:	c6 46 ff 00          	mov    BYTE PTR [bp-0x1],0x0
    f058d:	c6 46 fe 00          	mov    BYTE PTR [bp-0x2],0x0
-   f0591:	9a 1a 00 96 f8       	call   0xf896:0x1a
+   f0591:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
    f0596:	c7 06 13 28 00 00    	mov    WORD PTR ds:0x2813,0x0
    f059c:	b0 01                	mov    al,0x1
    f059e:	50                   	push   ax
@@ -26399,7 +26400,7 @@ interesting:
    f06c2:	e8 83 fe             	call   0xf0548
    f06c5:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    f06ca:	75 05                	jne    0xf06d1
-   f06cc:	9a 1a 00 96 f8       	call   0xf896:0x1a
+   f06cc:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
    f06d1:	e9 dd fe             	jmp    0xf05b1
    f06d4:	8b e5                	mov    sp,bp
    f06d6:	5d                   	pop    bp
@@ -26779,7 +26780,8 @@ init_something5:
    f0aeb:	50                   	push   ax
    f0aec:	b0 00                	mov    al,0x0
    f0aee:	50                   	push   ax
-   f0aef:	9a b8 00 b2 f7       	call   0xf7b2:0xb8
+; add_task(0, 0, 1, &font_task_0)
+   f0aef:	9a b8 00 b2 f7       	call   0xf7b2:0xb8 ; add_task
    f0af4:	83 c4 0a             	add    sp,0xa
    f0af7:	b8 76 f5             	mov    ax,0xf576
    f0afa:	50                   	push   ax
@@ -26791,7 +26793,8 @@ init_something5:
    f0b04:	50                   	push   ax
    f0b05:	b0 01                	mov    al,0x1
    f0b07:	50                   	push   ax
-   f0b08:	9a b8 00 b2 f7       	call   0xf7b2:0xb8
+; add_task(1, 0, 1, &font_task_1)
+   f0b08:	9a b8 00 b2 f7       	call   0xf7b2:0xb8 ; add_task
    f0b0d:	83 c4 0a             	add    sp,0xa
    f0b10:	9a e4 02 47 f6       	call   0xf647:0x2e4
    f0b15:	9a 16 00 76 f5       	call   0xf576:0x16 ; load_builtin_fonts
@@ -33798,11 +33801,11 @@ send_response:
    f4e11:	50                   	push   ax
    f4e12:	8d 46 8c             	lea    ax,[bp-0x74]
    f4e15:	50                   	push   ax
-; fsprintf(&buf, ">%02X#%02X#%02X#%s#", g_6332, u1, g_6339, &linebuf)
+; sprintf(&buf, ">%02X#%02X#%02X#%s#", g_6332, u1, g_6339, &linebuf)
    f4e16:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; sprintf
    f4e1b:	83 c4 0c             	add    sp,0xc
 
-; for i = 0; i < strlen(&buf); i++):
+; for i = 0; i < strlen(&buf); i++:
    f4e1e:	c7 46 f0 00 00       	mov    WORD PTR [bp-0x10],0x0
    f4e23:	eb 10                	jmp    0xf4e35
 
@@ -34238,7 +34241,7 @@ process_cmd:
    f534a:	e9 ea 00             	jmp    0xf5437
    f534d:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    f5352:	75 05                	jne    0xf5359
-   f5354:	9a 1a 00 96 f8       	call   0xf896:0x1a
+   f5354:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
    f5359:	c6 06 49 63 00       	mov    BYTE PTR ds:0x6349,0x0
    f535e:	0e                   	push   cs
    f535f:	e8 96 f1             	call   0xf44f8
@@ -34247,21 +34250,21 @@ process_cmd:
    f5367:	e9 8f 00             	jmp    0xf53f9
    f536a:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    f536f:	75 05                	jne    0xf5376
-   f5371:	9a 1a 00 96 f8       	call   0xf896:0x1a
+   f5371:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
    f5376:	0e                   	push   cs
    f5377:	e8 77 f2             	call   0xf45f1
    f537a:	3d fe ff             	cmp    ax,0xfffe
    f537d:	75 7a                	jne    0xf53f9
    f537f:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    f5384:	75 05                	jne    0xf538b
-   f5386:	9a 1a 00 96 f8       	call   0xf896:0x1a
+   f5386:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
    f538b:	0e                   	push   cs
    f538c:	e8 60 f4             	call   0xf47ef
    f538f:	80 3e 4b 63 91       	cmp    BYTE PTR ds:0x634b,0x91
    f5394:	75 0c                	jne    0xf53a2
    f5396:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    f539b:	75 05                	jne    0xf53a2
-   f539d:	9a 1a 00 96 f8       	call   0xf896:0x1a
+   f539d:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
    f53a2:	0e                   	push   cs
    f53a3:	e8 ed f7             	call   0xf4b93
    f53a6:	89 46 fe             	mov    WORD PTR [bp-0x2],ax
@@ -34269,7 +34272,7 @@ process_cmd:
    f53ac:	75 4b                	jne    0xf53f9
    f53ae:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    f53b3:	75 05                	jne    0xf53ba
-   f53b5:	9a 1a 00 96 f8       	call   0xf896:0x1a
+   f53b5:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
    f53ba:	0e                   	push   cs
    f53bb:	e8 82 f6             	call   0xf4a40
    f53be:	89 46 fe             	mov    WORD PTR [bp-0x2],ax
@@ -34277,7 +34280,7 @@ process_cmd:
    f53c4:	75 33                	jne    0xf53f9
    f53c6:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    f53cb:	75 05                	jne    0xf53d2
-   f53cd:	9a 1a 00 96 f8       	call   0xf896:0x1a
+   f53cd:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
    f53d2:	80 3e 2b 63 01       	cmp    BYTE PTR ds:0x632b,0x1
    f53d7:	75 0a                	jne    0xf53e3
    f53d9:	b8 48 63             	mov    ax,0x6348
@@ -34290,13 +34293,13 @@ process_cmd:
    f53ea:	a2 37 63             	mov    ds:0x6337,al
    f53ed:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    f53f2:	75 05                	jne    0xf53f9
-   f53f4:	9a 1a 00 96 f8       	call   0xf896:0x1a
+   f53f4:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
    f53f9:	83 7e fe fe          	cmp    WORD PTR [bp-0x2],0xfffffffe
    f53fd:	75 04                	jne    0xf5403
    f53ff:	fe 06 39 63          	inc    BYTE PTR ds:0x6339
    f5403:	80 3e 49 63 01       	cmp    BYTE PTR ds:0x6349,0x1
 
-; if g_6349 == 0:
+; if g_6349 == 1:
    f5408:	75 21                	jne    0xf542b
    f540a:	a0 48 63             	mov    al,ds:0x6348
    f540d:	b4 00                	mov    ah,0x0
@@ -34311,9 +34314,9 @@ process_cmd:
    f5426:	c6 06 c8 62 00       	mov    BYTE PTR ds:0x62c8,0x0
 
    f542b:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
-; if g_2813 == 0:
+; if g_runlevel == 0:
    f5430:	75 05                	jne    0xf5437
-   f5432:	9a 1a 00 96 f8       	call   0xf896:0x1a
+   f5432:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
 
    f5437:	80 3e bb 62 00       	cmp    BYTE PTR ds:0x62bb,0x0
    f543c:	74 03                	je     0xf5441
@@ -34328,8 +34331,10 @@ process_summat:
    f5445:	55                   	push   bp
    f5446:	8b ec                	mov    bp,sp
    f5448:	83 ec 04             	sub    sp,0x4
-   f544b:	9a 1a 00 96 f8       	call   0xf896:0x1a
+
+   f544b:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
    f5450:	80 3e 2c 63 00       	cmp    BYTE PTR ds:0x632c,0x0
+; if g_632c == 0;
    f5455:	74 03                	je     0xf545a
    f5457:	e9 bf 01             	jmp    0xf5619
    f545a:	a0 40 63             	mov    al,ds:0x6340
@@ -34480,7 +34485,7 @@ process_summat:
    f5617:	eb 1a                	jmp    0xf5633
    f5619:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    f561e:	75 05                	jne    0xf5625
-   f5620:	9a 1a 00 96 f8       	call   0xf896:0x1a
+   f5620:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
    f5625:	9a 1f 05 09 f2       	call   0xf209:0x51f
    f562a:	3d fe ff             	cmp    ax,0xfffe
    f562d:	75 04                	jne    0xf5633
@@ -34488,7 +34493,7 @@ process_summat:
    f5630:	e8 2f f8             	call   0xf4e62 ; far do_cmd
    f5633:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    f5638:	75 05                	jne    0xf563f
-   f563a:	9a 1a 00 96 f8       	call   0xf896:0x1a
+   f563a:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
    f563f:	e9 0e fe             	jmp    0xf5450
    f5642:	8b e5                	mov    sp,bp
    f5644:	5d                   	pop    bp
@@ -34613,9 +34618,10 @@ process_summat:
    f5769:	cb                   	retf   
 
 
+font_task_1:
    f576a:	55                   	push   bp
    f576b:	8b ec                	mov    bp,sp
-   f576d:	9a 1a 00 96 f8       	call   0xf896:0x1a
+   f576d:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
    f5772:	eb fe                	jmp    0xf5772
    f5774:	5d                   	pop    bp
    f5775:	cb                   	retf   
@@ -34751,8 +34757,8 @@ main:
    f58a2:	50                   	push   ax
    f58a3:	9a e4 05 9d f8       	call   0xf89d:0x5e4
    f58a8:	59                   	pop    cx
-; main_loop?
-   f58a9:	9a 94 02 b2 f7       	call   0xf7b2:0x294
+; start_tasks()
+   f58a9:	9a 94 02 b2 f7       	call   0xf7b2:0x294 ; start_tasks
    f58ae:	8b e5                	mov    sp,bp
    f58b0:	5d                   	pop    bp
    f58b1:	cb                   	retf   
@@ -34969,7 +34975,7 @@ main:
    f5b23:	c7 46 fc a2 9c       	mov    WORD PTR [bp-0x4],0x9ca2
    f5b28:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    f5b2d:	75 05                	jne    0xf5b34
-   f5b2f:	9a 1a 00 96 f8       	call   0xf896:0x1a
+   f5b2f:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
    f5b34:	8b 56 fe             	mov    dx,WORD PTR [bp-0x2]
    f5b37:	8b 46 fc             	mov    ax,WORD PTR [bp-0x4]
    f5b3a:	eb 00                	jmp    0xf5b3c
@@ -35226,7 +35232,7 @@ void * _cdecl alloc_font(u1, int size):
    f5e20:	c7 06 22 68 9b ff    	mov    WORD PTR ds:0x6822,0xff9b
    f5e26:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    f5e2b:	75 05                	jne    0xf5e32
-   f5e2d:	9a 1a 00 96 f8       	call   0xf896:0x1a
+   f5e2d:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
    f5e32:	8b 46 ee             	mov    ax,WORD PTR [bp-0x12]
    f5e35:	0b 46 f0             	or     ax,WORD PTR [bp-0x10]
    f5e38:	75 06                	jne    0xf5e40
@@ -35384,7 +35390,7 @@ int _cdecl free_font(void * ptr):
    f5ff5:	c7 06 22 68 98 ff    	mov    WORD PTR ds:0x6822,0xff98
    f5ffb:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    f6000:	75 05                	jne    0xf6007
-   f6002:	9a 1a 00 96 f8       	call   0xf896:0x1a
+   f6002:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
    f6007:	8b 46 ee             	mov    ax,WORD PTR [bp-0x12]
    f600a:	eb 00                	jmp    0xf600c
    f600c:	8b e5                	mov    sp,bp
@@ -35425,7 +35431,7 @@ int _cdecl free_font(void * ptr):
    f6070:	c7 06 22 68 98 ff    	mov    WORD PTR ds:0x6822,0xff98
    f6076:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    f607b:	75 05                	jne    0xf6082
-   f607d:	9a 1a 00 96 f8       	call   0xf896:0x1a
+   f607d:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
    f6082:	8b 46 f6             	mov    ax,WORD PTR [bp-0xa]
    f6085:	eb 00                	jmp    0xf6087
    f6087:	8b e5                	mov    sp,bp
@@ -35629,7 +35635,7 @@ int _cdecl free_font(void * ptr):
    f62ab:	c7 06 22 68 9b ff    	mov    WORD PTR ds:0x6822,0xff9b
    f62b1:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    f62b6:	75 05                	jne    0xf62bd
-   f62b8:	9a 1a 00 96 f8       	call   0xf896:0x1a
+   f62b8:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
    f62bd:	8b 46 fa             	mov    ax,WORD PTR [bp-0x6]
    f62c0:	eb 00                	jmp    0xf62c2
    f62c2:	5e                   	pop    si
@@ -35666,7 +35672,7 @@ int _cdecl free_font(void * ptr):
    f630d:	c7 06 22 68 9b ff    	mov    WORD PTR ds:0x6822,0xff9b
    f6313:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    f6318:	75 05                	jne    0xf631f
-   f631a:	9a 1a 00 96 f8       	call   0xf896:0x1a
+   f631a:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
    f631f:	8b 56 fe             	mov    dx,WORD PTR [bp-0x2]
    f6322:	8b 46 fc             	mov    ax,WORD PTR [bp-0x4]
    f6325:	eb 00                	jmp    0xf6327
@@ -36613,14 +36619,17 @@ void far serial_send(short serial, near char *buf):
    f6bc3:	74 03                	je     0xf6bc8
    f6bc5:	e9 30 01             	jmp    0xf6cf8
    f6bc8:	eb 6b                	jmp    0xf6c35
-   f6bca:	8b 1e 0d 28          	mov    bx,WORD PTR ds:0x280d
+   f6bca:	8b 1e 0d 28          	mov    bx,WORD PTR ds:0x280d ; g_task
    f6bce:	b1 04                	mov    cl,0x4
    f6bd0:	d3 e3                	shl    bx,cl
    f6bd2:	80 bf 68 68 02       	cmp    BYTE PTR [bx+0x6868],0x2
+;   if (g_tasks[g_task].u1 == 2 &&
    f6bd7:	75 0c                	jne    0xf6be5
    f6bd9:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
+;       g_runlevel == 0):
    f6bde:	75 05                	jne    0xf6be5
-   f6be0:	9a 1a 00 96 f8       	call   0xf896:0x1a
+;     leave_task()
+   f6be0:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
 
    f6be5:	8b 5e fa             	mov    bx,WORD PTR [bp-0x6]
    f6be8:	8b 47 12             	mov    ax,WORD PTR [bx+0x12]
@@ -36727,14 +36736,17 @@ void far serial_send(short serial, near char *buf):
    f6d08:	9a 94 00 1b e1       	call   0xe11b:0x94
 
    f6d0d:	eb 48                	jmp    0xf6d57
-   f6d0f:	8b 1e 0d 28          	mov    bx,WORD PTR ds:0x280d
+   f6d0f:	8b 1e 0d 28          	mov    bx,WORD PTR ds:0x280d ; g_task
    f6d13:	b1 04                	mov    cl,0x4
    f6d15:	d3 e3                	shl    bx,cl
    f6d17:	80 bf 68 68 02       	cmp    BYTE PTR [bx+0x6868],0x2
+; if (g_tasks[g_task].u1 == 2 &&
    f6d1c:	75 0c                	jne    0xf6d2a
    f6d1e:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
+;     g_runlevel == 0):
    f6d23:	75 05                	jne    0xf6d2a
-   f6d25:	9a 1a 00 96 f8       	call   0xf896:0x1a
+;   leave_task()
+   f6d25:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
 
    f6d2a:	eb 00                	jmp    0xf6d2c
    f6d2c:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994
@@ -36776,14 +36788,17 @@ void far serial_send(short serial, near char *buf):
    f6d90:	9a b5 00 1b e1       	call   0xe11b:0xb5
 
    f6d95:	eb 48                	jmp    0xf6ddf
-   f6d97:	8b 1e 0d 28          	mov    bx,WORD PTR ds:0x280d
+   f6d97:	8b 1e 0d 28          	mov    bx,WORD PTR ds:0x280d ; g_task
    f6d9b:	b1 04                	mov    cl,0x4
    f6d9d:	d3 e3                	shl    bx,cl
    f6d9f:	80 bf 68 68 02       	cmp    BYTE PTR [bx+0x6868],0x2
+; if (g_tasks[g_task].u1 == 2 &&
    f6da4:	75 0c                	jne    0xf6db2
    f6da6:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
+;     g_runlevel == 0):
    f6dab:	75 05                	jne    0xf6db2
-   f6dad:	9a 1a 00 96 f8       	call   0xf896:0x1a
+;   leave_task()
+   f6dad:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
 
    f6db2:	eb 00                	jmp    0xf6db4
    f6db4:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ;  serial port 2
@@ -36814,9 +36829,12 @@ void far serial_send(short serial, near char *buf):
    f6df9:	9a eb 00 1b e1       	call   0xe11b:0xeb
 
    f6dfe:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
+; if g_runlevel == 0:
    f6e03:	75 05                	jne    0xf6e0a
-   f6e05:	9a 1a 00 96 f8       	call   0xf896:0x1a
+;   leave_task()
+   f6e05:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
 
+; return result
    f6e0a:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
    f6e0d:	eb 00                	jmp    0xf6e0f
    f6e0f:	5e                   	pop    si
@@ -37002,8 +37020,12 @@ void far serial_send(short serial, near char *buf):
    f7017:	59                   	pop    cx
    f7018:	9a eb 00 1b e1       	call   0xe11b:0xeb
    f701d:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
+; if g_runlevel == 0:
    f7022:	75 05                	jne    0xf7029
-   f7024:	9a 1a 00 96 f8       	call   0xf896:0x1a
+;   leave_task()
+   f7024:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
+
+; return result
    f7029:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
    f702c:	eb 00                	jmp    0xf702e
    f702e:	5e                   	pop    si
@@ -37035,9 +37057,13 @@ void far serial_send(short serial, near char *buf):
    f7072:	c7 46 fe 01 00       	mov    WORD PTR [bp-0x2],0x1
    f7077:	eb 05                	jmp    0xf707e
    f7079:	c7 46 fe 00 00       	mov    WORD PTR [bp-0x2],0x0
+; if g_runlevel == 0:
    f707e:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    f7083:	75 05                	jne    0xf708a
-   f7085:	9a 1a 00 96 f8       	call   0xf896:0x1a
+;   leave_task()
+   f7085:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
+
+; return result
    f708a:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
    f708d:	eb 00                	jmp    0xf708f
    f708f:	8b e5                	mov    sp,bp
@@ -37277,8 +37303,12 @@ serial_putsomething(serial, ?)
    f72cd:	83 c4 06             	add    sp,0x6
    f72d0:	89 46 fe             	mov    WORD PTR [bp-0x2],ax
    f72d3:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
+; if g_runlevel == 0:
    f72d8:	75 05                	jne    0xf72df
-   f72da:	9a 1a 00 96 f8       	call   0xf896:0x1a
+;   leave_task()
+   f72da:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
+
+; return result
    f72df:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
    f72e2:	eb 00                	jmp    0xf72e4
    f72e4:	8b e5                	mov    sp,bp
@@ -37349,8 +37379,12 @@ serial_putsomething(serial, ?)
    f739a:	eb 05                	jmp    0xf73a1
    f739c:	c7 46 fa 00 00       	mov    WORD PTR [bp-0x6],0x0
    f73a1:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
+; if g_runlevel == 0:
    f73a6:	75 05                	jne    0xf73ad
-   f73a8:	9a 1a 00 96 f8       	call   0xf896:0x1a
+;   leave_task()
+   f73a8:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
+
+; return result
    f73ad:	8b 46 fa             	mov    ax,WORD PTR [bp-0x6]
    f73b0:	eb 00                	jmp    0xf73b2
    f73b2:	8b e5                	mov    sp,bp
@@ -37407,8 +37441,12 @@ serial_putsomething(serial, ?)
    f7433:	8b 46 f8             	mov    ax,WORD PTR [bp-0x8]
    f7436:	89 46 fe             	mov    WORD PTR [bp-0x2],ax
    f7439:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
+; if g_runlevel == 0:
    f743e:	75 05                	jne    0xf7445
-   f7440:	9a 1a 00 96 f8       	call   0xf896:0x1a
+;   leave_task()
+   f7440:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
+
+; return result
    f7445:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
    f7448:	eb 96                	jmp    0xf73e0
    f744a:	8b e5                	mov    sp,bp
@@ -37456,8 +37494,12 @@ serial_putsomething(serial, ?)
    f74b4:	8b 46 f8             	mov    ax,WORD PTR [bp-0x8]
    f74b7:	89 46 fe             	mov    WORD PTR [bp-0x2],ax
    f74ba:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
+; if g_runlevel == 0:
    f74bf:	75 05                	jne    0xf74c6
-   f74c1:	9a 1a 00 96 f8       	call   0xf896:0x1a
+;   leave_task()
+   f74c1:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
+
+; return result
    f74c6:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
    f74c9:	eb 00                	jmp    0xf74cb
    f74cb:	8b e5                	mov    sp,bp
@@ -37693,8 +37735,12 @@ serial_putsomething(serial, ?)
    f7730:	04 ff                	add    al,0xff
    f7732:	26 88 47 09          	mov    BYTE PTR es:[bx+0x9],al ;  write serial control register (clock divider)
    f7736:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
+; if g_runlevel == 0:
    f773b:	75 05                	jne    0xf7742
-   f773d:	9a 1a 00 96 f8       	call   0xf896:0x1a
+;   leave_task()
+   f773d:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
+
+; return result
    f7742:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
    f7745:	eb 00                	jmp    0xf7747
    f7747:	8b e5                	mov    sp,bp
@@ -37738,8 +37784,12 @@ serial_putsomething(serial, ?)
    f779f:	b9 05 00             	mov    cx,0x5
    f77a2:	9a cd 00 00 e0       	call   0xe000:0xcd ; memcpy
    f77a7:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
-   f77ac:	75 05                	jne    0xf77b3
-   f77ae:	9a 1a 00 96 f8       	call   0xf896:0x1a
+ ; if g_runlevel == 0:
+  f77ac:	75 05                	jne    0xf77b3
+;   leave_task()
+   f77ae:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
+
+; return result
    f77b3:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
    f77b6:	eb 00                	jmp    0xf77b8
    f77b8:	8b e5                	mov    sp,bp
@@ -37800,8 +37850,12 @@ serial_putsomething(serial, ?)
    f7858:	c6 46 ff ff          	mov    BYTE PTR [bp-0x1],0xff
    f785c:	c7 06 22 68 9b ff    	mov    WORD PTR ds:0x6822,0xff9b
    f7862:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
+; if g_runlevel == 0:
    f7867:	75 05                	jne    0xf786e
-   f7869:	9a 1a 00 96 f8       	call   0xf896:0x1a
+;   leave_task()
+   f7869:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
+
+; return result
    f786e:	8a 46 ff             	mov    al,BYTE PTR [bp-0x1]
    f7871:	eb 00                	jmp    0xf7873
    f7873:	8b e5                	mov    sp,bp
@@ -37987,8 +38041,12 @@ serial_putsomething(serial, ?)
    f7a0c:	9a ca 00 6c f8       	call   0xf86c:0xca
    f7a11:	83 c4 06             	add    sp,0x6
    f7a14:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
+; if g_runlevel == 0:
    f7a19:	75 05                	jne    0xf7a20
-   f7a1b:	9a 1a 00 96 f8       	call   0xf896:0x1a
+;   leave_task()
+   f7a1b:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
+
+; return result
    f7a20:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
    f7a23:	eb 00                	jmp    0xf7a25
    f7a25:	8b e5                	mov    sp,bp
@@ -38097,8 +38155,12 @@ serial_putsomething(serial, ?)
    f7b46:	8b 5e 06             	mov    bx,WORD PTR [bp+0x6]
    f7b49:	c6 87 58 68 01       	mov    BYTE PTR [bx+0x6858],0x1
    f7b4e:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
+; if g_runlevel == 0:
    f7b53:	75 05                	jne    0xf7b5a
-   f7b55:	9a 1a 00 96 f8       	call   0xf896:0x1a
+;   leave_task()
+   f7b55:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
+
+; return result
    f7b5a:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
    f7b5d:	eb 00                	jmp    0xf7b5f
    f7b5f:	8b e5                	mov    sp,bp
@@ -38118,8 +38180,12 @@ serial_putsomething(serial, ?)
    f7b81:	8b 5e 06             	mov    bx,WORD PTR [bp+0x6]
    f7b84:	c6 87 58 68 00       	mov    BYTE PTR [bx+0x6858],0x0
    f7b89:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
+; if g_runlevel == 0:
    f7b8e:	75 05                	jne    0xf7b95
-   f7b90:	9a 1a 00 96 f8       	call   0xf896:0x1a
+;   leave_task()
+   f7b90:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
+
+; return result
    f7b95:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
    f7b98:	eb 00                	jmp    0xf7b9a
    f7b9a:	8b e5                	mov    sp,bp
@@ -38140,8 +38206,12 @@ serial_putsomething(serial, ?)
    f7bbe:	b4 00                	mov    ah,0x0
    f7bc0:	89 46 fe             	mov    WORD PTR [bp-0x2],ax
    f7bc3:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
+; if g_runlevel == 0:
    f7bc8:	75 05                	jne    0xf7bcf
-   f7bca:	9a 1a 00 96 f8       	call   0xf896:0x1a
+;   leave_task()
+   f7bca:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
+
+; return result
    f7bcf:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
    f7bd2:	eb 00                	jmp    0xf7bd4
    f7bd4:	8b e5                	mov    sp,bp
@@ -38149,12 +38219,16 @@ serial_putsomething(serial, ?)
    f7bd7:	cb                   	retf   
 
 
+add_task(task, p2, p3, far void *addr):
    f7bd8:	55                   	push   bp
    f7bd9:	8b ec                	mov    bp,sp
    f7bdb:	83 ec 02             	sub    sp,0x2
    f7bde:	56                   	push   si
+; result = -1
    f7bdf:	c7 46 fe ff ff       	mov    WORD PTR [bp-0x2],0xffff
+
    f7be4:	80 7e 06 0f          	cmp    BYTE PTR [bp+0x6],0xf
+; if task <= 0xf:
    f7be8:	77 58                	ja     0xf7c42
    f7bea:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    f7bed:	b4 00                	mov    ah,0x0
@@ -38163,31 +38237,43 @@ serial_putsomething(serial, ?)
    f7bf3:	8b 56 0e             	mov    dx,WORD PTR [bp+0xe]
    f7bf6:	8b 5e 0c             	mov    bx,WORD PTR [bp+0xc]
    f7bf9:	8b f0                	mov    si,ax
+;   g_tasks[task].addr = addr
    f7bfb:	89 94 76 68          	mov    WORD PTR [si+0x6876],dx
    f7bff:	89 9c 74 68          	mov    WORD PTR [si+0x6874],bx
+
    f7c03:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    f7c06:	b4 00                	mov    ah,0x0
    f7c08:	b1 04                	mov    cl,0x4
    f7c0a:	d3 e0                	shl    ax,cl
    f7c0c:	8a 56 08             	mov    dl,BYTE PTR [bp+0x8]
    f7c0f:	8b d8                	mov    bx,ax
+;   g_tasks[task].u8 = p2
    f7c11:	88 97 72 68          	mov    BYTE PTR [bx+0x6872],dl
+
    f7c15:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    f7c18:	b4 00                	mov    ah,0x0
    f7c1a:	b1 04                	mov    cl,0x4
    f7c1c:	d3 e0                	shl    ax,cl
    f7c1e:	8a 56 08             	mov    dl,BYTE PTR [bp+0x8]
    f7c21:	8b d8                	mov    bx,ax
+;   g_tasks[task].u9 = p2
    f7c23:	88 97 73 68          	mov    BYTE PTR [bx+0x6873],dl
+
    f7c27:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    f7c2a:	b4 00                	mov    ah,0x0
    f7c2c:	b1 04                	mov    cl,0x4
    f7c2e:	d3 e0                	shl    ax,cl
    f7c30:	8a 56 0a             	mov    dl,BYTE PTR [bp+0xa]
    f7c33:	8b d8                	mov    bx,ax
+;   g_tasks[task].u7 = p3
    f7c35:	88 97 6f 68          	mov    BYTE PTR [bx+0x686f],dl
+
+;   result = -2
    f7c39:	c7 46 fe fe ff       	mov    WORD PTR [bp-0x2],0xfffe
+;   g_numtasks++
    f7c3e:	ff 06 0f 28          	inc    WORD PTR ds:0x280f
+
+; return result
    f7c42:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
    f7c45:	eb 00                	jmp    0xf7c47
    f7c47:	5e                   	pop    si
@@ -38199,18 +38285,23 @@ serial_putsomething(serial, ?)
    f7c4c:	55                   	push   bp
    f7c4d:	8b ec                	mov    bp,sp
    f7c4f:	83 ec 02             	sub    sp,0x2
+; result = -1
    f7c52:	c7 46 fe ff ff       	mov    WORD PTR [bp-0x2],0xffff
    f7c57:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    f7c5a:	b4 00                	mov    ah,0x0
    f7c5c:	3b 06 0f 28          	cmp    ax,WORD PTR ds:0x280f
+; if task < g_numtasks:
    f7c60:	73 15                	jae    0xf7c77
    f7c62:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    f7c65:	b4 00                	mov    ah,0x0
    f7c67:	b1 04                	mov    cl,0x4
    f7c69:	d3 e0                	shl    ax,cl
    f7c6b:	8b d8                	mov    bx,ax
+;   g_tasks[task].u1 = 1
    f7c6d:	c6 87 68 68 01       	mov    BYTE PTR [bx+0x6868],0x1
+;   result = -2
    f7c72:	c7 46 fe fe ff       	mov    WORD PTR [bp-0x2],0xfffe
+; return result
    f7c77:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
    f7c7a:	eb 00                	jmp    0xf7c7c
    f7c7c:	8b e5                	mov    sp,bp
@@ -38218,7 +38309,7 @@ serial_putsomething(serial, ?)
    f7c7f:	cb                   	retf   
 
 
-add_processor:
+add_processor(short task, long addr):
    f7c80:	55                   	push   bp
    f7c81:	8b ec                	mov    bp,sp
    f7c83:	83 ec 0a             	sub    sp,0xa
@@ -38227,6 +38318,7 @@ add_processor:
    f7c8c:	80 7e 06 0f          	cmp    BYTE PTR [bp+0x6],0xf
    f7c90:	76 03                	jbe    0xf7c95
    f7c92:	e9 cf 00             	jmp    0xf7d64
+
    f7c95:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    f7c98:	b4 00                	mov    ah,0x0
    f7c9a:	b1 04                	mov    cl,0x4
@@ -38238,7 +38330,9 @@ add_processor:
    f7ca9:	b1 04                	mov    cl,0x4
    f7cab:	d3 e2                	shl    dx,cl
    f7cad:	8b da                	mov    bx,dx
+; g_tasks[task].sp = g_tasks[task].initial_sp
    f7caf:	89 87 70 68          	mov    WORD PTR [bx+0x6870],ax
+
    f7cb3:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    f7cb6:	b4 00                	mov    ah,0x0
    f7cb8:	b1 04                	mov    cl,0x4
@@ -38246,8 +38340,10 @@ add_processor:
    f7cbc:	8b 56 0a             	mov    dx,WORD PTR [bp+0xa]
    f7cbf:	8b 5e 08             	mov    bx,WORD PTR [bp+0x8]
    f7cc2:	8b f0                	mov    si,ax
+; g_tasks[task].addr = addr
    f7cc4:	89 94 76 68          	mov    WORD PTR [si+0x6876],dx
    f7cc8:	89 9c 74 68          	mov    WORD PTR [si+0x6874],bx
+
    f7ccc:	8c 56 f6             	mov    WORD PTR [bp-0xa],ss
    f7ccf:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    f7cd2:	b4 00                	mov    ah,0x0
@@ -38255,7 +38351,9 @@ add_processor:
    f7cd6:	d3 e0                	shl    ax,cl
    f7cd8:	8b d8                	mov    bx,ax
    f7cda:	8b 87 70 68          	mov    ax,WORD PTR [bx+0x6870]
+; sp = g_tasks[task].sp
    f7cde:	89 46 f8             	mov    WORD PTR [bp-0x8],ax
+
    f7ce1:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    f7ce4:	b4 00                	mov    ah,0x0
    f7ce6:	b1 04                	mov    cl,0x4
@@ -38285,25 +38383,34 @@ add_processor:
    f7d27:	24 ff                	and    al,0xff
    f7d29:	8b 5e f8             	mov    bx,WORD PTR [bp-0x8]
    f7d2c:	88 47 fd             	mov    BYTE PTR [bx-0x3],al
+
    f7d2f:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    f7d32:	b4 00                	mov    ah,0x0
    f7d34:	b1 04                	mov    cl,0x4
    f7d36:	d3 e0                	shl    ax,cl
    f7d38:	8b d8                	mov    bx,ax
+; g_tasks[task].sp -= 5
    f7d3a:	83 af 70 68 05       	sub    WORD PTR [bx+0x6870],0x5
    f7d3f:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    f7d42:	b4 00                	mov    ah,0x0
    f7d44:	b1 04                	mov    cl,0x4
    f7d46:	d3 e0                	shl    ax,cl
    f7d48:	8b d8                	mov    bx,ax
+; g_tasks[task].u1 = 1
    f7d4a:	c6 87 68 68 01       	mov    BYTE PTR [bx+0x6868],0x1
+; result = -2
    f7d4f:	c7 46 fa fe ff       	mov    WORD PTR [bp-0x6],0xfffe
    f7d54:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    f7d57:	b4 00                	mov    ah,0x0
-   f7d59:	3b 06 0d 28          	cmp    ax,WORD PTR ds:0x280d
+   f7d59:	3b 06 0d 28          	cmp    ax,WORD PTR ds:0x280d ; g_task
+; if g_task == task:
    f7d5d:	75 05                	jne    0xf7d64
+;   @sp = g_saved_sp // continue immediately
    f7d5f:	8b 26 11 28          	mov    sp,WORD PTR ds:0x2811
    f7d63:	cb                   	retf   
+
+; else:
+;   return result
    f7d64:	8b 46 fa             	mov    ax,WORD PTR [bp-0x6]
    f7d67:	eb 00                	jmp    0xf7d69
    f7d69:	5e                   	pop    si
@@ -38323,15 +38430,21 @@ add_processor:
    f7d84:	b1 04                	mov    cl,0x4
    f7d86:	d3 e0                	shl    ax,cl
    f7d88:	8b d8                	mov    bx,ax
+; g_tasks[task].u1 = 2
    f7d8a:	c6 87 68 68 02       	mov    BYTE PTR [bx+0x6868],0x2
+; result = -2
    f7d8f:	c7 46 fe fe ff       	mov    WORD PTR [bp-0x2],0xfffe
    f7d94:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    f7d97:	b4 00                	mov    ah,0x0
-   f7d99:	3b 06 0d 28          	cmp    ax,WORD PTR ds:0x280d
+   f7d99:	3b 06 0d 28          	cmp    ax,WORD PTR ds:0x280d ; g_task
+; if (g_task == task &&
    f7d9d:	75 0c                	jne    0xf7dab
    f7d9f:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
+;     g_runlevel == 0):
    f7da4:	75 05                	jne    0xf7dab
-   f7da6:	9a 1a 00 96 f8       	call   0xf896:0x1a
+;   leave_task
+   f7da6:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
+; return result
    f7dab:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
    f7dae:	eb 00                	jmp    0xf7db0
    f7db0:	8b e5                	mov    sp,bp
@@ -38339,10 +38452,17 @@ add_processor:
    f7db3:	cb                   	retf   
 
 
+start_tasks:
    f7db4:	55                   	push   bp
    f7db5:	8b ec                	mov    bp,sp
+; int l6
+; int l5
+; int l4
+; int l3
    f7db7:	83 ec 14             	sub    sp,0x14
+; int l1 = 0
    f7dba:	c7 46 ee 00 00       	mov    WORD PTR [bp-0x12],0x0
+; int l2 = 0
    f7dbf:	c7 46 ec 00 00       	mov    WORD PTR [bp-0x14],0x0
    f7dc4:	b8 10 00             	mov    ax,0x10
    f7dc7:	50                   	push   ax
@@ -38350,8 +38470,10 @@ add_processor:
    f7dca:	50                   	push   ax
    f7dcb:	b8 58 68             	mov    ax,0x6858
    f7dce:	50                   	push   ax
+; memset(&g_6858, 0, sizeof(g_6858)
    f7dcf:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; memset
    f7dd4:	83 c4 06             	add    sp,0x6
+
    f7dd7:	8c 5e f2             	mov    WORD PTR [bp-0xe],ds
    f7dda:	8b 46 f2             	mov    ax,WORD PTR [bp-0xe]
    f7ddd:	89 46 fa             	mov    WORD PTR [bp-0x6],ax
@@ -38362,6 +38484,8 @@ add_processor:
    f7df0:	8b 46 f8             	mov    ax,WORD PTR [bp-0x8]
    f7df3:	2b 46 fc             	sub    ax,WORD PTR [bp-0x4]
    f7df6:	89 46 f6             	mov    WORD PTR [bp-0xa],ax
+
+; for int i = 0; i < g_numtasks; i++:
    f7df9:	c7 46 f0 00 00       	mov    WORD PTR [bp-0x10],0x0
    f7dfe:	eb 13                	jmp    0xf7e13
    f7e00:	8b 5e f0             	mov    bx,WORD PTR [bp-0x10]
@@ -38369,19 +38493,26 @@ add_processor:
    f7e05:	d3 e3                	shl    bx,cl
    f7e07:	8a 87 6f 68          	mov    al,BYTE PTR [bx+0x686f]
    f7e0b:	b4 00                	mov    ah,0x0
+;   l1 += g_tasks[i].u7
    f7e0d:	01 46 ee             	add    WORD PTR [bp-0x12],ax
+
    f7e10:	ff 46 f0             	inc    WORD PTR [bp-0x10]
    f7e13:	8b 46 f0             	mov    ax,WORD PTR [bp-0x10]
    f7e16:	3b 06 0f 28          	cmp    ax,WORD PTR ds:0x280f
    f7e1a:	72 e4                	jb     0xf7e00
+
    f7e1c:	8b 46 f6             	mov    ax,WORD PTR [bp-0xa]
    f7e1f:	2d 00 02             	sub    ax,0x200
    f7e22:	33 d2                	xor    dx,dx
    f7e24:	f7 76 ee             	div    WORD PTR [bp-0x12]
    f7e27:	89 46 f4             	mov    WORD PTR [bp-0xc],ax
    f7e2a:	b8 a0 9c             	mov    ax,0x9ca0
+; g_tasks[0].initial_sp = 0x9ca0
    f7e2d:	a3 6d 68             	mov    ds:0x686d,ax
+; g_tasks[0].sp = 0x9ca0
    f7e30:	a3 70 68             	mov    ds:0x6870,ax
+
+; for i = 1; i < g_numtasks; i++:
    f7e33:	c7 46 f0 01 00       	mov    WORD PTR [bp-0x10],0x1
    f7e38:	eb 49                	jmp    0xf7e83
    f7e3a:	8b 5e f0             	mov    bx,WORD PTR [bp-0x10]
@@ -38392,6 +38523,7 @@ add_processor:
    f7e47:	03 d8                	add    bx,ax
    f7e49:	8a 07                	mov    al,BYTE PTR [bx]
    f7e4b:	b4 00                	mov    ah,0x0
+;   l2 += *(&g_6858 + 7 + i * 16)
    f7e4d:	01 46 ec             	add    WORD PTR [bp-0x14],ax
    f7e50:	8b 46 ec             	mov    ax,WORD PTR [bp-0x14]
    f7e53:	f7 6e f4             	imul   WORD PTR [bp-0xc]
@@ -38402,6 +38534,7 @@ add_processor:
    f7e5f:	8b 5e f0             	mov    bx,WORD PTR [bp-0x10]
    f7e62:	b1 04                	mov    cl,0x4
    f7e64:	d3 e3                	shl    bx,cl
+;   g_tasks[i].sp = 0x9ca0 - ((l2 * l3) / 2 * 2)
    f7e66:	89 97 70 68          	mov    WORD PTR [bx+0x6870],dx
    f7e6a:	8b 5e f0             	mov    bx,WORD PTR [bp-0x10]
    f7e6d:	b1 04                	mov    cl,0x4
@@ -38410,34 +38543,51 @@ add_processor:
    f7e75:	8b 5e f0             	mov    bx,WORD PTR [bp-0x10]
    f7e78:	b1 04                	mov    cl,0x4
    f7e7a:	d3 e3                	shl    bx,cl
+;   g_tasks[i].initial_sp = g_tasks[i].sp
    f7e7c:	89 87 6d 68          	mov    WORD PTR [bx+0x686d],ax
+
    f7e80:	ff 46 f0             	inc    WORD PTR [bp-0x10]
    f7e83:	8b 46 f0             	mov    ax,WORD PTR [bp-0x10]
    f7e86:	3b 06 0f 28          	cmp    ax,WORD PTR ds:0x280f
    f7e8a:	72 ae                	jb     0xf7e3a
+
    f7e8c:	8b 46 fc             	mov    ax,WORD PTR [bp-0x4]
    f7e8f:	05 00 02             	add    ax,0x200
+; g_saved_sp = l6
    f7e92:	a3 11 28             	mov    ds:0x2811,ax
    f7e95:	8b 26 11 28          	mov    sp,WORD PTR ds:0x2811
-   f7e99:	c7 06 0d 28 00 00    	mov    WORD PTR ds:0x280d,0x0
+
+; for g_task = 0; g_task < g_numtasks; g_task++:
+   f7e99:	c7 06 0d 28 00 00    	mov    WORD PTR ds:0x280d,0x0 ; g_task
    f7e9f:	eb 2c                	jmp    0xf7ecd
    f7ea1:	83 3e 0d 28 00       	cmp    WORD PTR ds:0x280d,0x0
+
+;   if g_task == 0:
    f7ea6:	75 0f                	jne    0xf7eb7
    f7ea8:	8b 1e 0d 28          	mov    bx,WORD PTR ds:0x280d
    f7eac:	b1 04                	mov    cl,0x4
    f7eae:	d3 e3                	shl    bx,cl
+;     g_tasks[g_task].u1 = 1
    f7eb0:	c6 87 68 68 01       	mov    BYTE PTR [bx+0x6868],0x1
    f7eb5:	eb 0d                	jmp    0xf7ec4
-   f7eb7:	8b 1e 0d 28          	mov    bx,WORD PTR ds:0x280d
+
+;   else:
+   f7eb7:	8b 1e 0d 28          	mov    bx,WORD PTR ds:0x280d ; g_task
    f7ebb:	b1 04                	mov    cl,0x4
    f7ebd:	d3 e3                	shl    bx,cl
    f7ebf:	c6 87 68 68 00       	mov    BYTE PTR [bx+0x6868],0x0
-   f7ec4:	9a 02 00 96 f8       	call   0xf896:0x2 ; call_flash
+;     g_tasks[g_task].u1 = 0
+
+;   enter_task()
+   f7ec4:	9a 02 00 96 f8       	call   0xf896:0x2 ; enter_task
+
    f7ec9:	ff 06 0d 28          	inc    WORD PTR ds:0x280d
-   f7ecd:	a1 0d 28             	mov    ax,ds:0x280d
+   f7ecd:	a1 0d 28             	mov    ax,ds:0x280d ; g_task
    f7ed0:	3b 06 0f 28          	cmp    ax,WORD PTR ds:0x280f
    f7ed4:	72 cb                	jb     0xf7ea1
-   f7ed6:	9a 38 00 96 f8       	call   0xf896:0x38
+
+; run_tasks()
+   f7ed6:	9a 38 00 96 f8       	call   0xf896:0x38 ; run_tasks
    f7edb:	8b e5                	mov    sp,bp
    f7edd:	5d                   	pop    bp
    f7ede:	cb                   	retf   
@@ -38715,7 +38865,7 @@ add_processor:
    f816b:	c7 46 fe fe ff       	mov    WORD PTR [bp-0x2],0xfffe
    f8170:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    f8175:	75 05                	jne    0xf817c
-   f8177:	9a 1a 00 96 f8       	call   0xf896:0x1a
+   f8177:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
    f817c:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
    f817f:	eb 00                	jmp    0xf8181
    f8181:	8b e5                	mov    sp,bp
@@ -38818,7 +38968,7 @@ add_processor:
    f8284:	a3 d5 6b             	mov    ds:0x6bd5,ax
    f8287:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    f828c:	75 05                	jne    0xf8293
-   f828e:	9a 1a 00 96 f8       	call   0xf896:0x1a
+   f828e:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
    f8293:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
    f8296:	eb 00                	jmp    0xf8298
    f8298:	8b e5                	mov    sp,bp
@@ -38908,7 +39058,7 @@ add_processor:
    f8369:	9a e4 02 47 f6       	call   0xf647:0x2e4
    f836e:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    f8373:	75 05                	jne    0xf837a
-   f8375:	9a 1a 00 96 f8       	call   0xf896:0x1a
+   f8375:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
    f837a:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
    f837d:	eb 00                	jmp    0xf837f
    f837f:	8b e5                	mov    sp,bp
@@ -38971,7 +39121,7 @@ add_processor:
    f8414:	75 de                	jne    0xf83f4
    f8416:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    f841b:	75 05                	jne    0xf8422
-   f841d:	9a 1a 00 96 f8       	call   0xf896:0x1a
+   f841d:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
    f8422:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
    f8425:	eb 00                	jmp    0xf8427
    f8427:	8b e5                	mov    sp,bp
@@ -39039,7 +39189,7 @@ add_processor:
    f84d8:	c7 06 22 68 9b ff    	mov    WORD PTR ds:0x6822,0xff9b
    f84de:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    f84e3:	75 05                	jne    0xf84ea
-   f84e5:	9a 1a 00 96 f8       	call   0xf896:0x1a
+   f84e5:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
    f84ea:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
    f84ed:	eb 00                	jmp    0xf84ef
    f84ef:	8b e5                	mov    sp,bp
@@ -39108,7 +39258,7 @@ add_processor:
    f85a1:	c7 06 22 68 9b ff    	mov    WORD PTR ds:0x6822,0xff9b
    f85a7:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    f85ac:	75 05                	jne    0xf85b3
-   f85ae:	9a 1a 00 96 f8       	call   0xf896:0x1a
+   f85ae:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
    f85b3:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
    f85b6:	eb 00                	jmp    0xf85b8
    f85b8:	8b e5                	mov    sp,bp
@@ -39126,21 +39276,21 @@ add_processor:
    f85d1:	8b 46 06             	mov    ax,WORD PTR [bp+0x6]
    f85d4:	33 d2                	xor    dx,dx
    f85d6:	f7 36 24 68          	div    WORD PTR ds:0x6824
-   f85da:	8b 1e 0d 28          	mov    bx,WORD PTR ds:0x280d
+   f85da:	8b 1e 0d 28          	mov    bx,WORD PTR ds:0x280d ; g_task
    f85de:	d1 e3                	shl    bx,1
    f85e0:	89 87 b3 6b          	mov    WORD PTR [bx+0x6bb3],ax
    f85e4:	a1 0d 28             	mov    ax,ds:0x280d
    f85e7:	40                   	inc    ax
    f85e8:	3b 06 d7 6b          	cmp    ax,WORD PTR ds:0x6bd7
    f85ec:	76 07                	jbe    0xf85f5
-   f85ee:	a1 0d 28             	mov    ax,ds:0x280d
+   f85ee:	a1 0d 28             	mov    ax,ds:0x280d ; g_task
    f85f1:	40                   	inc    ax
    f85f2:	a3 d7 6b             	mov    ds:0x6bd7,ax
    f85f5:	eb 11                	jmp    0xf8608
    f85f7:	9a e4 02 47 f6       	call   0xf647:0x2e4
    f85fc:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    f8601:	75 05                	jne    0xf8608
-   f8603:	9a 1a 00 96 f8       	call   0xf896:0x1a
+   f8603:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
    f8608:	8b 1e 0d 28          	mov    bx,WORD PTR ds:0x280d
    f860c:	d1 e3                	shl    bx,1
    f860e:	83 bf b3 6b 00       	cmp    WORD PTR [bx+0x6bb3],0x0
@@ -39313,7 +39463,7 @@ add_processor:
    f876c:	c7 06 22 68 97 ff    	mov    WORD PTR ds:0x6822,0xff97
    f8772:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    f8777:	75 05                	jne    0xf877e
-   f8779:	9a 1a 00 96 f8       	call   0xf896:0x1a
+   f8779:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
    f877e:	8b 56 fa             	mov    dx,WORD PTR [bp-0x6]
    f8781:	8b 46 f8             	mov    ax,WORD PTR [bp-0x8]
    f8784:	eb 00                	jmp    0xf8786
@@ -39364,7 +39514,7 @@ add_processor:
    f87fd:	c7 06 22 68 97 ff    	mov    WORD PTR ds:0x6822,0xff97
    f8803:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    f8808:	75 05                	jne    0xf880f
-   f880a:	9a 1a 00 96 f8       	call   0xf896:0x1a
+   f880a:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
    f880f:	8b 46 f6             	mov    ax,WORD PTR [bp-0xa]
    f8812:	eb 00                	jmp    0xf8814
    f8814:	8b e5                	mov    sp,bp
@@ -39535,37 +39685,60 @@ add_processor:
 ; 000f8961  00                                                |.|
 
 
+struct TASK {
+  short u1;
+  short u2;
+  int u3;
+  short u5;
+  int initial_sp;
+  short u7;
+  int sp;
+  short u8;
+  short u9;
+  long addr;
+}
+
+
 .code
-call_flash:
+enter_task:
+; g_saved_sp = @sp
    f8962:	89 26 11 28          	mov    WORD PTR ds:0x2811,sp
-   f8966:	8b 36 0d 28          	mov    si,WORD PTR ds:0x280d
+   f8966:	8b 36 0d 28          	mov    si,WORD PTR ds:0x280d ; g_task
    f896a:	d1 e6                	shl    si,1
    f896c:	d1 e6                	shl    si,1
    f896e:	d1 e6                	shl    si,1
    f8970:	d1 e6                	shl    si,1
+; @sp = g_tasks[g_task].sp
    f8972:	8b a4 70 68          	mov    sp,WORD PTR [si+0x6870]
+; jmp g_tasks[g_task].addr
    f8976:	ff ac 74 68          	jmp    DWORD PTR [si+0x6874]
 
 
-return_flash:
+leave_task:
    f897a:	55                   	push   bp
-   f897b:	8b 36 0d 28          	mov    si,WORD PTR ds:0x280d
+   f897b:	8b 36 0d 28          	mov    si,WORD PTR ds:0x280d ; g_task
    f897f:	d1 e6                	shl    si,1
    f8981:	d1 e6                	shl    si,1
    f8983:	d1 e6                	shl    si,1
    f8985:	d1 e6                	shl    si,1
+; g_tasks[g_task].sp = @sp
    f8987:	89 a4 70 68          	mov    WORD PTR [si+0x6870],sp
+; @sp = g_saved_sp
    f898b:	8b 26 11 28          	mov    sp,WORD PTR ds:0x2811
    f898f:	cb                   	retf   
 
 
+run_task:
+; g_saved_sp = @sp
    f8990:	89 26 11 28          	mov    WORD PTR ds:0x2811,sp
    f8994:	8b e0                	mov    sp,ax
    f8996:	5d                   	pop    bp
    f8997:	cb                   	retf   
 
-
-   f8998:	c7 06 0d 28 00 00    	mov    WORD PTR ds:0x280d,0x0
+run_tasks:
+; while 1:
+; for g_task = 0; g_task < g_numtasks; g_task++:
+   f8998:	c7 06 0d 28 00 00    	mov    WORD PTR ds:0x280d,0x0 ; g_task
    f899e:	33 f6                	xor    si,si
    f89a0:	d1 e6                	shl    si,1
    f89a2:	d1 e6                	shl    si,1
@@ -39573,16 +39746,21 @@ return_flash:
    f89a6:	d1 e6                	shl    si,1
    f89a8:	8b 84 68 68          	mov    ax,WORD PTR [si+0x6868]
    f89ac:	25 01 00             	and    ax,0x1
+;   if g_tasks[0].u1 & 1:
    f89af:	74 10                	je     0xf89c1
    f89b1:	8a 84 72 68          	mov    al,BYTE PTR [si+0x6872]
+;     g_tasks[0].u9 = g_tasks[0].u8
    f89b5:	88 84 73 68          	mov    BYTE PTR [si+0x6873],al
    f89b9:	8b 84 70 68          	mov    ax,WORD PTR [si+0x6870]
    f89bd:	0e                   	push   cs
-   f89be:	e8 cf ff             	call   0xf8990
-   f89c1:	ff 06 0d 28          	inc    WORD PTR ds:0x280d
+;     run_task(g_tasks[0].sp)
+   f89be:	e8 cf ff             	call   0xf8990 ; run_task
+
+   f89c1:	ff 06 0d 28          	inc    WORD PTR ds:0x280d ; g_task
    f89c5:	8b 36 0d 28          	mov    si,WORD PTR ds:0x280d
    f89c9:	3b 36 0f 28          	cmp    si,WORD PTR ds:0x280f
    f89cd:	74 c9                	je     0xf8998
+
    f89cf:	eb cf                	jmp    0xf89a0
 
 
@@ -39987,7 +40165,7 @@ read_something:
    f8d20:	88 47 03             	mov    BYTE PTR [bx+0x3],al
    f8d23:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    f8d28:	75 05                	jne    0xf8d2f
-   f8d2a:	9a 1a 00 96 f8       	call   0xf896:0x1a ; return_flash
+   f8d2a:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
    f8d2f:	8b 46 f4             	mov    ax,WORD PTR [bp-0xc]
    f8d32:	eb 00                	jmp    0xf8d34
    f8d34:	8b e5                	mov    sp,bp
@@ -40097,7 +40275,7 @@ read_something:
    f8e1a:	c7 06 22 68 38 ff    	mov    WORD PTR ds:0x6822,0xff38
    f8e20:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    f8e25:	75 05                	jne    0xf8e2c
-   f8e27:	9a 1a 00 96 f8       	call   0xf896:0x1a
+   f8e27:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
    f8e2c:	8b 46 f4             	mov    ax,WORD PTR [bp-0xc]
    f8e2f:	eb 00                	jmp    0xf8e31
    f8e31:	8b e5                	mov    sp,bp
@@ -40176,7 +40354,7 @@ read_something:
    f8ed5:	c7 06 22 68 38 ff    	mov    WORD PTR ds:0x6822,0xff38
    f8edb:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    f8ee0:	75 05                	jne    0xf8ee7
-   f8ee2:	9a 1a 00 96 f8       	call   0xf896:0x1a
+   f8ee2:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
    f8ee7:	8b 46 f4             	mov    ax,WORD PTR [bp-0xc]
    f8eea:	eb 00                	jmp    0xf8eec
    f8eec:	8b e5                	mov    sp,bp
@@ -40254,7 +40432,7 @@ read_something2:
    f8f9a:	81 47 02 6c 07       	add    WORD PTR [bx+0x2],0x76c
    f8f9f:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    f8fa4:	75 05                	jne    0xf8fab
-   f8fa6:	9a 1a 00 96 f8       	call   0xf896:0x1a
+   f8fa6:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
    f8fab:	8b 46 f2             	mov    ax,WORD PTR [bp-0xe]
    f8fae:	eb 00                	jmp    0xf8fb0
    f8fb0:	8b e5                	mov    sp,bp
@@ -40361,7 +40539,7 @@ read_something2:
    f90a0:	c7 06 22 68 37 ff    	mov    WORD PTR ds:0x6822,0xff37
    f90a6:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    f90ab:	75 05                	jne    0xf90b2
-   f90ad:	9a 1a 00 96 f8       	call   0xf896:0x1a
+   f90ad:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
    f90b2:	8b 46 f2             	mov    ax,WORD PTR [bp-0xe]
    f90b5:	eb 00                	jmp    0xf90b7
    f90b7:	8b e5                	mov    sp,bp
@@ -40402,8 +40580,8 @@ read_something2:
    f90fb:	59                   	pop    cx
    f90fc:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    f9101:	75 05                	jne    0xf9108
-   f9103:	9a 1a 00 96 f8       	call   0xf896:0x1a
-   f9108:	8b 1e 0d 28          	mov    bx,WORD PTR ds:0x280d
+   f9103:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
+   f9108:	8b 1e 0d 28          	mov    bx,WORD PTR ds:0x280d ; g_task
    f910c:	8a 87 8a 6c          	mov    al,BYTE PTR [bx+0x6c8a]
    f9110:	3a 46 ff             	cmp    al,BYTE PTR [bp-0x1]
    f9113:	75 07                	jne    0xf911c
@@ -40455,7 +40633,7 @@ read_something2:
    f9184:	c7 46 fe ff ff       	mov    WORD PTR [bp-0x2],0xffff
    f9189:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    f918e:	75 05                	jne    0xf9195
-   f9190:	9a 1a 00 96 f8       	call   0xf896:0x1a
+   f9190:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
    f9195:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
    f9198:	eb 00                	jmp    0xf919a
    f919a:	8b e5                	mov    sp,bp
@@ -40481,7 +40659,7 @@ read_something2:
    f91bf:	83 c4 0a             	add    sp,0xa
    f91c2:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    f91c7:	75 05                	jne    0xf91ce
-   f91c9:	9a 1a 00 96 f8       	call   0xf896:0x1a
+   f91c9:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
    f91ce:	5d                   	pop    bp
    f91cf:	cb                   	retf   
 
@@ -40592,7 +40770,7 @@ strfdate:
    f92c9:	eb 00                	jmp    0xf92cb
    f92cb:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    f92d0:	75 05                	jne    0xf92d7
-   f92d2:	9a 1a 00 96 f8       	call   0xf896:0x1a
+   f92d2:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
    f92d7:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
    f92da:	eb 00                	jmp    0xf92dc
    f92dc:	8b e5                	mov    sp,bp
@@ -40682,7 +40860,7 @@ strfdate:
    f939f:	88 57 04             	mov    BYTE PTR [bx+0x4],dl
    f93a2:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    f93a7:	75 05                	jne    0xf93ae
-   f93a9:	9a 1a 00 96 f8       	call   0xf896:0x1a
+   f93a9:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
    f93ae:	8b 46 f6             	mov    ax,WORD PTR [bp-0xa]
    f93b1:	eb 00                	jmp    0xf93b3
    f93b3:	8b e5                	mov    sp,bp
@@ -40824,7 +41002,7 @@ strfdate:
    f94e4:	83 c4 06             	add    sp,0x6
    f94e7:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    f94ec:	75 05                	jne    0xf94f3
-   f94ee:	9a 1a 00 96 f8       	call   0xf896:0x1a
+   f94ee:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
    f94f3:	5d                   	pop    bp
    f94f4:	cb                   	retf   
 
@@ -40865,7 +41043,7 @@ strfdate:
    f9535:	83 c4 06             	add    sp,0x6
    f9538:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    f953d:	75 05                	jne    0xf9544
-   f953f:	9a 1a 00 96 f8       	call   0xf896:0x1a
+   f953f:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
    f9544:	5d                   	pop    bp
    f9545:	cb                   	retf   
 
@@ -40980,7 +41158,7 @@ strfdate:
    f9641:	eb 1d                	jmp    0xf9660
    f9643:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    f9648:	75 05                	jne    0xf964f
-   f964a:	9a 1a 00 96 f8       	call   0xf896:0x1a
+   f964a:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
    f964f:	b0 04                	mov    al,0x4
    f9651:	50                   	push   ax
    f9652:	b0 01                	mov    al,0x1
