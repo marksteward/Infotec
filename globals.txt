@@ -1,0 +1,49 @@
+0x266 short ?
+0x267 int g_cmdlen
+0x269 char[512] g_cmdbuf
+0x469 short ?
+
+0x29fa DATE g_date
+
+0x280d int g_task
+0x280f int g_numtasks
+0x2811 int g_saved_sp
+0x2813 short g_runlevel
+
+0x632c 
+
+0x6332 
+0x6339 
+0x633a char[5] g_outargs
+0x633f short g_coutargs
+0x6340 short g_serial
+0x6341 SERIALINFO g_si
+
+0x6349 g_6349
+0x634a g_634a
+0x634b short g_cmdnum
+0x634c g_634c
+0x634d char[256] g_inbuf
+0x644d char[5] g_inargs
+0x6502 
+
+0x650d short g_cinargs
+0x650e char[256] g_cmd_lookup
+0x660e 
+
+
+0x6868 TASK[16] g_tasks
+0x6968 
+
+0x698c far PORT *g_port_regs
+0x6990 far SERIAL *g_serial2_regs
+0x6992 
+0x6994 far SERIAL *g_serial1_regs
+0x6996 
+0x6998 
+0x699a 
+0x699b far PORT *g_port0_regs
+0x699f far PORT *g_port1_regs
+0x69a3 far PORT *g_port2_regs
+
+0x69ae g_serialbuf
