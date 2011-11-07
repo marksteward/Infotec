@@ -26295,7 +26295,7 @@ font_task_0:
    f05a4:	59                   	pop    cx
    f05a5:	b0 07                	mov    al,0x7
    f05a7:	50                   	push   ax
-   f05a8:	9a da 03 3b f9       	call   0xf93b:0x3da
+   f05a8:	9a da 03 3b f9       	call   0xf93b:0x3da ; get_serial_flag
    f05ad:	59                   	pop    cx
    f05ae:	a2 d0 62             	mov    ds:0x62d0,al
    f05b1:	b0 03                	mov    al,0x3
@@ -26673,7 +26673,7 @@ init_something4:
    f09da:	cb                   	retf   
 
 
-init_something5:
+init_boot_serial:
    f09db:	55                   	push   bp
    f09dc:	8b ec                	mov    bp,sp
    f09de:	83 ec 02             	sub    sp,0x2
@@ -26746,6 +26746,7 @@ init_something5:
    f0aa7:	50                   	push   ax
    f0aa8:	9a d6 03 70 e4       	call   0xe470:0x3d6
    f0aad:	59                   	pop    cx
+
    f0aae:	b0 02                	mov    al,0x2
    f0ab0:	50                   	push   ax
    f0ab1:	b0 01                	mov    al,0x1
@@ -26756,8 +26757,10 @@ init_something5:
    f0aba:	50                   	push   ax
    f0abb:	b0 00                	mov    al,0x0
    f0abd:	50                   	push   ax
+; open_serial(0, 19200, 8, 1, 2)
    f0abe:	9a 0b 0f 84 f6       	call   0xf684:0xf0b
    f0ac3:	83 c4 0a             	add    sp,0xa
+
    f0ac6:	b0 02                	mov    al,0x2
    f0ac8:	50                   	push   ax
    f0ac9:	b0 01                	mov    al,0x1
@@ -26768,8 +26771,10 @@ init_something5:
    f0ad2:	50                   	push   ax
    f0ad3:	b0 01                	mov    al,0x1
    f0ad5:	50                   	push   ax
+; open_serial(1, 19200, 8, 1, 2)
    f0ad6:	9a 0b 0f 84 f6       	call   0xf684:0xf0b
    f0adb:	83 c4 0a             	add    sp,0xa
+
    f0ade:	b8 45 f0             	mov    ax,0xf045
    f0ae1:	50                   	push   ax
    f0ae2:	b8 33 01             	mov    ax,0x133
@@ -26782,6 +26787,7 @@ init_something5:
    f0aee:	50                   	push   ax
 ; add_task(0, 0, 1, &font_task_0)
    f0aef:	9a b8 00 b2 f7       	call   0xf7b2:0xb8 ; add_task
+
    f0af4:	83 c4 0a             	add    sp,0xa
    f0af7:	b8 76 f5             	mov    ax,0xf576
    f0afa:	50                   	push   ax
@@ -26796,6 +26802,7 @@ init_something5:
 ; add_task(1, 0, 1, &font_task_1)
    f0b08:	9a b8 00 b2 f7       	call   0xf7b2:0xb8 ; add_task
    f0b0d:	83 c4 0a             	add    sp,0xa
+
    f0b10:	9a e4 02 47 f6       	call   0xf647:0x2e4
    f0b15:	9a 16 00 76 f5       	call   0xf576:0x16 ; load_builtin_fonts
    f0b1a:	b8 fe ff             	mov    ax,0xfffe
@@ -34511,38 +34518,57 @@ process_summat:
    f565a:	cb                   	retf   
 
 
+init_serialinfo:
    f565b:	55                   	push   bp
    f565c:	8b ec                	mov    bp,sp
    f565e:	b0 06                	mov    al,0x6
    f5660:	50                   	push   ax
-   f5661:	9a da 03 3b f9       	call   0xf93b:0x3da
+   f5661:	9a da 03 3b f9       	call   0xf93b:0x3da ; get_serial_flag
    f5666:	59                   	pop    cx
    f5667:	3c 01                	cmp    al,0x1
    f5669:	75 04                	jne    0xf566f
    f566b:	b0 01                	mov    al,0x1
    f566d:	eb 02                	jmp    0xf5671
    f566f:	b0 00                	mov    al,0x0
-; g_serial = 0
+; g_serial = get_serial_flag(6) == 1 ? 1 : 0
    f5671:	a2 40 63             	mov    ds:0x6340,al
+
    f5674:	b0 05                	mov    al,0x5
    f5676:	50                   	push   ax
-   f5677:	9a da 03 3b f9       	call   0xf93b:0x3da
+   f5677:	9a da 03 3b f9       	call   0xf93b:0x3da ; get_serial_flag
    f567c:	59                   	pop    cx
+
    f567d:	3c 01                	cmp    al,0x1
    f567f:	75 05                	jne    0xf5686
    f5681:	b8 00 4b             	mov    ax,0x4b00
    f5684:	eb 03                	jmp    0xf5689
    f5686:	b8 80 25             	mov    ax,0x2580
+; g_si.speed = get_serial_flag(5) ? 19200 : 9600
    f5689:	a3 41 63             	mov    ds:0x6341,ax
+; g_si.word = 8
    f568c:	c6 06 43 63 08       	mov    BYTE PTR ds:0x6343,0x8
+; g_si.stop = 1
    f5691:	c6 06 44 63 01       	mov    BYTE PTR ds:0x6344,0x1
+; g_si.u1 = 2
    f5696:	c6 06 45 63 02       	mov    BYTE PTR ds:0x6345,0x2
+; g_si.u2 = 4
    f569b:	c6 06 46 63 04       	mov    BYTE PTR ds:0x6346,0x4
+; g_si.u3 = 7
    f56a0:	c6 06 47 63 07       	mov    BYTE PTR ds:0x6347,0x7
    f56a5:	5d                   	pop    bp
    f56a6:	cb                   	retf   
 
 
+struct SERIALINFO {
+  int speed;
+  short word;
+  short stop;
+  short u1;
+  short u2;
+}
+
+
+init_real_serial:
    f56a7:	55                   	push   bp
    f56a8:	8b ec                	mov    bp,sp
    f56aa:	83 ec 02             	sub    sp,0x2
@@ -34550,8 +34576,11 @@ process_summat:
    f56b2:	75 04                	jne    0xf56b8
    f56b4:	0e                   	push   cs
    f56b5:	e8 9e ff             	call   0xf5656
+
    f56b8:	0e                   	push   cs
+; init_serialinfo()
    f56b9:	e8 9f ff             	call   0xf565b
+
    f56bc:	a0 45 63             	mov    al,ds:0x6345
    f56bf:	50                   	push   ax
    f56c0:	a0 44 63             	mov    al,ds:0x6344
@@ -34561,8 +34590,10 @@ process_summat:
    f56c8:	ff 36 41 63          	push   WORD PTR ds:0x6341
    f56cc:	b0 00                	mov    al,0x0
    f56ce:	50                   	push   ax
+; open_serial(0, g_si.speed, g_si.word, g_si.stop, g_si.u1)
    f56cf:	9a 0b 0f 84 f6       	call   0xf684:0xf0b
    f56d4:	83 c4 0a             	add    sp,0xa
+
    f56d7:	a0 45 63             	mov    al,ds:0x6345
    f56da:	50                   	push   ax
    f56db:	a0 44 63             	mov    al,ds:0x6344
@@ -34572,8 +34603,10 @@ process_summat:
    f56e3:	ff 36 41 63          	push   WORD PTR ds:0x6341
    f56e7:	b0 01                	mov    al,0x1
    f56e9:	50                   	push   ax
+; open_serial(1, g_si.speed, g_si.word, g_si.stop, g_si.u1)
    f56ea:	9a 0b 0f 84 f6       	call   0xf684:0xf0b
    f56ef:	83 c4 0a             	add    sp,0xa
+
    f56f2:	c7 46 fe 01 00       	mov    WORD PTR [bp-0x2],0x1
    f56f7:	eb 1e                	jmp    0xf5717
    f56f9:	8b 5e fe             	mov    bx,WORD PTR [bp-0x2]
@@ -34610,7 +34643,7 @@ process_summat:
    f5753:	ff 46 fe             	inc    WORD PTR [bp-0x2]
    f5756:	83 7e fe 50          	cmp    WORD PTR [bp-0x2],0x50
    f575a:	7c e1                	jl     0xf573d
-   f575c:	9a c8 03 3b f9       	call   0xf93b:0x3c8
+   f575c:	9a c8 03 3b f9       	call   0xf93b:0x3c8 ; get_serial_flags
    f5761:	24 1f                	and    al,0x1f
    f5763:	a2 c6 62             	mov    ds:0x62c6,al
    f5766:	8b e5                	mov    sp,bp
@@ -34702,24 +34735,30 @@ int load_builtin_fonts():
 main:
    f5817:	55                   	push   bp
    f5818:	8b ec                	mov    bp,sp
+; char[5] l1
+; far void *l2
    f581a:	83 ec 14             	sub    sp,0x14
    f581d:	a1 fe 25             	mov    ax,ds:0x25fe ; fbe9e
    f5820:	8b 16 fc 25          	mov    dx,WORD PTR ds:0x25fc
+; l2 = g_25fc
    f5824:	89 46 fa             	mov    WORD PTR [bp-0x6],ax
    f5827:	89 56 f8             	mov    WORD PTR [bp-0x8],dx
    f582a:	8d 46 ec             	lea    ax,[bp-0x14]
    f582d:	16                   	push   ss
    f582e:	50                   	push   ax
-   f582f:	b8 00 26             	mov    ax,0x2600 ; fbea0
+   f582f:	b8 00 26             	mov    ax,0x2600
    f5832:	1e                   	push   ds
    f5833:	50                   	push   ax
    f5834:	b9 05 00             	mov    cx,0x5
+; memcpy(&l1, 0x2600, sizeof(l1))
    f5837:	9a cd 00 00 e0       	call   0xe000:0xcd ; memcpy
-   f583c:	9a 8b 05 45 f0       	call   0xf045:0x58b ; init_something5
+   f583c:	9a 8b 05 45 f0       	call   0xf045:0x58b ; init_boot_serial
    f5841:	3d fe ff             	cmp    ax,0xfffe
+; if init_boot_serial() != -2: return
    f5844:	75 68                	jne    0xf58ae
-   f5846:	9a 2b 08 09 f2       	call   0xf209:0x82b ; f28bb
-   f584b:	9a b7 14 1f f4       	call   0xf41f:0x14b7 ; f56a7
+
+   f5846:	9a 2b 08 09 f2       	call   0xf209:0x82b
+   f584b:	9a b7 14 1f f4       	call   0xf41f:0x14b7 ; init_real_serial
    f5850:	b8 1f f4             	mov    ax,0xf41f
    f5853:	50                   	push   ax
    f5854:	b8 55 12             	mov    ax,0x1255
@@ -36006,6 +36045,7 @@ int _cdecl free_font(void * ptr):
    f664b:	cb                   	retf   
 
 
+; short _get_serial_flags(short p1):
    f664c:	55                   	push   bp
    f664d:	8b ec                	mov    bp,sp
    f664f:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
@@ -36014,6 +36054,7 @@ int _cdecl free_font(void * ptr):
    f6656:	d3 e0                	shl    ax,cl
    f6658:	8b d8                	mov    bx,ax
    f665a:	c4 9f 9b 69          	les    bx,DWORD PTR [bx+0x699b]
+; return g_serial_params[p1].flags
    f665e:	26 8a 07             	mov    al,BYTE PTR es:[bx]
    f6661:	b4 00                	mov    ah,0x0
    f6663:	eb 00                	jmp    0xf6665
@@ -37566,6 +37607,7 @@ serial_putsomething(serial, ?)
    f7573:	cb                   	retf   
 
 
+_open_serial(num, SERIALINFO si):
    f7574:	55                   	push   bp
    f7575:	8b ec                	mov    bp,sp
    f7577:	83 ec 18             	sub    sp,0x18
@@ -37748,16 +37790,23 @@ serial_putsomething(serial, ?)
    f774a:	cb                   	retf   
 
 
+open_serial(short num, int speed, short word, short stop, short p1):
    f774b:	55                   	push   bp
    f774c:	8b ec                	mov    bp,sp
+; SERIALINFO si
+; int result
    f774e:	83 ec 08             	sub    sp,0x8
    f7751:	8b 46 08             	mov    ax,WORD PTR [bp+0x8]
+; si.speed = speed
    f7754:	89 46 f8             	mov    WORD PTR [bp-0x8],ax
    f7757:	8a 46 0a             	mov    al,BYTE PTR [bp+0xa]
+; si.word = word
    f775a:	88 46 fa             	mov    BYTE PTR [bp-0x6],al
    f775d:	8a 46 0c             	mov    al,BYTE PTR [bp+0xc]
+; si.stop = stop
    f7760:	88 46 fb             	mov    BYTE PTR [bp-0x5],al
    f7763:	8a 46 0e             	mov    al,BYTE PTR [bp+0xe]
+; si.u1 = p1
    f7766:	88 46 fc             	mov    BYTE PTR [bp-0x4],al
    f7769:	8d 46 f8             	lea    ax,[bp-0x8]
    f776c:	8c d2                	mov    dx,ss
@@ -37768,8 +37817,10 @@ serial_putsomething(serial, ?)
    f777a:	0e                   	push   cs
    f777b:	e8 f6 fd             	call   0xf7574
    f777e:	83 c4 08             	add    sp,0x8
+; result = _open_serial(num, si)
    f7781:	89 46 fe             	mov    WORD PTR [bp-0x2],ax
    f7784:	83 7e fe fe          	cmp    WORD PTR [bp-0x2],0xfffffffe
+; if result == -2:
    f7788:	75 1d                	jne    0xf77a7
    f778a:	80 7e 06 00          	cmp    BYTE PTR [bp+0x6],0x0
    f778e:	75 05                	jne    0xf7795
@@ -37782,9 +37833,11 @@ serial_putsomething(serial, ?)
    f779d:	16                   	push   ss
    f779e:	50                   	push   ax
    f779f:	b9 05 00             	mov    cx,0x5
+;   memcpy(&si, num == 0 ? 0x6987 : 0x6982, 5)
    f77a2:	9a cd 00 00 e0       	call   0xe000:0xcd ; memcpy
+
    f77a7:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
- ; if g_runlevel == 0:
+; if g_runlevel == 0:
   f77ac:	75 05                	jne    0xf77b3
 ;   leave_task()
    f77ae:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
@@ -41299,10 +41352,12 @@ strfdate:
    f9777:	cb                   	retf   
 
 
+short get_serial_flags():
    f9778:	55                   	push   bp
    f9779:	8b ec                	mov    bp,sp
    f977b:	b0 02                	mov    al,0x2
    f977d:	50                   	push   ax
+; return ~_get_serial_flags(2)
    f977e:	9a dc 01 47 f6       	call   0xf647:0x1dc
    f9783:	59                   	pop    cx
    f9784:	f6 d0                	not    al
@@ -41311,24 +41366,31 @@ strfdate:
    f9789:	cb                   	retf   
 
 
+short get_serial_flag(int b):
    f978a:	55                   	push   bp
    f978b:	8b ec                	mov    bp,sp
    f978d:	b0 02                	mov    al,0x2
    f978f:	50                   	push   ax
    f9790:	9a dc 01 47 f6       	call   0xf647:0x1dc
    f9795:	59                   	pop    cx
+
    f9796:	ba 01 00             	mov    dx,0x1
    f9799:	8a 4e 06             	mov    cl,BYTE PTR [bp+0x6]
    f979c:	d3 e2                	shl    dx,cl
    f979e:	23 c2                	and    ax,dx
+
    f97a0:	ba 01 00             	mov    dx,0x1
    f97a3:	8a 4e 06             	mov    cl,BYTE PTR [bp+0x6]
    f97a6:	d3 e2                	shl    dx,cl
    f97a8:	3b c2                	cmp    ax,dx
+; if _get_serial_flags() & 1 << b == 1 << b:
    f97aa:	75 06                	jne    0xf97b2
    f97ac:	b0 00                	mov    al,0x0
+;   return 0
    f97ae:	eb 06                	jmp    0xf97b6
+; else:
    f97b0:	eb 04                	jmp    0xf97b6
+;   return 1
    f97b2:	b0 01                	mov    al,0x1
    f97b4:	eb f8                	jmp    0xf97ae
    f97b6:	5d                   	pop    bp
