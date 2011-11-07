@@ -4194,7 +4194,7 @@ output_something4:
    e2541:	0b c0                	or     ax,ax
    e2543:	75 03                	jne    0xe2548
    e2545:	e9 27 03             	jmp    0xe286f
-   e2548:	b8 64 00             	mov    ax,0x64
+   e2548:	b8 64 00             	mov    ax,0x64 ; 100
    e254b:	50                   	push   ax
    e254c:	9a ec 06 ed f7       	call   0xf7ed:0x6ec
    e2551:	59                   	pop    cx
@@ -4260,7 +4260,7 @@ output_something4:
    e25eb:	0b c0                	or     ax,ax
    e25ed:	75 03                	jne    0xe25f2
    e25ef:	e9 7d 02             	jmp    0xe286f
-   e25f2:	b8 d0 07             	mov    ax,0x7d0
+   e25f2:	b8 d0 07             	mov    ax,0x7d0 ; 2000
    e25f5:	50                   	push   ax
    e25f6:	9a ec 06 ed f7       	call   0xf7ed:0x6ec
    e25fb:	59                   	pop    cx
@@ -4316,7 +4316,7 @@ output_something4:
    e2682:	0b c0                	or     ax,ax
    e2684:	75 03                	jne    0xe2689
    e2686:	e9 e6 01             	jmp    0xe286f
-   e2689:	b8 96 00             	mov    ax,0x96
+   e2689:	b8 96 00             	mov    ax,0x96 ; 150
    e268c:	50                   	push   ax
    e268d:	9a ec 06 ed f7       	call   0xf7ed:0x6ec
    e2692:	59                   	pop    cx
@@ -4398,7 +4398,7 @@ output_something4:
    e2763:	0b c0                	or     ax,ax
    e2765:	75 03                	jne    0xe276a
    e2767:	e9 05 01             	jmp    0xe286f
-   e276a:	b8 64 00             	mov    ax,0x64
+   e276a:	b8 64 00             	mov    ax,0x64 ; 100
    e276d:	50                   	push   ax
    e276e:	9a ec 06 ed f7       	call   0xf7ed:0x6ec
    e2773:	59                   	pop    cx
@@ -4466,7 +4466,7 @@ output_something4:
    e2821:	0b c0                	or     ax,ax
    e2823:	75 02                	jne    0xe2827
    e2825:	eb 48                	jmp    0xe286f
-   e2827:	b8 28 00             	mov    ax,0x28
+   e2827:	b8 28 00             	mov    ax,0x28 ; 40
    e282a:	50                   	push   ax
    e282b:	9a ec 06 ed f7       	call   0xf7ed:0x6ec
    e2830:	59                   	pop    cx
@@ -4483,7 +4483,7 @@ output_something4:
    e284a:	0b c0                	or     ax,ax
    e284c:	75 02                	jne    0xe2850
    e284e:	eb 1f                	jmp    0xe286f
-   e2850:	b8 28 00             	mov    ax,0x28
+   e2850:	b8 28 00             	mov    ax,0x28 ; 40
    e2853:	50                   	push   ax
    e2854:	9a ec 06 ed f7       	call   0xf7ed:0x6ec
    e2859:	59                   	pop    cx
@@ -4625,7 +4625,7 @@ output_something6:
 output_something7:
    e299e:	55                   	push   bp
    e299f:	8b ec                	mov    bp,sp
-   e29a1:	80 7e 08 32          	cmp    BYTE PTR [bp+0x8],0x32
+   e29a1:	80 7e 08 32          	cmp    BYTE PTR [bp+0x8],0x32 ; 50
    e29a5:	75 0d                	jne    0xe29b4
    e29a7:	8a 46 0c             	mov    al,BYTE PTR [bp+0xc]
    e29aa:	50                   	push   ax
@@ -5461,7 +5461,7 @@ output_something10:
    e31f9:	0e                   	push   cs
    e31fa:	e8 a1 f7             	call   0xe299e
    e31fd:	83 c4 08             	add    sp,0x8
-   e3200:	b8 32 00             	mov    ax,0x32
+   e3200:	b8 32 00             	mov    ax,0x32 ; 50
    e3203:	50                   	push   ax
    e3204:	9a ec 06 ed f7       	call   0xf7ed:0x6ec
    e3209:	59                   	pop    cx
@@ -5479,7 +5479,7 @@ output_something10:
    e321e:	fe 46 fd             	inc    BYTE PTR [bp-0x3]
    e3221:	80 7e fd 03          	cmp    BYTE PTR [bp-0x3],0x3
    e3225:	72 c5                	jb     0xe31ec
-   e3227:	b8 dc 05             	mov    ax,0x5dc
+   e3227:	b8 dc 05             	mov    ax,0x5dc ; 1500
    e322a:	50                   	push   ax
    e322b:	9a ec 06 ed f7       	call   0xf7ed:0x6ec
    e3230:	59                   	pop    cx
@@ -7012,11 +7012,11 @@ bit_bash_port_0:
    e41a2:	74 03                	je     0xe41a7
    e41a4:	e9 25 01             	jmp    0xe42cc
    e41a7:	c6 46 f5 00          	mov    BYTE PTR [bp-0xb],0x0
-   e41ab:	83 3e bc 2a 61       	cmp    WORD PTR ds:0x2abc,0x61
+   e41ab:	83 3e bc 2a 61       	cmp    WORD PTR ds:0x2abc,0x61 ; 97
    e41b0:	72 08                	jb     0xe41ba
-   e41b2:	81 06 bc 2a 6c 07    	add    WORD PTR ds:0x2abc,0x76c
+   e41b2:	81 06 bc 2a 6c 07    	add    WORD PTR ds:0x2abc,0x76c ; 1900
    e41b8:	eb 06                	jmp    0xe41c0
-   e41ba:	81 06 bc 2a d0 07    	add    WORD PTR ds:0x2abc,0x7d0
+   e41ba:	81 06 bc 2a d0 07    	add    WORD PTR ds:0x2abc,0x7d0 ; 2000
    e41c0:	80 3e fd 2d 00       	cmp    BYTE PTR ds:0x2dfd,0x0
    e41c5:	75 4d                	jne    0xe4214
    e41c7:	b8 02 00             	mov    ax,0x2
@@ -7828,7 +7828,7 @@ init_something2:
    e49e7:	8b d8                	mov    bx,ax
    e49e9:	58                   	pop    ax
    e49ea:	03 87 08 2e          	add    ax,WORD PTR [bx+0x2e08]
-   e49ee:	bb 18 00             	mov    bx,0x18
+   e49ee:	bb 18 00             	mov    bx,0x18 ; 24
    e49f1:	99                   	cwd    
    e49f2:	f7 fb                	idiv   bx
    e49f4:	89 56 fc             	mov    WORD PTR [bp-0x4],dx
@@ -8958,7 +8958,7 @@ init_something3:
    e5554:	e9 46 fc             	jmp    0xe519d
    e5557:	c7 06 8a 61 20 00    	mov    WORD PTR ds:0x618a,0x20
    e555d:	c6 06 8d 61 00       	mov    BYTE PTR ds:0x618d,0x0
-   e5562:	b8 96 00             	mov    ax,0x96
+   e5562:	b8 96 00             	mov    ax,0x96 ; 150
    e5565:	50                   	push   ax
    e5566:	b8 92 61             	mov    ax,0x6192
    e5569:	50                   	push   ax
@@ -25296,7 +25296,7 @@ interesting:
    efa34:	59                   	pop    cx
    efa35:	59                   	pop    cx
    efa36:	e9 ba 00             	jmp    0xefaf3
-   efa39:	81 3e 29 2e e8 03    	cmp    WORD PTR ds:0x2e29,0x3e8
+   efa39:	81 3e 29 2e e8 03    	cmp    WORD PTR ds:0x2e29,0x3e8 ; 1000
    efa3f:	73 16                	jae    0xefa57
    efa41:	ff 36 29 2e          	push   WORD PTR ds:0x2e29
    efa45:	b8 c3 00             	mov    ax,0xc3 ; "%03d"
@@ -25915,15 +25915,15 @@ interesting:
    f006e:	50                   	push   ax
    f006f:	b8 58 01             	mov    ax,0x158 ; "%2d"
    f0072:	eb 74                	jmp    0xf00e8
-   f0074:	81 7e fc d0 07       	cmp    WORD PTR [bp-0x4],0x7d0
+   f0074:	81 7e fc d0 07       	cmp    WORD PTR [bp-0x4],0x7d0 ; 2000
    f0079:	73 0c                	jae    0xf0087
    f007b:	8b 46 fc             	mov    ax,WORD PTR [bp-0x4]
-   f007e:	2d 6c 07             	sub    ax,0x76c
+   f007e:	2d 6c 07             	sub    ax,0x76c ; 1900
    f0081:	50                   	push   ax
    f0082:	b8 5b 01             	mov    ax,0x15b ; "%02d"
    f0085:	eb 0a                	jmp    0xf0091
    f0087:	8b 46 fc             	mov    ax,WORD PTR [bp-0x4]
-   f008a:	2d d0 07             	sub    ax,0x7d0
+   f008a:	2d d0 07             	sub    ax,0x7d0 ; 2000
    f008d:	50                   	push   ax
    f008e:	b8 60 01             	mov    ax,0x160 ; "%02d"
    f0091:	50                   	push   ax
@@ -26298,7 +26298,7 @@ interesting:
    f046b:	e9 b5 00             	jmp    0xf0523
    f046e:	8a 46 ff             	mov    al,BYTE PTR [bp-0x1]
    f0471:	b4 00                	mov    ah,0x0
-   f0473:	ba 64 00             	mov    dx,0x64
+   f0473:	ba 64 00             	mov    dx,0x64 ; 100
    f0476:	f7 ea                	imul   dx
    f0478:	b1 08                	mov    cl,0x8
    f047a:	d3 e8                	shr    ax,cl
@@ -26634,7 +26634,7 @@ font_task_0:
    f07d0:	59                   	pop    cx
    f07d1:	b0 00                	mov    al,0x0
    f07d3:	50                   	push   ax
-   f07d4:	b8 d0 07             	mov    ax,0x7d0
+   f07d4:	b8 d0 07             	mov    ax,0x7d0 ; 2000
    f07d7:	33 d2                	xor    dx,dx
    f07d9:	f7 36 24 68          	div    WORD PTR ds:0x6824
    f07dd:	50                   	push   ax
@@ -26642,11 +26642,11 @@ font_task_0:
    f07e0:	50                   	push   ax
    f07e1:	9a b5 02 ed f7       	call   0xf7ed:0x2b5
    f07e6:	83 c4 06             	add    sp,0x6
-   f07e9:	80 3e d8 62 14       	cmp    BYTE PTR ds:0x62d8,0x14
+   f07e9:	80 3e d8 62 14       	cmp    BYTE PTR ds:0x62d8,0x14 ; 20
    f07ee:	77 08                	ja     0xf07f8
    f07f0:	b0 00                	mov    al,0x0
    f07f2:	50                   	push   ax
-   f07f3:	b8 28 00             	mov    ax,0x28
+   f07f3:	b8 28 00             	mov    ax,0x28 ; 40
    f07f6:	eb 0a                	jmp    0xf0802
    f07f8:	b0 00                	mov    al,0x0
    f07fa:	50                   	push   ax
@@ -29741,7 +29741,7 @@ compare_lizz:
    f2798:	74 07                	je     0xf27a1
    f279a:	80 3e 20 63 5a       	cmp    BYTE PTR ds:0x6320,0x5a
    f279f:	75 1d                	jne    0xf27be
-   f27a1:	b8 f4 01             	mov    ax,0x1f4
+   f27a1:	b8 f4 01             	mov    ax,0x1f4 ; 500
    f27a4:	50                   	push   ax
    f27a5:	9a ec 06 ed f7       	call   0xf7ed:0x6ec
    f27aa:	59                   	pop    cx
@@ -29776,7 +29776,7 @@ compare_lizz:
    f27f6:	75 33                	jne    0xf282b
    f27f8:	c7 46 fa 00 00       	mov    WORD PTR [bp-0x6],0x0
    f27fd:	eb 26                	jmp    0xf2825
-   f27ff:	b8 64 00             	mov    ax,0x64
+   f27ff:	b8 64 00             	mov    ax,0x64 ; 100
    f2802:	50                   	push   ax
    f2803:	9a ec 06 ed f7       	call   0xf7ed:0x6ec
    f2808:	59                   	pop    cx
@@ -29799,15 +29799,15 @@ compare_lizz:
    f2830:	c6 06 1e 63 49       	mov    BYTE PTR ds:0x631e,0x49
    f2835:	c6 06 1f 63 5a       	mov    BYTE PTR ds:0x631f,0x5a
    f283a:	c6 06 20 63 5a       	mov    BYTE PTR ds:0x6320,0x5a
-   f283f:	c7 06 21 63 00 00    	mov    WORD PTR ds:0x6321,0x0
-   f2845:	c6 06 23 63 00       	mov    BYTE PTR ds:0x6323,0x0
-   f284a:	c6 06 24 63 37       	mov    BYTE PTR ds:0x6324,0x37
-   f284f:	c6 06 25 63 41       	mov    BYTE PTR ds:0x6325,0x41
-   f2854:	c6 06 26 63 49       	mov    BYTE PTR ds:0x6326,0x49
-   f2859:	c6 06 27 63 50       	mov    BYTE PTR ds:0x6327,0x50
-   f285e:	c6 06 28 63 5a       	mov    BYTE PTR ds:0x6328,0x5a
-   f2863:	c6 06 29 63 64       	mov    BYTE PTR ds:0x6329,0x64
-   f2868:	c7 06 2f 63 00 01    	mov    WORD PTR ds:0x632f,0x100
+   f283f:	c7 06 21 63 00 00    	mov    WORD PTR ds:0x6321,0x0   ; 0
+   f2845:	c6 06 23 63 00       	mov    BYTE PTR ds:0x6323,0x0   ; 0
+   f284a:	c6 06 24 63 37       	mov    BYTE PTR ds:0x6324,0x37  ; 55
+   f284f:	c6 06 25 63 41       	mov    BYTE PTR ds:0x6325,0x41  ; 65
+   f2854:	c6 06 26 63 49       	mov    BYTE PTR ds:0x6326,0x49  ; 73
+   f2859:	c6 06 27 63 50       	mov    BYTE PTR ds:0x6327,0x50  ; 80
+   f285e:	c6 06 28 63 5a       	mov    BYTE PTR ds:0x6328,0x5a  ; 90
+   f2863:	c6 06 29 63 64       	mov    BYTE PTR ds:0x6329,0x64  ; 100
+   f2868:	c7 06 2f 63 00 01    	mov    WORD PTR ds:0x632f,0x100 ; 256
    f286e:	c7 46 fe ff ff       	mov    WORD PTR [bp-0x2],0xffff
    f2873:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
    f2876:	eb a8                	jmp    0xf2820
@@ -29850,7 +29850,7 @@ compare_lizz:
    f28ec:	0e                   	push   cs
    f28ed:	e8 a2 f7             	call   0xf2092
    f28f0:	0e                   	push   cs
-   f28f1:	e8 57 fe             	call   0xf274b
+   f28f1:	e8 57 fe             	call   0xf274b ; compare_lizz
    f28f4:	80 3e 15 68 01       	cmp    BYTE PTR ds:0x6815,0x1
    f28f9:	75 04                	jne    0xf28ff
    f28fb:	0e                   	push   cs
@@ -29868,22 +29868,22 @@ compare_lizz:
    f2911:	80 3e 0d 65 05       	cmp    BYTE PTR ds:0x650d,0x5
    f2916:	72 50                	jb     0xf2968
    f2918:	c6 06 23 63 00       	mov    BYTE PTR ds:0x6323,0x0
-   f291d:	b0 64                	mov    al,0x64
+   f291d:	b0 64                	mov    al,0x64 ; 100
    f291f:	2a 06 4d 64          	sub    al,BYTE PTR ds:0x644d
    f2923:	a2 24 63             	mov    ds:0x6324,al
-   f2926:	b0 64                	mov    al,0x64
+   f2926:	b0 64                	mov    al,0x64 ; 100
    f2928:	2a 06 4e 64          	sub    al,BYTE PTR ds:0x644e
    f292c:	a2 25 63             	mov    ds:0x6325,al
-   f292f:	b0 64                	mov    al,0x64
+   f292f:	b0 64                	mov    al,0x64 ; 100
    f2931:	2a 06 4f 64          	sub    al,BYTE PTR ds:0x644f
    f2935:	a2 26 63             	mov    ds:0x6326,al
-   f2938:	b0 64                	mov    al,0x64
+   f2938:	b0 64                	mov    al,0x64 ; 100
    f293a:	2a 06 50 64          	sub    al,BYTE PTR ds:0x6450
    f293e:	a2 27 63             	mov    ds:0x6327,al
-   f2941:	b0 64                	mov    al,0x64
+   f2941:	b0 64                	mov    al,0x64 ; 100
    f2943:	2a 06 51 64          	sub    al,BYTE PTR ds:0x6451
    f2947:	a2 28 63             	mov    ds:0x6328,al
-   f294a:	c6 06 29 63 64       	mov    BYTE PTR ds:0x6329,0x64
+   f294a:	c6 06 29 63 64       	mov    BYTE PTR ds:0x6329,0x64 ; 100
    f294f:	80 3e 2c 63 00       	cmp    BYTE PTR ds:0x632c,0x0
    f2954:	75 12                	jne    0xf2968
    f2956:	b0 0e                	mov    al,0xe
@@ -30020,7 +30020,7 @@ compare_lizz:
    f2ab2:	eb 2b                	jmp    0xf2adf
    f2ab4:	83 7e fa 0a          	cmp    WORD PTR [bp-0x6],0xa
    f2ab8:	7c 11                	jl     0xf2acb
-   f2aba:	83 7e fa 64          	cmp    WORD PTR [bp-0x6],0x64
+   f2aba:	83 7e fa 64          	cmp    WORD PTR [bp-0x6],0x64 ; 100
    f2abe:	7f 0b                	jg     0xf2acb
    f2ac0:	8a 46 fa             	mov    al,BYTE PTR [bp-0x6]
    f2ac3:	a2 d8 62             	mov    ds:0x62d8,al
@@ -30385,11 +30385,11 @@ compare_lizz:
    f2dde:	a0 4f 64             	mov    al,ds:0x644f
    f2de1:	b4 00                	mov    ah,0x0
    f2de3:	89 46 fa             	mov    WORD PTR [bp-0x6],ax
-   f2de6:	83 7e fa 5a          	cmp    WORD PTR [bp-0x6],0x5a
+   f2de6:	83 7e fa 5a          	cmp    WORD PTR [bp-0x6],0x5a ; 90
    f2dea:	72 07                	jb     0xf2df3
-   f2dec:	81 46 fa 6c 07       	add    WORD PTR [bp-0x6],0x76c
+   f2dec:	81 46 fa 6c 07       	add    WORD PTR [bp-0x6],0x76c ; 1900
    f2df1:	eb 05                	jmp    0xf2df8
-   f2df3:	81 46 fa d0 07       	add    WORD PTR [bp-0x6],0x7d0
+   f2df3:	81 46 fa d0 07       	add    WORD PTR [bp-0x6],0x7d0 ; 2000
    f2df8:	8d 46 f8             	lea    ax,[bp-0x8]
    f2dfb:	50                   	push   ax
    f2dfc:	9a e4 05 9d f8       	call   0xf89d:0x5e4
@@ -31820,7 +31820,7 @@ int do_get_date(void):
 ; g_outargs[1] = date.month
    f39a6:	a2 3b 63             	mov    ds:0x633b,al
    f39a9:	8b 46 fc             	mov    ax,WORD PTR [bp-0x4]
-   f39ac:	bb 64 00             	mov    bx,0x64
+   f39ac:	bb 64 00             	mov    bx,0x64 ; 100
    f39af:	33 d2                	xor    dx,dx
    f39b1:	f7 f3                	div    bx
 ; g_outargs[2] = date.year % 100
@@ -31945,11 +31945,11 @@ int do_get_version(void):
    f3a96:	a0 4f 64             	mov    al,ds:0x644f
    f3a99:	b4 00                	mov    ah,0x0
    f3a9b:	89 46 fa             	mov    WORD PTR [bp-0x6],ax
-   f3a9e:	83 7e fa 5a          	cmp    WORD PTR [bp-0x6],0x5a
+   f3a9e:	83 7e fa 5a          	cmp    WORD PTR [bp-0x6],0x5a ; 90
    f3aa2:	72 07                	jb     0xf3aab
-   f3aa4:	81 46 fa 6c 07       	add    WORD PTR [bp-0x6],0x76c
+   f3aa4:	81 46 fa 6c 07       	add    WORD PTR [bp-0x6],0x76c ; 1900
    f3aa9:	eb 05                	jmp    0xf3ab0
-   f3aab:	81 46 fa d0 07       	add    WORD PTR [bp-0x6],0x7d0
+   f3aab:	81 46 fa d0 07       	add    WORD PTR [bp-0x6],0x7d0 ; 2000
    f3ab0:	8d 46 f8             	lea    ax,[bp-0x8]
    f3ab3:	50                   	push   ax
    f3ab4:	9a 94 00 9d f8       	call   0xf89d:0x94
@@ -32951,11 +32951,11 @@ int do_get_version(void):
    f4471:	b4 00                	mov    ah,0x0
    f4473:	8a 16 b5 01          	mov    dl,BYTE PTR ds:0x1b5
    f4477:	e9 3c fe             	jmp    0xf42b6
-   f447a:	83 3e 3f 02 61       	cmp    WORD PTR ds:0x23f,0x61
+   f447a:	83 3e 3f 02 61       	cmp    WORD PTR ds:0x23f,0x61 ; 97
    f447f:	77 08                	ja     0xf4489
-   f4481:	81 06 3f 02 d0 07    	add    WORD PTR ds:0x23f,0x7d0
+   f4481:	81 06 3f 02 d0 07    	add    WORD PTR ds:0x23f,0x7d0 ; 2000
    f4487:	eb 06                	jmp    0xf448f
-   f4489:	81 06 3f 02 6c 07    	add    WORD PTR ds:0x23f,0x76c
+   f4489:	81 06 3f 02 6c 07    	add    WORD PTR ds:0x23f,0x76c ; 1900
    f448f:	b8 42 02             	mov    ax,0x242
    f4492:	50                   	push   ax
    f4493:	9a 69 00 9d f8       	call   0xf89d:0x69 ; test_something
@@ -34960,7 +34960,7 @@ main:
 ; if init_boot_serial() != -2: return
    f5844:	75 68                	jne    0xf58ae
 
-; 0xf209:0x82b
+; f28bb()
    f5846:	9a 2b 08 09 f2       	call   0xf209:0x82b
 ; init_real_serial()
    f584b:	9a b7 14 1f f4       	call   0xf41f:0x14b7 ; init_real_serial
@@ -35175,7 +35175,7 @@ main:
    f5a98:	59                   	pop    cx
    f5a99:	fb                   	sti    
    f5a9a:	9a e4 02 47 f6       	call   0xf647:0x2e4
-   f5a9f:	c7 06 16 68 64 00    	mov    WORD PTR ds:0x6816,0x64
+   f5a9f:	c7 06 16 68 64 00    	mov    WORD PTR ds:0x6816,0x64 ; 100
    f5aa5:	c7 06 1f 68 00 00    	mov    WORD PTR ds:0x681f,0x0
    f5aab:	c7 06 1d 68 00 00    	mov    WORD PTR ds:0x681d,0x0
    f5ab1:	c6 06 21 68 00       	mov    BYTE PTR ds:0x6821,0x0
@@ -37879,6 +37879,7 @@ _open_serial(num, SERIALINFO si):
    f75f4:	89 56 fc             	mov    WORD PTR [bp-0x4],dx
    f75f7:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    f75fb:	26 8a 8f eb 00       	mov    cl,BYTE PTR es:[bx+0xeb] ; PRC processor control register
+; something to do with clock speed?
    f7600:	80 e1 02             	and    cl,0x2
    f7603:	fe c1                	inc    cl
    f7605:	b8 01 00             	mov    ax,0x1
@@ -37889,7 +37890,7 @@ _open_serial(num, SERIALINFO si):
    f7611:	52                   	push   dx
    f7612:	50                   	push   ax
    f7613:	b8 f4 00             	mov    ax,0xf4
-   f7616:	ba 00 24             	mov    dx,0x2400
+   f7616:	ba 00 24             	mov    dx,0x2400 ; 8000000
    f7619:	50                   	push   ax
    f761a:	52                   	push   dx
    f761b:	9a ec 00 00 e0       	call   0xe000:0xec
@@ -37927,7 +37928,7 @@ _open_serial(num, SERIALINFO si):
    f766e:	fe c2                	inc    dl
    f7670:	88 56 e9             	mov    BYTE PTR [bp-0x17],dl
    f7673:	33 c0                	xor    ax,ax
-   f7675:	ba 64 00             	mov    dx,0x64
+   f7675:	ba 64 00             	mov    dx,0x64 ; 100
    f7678:	50                   	push   ax
    f7679:	52                   	push   dx
    f767a:	33 c0                	xor    ax,ax
@@ -37938,11 +37939,11 @@ _open_serial(num, SERIALINFO si):
    f7685:	33 c9                	xor    cx,cx
    f7687:	ba 0f 00             	mov    dx,0xf
    f768a:	50                   	push   ax
-   f768b:	b8 40 42             	mov    ax,0x4240
+   f768b:	b8 40 42             	mov    ax,0x4240 ; 1000000
    f768e:	5b                   	pop    bx
    f768f:	9a 95 00 00 e0       	call   0xe000:0x95
    f7694:	05 20 a1             	add    ax,0xa120
-   f7697:	83 d2 07             	adc    dx,0x7
+   f7697:	83 d2 07             	adc    dx,0x7    ; 500000
    f769a:	52                   	push   dx
    f769b:	50                   	push   ax
    f769c:	9a ec 00 00 e0       	call   0xe000:0xec
@@ -37954,7 +37955,7 @@ _open_serial(num, SERIALINFO si):
    f76af:	26 8b 87 82 00       	mov    ax,WORD PTR es:[bx+0x82] ; TM0 timer register
    f76b4:	50                   	push   ax
    f76b5:	a1 24 68             	mov    ax,ds:0x6824
-   f76b8:	ba 0a 00             	mov    dx,0xa
+   f76b8:	ba 0a 00             	mov    dx,0xa ; 10
    f76bb:	f7 ea                	imul   dx
    f76bd:	33 d2                	xor    dx,dx
    f76bf:	8b d8                	mov    bx,ax
@@ -39029,7 +39030,7 @@ start_tasks:
    f8043:	8b ec                	mov    bp,sp
    f8045:	83 ec 04             	sub    sp,0x4
    f8048:	c7 46 fe ff ff       	mov    WORD PTR [bp-0x2],0xffff
-   f804d:	81 7e 08 e8 03       	cmp    WORD PTR [bp+0x8],0x3e8
+   f804d:	81 7e 08 e8 03       	cmp    WORD PTR [bp+0x8],0x3e8 ; 1000
    f8052:	76 03                	jbe    0xf8057
    f8054:	e9 b3 00             	jmp    0xf810a
    f8057:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
@@ -39039,12 +39040,12 @@ start_tasks:
    f8065:	b8 01 00             	mov    ax,0x1
    f8068:	d3 e0                	shl    ax,cl
    f806a:	50                   	push   ax
-   f806b:	b8 80 3e             	mov    ax,0x3e80
+   f806b:	b8 80 3e             	mov    ax,0x3e80 ; 16000
    f806e:	99                   	cwd    
    f806f:	5b                   	pop    bx
    f8070:	f7 fb                	idiv   bx
    f8072:	50                   	push   ax
-   f8073:	83 7e 08 32          	cmp    WORD PTR [bp+0x8],0x32
+   f8073:	83 7e 08 32          	cmp    WORD PTR [bp+0x8],0x32 ; 50
    f8077:	72 05                	jb     0xf807e
    f8079:	b8 01 00             	mov    ax,0x1
    f807c:	eb 02                	jmp    0xf8080
@@ -39063,7 +39064,7 @@ start_tasks:
    f809a:	f7 6e 08             	imul   WORD PTR [bp+0x8]
    f809d:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    f80a1:	26 89 87 82 00       	mov    WORD PTR es:[bx+0x82],ax ; MD0 modulo/timer register
-   f80a6:	83 7e 08 32          	cmp    WORD PTR [bp+0x8],0x32
+   f80a6:	83 7e 08 32          	cmp    WORD PTR [bp+0x8],0x32 ; 50
    f80aa:	72 05                	jb     0xf80b1
    f80ac:	b8 01 00             	mov    ax,0x1
    f80af:	eb 02                	jmp    0xf80b3
@@ -39080,7 +39081,7 @@ start_tasks:
    f80d1:	f7 6e 08             	imul   WORD PTR [bp+0x8]
    f80d4:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    f80d8:	26 89 87 8a 00       	mov    WORD PTR es:[bx+0x8a],ax ; MD1 modulo/timer register
-   f80dd:	83 7e 08 32          	cmp    WORD PTR [bp+0x8],0x32
+   f80dd:	83 7e 08 32          	cmp    WORD PTR [bp+0x8],0x32 ; 50
    f80e1:	72 05                	jb     0xf80e8
    f80e3:	b8 01 00             	mov    ax,0x1
    f80e6:	eb 02                	jmp    0xf80ea
@@ -39127,11 +39128,11 @@ start_tasks:
    f814d:	75 21                	jne    0xf8170
    f814f:	8b 46 06             	mov    ax,WORD PTR [bp+0x6]
    f8152:	a3 24 68             	mov    ds:0x6824,ax
-   f8155:	b8 e8 03             	mov    ax,0x3e8
+   f8155:	b8 e8 03             	mov    ax,0x3e8 ; 1000
    f8158:	33 d2                	xor    dx,dx
    f815a:	f7 76 06             	div    WORD PTR [bp+0x6]
    f815d:	a3 b0 6b             	mov    ds:0x6bb0,ax
-   f8160:	b8 e8 03             	mov    ax,0x3e8
+   f8160:	b8 e8 03             	mov    ax,0x3e8 ; 1000
    f8163:	33 d2                	xor    dx,dx
    f8165:	f7 76 06             	div    WORD PTR [bp+0x6]
    f8168:	a3 ae 6b             	mov    ds:0x6bae,ax
@@ -40698,13 +40699,13 @@ read_date:
    f8f7e:	8b 5e 06             	mov    bx,WORD PTR [bp+0x6]
    f8f81:	89 47 02             	mov    WORD PTR [bx+0x2],ax
    f8f84:	8b 5e 06             	mov    bx,WORD PTR [bp+0x6]
-   f8f87:	83 7f 02 50          	cmp    WORD PTR [bx+0x2],0x50
+   f8f87:	83 7f 02 50          	cmp    WORD PTR [bx+0x2],0x50 ; 80
    f8f8b:	73 0a                	jae    0xf8f97
    f8f8d:	8b 5e 06             	mov    bx,WORD PTR [bp+0x6]
-   f8f90:	81 47 02 d0 07       	add    WORD PTR [bx+0x2],0x7d0
+   f8f90:	81 47 02 d0 07       	add    WORD PTR [bx+0x2],0x7d0 ; 2000
    f8f95:	eb 08                	jmp    0xf8f9f
    f8f97:	8b 5e 06             	mov    bx,WORD PTR [bp+0x6]
-   f8f9a:	81 47 02 6c 07       	add    WORD PTR [bx+0x2],0x76c
+   f8f9a:	81 47 02 6c 07       	add    WORD PTR [bx+0x2],0x76c ; 1900
    f8f9f:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    f8fa4:	75 05                	jne    0xf8fab
    f8fa6:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
@@ -40715,6 +40716,7 @@ read_date:
    f8fb3:	cb                   	retf   
 
 
+date_calc_something:
    f8fb4:	55                   	push   bp
    f8fb5:	8b ec                	mov    bp,sp
    f8fb7:	83 ec 10             	sub    sp,0x10
@@ -40730,11 +40732,11 @@ read_date:
    f8fd3:	72 0a                	jb     0xf8fdf
    f8fd5:	8b 5e 06             	mov    bx,WORD PTR [bp+0x6]
    f8fd8:	8a 47 02             	mov    al,BYTE PTR [bx+0x2]
-   f8fdb:	2c d0                	sub    al,0xd0
+   f8fdb:	2c d0                	sub    al,0xd0 ; 208
    f8fdd:	eb 08                	jmp    0xf8fe7
    f8fdf:	8b 5e 06             	mov    bx,WORD PTR [bp+0x6]
    f8fe2:	8a 47 02             	mov    al,BYTE PTR [bx+0x2]
-   f8fe5:	2c 6c                	sub    al,0x6c
+   f8fe5:	2c 6c                	sub    al,0x6c ; 108
    f8fe7:	88 46 f1             	mov    BYTE PTR [bp-0xf],al
    f8fea:	83 7e f2 fe          	cmp    WORD PTR [bp-0xe],0xfffffffe
    f8fee:	74 03                	je     0xf8ff3
@@ -40944,13 +40946,13 @@ strfdate:
    f91d1:	8b ec                	mov    bp,sp
    f91d3:	83 ec 04             	sub    sp,0x4
    f91d6:	c7 46 fc 00 00       	mov    WORD PTR [bp-0x4],0x0
-   f91db:	81 7e 08 d0 07       	cmp    WORD PTR [bp+0x8],0x7d0
+   f91db:	81 7e 08 d0 07       	cmp    WORD PTR [bp+0x8],0x7d0 ; 2000
    f91e0:	72 08                	jb     0xf91ea
    f91e2:	8b 46 08             	mov    ax,WORD PTR [bp+0x8]
-   f91e5:	2d d0 07             	sub    ax,0x7d0
+   f91e5:	2d d0 07             	sub    ax,0x7d0 ; 2000
    f91e8:	eb 06                	jmp    0xf91f0
    f91ea:	8b 46 08             	mov    ax,WORD PTR [bp+0x8]
-   f91ed:	2d 6c 07             	sub    ax,0x76c
+   f91ed:	2d 6c 07             	sub    ax,0x76c ; 1900
    f91f0:	89 46 fc             	mov    WORD PTR [bp-0x4],ax
    f91f3:	8d 46 06             	lea    ax,[bp+0x6]
    f91f6:	50                   	push   ax
@@ -41427,7 +41429,7 @@ strfdate:
    f962f:	eb 1e                	jmp    0xf964f
    f9631:	ff 46 fa             	inc    WORD PTR [bp-0x6]
    f9634:	8b 46 fa             	mov    ax,WORD PTR [bp-0x6]
-   f9637:	3d f4 01             	cmp    ax,0x1f4
+   f9637:	3d f4 01             	cmp    ax,0x1f4 ; 500
    f963a:	75 07                	jne    0xf9643
    f963c:	c7 46 f8 ff ff       	mov    WORD PTR [bp-0x8],0xffff
    f9641:	eb 1d                	jmp    0xf9660
@@ -41695,7 +41697,7 @@ short get_serial_flag(int b):
    f9846:	50                   	push   ax
    f9847:	33 c0                	xor    ax,ax
    f9849:	50                   	push   ax
-   f984a:	b8 c8 00             	mov    ax,0xc8
+   f984a:	b8 c8 00             	mov    ax,0xc8 ; 200
    f984d:	33 d2                	xor    dx,dx
    f984f:	f7 36 24 68          	div    WORD PTR ds:0x6824
    f9853:	50                   	push   ax
@@ -42120,13 +42122,13 @@ reset_proc3:
    fc4d6:	8b 5e 06             	mov    bx,WORD PTR [bp+0x6]
    fc4d9:	89 47 02             	mov    WORD PTR [bx+0x2],ax
    fc4dc:	8b 5e 06             	mov    bx,WORD PTR [bp+0x6]
-   fc4df:	83 7f 02 50          	cmp    WORD PTR [bx+0x2],0x50
+   fc4df:	83 7f 02 50          	cmp    WORD PTR [bx+0x2],0x50 ; 80
    fc4e3:	73 0a                	jae    0xfc4ef
    fc4e5:	8b 5e 06             	mov    bx,WORD PTR [bp+0x6]
-   fc4e8:	81 47 02 d0 07       	add    WORD PTR [bx+0x2],0x7d0
+   fc4e8:	81 47 02 d0 07       	add    WORD PTR [bx+0x2],0x7d0 ; 2000
    fc4ed:	eb 08                	jmp    0xfc4f7
    fc4ef:	8b 5e 06             	mov    bx,WORD PTR [bp+0x6]
-   fc4f2:	81 47 02 6c 07       	add    WORD PTR [bx+0x2],0x76c
+   fc4f2:	81 47 02 6c 07       	add    WORD PTR [bx+0x2],0x76c ; 1900
    fc4f7:	83 3e 05 1e 00       	cmp    WORD PTR ds:0x1e05,0x0
    fc4fc:	75 05                	jne    0xfc503
    fc4fe:	9a 22 00 eb fb       	call   0xfbeb:0x22
@@ -42148,7 +42150,7 @@ reset_proc3:
    fc51f:	59                   	pop    cx
    fc520:	89 46 f2             	mov    WORD PTR [bp-0xe],ax
    fc523:	8b 5e 06             	mov    bx,WORD PTR [bp+0x6]
-   fc526:	81 7f 02 d0 07       	cmp    WORD PTR [bx+0x2],0x7d0
+   fc526:	81 7f 02 d0 07       	cmp    WORD PTR [bx+0x2],0x7d0 ; 2000
    fc52b:	72 0a                	jb     0xfc537
    fc52d:	8b 5e 06             	mov    bx,WORD PTR [bp+0x6]
    fc530:	8a 47 02             	mov    al,BYTE PTR [bx+0x2]
@@ -42365,13 +42367,13 @@ reset_proc3:
    fc729:	8b ec                	mov    bp,sp
    fc72b:	83 ec 04             	sub    sp,0x4
    fc72e:	c7 46 fc 00 00       	mov    WORD PTR [bp-0x4],0x0
-   fc733:	81 7e 08 d0 07       	cmp    WORD PTR [bp+0x8],0x7d0
+   fc733:	81 7e 08 d0 07       	cmp    WORD PTR [bp+0x8],0x7d0 ; 2000
    fc738:	72 08                	jb     0xfc742
    fc73a:	8b 46 08             	mov    ax,WORD PTR [bp+0x8]
-   fc73d:	2d d0 07             	sub    ax,0x7d0
+   fc73d:	2d d0 07             	sub    ax,0x7d0 ; 2000
    fc740:	eb 06                	jmp    0xfc748
    fc742:	8b 46 08             	mov    ax,WORD PTR [bp+0x8]
-   fc745:	2d 6c 07             	sub    ax,0x76c
+   fc745:	2d 6c 07             	sub    ax,0x76c ; 1900
    fc748:	89 46 fc             	mov    WORD PTR [bp-0x4],ax
    fc74b:	8d 46 06             	lea    ax,[bp+0x6]
    fc74e:	50                   	push   ax
@@ -42847,7 +42849,7 @@ reset_proc3:
    fcb87:	eb 1e                	jmp    0xfcba7
    fcb89:	ff 46 fa             	inc    WORD PTR [bp-0x6]
    fcb8c:	8b 46 fa             	mov    ax,WORD PTR [bp-0x6]
-   fcb8f:	3d f4 01             	cmp    ax,0x1f4
+   fcb8f:	3d f4 01             	cmp    ax,0x1f4 ; 500
    fcb92:	75 07                	jne    0xfcb9b
    fcb94:	c7 46 f8 ff ff       	mov    WORD PTR [bp-0x8],0xffff
    fcb99:	eb 1d                	jmp    0xfcbb8
@@ -43106,7 +43108,7 @@ reset_proc3:
    fcd9e:	50                   	push   ax
    fcd9f:	33 c0                	xor    ax,ax
    fcda1:	50                   	push   ax
-   fcda2:	b8 c8 00             	mov    ax,0xc8
+   fcda2:	b8 c8 00             	mov    ax,0xc8 ; 200
    fcda5:	33 d2                	xor    dx,dx
    fcda7:	f7 36 28 c7          	div    WORD PTR ds:0xc728
    fcdab:	50                   	push   ax
