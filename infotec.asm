@@ -2330,11 +2330,11 @@ init_something:
    e12cc:	83 ec 02             	sub    sp,0x2
    e12cf:	fb                   	sti    
    e12d0:	0f 92                	fint   
-   e12d2:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994
+   e12d2:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994 ; g_serial1_regs
    e12d6:	26 8a 07             	mov    al,BYTE PTR es:[bx] ;  read serial port 1 rx
    e12d9:	88 46 ff             	mov    BYTE PTR [bp-0x1],al
    e12dc:	ff 06 13 28          	inc    WORD PTR ds:0x2813
-   e12e0:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994
+   e12e0:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994 ; g_serial1_regs
    e12e4:	26 80 67 0d 7f       	and    BYTE PTR es:[bx+0xd],0x7f ; sric1 - clear rx interrupt
    e12e9:	ff 0e 13 28          	dec    WORD PTR ds:0x2813
    e12ed:	7d 06                	jge    0xe12f5
@@ -2367,11 +2367,11 @@ init_something:
    e1311:	83 ec 02             	sub    sp,0x2
    e1314:	fb                   	sti    
    e1315:	0f 92                	fint   
-   e1317:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ;  serial port 2
+   e1317:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ; g_serial2_regs
    e131b:	26 8a 07             	mov    al,BYTE PTR es:[bx]
    e131e:	88 46 ff             	mov    BYTE PTR [bp-0x1],al
    e1321:	ff 06 13 28          	inc    WORD PTR ds:0x2813
-   e1325:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ;  serial port 2
+   e1325:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ; g_serial2_regs
    e1329:	26 80 67 0d 7f       	and    BYTE PTR es:[bx+0xd],0x7f
    e132e:	ff 0e 13 28          	dec    WORD PTR ds:0x2813
    e1332:	7d 06                	jge    0xe133a
@@ -2418,8 +2418,8 @@ output_something:
    e137d:	8b ec                	mov    bp,sp
    e137f:	83 ec 02             	sub    sp,0x2
    e1382:	c6 46 ff ff          	mov    BYTE PTR [bp-0x1],0xff
-   e1386:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
-   e138a:	26 c6 87 9e 00 47    	mov    BYTE PTR es:[bx+0x9e],0x47 ; TMIC2 timed interrupt register
+   e1386:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
+   e138a:	26 c6 87 9e 00 47    	mov    BYTE PTR es:[bx+0x9e],0x47 ; TMIC2 timer interrupt register
    e1390:	80 26 04 00 7f       	and    BYTE PTR ds:0x4,0x7f
    e1395:	a0 04 00             	mov    al,ds:0x4
    e1398:	ba 20 02             	mov    dx,0x220
@@ -2641,15 +2641,15 @@ output_something:
    e15c6:	a2 04 00             	mov    ds:0x4,al
    e15c9:	ba 20 02             	mov    dx,0x220
    e15cc:	ee                   	out    dx,al
-   e15cd:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
-   e15d1:	26 8a 87 9e 00       	mov    al,BYTE PTR es:[bx+0x9e] ; TMIC2 timed interrupt register
+   e15cd:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
+   e15d1:	26 8a 87 9e 00       	mov    al,BYTE PTR es:[bx+0x9e] ; TMIC2 timer interrupt register
    e15d6:	b4 00                	mov    ah,0x0
    e15d8:	a9 80 00             	test   ax,0x80
    e15db:	7e 0c                	jle    0xe15e9
    e15dd:	cd 1e                	int    0x1e
-   e15df:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e15df:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e15e3:	26 80 a7 9e 00 7f    	and    BYTE PTR es:[bx+0x9e],0x7f
-   e15e9:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e15e9:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e15ed:	26 c6 87 9e 00 07    	mov    BYTE PTR es:[bx+0x9e],0x7
    e15f3:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    e15f8:	75 05                	jne    0xe15ff
@@ -2664,8 +2664,8 @@ output_something:
 output_something2:
    e1608:	55                   	push   bp
    e1609:	8b ec                	mov    bp,sp
-   e160b:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
-   e160f:	26 c6 87 9e 00 47    	mov    BYTE PTR es:[bx+0x9e],0x47 ; TMIC2 timed interrupt register
+   e160b:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
+   e160f:	26 c6 87 9e 00 47    	mov    BYTE PTR es:[bx+0x9e],0x47 ; TMIC2 timer interrupt register
    e1615:	80 26 04 00 7f       	and    BYTE PTR ds:0x4,0x7f
    e161a:	a0 04 00             	mov    al,ds:0x4
    e161d:	ba 20 02             	mov    dx,0x220
@@ -2927,15 +2927,15 @@ output_something2:
    e18bc:	50                   	push   ax
    e18bd:	9a 21 02 47 f6       	call   0xf647:0x221
    e18c2:	83 c4 06             	add    sp,0x6
-   e18c5:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
-   e18c9:	26 8a 87 9e 00       	mov    al,BYTE PTR es:[bx+0x9e] ; TMIC2 timed interrupt register
+   e18c5:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
+   e18c9:	26 8a 87 9e 00       	mov    al,BYTE PTR es:[bx+0x9e] ; TMIC2 timer interrupt register
    e18ce:	b4 00                	mov    ah,0x0
    e18d0:	a9 80 00             	test   ax,0x80
    e18d3:	7e 0c                	jle    0xe18e1
    e18d5:	cd 1e                	int    0x1e
-   e18d7:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e18d7:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e18db:	26 80 a7 9e 00 7f    	and    BYTE PTR es:[bx+0x9e],0x7f
-   e18e1:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e18e1:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e18e5:	26 c6 87 9e 00 07    	mov    BYTE PTR es:[bx+0x9e],0x7
    e18eb:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    e18f0:	75 05                	jne    0xe18f7
@@ -2962,8 +2962,8 @@ output_something3:
    e1914:	0e                   	push   cs
    e1915:	e8 86 10             	call   0xe299e
    e1918:	83 c4 08             	add    sp,0x8
-   e191b:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
-   e191f:	26 c6 87 9e 00 47    	mov    BYTE PTR es:[bx+0x9e],0x47 ; TMIC2 timed interrupt register
+   e191b:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
+   e191f:	26 c6 87 9e 00 47    	mov    BYTE PTR es:[bx+0x9e],0x47 ; TMIC2 timer interrupt register
    e1925:	80 26 04 00 7f       	and    BYTE PTR ds:0x4,0x7f
    e192a:	a0 04 00             	mov    al,ds:0x4
    e192d:	ba 20 02             	mov    dx,0x220
@@ -3061,15 +3061,15 @@ output_something3:
    e1a27:	a2 04 00             	mov    ds:0x4,al
    e1a2a:	ba 20 02             	mov    dx,0x220
    e1a2d:	ee                   	out    dx,al
-   e1a2e:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
-   e1a32:	26 8a 87 9e 00       	mov    al,BYTE PTR es:[bx+0x9e] ; TMIC2 timed interrupt register
+   e1a2e:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
+   e1a32:	26 8a 87 9e 00       	mov    al,BYTE PTR es:[bx+0x9e] ; TMIC2 timer interrupt register
    e1a37:	b4 00                	mov    ah,0x0
    e1a39:	a9 80 00             	test   ax,0x80
    e1a3c:	7e 0c                	jle    0xe1a4a
    e1a3e:	cd 1e                	int    0x1e
-   e1a40:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e1a40:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e1a44:	26 80 a7 9e 00 7f    	and    BYTE PTR es:[bx+0x9e],0x7f
-   e1a4a:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e1a4a:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e1a4e:	26 c6 87 9e 00 07    	mov    BYTE PTR es:[bx+0x9e],0x7
    e1a54:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    e1a59:	75 05                	jne    0xe1a60
@@ -3250,8 +3250,8 @@ output_something4:
    e1c0f:	ba 20 02             	mov    dx,0x220
    e1c12:	ee                   	out    dx,al
    e1c13:	eb 00                	jmp    0xe1c15
-   e1c15:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b
-   e1c19:	26 f6 07 20          	test   BYTE PTR es:[bx],0x20
+   e1c15:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b ; g_port0_regs
+   e1c19:	26 f6 07 20          	test   BYTE PTR es:[bx],0x20 ; P0 port register
    e1c1d:	74 f6                	je     0xe1c15
    e1c1f:	b0 00                	mov    al,0x0
    e1c21:	50                   	push   ax
@@ -4554,8 +4554,8 @@ output_something6:
    e28e1:	8b ec                	mov    bp,sp
    e28e3:	83 ec 02             	sub    sp,0x2
    e28e6:	c7 46 fe 00 00       	mov    WORD PTR [bp-0x2],0x0
-   e28eb:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
-   e28ef:	26 c6 87 9e 00 47    	mov    BYTE PTR es:[bx+0x9e],0x47 ; TMIC2 timed interrupt register
+   e28eb:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
+   e28ef:	26 c6 87 9e 00 47    	mov    BYTE PTR es:[bx+0x9e],0x47 ; TMIC2 timer interrupt register
    e28f5:	a0 04 00             	mov    al,ds:0x4
    e28f8:	24 fc                	and    al,0xfc
    e28fa:	8a 56 06             	mov    dl,BYTE PTR [bp+0x6]
@@ -4602,15 +4602,15 @@ output_something6:
    e295c:	a2 04 00             	mov    ds:0x4,al
    e295f:	ba 20 02             	mov    dx,0x220
    e2962:	ee                   	out    dx,al
-   e2963:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
-   e2967:	26 8a 87 9e 00       	mov    al,BYTE PTR es:[bx+0x9e] ; TMIC2 timed interrupt register
+   e2963:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
+   e2967:	26 8a 87 9e 00       	mov    al,BYTE PTR es:[bx+0x9e] ; TMIC2 timer interrupt register
    e296c:	b4 00                	mov    ah,0x0
    e296e:	a9 80 00             	test   ax,0x80
    e2971:	7e 0c                	jle    0xe297f
    e2973:	cd 1e                	int    0x1e
-   e2975:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e2975:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e2979:	26 80 a7 9e 00 7f    	and    BYTE PTR es:[bx+0x9e],0x7f
-   e297f:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e297f:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e2983:	26 c6 87 9e 00 07    	mov    BYTE PTR es:[bx+0x9e],0x7
    e2989:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    e298e:	75 05                	jne    0xe2995
@@ -4634,8 +4634,8 @@ output_something7:
    e29ad:	e8 17 07             	call   0xe30c7
    e29b0:	59                   	pop    cx
    e29b1:	e9 1d 03             	jmp    0xe2cd1
-   e29b4:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
-   e29b8:	26 c6 87 9e 00 47    	mov    BYTE PTR es:[bx+0x9e],0x47 ; TMIC2 timed interrupt register
+   e29b4:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
+   e29b8:	26 c6 87 9e 00 47    	mov    BYTE PTR es:[bx+0x9e],0x47 ; TMIC2 timer interrupt register
    e29be:	80 0e 04 00 80       	or     BYTE PTR ds:0x4,0x80
    e29c3:	a0 04 00             	mov    al,ds:0x4
    e29c6:	ba 20 02             	mov    dx,0x220
@@ -4924,15 +4924,15 @@ output_something7:
    e2ca2:	50                   	push   ax
    e2ca3:	9a 21 02 47 f6       	call   0xf647:0x221
    e2ca8:	83 c4 06             	add    sp,0x6
-   e2cab:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
-   e2caf:	26 8a 87 9e 00       	mov    al,BYTE PTR es:[bx+0x9e] ; TMIC2 timed interrupt register
+   e2cab:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
+   e2caf:	26 8a 87 9e 00       	mov    al,BYTE PTR es:[bx+0x9e] ; TMIC2 timer interrupt register
    e2cb4:	b4 00                	mov    ah,0x0
    e2cb6:	a9 80 00             	test   ax,0x80
    e2cb9:	7e 0c                	jle    0xe2cc7
    e2cbb:	cd 1e                	int    0x1e
-   e2cbd:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e2cbd:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e2cc1:	26 80 a7 9e 00 7f    	and    BYTE PTR es:[bx+0x9e],0x7f
-   e2cc7:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e2cc7:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e2ccb:	26 c6 87 9e 00 07    	mov    BYTE PTR es:[bx+0x9e],0x7
    e2cd1:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    e2cd6:	75 05                	jne    0xe2cdd
@@ -4944,8 +4944,8 @@ output_something7:
 output_something8:
    e2cdf:	55                   	push   bp
    e2ce0:	8b ec                	mov    bp,sp
-   e2ce2:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
-   e2ce6:	26 c6 87 9e 00 47    	mov    BYTE PTR es:[bx+0x9e],0x47 ; TMIC2 timed interrupt register
+   e2ce2:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
+   e2ce6:	26 c6 87 9e 00 47    	mov    BYTE PTR es:[bx+0x9e],0x47 ; TMIC2 timer interrupt register
    e2cec:	a0 04 00             	mov    al,ds:0x4
    e2cef:	24 fc                	and    al,0xfc
    e2cf1:	04 02                	add    al,0x2
@@ -5128,15 +5128,15 @@ output_something8:
    e2ebb:	a2 04 00             	mov    ds:0x4,al
    e2ebe:	ba 20 02             	mov    dx,0x220
    e2ec1:	ee                   	out    dx,al
-   e2ec2:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
-   e2ec6:	26 8a 87 9e 00       	mov    al,BYTE PTR es:[bx+0x9e] ; TMIC2 timed interrupt register
+   e2ec2:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
+   e2ec6:	26 8a 87 9e 00       	mov    al,BYTE PTR es:[bx+0x9e] ; TMIC2 timer interrupt register
    e2ecb:	b4 00                	mov    ah,0x0
    e2ecd:	a9 80 00             	test   ax,0x80
    e2ed0:	7e 0c                	jle    0xe2ede
    e2ed2:	cd 1e                	int    0x1e
-   e2ed4:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e2ed4:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e2ed8:	26 80 a7 9e 00 7f    	and    BYTE PTR es:[bx+0x9e],0x7f
-   e2ede:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e2ede:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e2ee2:	26 c6 87 9e 00 07    	mov    BYTE PTR es:[bx+0x9e],0x7
    e2ee8:	5d                   	pop    bp
    e2ee9:	cb                   	retf   
@@ -5157,8 +5157,8 @@ output_something9:
    e2efd:	0e                   	push   cs
    e2efe:	e8 9d fa             	call   0xe299e
    e2f01:	83 c4 08             	add    sp,0x8
-   e2f04:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
-   e2f08:	26 c6 87 9e 00 47    	mov    BYTE PTR es:[bx+0x9e],0x47 ; TMIC2 timed interrupt register
+   e2f04:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
+   e2f08:	26 c6 87 9e 00 47    	mov    BYTE PTR es:[bx+0x9e],0x47 ; TMIC2 timer interrupt register
    e2f0e:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    e2f11:	b4 00                	mov    ah,0x0
    e2f13:	ba a6 02             	mov    dx,0x2a6
@@ -5264,13 +5264,13 @@ output_something9:
    e3023:	a2 04 00             	mov    ds:0x4,al
    e3026:	ba 20 02             	mov    dx,0x220
    e3029:	ee                   	out    dx,al
-   e302a:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
-   e302e:	26 8a 87 9e 00       	mov    al,BYTE PTR es:[bx+0x9e] ; TMIC2 timed interrupt register
+   e302a:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
+   e302e:	26 8a 87 9e 00       	mov    al,BYTE PTR es:[bx+0x9e] ; TMIC2 timer interrupt register
    e3033:	b4 00                	mov    ah,0x0
    e3035:	a9 80 00             	test   ax,0x80
    e3038:	7e 18                	jle    0xe3052
    e303a:	cd 1e                	int    0x1e
-   e303c:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e303c:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e3040:	26 80 a7 9e 00 7f    	and    BYTE PTR es:[bx+0x9e],0x7f
    e3046:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    e304b:	75 05                	jne    0xe3052
@@ -5283,7 +5283,7 @@ output_something9:
    e3061:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    e3066:	75 05                	jne    0xe306d
    e3068:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
-   e306d:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e306d:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e3071:	26 c6 87 9e 00 07    	mov    BYTE PTR es:[bx+0x9e],0x7
    e3077:	8b e5                	mov    sp,bp
    e3079:	5d                   	pop    bp
@@ -5764,10 +5764,10 @@ output_something10:
    e34cc:	50                   	push   ax
    e34cd:	9a ca 00 6c f8       	call   0xf86c:0xca
    e34d2:	83 c4 06             	add    sp,0x6
-   e34d5:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
-   e34d9:	26 c6 87 9e 00 07    	mov    BYTE PTR es:[bx+0x9e],0x7 ; TMIC2 timed interrupt register
-   e34df:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
-   e34e3:	26 c6 87 9c 00 07    	mov    BYTE PTR es:[bx+0x9c],0x7
+   e34d5:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
+   e34d9:	26 c6 87 9e 00 07    	mov    BYTE PTR es:[bx+0x9e],0x7 ; TMIC2 timer interrupt register
+   e34df:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
+   e34e3:	26 c6 87 9c 00 07    	mov    BYTE PTR es:[bx+0x9c],0x7 ; TMIC0 timer interrupt register
    e34e9:	b8 14 00             	mov    ax,0x14
    e34ec:	50                   	push   ax
    e34ed:	9a 49 02 ed f7       	call   0xf7ed:0x249
@@ -5955,10 +5955,10 @@ output_something11:
    e36ab:	a0 05 00             	mov    al,ds:0x5
    e36ae:	ba 40 02             	mov    dx,0x240
    e36b1:	ee                   	out    dx,al
-   e36b2:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b
+   e36b2:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b ; g_port0_regs
    e36b6:	80 0e a7 69 02       	or     BYTE PTR ds:0x69a7,0x2
    e36bb:	a0 a7 69             	mov    al,ds:0x69a7
-   e36be:	26 88 47 01          	mov    BYTE PTR es:[bx+0x1],al
+   e36be:	26 88 47 01          	mov    BYTE PTR es:[bx+0x1],al ; PM0 port mode register
    e36c2:	b0 00                	mov    al,0x0
    e36c4:	50                   	push   ax
    e36c5:	b0 00                	mov    al,0x0
@@ -5995,26 +5995,32 @@ output_something11:
    e3713:	cb                   	retf   
 
 
+bit_bash_port_0:
    e3714:	55                   	push   bp
    e3715:	8b ec                	mov    bp,sp
    e3717:	83 ec 04             	sub    sp,0x4
    e371a:	c6 46 fc 00          	mov    BYTE PTR [bp-0x4],0x0
+
    e371e:	80 0e a8 69 02       	or     BYTE PTR ds:0x69a8,0x2
    e3723:	a0 a8 69             	mov    al,ds:0x69a8
-   e3726:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
-   e372a:	26 08 07             	or     BYTE PTR es:[bx],al
+   e3726:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
+   e372a:	26 08 07             	or     BYTE PTR es:[bx],al ; P0 port register
+
    e372d:	80 0e a8 69 01       	or     BYTE PTR ds:0x69a8,0x1
    e3732:	a0 a8 69             	mov    al,ds:0x69a8
-   e3735:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e3735:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e3739:	26 08 07             	or     BYTE PTR es:[bx],al
+
    e373c:	80 26 a8 69 fd       	and    BYTE PTR ds:0x69a8,0xfd
    e3741:	a0 a8 69             	mov    al,ds:0x69a8
-   e3744:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e3744:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e3748:	26 88 07             	mov    BYTE PTR es:[bx],al
+
    e374b:	80 26 a8 69 fe       	and    BYTE PTR ds:0x69a8,0xfe
    e3750:	a0 a8 69             	mov    al,ds:0x69a8
-   e3753:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e3753:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e3757:	26 88 07             	mov    BYTE PTR es:[bx],al
+
    e375a:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    e375d:	d0 e0                	shl    al,1
    e375f:	04 a0                	add    al,0xa0
@@ -6027,32 +6033,39 @@ output_something11:
    e3771:	8b d8                	mov    bx,ax
    e3773:	84 97 06 00          	test   BYTE PTR [bx+0x6],dl
    e3777:	74 11                	je     0xe378a
+
    e3779:	80 0e a8 69 02       	or     BYTE PTR ds:0x69a8,0x2
    e377e:	a0 a8 69             	mov    al,ds:0x69a8
-   e3781:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
-   e3785:	26 08 07             	or     BYTE PTR es:[bx],al
+   e3781:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
+   e3785:	26 08 07             	or     BYTE PTR es:[bx],al ; P0 port register
    e3788:	eb 0f                	jmp    0xe3799
+
    e378a:	80 26 a8 69 fd       	and    BYTE PTR ds:0x69a8,0xfd
    e378f:	a0 a8 69             	mov    al,ds:0x69a8
-   e3792:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e3792:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e3796:	26 88 07             	mov    BYTE PTR es:[bx],al
+
    e3799:	80 0e a8 69 01       	or     BYTE PTR ds:0x69a8,0x1
    e379e:	a0 a8 69             	mov    al,ds:0x69a8
-   e37a1:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e37a1:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e37a5:	26 08 07             	or     BYTE PTR es:[bx],al
+
    e37a8:	80 26 a8 69 fe       	and    BYTE PTR ds:0x69a8,0xfe
    e37ad:	a0 a8 69             	mov    al,ds:0x69a8
-   e37b0:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e37b0:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e37b4:	26 88 07             	mov    BYTE PTR es:[bx],al
+
    e37b7:	fe 4e fd             	dec    BYTE PTR [bp-0x3]
    e37ba:	80 7e fd 00          	cmp    BYTE PTR [bp-0x3],0x0
    e37be:	7d aa                	jge    0xe376a
-   e37c0:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b
+
+   e37c0:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b ; g_port0_regs
    e37c4:	80 0e a7 69 02       	or     BYTE PTR ds:0x69a7,0x2
    e37c9:	a0 a7 69             	mov    al,ds:0x69a7
-   e37cc:	26 88 47 01          	mov    BYTE PTR es:[bx+0x1],al
-   e37d0:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b
-   e37d4:	26 8a 07             	mov    al,BYTE PTR es:[bx]
+   e37cc:	26 88 47 01          	mov    BYTE PTR es:[bx+0x1],al ; PM0 port mode register
+
+   e37d0:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b ; g_port0_regs
+   e37d4:	26 8a 07             	mov    al,BYTE PTR es:[bx] ; P0 port register
    e37d7:	b4 00                	mov    ah,0x0
    e37d9:	a9 02 00             	test   ax,0x2
    e37dc:	7e 05                	jle    0xe37e3
@@ -6060,18 +6073,21 @@ output_something11:
    e37e1:	eb 02                	jmp    0xe37e5
    e37e3:	33 c0                	xor    ax,ax
    e37e5:	88 46 ff             	mov    BYTE PTR [bp-0x1],al
+
    e37e8:	80 0e a8 69 01       	or     BYTE PTR ds:0x69a8,0x1
    e37ed:	a0 a8 69             	mov    al,ds:0x69a8
-   e37f0:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
-   e37f4:	26 08 07             	or     BYTE PTR es:[bx],al
+   e37f0:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
+   e37f4:	26 08 07             	or     BYTE PTR es:[bx],al ; P0 port register
+
    e37f7:	80 26 a8 69 fe       	and    BYTE PTR ds:0x69a8,0xfe
    e37fc:	a0 a8 69             	mov    al,ds:0x69a8
-   e37ff:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e37ff:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e3803:	26 88 07             	mov    BYTE PTR es:[bx],al
-   e3806:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b
+
+   e3806:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b ; g_port0_regs
    e380a:	80 26 a7 69 fd       	and    BYTE PTR ds:0x69a7,0xfd
    e380f:	a0 a7 69             	mov    al,ds:0x69a7
-   e3812:	26 88 47 01          	mov    BYTE PTR es:[bx+0x1],al
+   e3812:	26 88 47 01          	mov    BYTE PTR es:[bx+0x1],al ; PM0 port mode register
    e3816:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    e381b:	75 05                	jne    0xe3822
    e381d:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
@@ -6095,26 +6111,32 @@ output_something11:
    e3848:	55                   	push   bp
    e3849:	8b ec                	mov    bp,sp
    e384b:	83 ec 06             	sub    sp,0x6
+
    e384e:	80 0e a8 69 02       	or     BYTE PTR ds:0x69a8,0x2
    e3853:	a0 a8 69             	mov    al,ds:0x69a8
-   e3856:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
-   e385a:	26 08 07             	or     BYTE PTR es:[bx],al
+   e3856:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
+   e385a:	26 08 07             	or     BYTE PTR es:[bx],al ; P0 port register
+
    e385d:	80 0e a8 69 01       	or     BYTE PTR ds:0x69a8,0x1
    e3862:	a0 a8 69             	mov    al,ds:0x69a8
-   e3865:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e3865:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e3869:	26 08 07             	or     BYTE PTR es:[bx],al
-   e386c:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b
+
+   e386c:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b ; g_port0_regs
    e3870:	80 26 a7 69 fd       	and    BYTE PTR ds:0x69a7,0xfd
    e3875:	a0 a7 69             	mov    al,ds:0x69a7
-   e3878:	26 88 47 01          	mov    BYTE PTR es:[bx+0x1],al
+   e3878:	26 88 47 01          	mov    BYTE PTR es:[bx+0x1],al ; PM0 port mode register
+
    e387c:	80 26 a8 69 fd       	and    BYTE PTR ds:0x69a8,0xfd
    e3881:	a0 a8 69             	mov    al,ds:0x69a8
-   e3884:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e3884:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e3888:	26 88 07             	mov    BYTE PTR es:[bx],al
+
    e388b:	80 26 a8 69 fe       	and    BYTE PTR ds:0x69a8,0xfe
    e3890:	a0 a8 69             	mov    al,ds:0x69a8
-   e3893:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e3893:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e3897:	26 88 07             	mov    BYTE PTR es:[bx],al
+
    e389a:	8a 46 08             	mov    al,BYTE PTR [bp+0x8]
    e389d:	04 a0                	add    al,0xa0
    e389f:	88 46 fe             	mov    BYTE PTR [bp-0x2],al
@@ -6126,51 +6148,63 @@ output_something11:
    e38af:	8b d8                	mov    bx,ax
    e38b1:	84 97 06 00          	test   BYTE PTR [bx+0x6],dl
    e38b5:	74 11                	je     0xe38c8
+
    e38b7:	80 0e a8 69 02       	or     BYTE PTR ds:0x69a8,0x2
    e38bc:	a0 a8 69             	mov    al,ds:0x69a8
-   e38bf:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
-   e38c3:	26 08 07             	or     BYTE PTR es:[bx],al
+   e38bf:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
+   e38c3:	26 08 07             	or     BYTE PTR es:[bx],al ; P0 port register
    e38c6:	eb 0f                	jmp    0xe38d7
+
    e38c8:	80 26 a8 69 fd       	and    BYTE PTR ds:0x69a8,0xfd
    e38cd:	a0 a8 69             	mov    al,ds:0x69a8
-   e38d0:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e38d0:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e38d4:	26 88 07             	mov    BYTE PTR es:[bx],al
+
    e38d7:	80 0e a8 69 01       	or     BYTE PTR ds:0x69a8,0x1
    e38dc:	a0 a8 69             	mov    al,ds:0x69a8
-   e38df:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e38df:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e38e3:	26 08 07             	or     BYTE PTR es:[bx],al
+
    e38e6:	80 26 a8 69 fe       	and    BYTE PTR ds:0x69a8,0xfe
    e38eb:	a0 a8 69             	mov    al,ds:0x69a8
-   e38ee:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e38ee:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e38f2:	26 88 07             	mov    BYTE PTR es:[bx],al
+
    e38f5:	fe 4e fd             	dec    BYTE PTR [bp-0x3]
    e38f8:	80 7e fd 00          	cmp    BYTE PTR [bp-0x3],0x0
    e38fc:	7d aa                	jge    0xe38a8
-   e38fe:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b
+
+   e38fe:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b ; g_port0_regs
    e3902:	80 0e a7 69 02       	or     BYTE PTR ds:0x69a7,0x2
    e3907:	a0 a7 69             	mov    al,ds:0x69a7
-   e390a:	26 88 47 01          	mov    BYTE PTR es:[bx+0x1],al
-   e390e:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b
-   e3912:	26 8a 07             	mov    al,BYTE PTR es:[bx]
+   e390a:	26 88 47 01          	mov    BYTE PTR es:[bx+0x1],al ; PM0 port mode register
+
+   e390e:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b ; g_port0_regs
+   e3912:	26 8a 07             	mov    al,BYTE PTR es:[bx] ; P0 port register
    e3915:	b4 00                	mov    ah,0x0
    e3917:	a9 02 00             	test   ax,0x2
+
    e391a:	7e 05                	jle    0xe3921
    e391c:	b8 01 00             	mov    ax,0x1
    e391f:	eb 02                	jmp    0xe3923
    e3921:	33 c0                	xor    ax,ax
    e3923:	88 46 ff             	mov    BYTE PTR [bp-0x1],al
+
    e3926:	80 0e a8 69 01       	or     BYTE PTR ds:0x69a8,0x1
    e392b:	a0 a8 69             	mov    al,ds:0x69a8
-   e392e:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
-   e3932:	26 08 07             	or     BYTE PTR es:[bx],al
+   e392e:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
+   e3932:	26 08 07             	or     BYTE PTR es:[bx],al ; P0 port register
+
    e3935:	80 26 a8 69 fe       	and    BYTE PTR ds:0x69a8,0xfe
    e393a:	a0 a8 69             	mov    al,ds:0x69a8
-   e393d:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e393d:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e3941:	26 88 07             	mov    BYTE PTR es:[bx],al
-   e3944:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b
+
+   e3944:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b ; g_port0_regs
    e3948:	80 26 a7 69 fd       	and    BYTE PTR ds:0x69a7,0xfd
    e394d:	a0 a7 69             	mov    al,ds:0x69a7
-   e3950:	26 88 47 01          	mov    BYTE PTR es:[bx+0x1],al
+   e3950:	26 88 47 01          	mov    BYTE PTR es:[bx+0x1],al ; PM0 port mode register
+
    e3954:	80 7e 08 00          	cmp    BYTE PTR [bp+0x8],0x0
    e3958:	74 03                	je     0xe395d
    e395a:	e9 80 01             	jmp    0xe3add
@@ -6189,32 +6223,37 @@ output_something11:
    e397c:	8b d8                	mov    bx,ax
    e397e:	84 97 06 00          	test   BYTE PTR [bx+0x6],dl
    e3982:	74 11                	je     0xe3995
+
    e3984:	80 0e a8 69 02       	or     BYTE PTR ds:0x69a8,0x2
    e3989:	a0 a8 69             	mov    al,ds:0x69a8
-   e398c:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e398c:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e3990:	26 08 07             	or     BYTE PTR es:[bx],al
    e3993:	eb 0f                	jmp    0xe39a4
+
    e3995:	80 26 a8 69 fd       	and    BYTE PTR ds:0x69a8,0xfd
    e399a:	a0 a8 69             	mov    al,ds:0x69a8
-   e399d:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e399d:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e39a1:	26 88 07             	mov    BYTE PTR es:[bx],al
+
    e39a4:	80 0e a8 69 01       	or     BYTE PTR ds:0x69a8,0x1
    e39a9:	a0 a8 69             	mov    al,ds:0x69a8
-   e39ac:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e39ac:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e39b0:	26 08 07             	or     BYTE PTR es:[bx],al
+
    e39b3:	80 26 a8 69 fe       	and    BYTE PTR ds:0x69a8,0xfe
    e39b8:	a0 a8 69             	mov    al,ds:0x69a8
-   e39bb:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e39bb:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e39bf:	26 88 07             	mov    BYTE PTR es:[bx],al
+
    e39c2:	fe 4e fd             	dec    BYTE PTR [bp-0x3]
    e39c5:	80 7e fd 00          	cmp    BYTE PTR [bp-0x3],0x0
    e39c9:	7d aa                	jge    0xe3975
-   e39cb:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b
+   e39cb:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b ; g_port0_regs
    e39cf:	80 0e a7 69 02       	or     BYTE PTR ds:0x69a7,0x2
    e39d4:	a0 a7 69             	mov    al,ds:0x69a7
-   e39d7:	26 88 47 01          	mov    BYTE PTR es:[bx+0x1],al
-   e39db:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b
-   e39df:	26 8a 07             	mov    al,BYTE PTR es:[bx]
+   e39d7:	26 88 47 01          	mov    BYTE PTR es:[bx+0x1],al ; PM0 port mode register
+   e39db:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b ; g_port0_regs
+   e39df:	26 8a 07             	mov    al,BYTE PTR es:[bx] ; P0 port register
    e39e2:	b4 00                	mov    ah,0x0
    e39e4:	a9 02 00             	test   ax,0x2
    e39e7:	7e 05                	jle    0xe39ee
@@ -6224,18 +6263,22 @@ output_something11:
    e39f0:	8a 56 ff             	mov    dl,BYTE PTR [bp-0x1]
    e39f3:	02 d0                	add    dl,al
    e39f5:	88 56 ff             	mov    BYTE PTR [bp-0x1],dl
+
    e39f8:	80 0e a8 69 01       	or     BYTE PTR ds:0x69a8,0x1
    e39fd:	a0 a8 69             	mov    al,ds:0x69a8
-   e3a00:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
-   e3a04:	26 08 07             	or     BYTE PTR es:[bx],al
+   e3a00:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
+   e3a04:	26 08 07             	or     BYTE PTR es:[bx],al ; P0 port register
+
    e3a07:	80 26 a8 69 fe       	and    BYTE PTR ds:0x69a8,0xfe
    e3a0c:	a0 a8 69             	mov    al,ds:0x69a8
-   e3a0f:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e3a0f:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e3a13:	26 88 07             	mov    BYTE PTR es:[bx],al
-   e3a16:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b
+
+   e3a16:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b ; g_port0_regs
    e3a1a:	80 26 a7 69 fd       	and    BYTE PTR ds:0x69a7,0xfd
    e3a1f:	a0 a7 69             	mov    al,ds:0x69a7
-   e3a22:	26 88 47 01          	mov    BYTE PTR es:[bx+0x1],al
+   e3a22:	26 88 47 01          	mov    BYTE PTR es:[bx+0x1],al ; PM0 port mode register
+
    e3a26:	c6 46 fd 07          	mov    BYTE PTR [bp-0x3],0x7
    e3a2a:	eb 50                	jmp    0xe3a7c
    e3a2c:	8a 46 fd             	mov    al,BYTE PTR [bp-0x3]
@@ -6244,31 +6287,36 @@ output_something11:
    e3a33:	8b d8                	mov    bx,ax
    e3a35:	84 97 06 00          	test   BYTE PTR [bx+0x6],dl
    e3a39:	74 11                	je     0xe3a4c
+
    e3a3b:	80 0e a8 69 02       	or     BYTE PTR ds:0x69a8,0x2
    e3a40:	a0 a8 69             	mov    al,ds:0x69a8
-   e3a43:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
-   e3a47:	26 08 07             	or     BYTE PTR es:[bx],al
+   e3a43:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
+   e3a47:	26 08 07             	or     BYTE PTR es:[bx],al ; P0 port register
    e3a4a:	eb 0f                	jmp    0xe3a5b
+
    e3a4c:	80 26 a8 69 fd       	and    BYTE PTR ds:0x69a8,0xfd
    e3a51:	a0 a8 69             	mov    al,ds:0x69a8
-   e3a54:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e3a54:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e3a58:	26 88 07             	mov    BYTE PTR es:[bx],al
+
    e3a5b:	80 0e a8 69 01       	or     BYTE PTR ds:0x69a8,0x1
    e3a60:	a0 a8 69             	mov    al,ds:0x69a8
-   e3a63:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e3a63:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e3a67:	26 08 07             	or     BYTE PTR es:[bx],al
+
    e3a6a:	80 26 a8 69 fe       	and    BYTE PTR ds:0x69a8,0xfe
    e3a6f:	a0 a8 69             	mov    al,ds:0x69a8
-   e3a72:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e3a72:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e3a76:	26 88 07             	mov    BYTE PTR es:[bx],al
+
    e3a79:	fe 4e fd             	dec    BYTE PTR [bp-0x3]
    e3a7c:	80 7e fd 00          	cmp    BYTE PTR [bp-0x3],0x0
    e3a80:	7d aa                	jge    0xe3a2c
-   e3a82:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b
+   e3a82:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b ; g_port0_regs
    e3a86:	80 0e a7 69 02       	or     BYTE PTR ds:0x69a7,0x2
    e3a8b:	a0 a7 69             	mov    al,ds:0x69a7
-   e3a8e:	26 88 47 01          	mov    BYTE PTR es:[bx+0x1],al
-   e3a92:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b
+   e3a8e:	26 88 47 01          	mov    BYTE PTR es:[bx+0x1],al ; PM0 port mode register
+   e3a92:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b ; g_port0_regs
    e3a96:	26 8a 07             	mov    al,BYTE PTR es:[bx]
    e3a99:	b4 00                	mov    ah,0x0
    e3a9b:	a9 02 00             	test   ax,0x2
@@ -6279,26 +6327,32 @@ output_something11:
    e3aa7:	8a 56 ff             	mov    dl,BYTE PTR [bp-0x1]
    e3aaa:	02 d0                	add    dl,al
    e3aac:	88 56 ff             	mov    BYTE PTR [bp-0x1],dl
+
    e3aaf:	80 0e a8 69 01       	or     BYTE PTR ds:0x69a8,0x1
    e3ab4:	a0 a8 69             	mov    al,ds:0x69a8
-   e3ab7:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
-   e3abb:	26 08 07             	or     BYTE PTR es:[bx],al
+   e3ab7:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
+   e3abb:	26 08 07             	or     BYTE PTR es:[bx],al ; P0 port register
+
    e3abe:	80 26 a8 69 fe       	and    BYTE PTR ds:0x69a8,0xfe
    e3ac3:	a0 a8 69             	mov    al,ds:0x69a8
-   e3ac6:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e3ac6:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e3aca:	26 88 07             	mov    BYTE PTR es:[bx],al
-   e3acd:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b
+
+   e3acd:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b ; g_port0_regs
    e3ad1:	80 26 a7 69 fd       	and    BYTE PTR ds:0x69a7,0xfd
    e3ad6:	a0 a7 69             	mov    al,ds:0x69a7
-   e3ad9:	26 88 47 01          	mov    BYTE PTR es:[bx+0x1],al
+   e3ad9:	26 88 47 01          	mov    BYTE PTR es:[bx+0x1],al ; PM0 port mode register
+
    e3add:	80 26 a8 69 fe       	and    BYTE PTR ds:0x69a8,0xfe
    e3ae2:	a0 a8 69             	mov    al,ds:0x69a8
-   e3ae5:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e3ae5:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e3ae9:	26 88 07             	mov    BYTE PTR es:[bx],al
-   e3aec:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b
+
+   e3aec:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b ; g_port0_regs
    e3af0:	80 26 a7 69 fd       	and    BYTE PTR ds:0x69a7,0xfd
    e3af5:	a0 a7 69             	mov    al,ds:0x69a7
-   e3af8:	26 88 47 01          	mov    BYTE PTR es:[bx+0x1],al
+   e3af8:	26 88 47 01          	mov    BYTE PTR es:[bx+0x1],al ; PM0 port mode register
+
    e3afc:	8a 46 ff             	mov    al,BYTE PTR [bp-0x1]
    e3aff:	b4 00                	mov    ah,0x0
    e3b01:	eb 00                	jmp    0xe3b03
@@ -6328,15 +6382,16 @@ output_something11:
    e3b28:	8a 56 fd             	mov    dl,BYTE PTR [bp-0x3]
    e3b2b:	02 d0                	add    dl,al
    e3b2d:	88 56 fd             	mov    BYTE PTR [bp-0x3],dl
-   e3b30:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b
+   e3b30:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b ; g_port0_regs
    e3b34:	80 0e a7 69 02       	or     BYTE PTR ds:0x69a7,0x2
    e3b39:	a0 a7 69             	mov    al,ds:0x69a7
-   e3b3c:	26 88 47 01          	mov    BYTE PTR es:[bx+0x1],al
+   e3b3c:	26 88 47 01          	mov    BYTE PTR es:[bx+0x1],al ; PM0 port mode register
    e3b40:	c6 46 fe 00          	mov    BYTE PTR [bp-0x2],0x0
    e3b44:	c6 46 ff 07          	mov    BYTE PTR [bp-0x1],0x7
    e3b48:	eb 39                	jmp    0xe3b83
-   e3b4a:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b
-   e3b4e:	26 8a 07             	mov    al,BYTE PTR es:[bx]
+
+   e3b4a:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b ; g_port0_regs
+   e3b4e:	26 8a 07             	mov    al,BYTE PTR es:[bx] ; P0 port register
    e3b51:	b4 00                	mov    ah,0x0
    e3b53:	a9 02 00             	test   ax,0x2
    e3b56:	7e 0a                	jle    0xe3b62
@@ -6344,33 +6399,41 @@ output_something11:
    e3b5a:	8a 4e ff             	mov    cl,BYTE PTR [bp-0x1]
    e3b5d:	d2 e0                	shl    al,cl
    e3b5f:	08 46 fe             	or     BYTE PTR [bp-0x2],al
+
    e3b62:	80 0e a8 69 01       	or     BYTE PTR ds:0x69a8,0x1
    e3b67:	a0 a8 69             	mov    al,ds:0x69a8
-   e3b6a:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e3b6a:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e3b6e:	26 08 07             	or     BYTE PTR es:[bx],al
+
    e3b71:	80 26 a8 69 fe       	and    BYTE PTR ds:0x69a8,0xfe
    e3b76:	a0 a8 69             	mov    al,ds:0x69a8
-   e3b79:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e3b79:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e3b7d:	26 88 07             	mov    BYTE PTR es:[bx],al
+
    e3b80:	fe 4e ff             	dec    BYTE PTR [bp-0x1]
    e3b83:	80 7e ff 00          	cmp    BYTE PTR [bp-0x1],0x0
    e3b87:	7d c1                	jge    0xe3b4a
+
    e3b89:	80 26 a8 69 fd       	and    BYTE PTR ds:0x69a8,0xfd
    e3b8e:	a0 a8 69             	mov    al,ds:0x69a8
-   e3b91:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e3b91:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e3b95:	26 88 07             	mov    BYTE PTR es:[bx],al
-   e3b98:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b
+
+   e3b98:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b ; g_port0_regs
    e3b9c:	80 26 a7 69 fd       	and    BYTE PTR ds:0x69a7,0xfd
    e3ba1:	a0 a7 69             	mov    al,ds:0x69a7
-   e3ba4:	26 88 47 01          	mov    BYTE PTR es:[bx+0x1],al
+   e3ba4:	26 88 47 01          	mov    BYTE PTR es:[bx+0x1],al ; PM0 port mode register
+
    e3ba8:	80 0e a8 69 01       	or     BYTE PTR ds:0x69a8,0x1
    e3bad:	a0 a8 69             	mov    al,ds:0x69a8
-   e3bb0:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e3bb0:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e3bb4:	26 08 07             	or     BYTE PTR es:[bx],al
+
    e3bb7:	80 0e a8 69 02       	or     BYTE PTR ds:0x69a8,0x2
    e3bbc:	a0 a8 69             	mov    al,ds:0x69a8
-   e3bbf:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e3bbf:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e3bc3:	26 08 07             	or     BYTE PTR es:[bx],al
+
    e3bc6:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    e3bcb:	75 05                	jne    0xe3bd2
    e3bcd:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
@@ -6407,14 +6470,17 @@ output_something11:
    e3c09:	8a 56 fd             	mov    dl,BYTE PTR [bp-0x3]
    e3c0c:	02 d0                	add    dl,al
    e3c0e:	88 56 fd             	mov    BYTE PTR [bp-0x3],dl
+
    e3c11:	80 26 a8 69 fd       	and    BYTE PTR ds:0x69a8,0xfd
    e3c16:	a0 a8 69             	mov    al,ds:0x69a8
-   e3c19:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
-   e3c1d:	26 88 07             	mov    BYTE PTR es:[bx],al
-   e3c20:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b
+   e3c19:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
+   e3c1d:	26 88 07             	mov    BYTE PTR es:[bx],al ; P0 port register
+
+   e3c20:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b ; g_port0_regs
    e3c24:	80 0e a7 69 02       	or     BYTE PTR ds:0x69a7,0x2
    e3c29:	a0 a7 69             	mov    al,ds:0x69a7
-   e3c2c:	26 88 47 01          	mov    BYTE PTR es:[bx+0x1],al
+   e3c2c:	26 88 47 01          	mov    BYTE PTR es:[bx+0x1],al ; PM0 port mode register
+
    e3c30:	c7 46 fa 00 00       	mov    WORD PTR [bp-0x6],0x0
    e3c35:	e9 ac 00             	jmp    0xe3ce4
    e3c38:	8b 5e 08             	mov    bx,WORD PTR [bp+0x8]
@@ -6422,8 +6488,9 @@ output_something11:
    e3c3e:	c6 07 00             	mov    BYTE PTR [bx],0x0
    e3c41:	c6 46 ff 07          	mov    BYTE PTR [bp-0x1],0x7
    e3c45:	eb 3e                	jmp    0xe3c85
-   e3c47:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b
-   e3c4b:	26 8a 07             	mov    al,BYTE PTR es:[bx]
+
+   e3c47:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b ; g_port0_regs
+   e3c4b:	26 8a 07             	mov    al,BYTE PTR es:[bx] ; P0 port register
    e3c4e:	b4 00                	mov    ah,0x0
    e3c50:	a9 02 00             	test   ax,0x2
    e3c53:	7e 0f                	jle    0xe3c64
@@ -6433,14 +6500,17 @@ output_something11:
    e3c5c:	8b 5e 08             	mov    bx,WORD PTR [bp+0x8]
    e3c5f:	03 5e fa             	add    bx,WORD PTR [bp-0x6]
    e3c62:	08 07                	or     BYTE PTR [bx],al
+
    e3c64:	80 0e a8 69 01       	or     BYTE PTR ds:0x69a8,0x1
    e3c69:	a0 a8 69             	mov    al,ds:0x69a8
-   e3c6c:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
-   e3c70:	26 08 07             	or     BYTE PTR es:[bx],al
+   e3c6c:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
+   e3c70:	26 08 07             	or     BYTE PTR es:[bx],al ; P0 port register
+
    e3c73:	80 26 a8 69 fe       	and    BYTE PTR ds:0x69a8,0xfe
    e3c78:	a0 a8 69             	mov    al,ds:0x69a8
-   e3c7b:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e3c7b:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e3c7f:	26 88 07             	mov    BYTE PTR es:[bx],al
+
    e3c82:	fe 4e ff             	dec    BYTE PTR [bp-0x1]
    e3c85:	80 7e ff 00          	cmp    BYTE PTR [bp-0x1],0x0
    e3c89:	7d bc                	jge    0xe3c47
@@ -6448,26 +6518,32 @@ output_something11:
    e3c8e:	40                   	inc    ax
    e3c8f:	3b 46 0a             	cmp    ax,WORD PTR [bp+0xa]
    e3c92:	74 4d                	je     0xe3ce1
+
    e3c94:	80 26 a8 69 fd       	and    BYTE PTR ds:0x69a8,0xfd
    e3c99:	a0 a8 69             	mov    al,ds:0x69a8
-   e3c9c:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
-   e3ca0:	26 88 07             	mov    BYTE PTR es:[bx],al
-   e3ca3:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b
+   e3c9c:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
+   e3ca0:	26 88 07             	mov    BYTE PTR es:[bx],al ; P0 port register
+
+   e3ca3:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b ; g_port0_regs
    e3ca7:	80 26 a7 69 fd       	and    BYTE PTR ds:0x69a7,0xfd
    e3cac:	a0 a7 69             	mov    al,ds:0x69a7
-   e3caf:	26 88 47 01          	mov    BYTE PTR es:[bx+0x1],al
+   e3caf:	26 88 47 01          	mov    BYTE PTR es:[bx+0x1],al ; PM0 port mode register
+
    e3cb3:	80 0e a8 69 01       	or     BYTE PTR ds:0x69a8,0x1
    e3cb8:	a0 a8 69             	mov    al,ds:0x69a8
-   e3cbb:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e3cbb:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e3cbf:	26 08 07             	or     BYTE PTR es:[bx],al
+
    e3cc2:	80 26 a8 69 fe       	and    BYTE PTR ds:0x69a8,0xfe
    e3cc7:	a0 a8 69             	mov    al,ds:0x69a8
-   e3cca:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e3cca:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e3cce:	26 88 07             	mov    BYTE PTR es:[bx],al
-   e3cd1:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b
+
+   e3cd1:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b ; g_port0_regs
    e3cd5:	80 0e a7 69 02       	or     BYTE PTR ds:0x69a7,0x2
    e3cda:	a0 a7 69             	mov    al,ds:0x69a7
    e3cdd:	26 88 47 01          	mov    BYTE PTR es:[bx+0x1],al
+
    e3ce1:	ff 46 fa             	inc    WORD PTR [bp-0x6]
    e3ce4:	8b 46 fa             	mov    ax,WORD PTR [bp-0x6]
    e3ce7:	3b 46 0a             	cmp    ax,WORD PTR [bp+0xa]
@@ -6475,20 +6551,24 @@ output_something11:
    e3cec:	e9 49 ff             	jmp    0xe3c38
    e3cef:	80 26 a8 69 fd       	and    BYTE PTR ds:0x69a8,0xfd
    e3cf4:	a0 a8 69             	mov    al,ds:0x69a8
-   e3cf7:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e3cf7:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e3cfb:	26 88 07             	mov    BYTE PTR es:[bx],al
-   e3cfe:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b
+
+   e3cfe:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b ; g_port0_regs
    e3d02:	80 26 a7 69 fd       	and    BYTE PTR ds:0x69a7,0xfd
    e3d07:	a0 a7 69             	mov    al,ds:0x69a7
    e3d0a:	26 88 47 01          	mov    BYTE PTR es:[bx+0x1],al
+
    e3d0e:	80 0e a8 69 01       	or     BYTE PTR ds:0x69a8,0x1
    e3d13:	a0 a8 69             	mov    al,ds:0x69a8
-   e3d16:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e3d16:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e3d1a:	26 08 07             	or     BYTE PTR es:[bx],al
+
    e3d1d:	80 0e a8 69 02       	or     BYTE PTR ds:0x69a8,0x2
    e3d22:	a0 a8 69             	mov    al,ds:0x69a8
-   e3d25:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e3d25:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e3d29:	26 08 07             	or     BYTE PTR es:[bx],al
+
    e3d2c:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0
    e3d31:	75 05                	jne    0xe3d38
    e3d33:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
@@ -6535,36 +6615,44 @@ output_something11:
    e3d93:	d3 e2                	shl    dx,cl
    e3d95:	3b c2                	cmp    ax,dx
    e3d97:	75 11                	jne    0xe3daa
+
    e3d99:	80 0e a8 69 02       	or     BYTE PTR ds:0x69a8,0x2
    e3d9e:	a0 a8 69             	mov    al,ds:0x69a8
-   e3da1:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
-   e3da5:	26 08 07             	or     BYTE PTR es:[bx],al
+   e3da1:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
+   e3da5:	26 08 07             	or     BYTE PTR es:[bx],al ; P0 port register
    e3da8:	eb 0f                	jmp    0xe3db9
+
    e3daa:	80 26 a8 69 fd       	and    BYTE PTR ds:0x69a8,0xfd
    e3daf:	a0 a8 69             	mov    al,ds:0x69a8
-   e3db2:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e3db2:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e3db6:	26 88 07             	mov    BYTE PTR es:[bx],al
+
    e3db9:	80 0e a8 69 01       	or     BYTE PTR ds:0x69a8,0x1
    e3dbe:	a0 a8 69             	mov    al,ds:0x69a8
-   e3dc1:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e3dc1:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e3dc5:	26 08 07             	or     BYTE PTR es:[bx],al
+
    e3dc8:	80 26 a8 69 fe       	and    BYTE PTR ds:0x69a8,0xfe
    e3dcd:	a0 a8 69             	mov    al,ds:0x69a8
-   e3dd0:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e3dd0:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e3dd4:	26 88 07             	mov    BYTE PTR es:[bx],al
+
    e3dd7:	fe 4e ff             	dec    BYTE PTR [bp-0x1]
    e3dda:	80 7e ff 00          	cmp    BYTE PTR [bp-0x1],0x0
    e3dde:	7d 9e                	jge    0xe3d7e
+
    e3de0:	80 26 a8 69 fd       	and    BYTE PTR ds:0x69a8,0xfd
    e3de5:	a0 a8 69             	mov    al,ds:0x69a8
-   e3de8:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e3de8:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e3dec:	26 88 07             	mov    BYTE PTR es:[bx],al
-   e3def:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b
+
+   e3def:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b ; g_port0_regs
    e3df3:	80 0e a7 69 02       	or     BYTE PTR ds:0x69a7,0x2
    e3df8:	a0 a7 69             	mov    al,ds:0x69a7
-   e3dfb:	26 88 47 01          	mov    BYTE PTR es:[bx+0x1],al
-   e3dff:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b
-   e3e03:	26 8a 07             	mov    al,BYTE PTR es:[bx]
+   e3dfb:	26 88 47 01          	mov    BYTE PTR es:[bx+0x1],al ; PM0 port mode register
+
+   e3dff:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b ; g_port0_regs
+   e3e03:	26 8a 07             	mov    al,BYTE PTR es:[bx] ; P0 port register
    e3e06:	b4 00                	mov    ah,0x0
    e3e08:	a9 02 00             	test   ax,0x2
    e3e0b:	7e 05                	jle    0xe3e12
@@ -6574,30 +6662,37 @@ output_something11:
    e3e14:	8a 56 fe             	mov    dl,BYTE PTR [bp-0x2]
    e3e17:	02 d0                	add    dl,al
    e3e19:	88 56 fe             	mov    BYTE PTR [bp-0x2],dl
+
    e3e1c:	80 0e a8 69 01       	or     BYTE PTR ds:0x69a8,0x1
    e3e21:	a0 a8 69             	mov    al,ds:0x69a8
-   e3e24:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
-   e3e28:	26 08 07             	or     BYTE PTR es:[bx],al
+   e3e24:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
+   e3e28:	26 08 07             	or     BYTE PTR es:[bx],al ; P0 port register
+
    e3e2b:	80 26 a8 69 fe       	and    BYTE PTR ds:0x69a8,0xfe
    e3e30:	a0 a8 69             	mov    al,ds:0x69a8
-   e3e33:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e3e33:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e3e37:	26 88 07             	mov    BYTE PTR es:[bx],al
-   e3e3a:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b
+
+   e3e3a:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b ; g_port0_regs
    e3e3e:	80 26 a7 69 fd       	and    BYTE PTR ds:0x69a7,0xfd
    e3e43:	a0 a7 69             	mov    al,ds:0x69a7
-   e3e46:	26 88 47 01          	mov    BYTE PTR es:[bx+0x1],al
+   e3e46:	26 88 47 01          	mov    BYTE PTR es:[bx+0x1],al ; PM0 port mode register
+
    e3e4a:	80 0e a8 69 01       	or     BYTE PTR ds:0x69a8,0x1
    e3e4f:	a0 a8 69             	mov    al,ds:0x69a8
-   e3e52:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e3e52:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e3e56:	26 08 07             	or     BYTE PTR es:[bx],al
+
    e3e59:	80 0e a8 69 01       	or     BYTE PTR ds:0x69a8,0x1
    e3e5e:	a0 a8 69             	mov    al,ds:0x69a8
-   e3e61:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e3e61:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e3e65:	26 08 07             	or     BYTE PTR es:[bx],al
+
    e3e68:	80 0e a8 69 02       	or     BYTE PTR ds:0x69a8,0x2
    e3e6d:	a0 a8 69             	mov    al,ds:0x69a8
-   e3e70:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e3e70:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e3e74:	26 08 07             	or     BYTE PTR es:[bx],al
+
    e3e77:	80 0e 05 00 10       	or     BYTE PTR ds:0x5,0x10
    e3e7c:	a0 05 00             	mov    al,ds:0x5
    e3e7f:	ba 40 02             	mov    dx,0x240
@@ -6644,60 +6739,74 @@ output_something11:
    e3ed9:	8b d8                	mov    bx,ax
    e3edb:	84 97 06 00          	test   BYTE PTR [bx+0x6],dl
    e3edf:	74 11                	je     0xe3ef2
+
    e3ee1:	80 0e a8 69 02       	or     BYTE PTR ds:0x69a8,0x2
    e3ee6:	a0 a8 69             	mov    al,ds:0x69a8
-   e3ee9:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
-   e3eed:	26 08 07             	or     BYTE PTR es:[bx],al
+   e3ee9:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
+   e3eed:	26 08 07             	or     BYTE PTR es:[bx],al ; P0 port register
    e3ef0:	eb 0f                	jmp    0xe3f01
+
    e3ef2:	80 26 a8 69 fd       	and    BYTE PTR ds:0x69a8,0xfd
    e3ef7:	a0 a8 69             	mov    al,ds:0x69a8
-   e3efa:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e3efa:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e3efe:	26 88 07             	mov    BYTE PTR es:[bx],al
+
    e3f01:	80 0e a8 69 01       	or     BYTE PTR ds:0x69a8,0x1
    e3f06:	a0 a8 69             	mov    al,ds:0x69a8
-   e3f09:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e3f09:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e3f0d:	26 08 07             	or     BYTE PTR es:[bx],al
+
    e3f10:	80 26 a8 69 fe       	and    BYTE PTR ds:0x69a8,0xfe
    e3f15:	a0 a8 69             	mov    al,ds:0x69a8
-   e3f18:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e3f18:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e3f1c:	26 88 07             	mov    BYTE PTR es:[bx],al
+
    e3f1f:	fe 4e ff             	dec    BYTE PTR [bp-0x1]
    e3f22:	80 7e ff 00          	cmp    BYTE PTR [bp-0x1],0x0
    e3f26:	7d a8                	jge    0xe3ed0
+
    e3f28:	80 26 a8 69 fd       	and    BYTE PTR ds:0x69a8,0xfd
    e3f2d:	a0 a8 69             	mov    al,ds:0x69a8
-   e3f30:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e3f30:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e3f34:	26 88 07             	mov    BYTE PTR es:[bx],al
-   e3f37:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b
+
+   e3f37:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b ; g_port0_regs
    e3f3b:	80 0e a7 69 02       	or     BYTE PTR ds:0x69a7,0x2
    e3f40:	a0 a7 69             	mov    al,ds:0x69a7
-   e3f43:	26 88 47 01          	mov    BYTE PTR es:[bx+0x1],al
+   e3f43:	26 88 47 01          	mov    BYTE PTR es:[bx+0x1],al ; PM0 port mode register
+
    e3f47:	80 0e a8 69 01       	or     BYTE PTR ds:0x69a8,0x1
    e3f4c:	a0 a8 69             	mov    al,ds:0x69a8
-   e3f4f:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e3f4f:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e3f53:	26 08 07             	or     BYTE PTR es:[bx],al
+
    e3f56:	80 26 a8 69 fe       	and    BYTE PTR ds:0x69a8,0xfe
    e3f5b:	a0 a8 69             	mov    al,ds:0x69a8
-   e3f5e:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e3f5e:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e3f62:	26 88 07             	mov    BYTE PTR es:[bx],al
-   e3f65:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b
+
+   e3f65:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b ; g_port0_regs
    e3f69:	80 26 a7 69 fd       	and    BYTE PTR ds:0x69a7,0xfd
    e3f6e:	a0 a7 69             	mov    al,ds:0x69a7
    e3f71:	26 88 47 01          	mov    BYTE PTR es:[bx+0x1],al
+
    e3f75:	ff 46 fa             	inc    WORD PTR [bp-0x6]
    e3f78:	fe 46 fd             	inc    BYTE PTR [bp-0x3]
    e3f7b:	8a 46 fd             	mov    al,BYTE PTR [bp-0x3]
    e3f7e:	3a 46 0a             	cmp    al,BYTE PTR [bp+0xa]
    e3f81:	73 03                	jae    0xe3f86
    e3f83:	e9 44 ff             	jmp    0xe3eca
+
    e3f86:	80 0e a8 69 01       	or     BYTE PTR ds:0x69a8,0x1
    e3f8b:	a0 a8 69             	mov    al,ds:0x69a8
-   e3f8e:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e3f8e:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e3f92:	26 08 07             	or     BYTE PTR es:[bx],al
+
    e3f95:	80 0e a8 69 02       	or     BYTE PTR ds:0x69a8,0x2
    e3f9a:	a0 a8 69             	mov    al,ds:0x69a8
-   e3f9d:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
+   e3f9d:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
    e3fa1:	26 08 07             	or     BYTE PTR es:[bx],al
+
    e3fa4:	80 0e 05 00 10       	or     BYTE PTR ds:0x5,0x10
    e3fa9:	a0 05 00             	mov    al,ds:0x5
    e3fac:	ba 40 02             	mov    dx,0x240
@@ -7034,8 +7143,8 @@ output_something11:
    e42e1:	55                   	push   bp
    e42e2:	8b ec                	mov    bp,sp
    e42e4:	83 ec 02             	sub    sp,0x2
-   e42e7:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b
-   e42eb:	26 8a 07             	mov    al,BYTE PTR es:[bx]
+   e42e7:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b ; g_port0_regs
+   e42eb:	26 8a 07             	mov    al,BYTE PTR es:[bx] ; P0 port register
    e42ee:	b4 00                	mov    ah,0x0
    e42f0:	a9 10 00             	test   ax,0x10
    e42f3:	7e 05                	jle    0xe42fa
@@ -7080,8 +7189,8 @@ output_something11:
    e4378:	76 0f                	jbe    0xe4389
    e437a:	80 26 a8 69 7f       	and    BYTE PTR ds:0x69a8,0x7f
    e437f:	a0 a8 69             	mov    al,ds:0x69a8
-   e4382:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b
-   e4386:	26 88 07             	mov    BYTE PTR es:[bx],al
+   e4382:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b ; g_port0_regs
+   e4386:	26 88 07             	mov    BYTE PTR es:[bx],al ; P0 port register
    e4389:	80 3e 31 00 00       	cmp    BYTE PTR ds:0x31,0x0
    e438e:	75 06                	jne    0xe4396
    e4390:	c7 06 2a 00 00 00    	mov    WORD PTR ds:0x2a,0x0
@@ -7089,8 +7198,8 @@ output_something11:
    e439a:	eb 1b                	jmp    0xe43b7
    e439c:	80 0e a8 69 80       	or     BYTE PTR ds:0x69a8,0x80
    e43a1:	a0 a8 69             	mov    al,ds:0x69a8
-   e43a4:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b
-   e43a8:	26 88 07             	mov    BYTE PTR es:[bx],al
+   e43a4:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b ; g_port0_regs
+   e43a8:	26 88 07             	mov    BYTE PTR es:[bx],al ; P0 port register
    e43ab:	80 3e 31 00 01       	cmp    BYTE PTR ds:0x31,0x1
    e43b0:	75 05                	jne    0xe43b7
    e43b2:	c6 06 32 00 01       	mov    BYTE PTR ds:0x32,0x1
@@ -26264,9 +26373,9 @@ interesting:
    f0530:	80 0e a8 69 80       	or     BYTE PTR ds:0x69a8,0x80
    f0535:	eb 05                	jmp    0xf053c
    f0537:	80 26 a8 69 7f       	and    BYTE PTR ds:0x69a8,0x7f
-   f053c:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b
+   f053c:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b ; g_port0_regs
    f0540:	a0 a8 69             	mov    al,ds:0x69a8
-   f0543:	26 88 07             	mov    BYTE PTR es:[bx],al
+   f0543:	26 88 07             	mov    BYTE PTR es:[bx],al ; P0 port register
    f0546:	5d                   	pop    bp
    f0547:	cb                   	retf   
 
@@ -26389,8 +26498,8 @@ font_task_0:
    f0665:	eb 08                	jmp    0xf066f
    f0667:	80 26 a8 69 7f       	and    BYTE PTR ds:0x69a8,0x7f
    f066c:	a0 a8 69             	mov    al,ds:0x69a8
-   f066f:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b
-   f0673:	26 88 07             	mov    BYTE PTR es:[bx],al
+   f066f:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b ; g_port0_regs
+   f0673:	26 88 07             	mov    BYTE PTR es:[bx],al ; P0 port register
    f0676:	80 7e fe 00          	cmp    BYTE PTR [bp-0x2],0x0
    f067a:	75 05                	jne    0xf0681
    f067c:	c6 06 d2 62 0a       	mov    BYTE PTR ds:0x62d2,0xa
@@ -34909,30 +35018,34 @@ main:
    f5992:	75 04                	jne    0xf5998
    f5994:	0e                   	push   cs
    f5995:	e8 1f ff             	call   0xf58b7
+
    f5998:	b8 ff ff             	mov    ax,0xffff
    f599b:	8e c0                	mov    es,ax
-   f599d:	26 a0 0f 00          	mov    al,es:0xf
+   f599d:	26 a0 0f 00          	mov    al,es:0xf ; IDB internal data base register
    f59a1:	b4 00                	mov    ah,0x0
    f59a3:	b1 08                	mov    cl,0x8
    f59a5:	d3 e0                	shl    ax,cl
    f59a7:	a3 8e 69             	mov    ds:0x698e,ax
    f59aa:	c7 06 8c 69 00 0f    	mov    WORD PTR ds:0x698c,0xf00	;  port mode registers
+
    f59b0:	b8 ff ff             	mov    ax,0xffff
    f59b3:	8e c0                	mov    es,ax
-   f59b5:	26 a0 0f 00          	mov    al,es:0xf
+   f59b5:	26 a0 0f 00          	mov    al,es:0xf ; IDB internal data base register
    f59b9:	b4 00                	mov    ah,0x0
    f59bb:	b1 08                	mov    cl,0x8
    f59bd:	d3 e0                	shl    ax,cl
    f59bf:	a3 96 69             	mov    ds:0x6996,ax
    f59c2:	c7 06 94 69 60 0f    	mov    WORD PTR ds:0x6994,0xf60	;  serial channel 1 registers
+
    f59c8:	b8 ff ff             	mov    ax,0xffff
    f59cb:	8e c0                	mov    es,ax
-   f59cd:	26 a0 0f 00          	mov    al,es:0xf
+   f59cd:	26 a0 0f 00          	mov    al,es:0xf ; IDB internal data base register
    f59d1:	b4 00                	mov    ah,0x0
    f59d3:	b1 08                	mov    cl,0x8
    f59d5:	d3 e0                	shl    ax,cl
    f59d7:	a3 92 69             	mov    ds:0x6992,ax
    f59da:	c7 06 90 69 70 0f    	mov    WORD PTR ds:0x6990,0xf70	;  serial channel 2 registers
+
    f59e0:	83 7e 06 00          	cmp    WORD PTR [bp+0x6],0x0
    f59e4:	75 57                	jne    0xf5a3d
    f59e6:	9a 0e 00 1b e1       	call   0xe11b:0xe
@@ -34976,8 +35089,8 @@ main:
    f5a6d:	50                   	push   ax
    f5a6e:	9a ca 00 6c f8       	call   0xf86c:0xca
    f5a73:	83 c4 06             	add    sp,0x6
-   f5a76:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
-   f5a7a:	26 c6 87 9e 00 07    	mov    BYTE PTR es:[bx+0x9e],0x7 ; TMIC2 timed interrupt register
+   f5a76:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
+   f5a7a:	26 c6 87 9e 00 07    	mov    BYTE PTR es:[bx+0x9e],0x7 ; TMIC2 timer interrupt register
    f5a80:	b0 00                	mov    al,0x0
    f5a82:	50                   	push   ax
    f5a83:	9a e9 11 84 f6       	call   0xf684:0x11e9
@@ -36069,7 +36182,8 @@ int _cdecl free_font(void * ptr):
    f664b:	cb                   	retf   
 
 
-; short _get_serial_flags(short p1):
+short get_port_reg(short port):
+; get P0/P1/P2, depending on port
    f664c:	55                   	push   bp
    f664d:	8b ec                	mov    bp,sp
    f664f:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
@@ -36078,7 +36192,7 @@ int _cdecl free_font(void * ptr):
    f6656:	d3 e0                	shl    ax,cl
    f6658:	8b d8                	mov    bx,ax
    f665a:	c4 9f 9b 69          	les    bx,DWORD PTR [bx+0x699b]
-; return g_serial_params[p1].flags
+; return *g_port0_regs[port]
    f665e:	26 8a 07             	mov    al,BYTE PTR es:[bx]
    f6661:	b4 00                	mov    ah,0x0
    f6663:	eb 00                	jmp    0xf6665
@@ -36247,20 +36361,27 @@ int _cdecl free_font(void * ptr):
    f67cf:	8a 0e 99 69          	mov    cl,BYTE PTR ds:0x6999
    f67d3:	d2 e0                	shl    al,cl
    f67d5:	a2 9a 69             	mov    ds:0x699a,al
+
    f67d8:	a1 8e 69             	mov    ax,ds:0x698e
-   f67db:	8b 16 8c 69          	mov    dx,WORD PTR ds:0x698c
+   f67db:	8b 16 8c 69          	mov    dx,WORD PTR ds:0x698c ; g_port_regs
+; g_port0_regs = g_port_regs
    f67df:	a3 9d 69             	mov    ds:0x699d,ax
    f67e2:	89 16 9b 69          	mov    WORD PTR ds:0x699b,dx
+
    f67e6:	a1 8e 69             	mov    ax,ds:0x698e
-   f67e9:	8b 16 8c 69          	mov    dx,WORD PTR ds:0x698c
+   f67e9:	8b 16 8c 69          	mov    dx,WORD PTR ds:0x698c ; g_port_regs
    f67ed:	83 c2 08             	add    dx,0x8
+; g_port1_regs = g_port_regs + 0x8
    f67f0:	a3 a1 69             	mov    ds:0x69a1,ax
    f67f3:	89 16 9f 69          	mov    WORD PTR ds:0x699f,dx
+
    f67f7:	a1 8e 69             	mov    ax,ds:0x698e
-   f67fa:	8b 16 8c 69          	mov    dx,WORD PTR ds:0x698c
+   f67fa:	8b 16 8c 69          	mov    dx,WORD PTR ds:0x698c ; g_port_regs
    f67fe:	83 c2 10             	add    dx,0x10
+; g_port2_regs = g_port_regs + 0x10
    f6801:	a3 a5 69             	mov    ds:0x69a5,ax
    f6804:	89 16 a3 69          	mov    WORD PTR ds:0x69a3,dx
+
    f6808:	c7 46 fe 00 00       	mov    WORD PTR [bp-0x2],0x0
    f680d:	eb 2a                	jmp    0xf6839
    f680f:	8b 5e fe             	mov    bx,WORD PTR [bp-0x2]
@@ -36297,8 +36418,8 @@ int _cdecl free_font(void * ptr):
    f6857:	eb 03                	jmp    0xf685c
    f6859:	a1 3c 68             	mov    ax,ds:0x683c
    f685c:	89 46 f6             	mov    WORD PTR [bp-0xa],ax
-   f685f:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
-   f6863:	26 8b 87 80 00       	mov    ax,WORD PTR es:[bx+0x80]
+   f685f:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
+   f6863:	26 8b 87 80 00       	mov    ax,WORD PTR es:[bx+0x80] ; TM0 timer register
    f6868:	89 46 f8             	mov    WORD PTR [bp-0x8],ax
    f686b:	eb 36                	jmp    0xf68a3
    f686d:	8b 46 f8             	mov    ax,WORD PTR [bp-0x8]
@@ -36306,8 +36427,8 @@ int _cdecl free_font(void * ptr):
    f6873:	89 46 fc             	mov    WORD PTR [bp-0x4],ax
    f6876:	83 7e fc 00          	cmp    WORD PTR [bp-0x4],0x0
    f687a:	7d 12                	jge    0xf688e
-   f687c:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
-   f6880:	26 8b 87 82 00       	mov    ax,WORD PTR es:[bx+0x82]
+   f687c:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
+   f6880:	26 8b 87 82 00       	mov    ax,WORD PTR es:[bx+0x82] ; MD0 module/timer register
    f6885:	2b 46 fa             	sub    ax,WORD PTR [bp-0x6]
    f6888:	03 46 f8             	add    ax,WORD PTR [bp-0x8]
    f688b:	89 46 fc             	mov    WORD PTR [bp-0x4],ax
@@ -36315,8 +36436,8 @@ int _cdecl free_font(void * ptr):
    f6891:	01 46 fe             	add    WORD PTR [bp-0x2],ax
    f6894:	8b 46 fa             	mov    ax,WORD PTR [bp-0x6]
    f6897:	89 46 f8             	mov    WORD PTR [bp-0x8],ax
-   f689a:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
-   f689e:	26 8b 87 80 00       	mov    ax,WORD PTR es:[bx+0x80]
+   f689a:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
+   f689e:	26 8b 87 80 00       	mov    ax,WORD PTR es:[bx+0x80] ; TM0 timer register
    f68a3:	89 46 fa             	mov    WORD PTR [bp-0x6],ax
    f68a6:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
    f68a9:	3b 46 f6             	cmp    ax,WORD PTR [bp-0xa]
@@ -36347,7 +36468,7 @@ int _cdecl free_font(void * ptr):
    f68cf:	c4 1e 4c 68          	les    bx,DWORD PTR ds:0x684c
    f68d3:	03 1e 53 68          	add    bx,WORD PTR ds:0x6853
    f68d7:	26 8a 07             	mov    al,BYTE PTR es:[bx]
-   f68da:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994
+   f68da:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994 ; g_serial1_regs
    f68de:	26 88 47 02          	mov    BYTE PTR es:[bx+0x2],al ; write serial port 1 transmit register
    f68e2:	ff 06 53 68          	inc    WORD PTR ds:0x6853
    f68e6:	a1 53 68             	mov    ax,ds:0x6853
@@ -36356,7 +36477,7 @@ int _cdecl free_font(void * ptr):
    f68ef:	c7 06 53 68 00 00    	mov    WORD PTR ds:0x6853,0x0
    f68f5:	fb                   	sti    
    f68f6:	eb 22                	jmp    0xf691a
-   f68f8:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994
+   f68f8:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994 ; g_serial1_regs
    f68fc:	26 80 4f 0e c0       	or     BYTE PTR es:[bx+0xe],0xc0 ; set STF0, STMK0 in STIC0
    f6901:	c6 06 50 68 01       	mov    BYTE PTR ds:0x6850,0x1
    f6906:	80 3e f5 27 01       	cmp    BYTE PTR ds:0x27f5,0x1
@@ -36402,7 +36523,7 @@ int _cdecl free_font(void * ptr):
    f6948:	c4 1e 33 68          	les    bx,DWORD PTR ds:0x6833
    f694c:	03 1e 3a 68          	add    bx,WORD PTR ds:0x683a
    f6950:	26 8a 07             	mov    al,BYTE PTR es:[bx]
-   f6953:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ;  serial port 2
+   f6953:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ; g_serial2_regs
    f6957:	26 88 47 02          	mov    BYTE PTR es:[bx+0x2],al
    f695b:	ff 06 3a 68          	inc    WORD PTR ds:0x683a
    f695f:	a1 3a 68             	mov    ax,ds:0x683a
@@ -36411,7 +36532,7 @@ int _cdecl free_font(void * ptr):
    f6968:	c7 06 3a 68 00 00    	mov    WORD PTR ds:0x683a,0x0
    f696e:	fb                   	sti    
    f696f:	eb 22                	jmp    0xf6993
-   f6971:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ;  serial port 2
+   f6971:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ; g_serial2_regs
    f6975:	26 80 4f 0e c0       	or     BYTE PTR es:[bx+0xe],0xc0
    f697a:	c6 06 37 68 01       	mov    BYTE PTR ds:0x6837,0x1
    f697f:	80 3e f6 27 01       	cmp    BYTE PTR ds:0x27f6,0x1
@@ -36447,7 +36568,7 @@ int _cdecl free_font(void * ptr):
    f69a9:	8e dd                	mov    ds,bp
    f69ab:	8b ec                	mov    bp,sp
    f69ad:	83 ec 04             	sub    sp,0x4
-   f69b0:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994
+   f69b0:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994 ; g_serial1_regs
    f69b4:	26 8a 07             	mov    al,BYTE PTR es:[bx] ;  read serial port 1 rx reg
    f69b7:	88 46 ff             	mov    BYTE PTR [bp-0x1],al
    f69ba:	c4 1e 41 68          	les    bx,DWORD PTR ds:0x6841
@@ -36469,7 +36590,7 @@ int _cdecl free_font(void * ptr):
    f69eb:	c7 06 45 68 00 00    	mov    WORD PTR ds:0x6845,0x0
    f69f1:	fb                   	sti    
    f69f2:	0f 92                	fint   
-   f69f4:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994
+   f69f4:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994 ; g_serial1_regs
    f69f8:	26 80 67 0d 7f       	and    BYTE PTR es:[bx+0xd],0x7f ;  clear serial port 1 rx int
    f69fd:	8b e5                	mov    sp,bp
    f69ff:	5d                   	pop    bp
@@ -36497,7 +36618,7 @@ int _cdecl free_font(void * ptr):
    f6a15:	8e dd                	mov    ds,bp
    f6a17:	8b ec                	mov    bp,sp
    f6a19:	83 ec 04             	sub    sp,0x4
-   f6a1c:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ;  serial port 2
+   f6a1c:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ; g_serial2_regs
    f6a20:	26 8a 07             	mov    al,BYTE PTR es:[bx]
    f6a23:	88 46 ff             	mov    BYTE PTR [bp-0x1],al
    f6a26:	c4 1e 28 68          	les    bx,DWORD PTR ds:0x6828
@@ -36519,7 +36640,7 @@ int _cdecl free_font(void * ptr):
    f6a57:	c7 06 2c 68 00 00    	mov    WORD PTR ds:0x682c,0x0
    f6a5d:	fb                   	sti    
    f6a5e:	0f 92                	fint   
-   f6a60:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ;  serial port 2
+   f6a60:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ; g_serial2_regs
    f6a64:	26 80 67 0d 7f       	and    BYTE PTR es:[bx+0xd],0x7f
    f6a69:	8b e5                	mov    sp,bp
    f6a6b:	5d                   	pop    bp
@@ -36739,7 +36860,7 @@ void far serial_send(short serial, near char *buf):
    f6c4c:	80 7e 06 00          	cmp    BYTE PTR [bp+0x6],0x0
    f6c50:	75 4e                	jne    0xf6ca0
    f6c52:	eb 00                	jmp    0xf6c54
-   f6c54:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994
+   f6c54:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994 ; g_serial1_regs
    f6c58:	26 8a 47 0e          	mov    al,BYTE PTR es:[bx+0xe] ;  read serial port 1 tx status
    f6c5c:	b4 00                	mov    ah,0x0
    f6c5e:	a9 80 00             	test   ax,0x80 ;  test interrupt flag
@@ -36750,7 +36871,7 @@ void far serial_send(short serial, near char *buf):
 
    f6c6f:	8b 5e fa             	mov    bx,WORD PTR [bp-0x6]
    f6c72:	c6 47 11 00          	mov    BYTE PTR [bx+0x11],0x0
-   f6c76:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994
+   f6c76:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994 ; g_serial1_regs
    f6c7a:	26 80 67 0e 3f       	and    BYTE PTR es:[bx+0xe],0x3f ;  clear STF0, STMK0
    f6c7f:	fa                   	cli    
    f6c80:	8b 5e fa             	mov    bx,WORD PTR [bp-0x6]
@@ -36762,10 +36883,10 @@ void far serial_send(short serial, near char *buf):
    f6c91:	8b 5e fa             	mov    bx,WORD PTR [bp-0x6]
    f6c94:	c7 47 14 00 00       	mov    WORD PTR [bx+0x14],0x0
    f6c99:	fb                   	sti    
-   f6c9a:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994 ;  serial port 1 ptr
+   f6c9a:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994 ; g_serial1_regs ptr
    f6c9e:	eb 4c                	jmp    0xf6cec
    f6ca0:	eb 00                	jmp    0xf6ca2
-   f6ca2:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ;  serial port 2 ptr
+   f6ca2:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ; g_serial2_regs ptr
    f6ca6:	26 8a 47 0e          	mov    al,BYTE PTR es:[bx+0xe]
    f6caa:	b4 00                	mov    ah,0x0
    f6cac:	a9 80 00             	test   ax,0x80
@@ -36776,7 +36897,7 @@ void far serial_send(short serial, near char *buf):
 
    f6cbd:	8b 5e fa             	mov    bx,WORD PTR [bp-0x6]
    f6cc0:	c6 47 11 00          	mov    BYTE PTR [bx+0x11],0x0
-   f6cc4:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ;  serial port 2
+   f6cc4:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ; g_serial2_regs
    f6cc8:	26 80 67 0e 3f       	and    BYTE PTR es:[bx+0xe],0x3f
    f6ccd:	fa                   	cli    
    f6cce:	8b 5e fa             	mov    bx,WORD PTR [bp-0x6]
@@ -36788,7 +36909,7 @@ void far serial_send(short serial, near char *buf):
    f6cdf:	8b 5e fa             	mov    bx,WORD PTR [bp-0x6]
    f6ce2:	c7 47 14 00 00       	mov    WORD PTR [bx+0x14],0x0
    f6ce7:	fb                   	sti    
-   f6ce8:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ;  serial port 2
+   f6ce8:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ; g_serial2_regs
    f6cec:	8b 76 08             	mov    si,WORD PTR [bp+0x8]
    f6cef:	8a 04                	mov    al,BYTE PTR [si]
    f6cf1:	26 88 47 02          	mov    BYTE PTR es:[bx+0x2],al ;  write serial port tx reg
@@ -36814,14 +36935,14 @@ void far serial_send(short serial, near char *buf):
    f6d25:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
 
    f6d2a:	eb 00                	jmp    0xf6d2c
-   f6d2c:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994
+   f6d2c:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994 ; g_serial1_regs
    f6d30:	26 8a 47 0e          	mov    al,BYTE PTR es:[bx+0xe] ;  read serial port status
    f6d34:	b4 00                	mov    ah,0x0
    f6d36:	a9 80 00             	test   ax,0x80 ; tx int flag
    f6d39:	74 f1                	je     0xf6d2c
-   f6d3b:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994
+   f6d3b:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994 ; g_serial1_regs
    f6d3f:	26 80 67 0e 7f       	and    BYTE PTR es:[bx+0xe],0x7f ;  clear tx int flag
-   f6d44:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994
+   f6d44:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994 ; g_serial1_regs
    f6d48:	8b 76 08             	mov    si,WORD PTR [bp+0x8]
    f6d4b:	03 76 fe             	add    si,WORD PTR [bp-0x2]
    f6d4e:	8a 04                	mov    al,BYTE PTR [si]
@@ -36832,7 +36953,7 @@ void far serial_send(short serial, near char *buf):
    f6d5d:	80 3f 00             	cmp    BYTE PTR [bx],0x0
    f6d60:	75 ad                	jne    0xf6d0f
    f6d62:	eb 00                	jmp    0xf6d64
-   f6d64:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994
+   f6d64:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994 ; g_serial1_regs
    f6d68:	26 8a 47 0e          	mov    al,BYTE PTR es:[bx+0xe] ;  read tx sttaus reg
    f6d6c:	b4 00                	mov    ah,0x0
    f6d6e:	a9 80 00             	test   ax,0x80 ;  test int flag
@@ -36866,14 +36987,14 @@ void far serial_send(short serial, near char *buf):
    f6dad:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
 
    f6db2:	eb 00                	jmp    0xf6db4
-   f6db4:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ;  serial port 2
+   f6db4:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ; g_serial2_regs
    f6db8:	26 8a 47 0e          	mov    al,BYTE PTR es:[bx+0xe]
    f6dbc:	b4 00                	mov    ah,0x0
    f6dbe:	a9 80 00             	test   ax,0x80
    f6dc1:	74 f1                	je     0xf6db4
-   f6dc3:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ;  serial port 2
+   f6dc3:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ; g_serial2_regs
    f6dc7:	26 80 67 0e 7f       	and    BYTE PTR es:[bx+0xe],0x7f
-   f6dcc:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ;  serial port 2
+   f6dcc:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ; g_serial2_regs
    f6dd0:	8b 76 08             	mov    si,WORD PTR [bp+0x8]
    f6dd3:	03 76 fe             	add    si,WORD PTR [bp-0x2]
    f6dd6:	8a 04                	mov    al,BYTE PTR [si]
@@ -36963,7 +37084,7 @@ void far serial_send(short serial, near char *buf):
    f6ea6:	80 7e 06 00          	cmp    BYTE PTR [bp+0x6],0x0
    f6eaa:	75 4e                	jne    0xf6efa
    f6eac:	eb 00                	jmp    0xf6eae
-   f6eae:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994
+   f6eae:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994 ; g_serial1_regs
    f6eb2:	26 8a 47 0e          	mov    al,BYTE PTR es:[bx+0xe] ;  read tx status reg
    f6eb6:	b4 00                	mov    ah,0x0
    f6eb8:	a9 80 00             	test   ax,0x80 ;  test int flag
@@ -36973,7 +37094,7 @@ void far serial_send(short serial, near char *buf):
    f6ec4:	9a 94 00 1b e1       	call   0xe11b:0x94
    f6ec9:	8b 5e fa             	mov    bx,WORD PTR [bp-0x6]
    f6ecc:	c6 47 11 00          	mov    BYTE PTR [bx+0x11],0x0
-   f6ed0:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994
+   f6ed0:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994 ; g_serial1_regs
    f6ed4:	26 80 67 0e 3f       	and    BYTE PTR es:[bx+0xe],0x3f ;  clear tx int
    f6ed9:	fa                   	cli    
    f6eda:	8b 5e fa             	mov    bx,WORD PTR [bp-0x6]
@@ -36985,10 +37106,10 @@ void far serial_send(short serial, near char *buf):
    f6eeb:	8b 5e fa             	mov    bx,WORD PTR [bp-0x6]
    f6eee:	c7 47 14 00 00       	mov    WORD PTR [bx+0x14],0x0
    f6ef3:	fb                   	sti    
-   f6ef4:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994 ;  serial port 1
+   f6ef4:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994 ; g_serial1_regs
    f6ef8:	eb 4c                	jmp    0xf6f46
    f6efa:	eb 00                	jmp    0xf6efc
-   f6efc:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990  ;  serial port 2
+   f6efc:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990  ;  g_serial2_regs
    f6f00:	26 8a 47 0e          	mov    al,BYTE PTR es:[bx+0xe]
    f6f04:	b4 00                	mov    ah,0x0
    f6f06:	a9 80 00             	test   ax,0x80
@@ -36998,7 +37119,7 @@ void far serial_send(short serial, near char *buf):
    f6f12:	9a b5 00 1b e1       	call   0xe11b:0xb5
    f6f17:	8b 5e fa             	mov    bx,WORD PTR [bp-0x6]
    f6f1a:	c6 47 11 00          	mov    BYTE PTR [bx+0x11],0x0
-   f6f1e:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990  ;  serial port 2
+   f6f1e:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990  ;  g_serial2_regs
    f6f22:	26 80 67 0e 3f       	and    BYTE PTR es:[bx+0xe],0x3f
    f6f27:	fa                   	cli    
    f6f28:	8b 5e fa             	mov    bx,WORD PTR [bp-0x6]
@@ -37010,7 +37131,7 @@ void far serial_send(short serial, near char *buf):
    f6f39:	8b 5e fa             	mov    bx,WORD PTR [bp-0x6]
    f6f3c:	c7 47 14 00 00       	mov    WORD PTR [bx+0x14],0x0
    f6f41:	fb                   	sti    
-   f6f42:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990  ;  serial port 2
+   f6f42:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990  ;  g_serial2_regs
    f6f46:	8b 76 08             	mov    si,WORD PTR [bp+0x8]
    f6f49:	8a 04                	mov    al,BYTE PTR [si]
    f6f4b:	26 88 47 02          	mov    BYTE PTR es:[bx+0x2],al ;  write tx register
@@ -37022,14 +37143,14 @@ void far serial_send(short serial, near char *buf):
    f6f5f:	9a 94 00 1b e1       	call   0xe11b:0x94
    f6f64:	eb 2d                	jmp    0xf6f93
    f6f66:	eb 00                	jmp    0xf6f68
-   f6f68:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994 ;  serial port 1
+   f6f68:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994 ; g_serial1_regs
    f6f6c:	26 8a 47 0e          	mov    al,BYTE PTR es:[bx+0xe] ;  tx status reg
    f6f70:	b4 00                	mov    ah,0x0
    f6f72:	a9 80 00             	test   ax,0x80 ; tx interrupt flag
    f6f75:	74 f1                	je     0xf6f68
-   f6f77:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994
+   f6f77:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994 ; g_serial1_regs
    f6f7b:	26 80 67 0e 7f       	and    BYTE PTR es:[bx+0xe],0x7f ;  clear tx interrupt
-   f6f80:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994
+   f6f80:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994 ; g_serial1_regs
    f6f84:	8b 76 08             	mov    si,WORD PTR [bp+0x8]
    f6f87:	03 76 fe             	add    si,WORD PTR [bp-0x2]
    f6f8a:	8a 04                	mov    al,BYTE PTR [si]
@@ -37040,7 +37161,7 @@ void far serial_send(short serial, near char *buf):
    f6f98:	3b 46 fe             	cmp    ax,WORD PTR [bp-0x2]
    f6f9b:	75 c9                	jne    0xf6f66
    f6f9d:	eb 00                	jmp    0xf6f9f
-   f6f9f:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994
+   f6f9f:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994 ; g_serial1_regs
    f6fa3:	26 8a 47 0e          	mov    al,BYTE PTR es:[bx+0xe] ;  read tx status register
    f6fa7:	b4 00                	mov    ah,0x0
    f6fa9:	a9 80 00             	test   ax,0x80 ;  tx interupt
@@ -37059,14 +37180,14 @@ void far serial_send(short serial, near char *buf):
    f6fcb:	9a b5 00 1b e1       	call   0xe11b:0xb5
    f6fd0:	eb 2d                	jmp    0xf6fff
    f6fd2:	eb 00                	jmp    0xf6fd4
-   f6fd4:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990  ;  serial port 2
+   f6fd4:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990  ;  g_serial2_regs
    f6fd8:	26 8a 47 0e          	mov    al,BYTE PTR es:[bx+0xe]
    f6fdc:	b4 00                	mov    ah,0x0
    f6fde:	a9 80 00             	test   ax,0x80
    f6fe1:	74 f1                	je     0xf6fd4
-   f6fe3:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ;  serial port 2
+   f6fe3:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ; g_serial2_regs
    f6fe7:	26 80 67 0e 7f       	and    BYTE PTR es:[bx+0xe],0x7f
-   f6fec:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990  ;  serial port 2
+   f6fec:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990  ;  g_serial2_regs
    f6ff0:	8b 76 08             	mov    si,WORD PTR [bp+0x8]
    f6ff3:	03 76 fe             	add    si,WORD PTR [bp-0x2]
    f6ff6:	8a 04                	mov    al,BYTE PTR [si]
@@ -37681,8 +37802,8 @@ _open_serial(num, SERIALINFO si):
    f75f1:	5a                   	pop    dx
    f75f2:	03 d0                	add    dx,ax
    f75f4:	89 56 fc             	mov    WORD PTR [bp-0x4],dx
-   f75f7:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
-   f75fb:	26 8a 8f eb 00       	mov    cl,BYTE PTR es:[bx+0xeb]
+   f75f7:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
+   f75fb:	26 8a 8f eb 00       	mov    cl,BYTE PTR es:[bx+0xeb] ; PRC processor control register
    f7600:	80 e1 02             	and    cl,0x2
    f7603:	fe c1                	inc    cl
    f7605:	b8 01 00             	mov    ax,0x1
@@ -37754,8 +37875,8 @@ _open_serial(num, SERIALINFO si):
    f76a2:	50                   	push   ax
    f76a3:	9a ec 00 00 e0       	call   0xe000:0xec
    f76a8:	89 46 ea             	mov    WORD PTR [bp-0x16],ax
-   f76ab:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
-   f76af:	26 8b 87 82 00       	mov    ax,WORD PTR es:[bx+0x82]
+   f76ab:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
+   f76af:	26 8b 87 82 00       	mov    ax,WORD PTR es:[bx+0x82] ; TM0 timer register
    f76b4:	50                   	push   ax
    f76b5:	a1 24 68             	mov    ax,ds:0x6824
    f76b8:	ba 0a 00             	mov    dx,0xa
@@ -37773,30 +37894,30 @@ _open_serial(num, SERIALINFO si):
    f76d5:	8b 46 ec             	mov    ax,WORD PTR [bp-0x14]
    f76d8:	f7 6e ea             	imul   WORD PTR [bp-0x16]
    f76db:	a3 55 68             	mov    ds:0x6855,ax
-   f76de:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994 ;  serial port 1
+   f76de:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994 ; g_serial1_regs
    f76e2:	8a 46 f8             	mov    al,BYTE PTR [bp-0x8] ;  get serial port mode bits from args
    f76e5:	02 46 fa             	add    al,BYTE PTR [bp-0x6]
    f76e8:	02 46 fc             	add    al,BYTE PTR [bp-0x4]
    f76eb:	04 c1                	add    al,0xc1 ;  insert tx & rx enable bits
    f76ed:	26 88 47 08          	mov    BYTE PTR es:[bx+0x8],al ;  write serial mode register
-   f76f1:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994
+   f76f1:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994 ; g_serial1_regs
    f76f5:	8a 46 f4             	mov    al,BYTE PTR [bp-0xc]
    f76f8:	26 88 47 0a          	mov    BYTE PTR es:[bx+0xa],al ;  write baud rate generator
-   f76fc:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994
+   f76fc:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994 ; g_serial1_regs
    f7700:	eb 2b                	jmp    0xf772d
    f7702:	8b 46 ec             	mov    ax,WORD PTR [bp-0x14]
    f7705:	f7 6e ea             	imul   WORD PTR [bp-0x16]
    f7708:	a3 3c 68             	mov    ds:0x683c,ax
-   f770b:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ;  serial port 2
+   f770b:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ; g_serial2_regs
    f770f:	8a 46 f8             	mov    al,BYTE PTR [bp-0x8]
    f7712:	02 46 fa             	add    al,BYTE PTR [bp-0x6]
    f7715:	02 46 fc             	add    al,BYTE PTR [bp-0x4]
    f7718:	04 c1                	add    al,0xc1
    f771a:	26 88 47 08          	mov    BYTE PTR es:[bx+0x8],al
-   f771e:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ;  serial port 2
+   f771e:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ; g_serial2_regs
    f7722:	8a 46 f4             	mov    al,BYTE PTR [bp-0xc]
    f7725:	26 88 47 0a          	mov    BYTE PTR es:[bx+0xa],al
-   f7729:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ;  serial port 2
+   f7729:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ; g_serial2_regs
    f772d:	8a 46 f7             	mov    al,BYTE PTR [bp-0x9]
    f7730:	04 ff                	add    al,0xff
    f7732:	26 88 47 09          	mov    BYTE PTR es:[bx+0x9],al ;  write serial control register (clock divider)
@@ -37897,12 +38018,12 @@ open_serial(short num, int speed, short word, short stop, short p1):
    f77f3:	75 17                	jne    0xf780c
    f77f5:	83 3e 00 28 00       	cmp    WORD PTR ds:0x2800,0x0
    f77fa:	76 10                	jbe    0xf780c
-   f77fc:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994
+   f77fc:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994 ; g_serial1_regs
    f7800:	26 80 67 0e bf       	and    BYTE PTR es:[bx+0xe],0xbf ;  clear STMK0
    f7805:	c6 06 49 68 01       	mov    BYTE PTR ds:0x6849,0x1
    f780a:	eb 05                	jmp    0xf7811
    f780c:	c6 06 49 68 02       	mov    BYTE PTR ds:0x6849,0x2
-   f7811:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994 ;  serial port 1
+   f7811:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994 ; g_serial1_regs
    f7815:	eb 3a                	jmp    0xf7851
    f7817:	b8 84 f6             	mov    ax,0xf684
    f781a:	50                   	push   ax
@@ -37916,12 +38037,12 @@ open_serial(short num, int speed, short word, short stop, short p1):
    f782f:	75 17                	jne    0xf7848
    f7831:	83 3e 02 28 00       	cmp    WORD PTR ds:0x2802,0x0
    f7836:	76 10                	jbe    0xf7848
-   f7838:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ;  serial port 2
+   f7838:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ; g_serial2_regs
    f783c:	26 80 67 0e bf       	and    BYTE PTR es:[bx+0xe],0xbf
    f7841:	c6 06 30 68 01       	mov    BYTE PTR ds:0x6830,0x1
    f7846:	eb 05                	jmp    0xf784d
    f7848:	c6 06 30 68 02       	mov    BYTE PTR ds:0x6830,0x2
-   f784d:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ;  serial port 2
+   f784d:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ; g_serial2_regs
    f7851:	26 80 4f 0e 80       	or     BYTE PTR es:[bx+0xe],0x80 ;  set tx int flag
    f7856:	eb 0a                	jmp    0xf7862
    f7858:	c6 46 ff ff          	mov    BYTE PTR [bp-0x1],0xff
@@ -37953,17 +38074,17 @@ open_serial(short num, int speed, short word, short stop, short p1):
    f7883:	8e dd                	mov    ds,bp
    f7885:	8b ec                	mov    bp,sp
    f7887:	83 ec 02             	sub    sp,0x2
-   f788a:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994
+   f788a:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994 ; g_serial1_regs
    f788e:	26 8a 07             	mov    al,BYTE PTR es:[bx] ;  read serial port 1 rx reg
    f7891:	88 46 ff             	mov    BYTE PTR [bp-0x1],al
-   f7894:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994
+   f7894:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994 ; g_serial1_regs
    f7898:	26 80 67 0d 7f       	and    BYTE PTR es:[bx+0xd],0x7f ;  clear serial rx int flag
    f789d:	fb                   	sti    
    f789e:	0f 92                	fint   
    f78a0:	80 3e f2 27 01       	cmp    BYTE PTR ds:0x27f2,0x1
    f78a5:	75 25                	jne    0xf78cc
    f78a7:	ff 06 13 28          	inc    WORD PTR ds:0x2813
-   f78ab:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994
+   f78ab:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994 ; g_serial1_regs
    f78af:	26 8a 47 0b          	mov    al,BYTE PTR es:[bx+0xb] ;  read serial 1 error register
    f78b3:	24 07                	and    al,0x7 ;  overrun, framing, parity
    f78b5:	50                   	push   ax
@@ -38001,17 +38122,17 @@ open_serial(short num, int speed, short word, short stop, short p1):
    f78e4:	8e dd                	mov    ds,bp
    f78e6:	8b ec                	mov    bp,sp
    f78e8:	83 ec 02             	sub    sp,0x2
-   f78eb:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ;  serial port 2
+   f78eb:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ; g_serial2_regs
    f78ef:	26 8a 07             	mov    al,BYTE PTR es:[bx]
    f78f2:	88 46 ff             	mov    BYTE PTR [bp-0x1],al
-   f78f5:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ;  serial port 2
+   f78f5:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ; g_serial2_regs
    f78f9:	26 80 67 0d 7f       	and    BYTE PTR es:[bx+0xd],0x7f
    f78fe:	fb                   	sti    
    f78ff:	0f 92                	fint   
    f7901:	80 3e f2 27 01       	cmp    BYTE PTR ds:0x27f2,0x1
    f7906:	75 25                	jne    0xf792d
    f7908:	ff 06 13 28          	inc    WORD PTR ds:0x2813
-   f790c:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ;  serial port 2
+   f790c:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ; g_serial2_regs
    f7910:	26 8a 47 0b          	mov    al,BYTE PTR es:[bx+0xb]
    f7914:	24 07                	and    al,0x7
    f7916:	50                   	push   ax
@@ -38046,7 +38167,7 @@ open_serial(short num, int speed, short word, short stop, short p1):
    f7947:	50                   	push   ax
    f7948:	9a ca 00 6c f8       	call   0xf86c:0xca
    f794d:	83 c4 06             	add    sp,0x6
-   f7950:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994
+   f7950:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994 ; g_serial1_regs
    f7954:	26 c6 47 0c 07       	mov    BYTE PTR es:[bx+0xc],0x7	;  serial error interrupt register
    f7959:	80 3e 06 28 01       	cmp    BYTE PTR ds:0x2806,0x1
    f795e:	75 1d                	jne    0xf797d
@@ -38058,7 +38179,7 @@ open_serial(short num, int speed, short word, short stop, short p1):
    f796b:	50                   	push   ax
    f796c:	9a ca 00 6c f8       	call   0xf86c:0xca
    f7971:	83 c4 06             	add    sp,0x6
-   f7974:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ;  serial port 2
+   f7974:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ; g_serial2_regs
    f7978:	26 c6 47 0c 07       	mov    BYTE PTR es:[bx+0xc],0x7
    f797d:	5d                   	pop    bp
    f797e:	cb                   	retf   
@@ -38179,7 +38300,7 @@ open_serial(short num, int speed, short word, short stop, short p1):
    f7a8d:	50                   	push   ax
    f7a8e:	9a ca 00 6c f8       	call   0xf86c:0xca
    f7a93:	83 c4 06             	add    sp,0x6
-   f7a96:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994
+   f7a96:	c4 1e 94 69          	les    bx,DWORD PTR ds:0x6994 ; g_serial1_regs
    f7a9a:	26 80 67 0d bf       	and    BYTE PTR es:[bx+0xd],0xbf ;  clear SRMK0
    f7a9f:	c7 06 45 68 00 00    	mov    WORD PTR ds:0x6845,0x0
    f7aa5:	c7 06 47 68 00 00    	mov    WORD PTR ds:0x6847,0x0
@@ -38202,7 +38323,7 @@ open_serial(short num, int speed, short word, short stop, short p1):
    f7ade:	50                   	push   ax
    f7adf:	9a ca 00 6c f8       	call   0xf86c:0xca
    f7ae4:	83 c4 06             	add    sp,0x6
-   f7ae7:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ;  serial port 2
+   f7ae7:	c4 1e 90 69          	les    bx,DWORD PTR ds:0x6990 ; g_serial2_regs
    f7aeb:	26 80 67 0d bf       	and    BYTE PTR es:[bx+0xd],0xbf
    f7af0:	c7 06 2c 68 00 00    	mov    WORD PTR ds:0x682c,0x0
    f7af6:	c7 06 2e 68 00 00    	mov    WORD PTR ds:0x682e,0x0
@@ -38836,8 +38957,8 @@ start_tasks:
    f804d:	81 7e 08 e8 03       	cmp    WORD PTR [bp+0x8],0x3e8
    f8052:	76 03                	jbe    0xf8057
    f8054:	e9 b3 00             	jmp    0xf810a
-   f8057:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
-   f805b:	26 8a 8f eb 00       	mov    cl,BYTE PTR es:[bx+0xeb]
+   f8057:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
+   f805b:	26 8a 8f eb 00       	mov    cl,BYTE PTR es:[bx+0xeb] ; PRC processor control register
    f8060:	80 e1 03             	and    cl,0x3
    f8063:	fe c1                	inc    cl
    f8065:	b8 01 00             	mov    ax,0x1
@@ -38865,8 +38986,8 @@ start_tasks:
    f8095:	75 37                	jne    0xf80ce
    f8097:	8b 46 fc             	mov    ax,WORD PTR [bp-0x4]
    f809a:	f7 6e 08             	imul   WORD PTR [bp+0x8]
-   f809d:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
-   f80a1:	26 89 87 82 00       	mov    WORD PTR es:[bx+0x82],ax
+   f809d:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
+   f80a1:	26 89 87 82 00       	mov    WORD PTR es:[bx+0x82],ax ; MD0 modulo/timer register
    f80a6:	83 7e 08 32          	cmp    WORD PTR [bp+0x8],0x32
    f80aa:	72 05                	jb     0xf80b1
    f80ac:	b8 01 00             	mov    ax,0x1
@@ -38875,15 +38996,15 @@ start_tasks:
    f80b3:	b1 06                	mov    cl,0x6
    f80b5:	d2 e0                	shl    al,cl
    f80b7:	04 80                	add    al,0x80
-   f80b9:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
-   f80bd:	26 88 87 90 00       	mov    BYTE PTR es:[bx+0x90],al
-   f80c2:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
-   f80c6:	26 c6 87 9c 00 07    	mov    BYTE PTR es:[bx+0x9c],0x7
+   f80b9:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
+   f80bd:	26 88 87 90 00       	mov    BYTE PTR es:[bx+0x90],al ; TMC0 timer control register
+   f80c2:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
+   f80c6:	26 c6 87 9c 00 07    	mov    BYTE PTR es:[bx+0x9c],0x7 ; TMIC0 timer interrupt register
    f80cc:	eb 35                	jmp    0xf8103
    f80ce:	8b 46 fc             	mov    ax,WORD PTR [bp-0x4]
    f80d1:	f7 6e 08             	imul   WORD PTR [bp+0x8]
-   f80d4:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
-   f80d8:	26 89 87 8a 00       	mov    WORD PTR es:[bx+0x8a],ax
+   f80d4:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
+   f80d8:	26 89 87 8a 00       	mov    WORD PTR es:[bx+0x8a],ax ; MD1 modulo/timer register
    f80dd:	83 7e 08 32          	cmp    WORD PTR [bp+0x8],0x32
    f80e1:	72 05                	jb     0xf80e8
    f80e3:	b8 01 00             	mov    ax,0x1
@@ -38892,10 +39013,10 @@ start_tasks:
    f80ea:	b1 06                	mov    cl,0x6
    f80ec:	d2 e0                	shl    al,cl
    f80ee:	04 80                	add    al,0x80
-   f80f0:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
-   f80f4:	26 88 87 91 00       	mov    BYTE PTR es:[bx+0x91],al
-   f80f9:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
-   f80fd:	26 c6 87 9d 00 07    	mov    BYTE PTR es:[bx+0x9d],0x7
+   f80f0:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
+   f80f4:	26 88 87 91 00       	mov    BYTE PTR es:[bx+0x91],al ; TMC1 timer control register
+   f80f9:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
+   f80fd:	26 c6 87 9d 00 07    	mov    BYTE PTR es:[bx+0x9d],0x7 ; TMIC1 timer interrupt register
    f8103:	c7 46 fe fe ff       	mov    WORD PTR [bp-0x2],0xfffe
    f8108:	eb 06                	jmp    0xf8110
    f810a:	c7 06 22 68 9b ff    	mov    WORD PTR ds:0x6822,0xff9b
@@ -40105,8 +40226,8 @@ test_something:
    f8be8:	50                   	push   ax
    f8be9:	9a ca 00 6c f8       	call   0xf86c:0xca
    f8bee:	83 c4 06             	add    sp,0x6
-   f8bf1:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
-   f8bf5:	26 c6 87 ec 00 00    	mov    BYTE PTR es:[bx+0xec],0x0
+   f8bf1:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
+   f8bf5:	26 c6 87 ec 00 00    	mov    BYTE PTR es:[bx+0xec],0x0 ; TBIC time base interrupt control register
    f8bfb:	80 3e 07 28 01       	cmp    BYTE PTR ds:0x2807,0x1
    f8c00:	75 37                	jne    0xf8c39
    f8c02:	b8 9d f8             	mov    ax,0xf89d
@@ -40117,8 +40238,8 @@ test_something:
    f8c0d:	50                   	push   ax
    f8c0e:	9a ca 00 6c f8       	call   0xf86c:0xca
    f8c13:	83 c4 06             	add    sp,0x6
-   f8c16:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
-   f8c1a:	26 c6 47 4c 07       	mov    BYTE PTR es:[bx+0x4c],0x7
+   f8c16:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c ; g_port_regs
+   f8c1a:	26 c6 47 4c 07       	mov    BYTE PTR es:[bx+0x4c],0x7 ; EXIC0 external interrupt control register
    f8c1f:	8b 16 86 29          	mov    dx,WORD PTR ds:0x2986
    f8c23:	83 c2 0e             	add    dx,0xe
    f8c26:	b0 06                	mov    al,0x6
@@ -41383,7 +41504,7 @@ short get_serial_flags():
    f9779:	8b ec                	mov    bp,sp
    f977b:	b0 02                	mov    al,0x2
    f977d:	50                   	push   ax
-; return ~_get_serial_flags(2)
+; return ~get_port_reg(2)
    f977e:	9a dc 01 47 f6       	call   0xf647:0x1dc
    f9783:	59                   	pop    cx
    f9784:	f6 d0                	not    al
@@ -41409,7 +41530,7 @@ short get_serial_flag(int b):
    f97a3:	8a 4e 06             	mov    cl,BYTE PTR [bp+0x6]
    f97a6:	d3 e2                	shl    dx,cl
    f97a8:	3b c2                	cmp    ax,dx
-; if _get_serial_flags() & 1 << b == 1 << b:
+; if get_port_reg(2) & 1 << b == 1 << b:
    f97aa:	75 06                	jne    0xf97b2
    f97ac:	b0 00                	mov    al,0x0
 ;   return 0
@@ -41440,9 +41561,9 @@ short get_serial_flag(int b):
    f97cf:	80 0e a8 69 80       	or     BYTE PTR ds:0x69a8,0x80
    f97d4:	eb 05                	jmp    0xf97db
    f97d6:	80 26 a8 69 7f       	and    BYTE PTR ds:0x69a8,0x7f
-   f97db:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b
+   f97db:	c4 1e 9b 69          	les    bx,DWORD PTR ds:0x699b ; g_port0_regs
    f97df:	a0 a8 69             	mov    al,ds:0x69a8
-   f97e2:	26 88 07             	mov    BYTE PTR es:[bx],al
+   f97e2:	26 88 07             	mov    BYTE PTR es:[bx],al ; P0 port register
    f97e5:	80 3e f3 29 00       	cmp    BYTE PTR ds:0x29f3,0x0
    f97ea:	75 05                	jne    0xf97f1
    f97ec:	b8 01 00             	mov    ax,0x1
