@@ -34382,7 +34382,7 @@ process_cmd:
    f5354:	9a 1a 00 96 f8       	call   0xf896:0x1a ; leave_task
    f5359:	c6 06 49 63 00       	mov    BYTE PTR ds:0x6349,0x0
    f535e:	0e                   	push   cs
-   f535f:	e8 96 f1             	call   0xf44f8
+   f535f:	e8 96 f1             	call   0xf44f8 ; parse_cmd_2
    f5362:	3d fe ff             	cmp    ax,0xfffe
    f5365:	74 03                	je     0xf536a
    f5367:	e9 8f 00             	jmp    0xf53f9
