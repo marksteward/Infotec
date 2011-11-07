@@ -7534,7 +7534,7 @@ print_datetime(char * time):
    e47ff:	b8 34 00             	mov    ax,0x34
    e4802:	50                   	push   ax
 ; sprintf(
-;   g_datetimebuf,
+;   &g_datetimebuf,
 ;   ">PR#0#00#%02d,%02d,%02d#%02d,%02d,%04d,%d#",
 ;   time[0], time[1], time[2],
 ;   g_date.day, g_date.month, g_date.year, g_date.u1
@@ -7558,7 +7558,7 @@ print_datetime(char * time):
    e4838:	50                   	push   ax
    e4839:	b8 ff 29             	mov    ax,0x29ff
    e483c:	50                   	push   ax
-; sprintf(g_checksumbuf, "%02X<", g_checksum)
+; sprintf(&g_checksumbuf, "%02X<", g_checksum)
    e483d:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; sprintf
    e4842:	83 c4 06             	add    sp,0x6
    e4845:	b8 ff 29             	mov    ax,0x29ff
@@ -7569,7 +7569,7 @@ print_datetime(char * time):
    e4850:	50                   	push   ax
    e4851:	b0 00                	mov    al,0x0
    e4853:	50                   	push   ax
-; serial_printf(0, "%s%s", g_datetimebuf, g_checksumbuf)
+; serial_printf(0, "%s%s", &g_datetimebuf, &g_checksumbuf)
    e4854:	9a 25 03 84 f6       	call   0xf684:0x325 ; serial_printf
    e4859:	83 c4 08             	add    sp,0x8
    e485c:	5d                   	pop    bp
@@ -34436,27 +34436,31 @@ process_summat:
    f552d:	50                   	push   ax
    f552e:	9a cc 03 ed f7       	call   0xf7ed:0x3cc
    f5533:	83 c4 0a             	add    sp,0xa
-   f5536:	80 7e ff 3e          	cmp    BYTE PTR [bp-0x1],0x3e
+   f5536:	80 7e ff 3e          	cmp    BYTE PTR [bp-0x1],0x3e ">"
+
    f553a:	75 19                	jne    0xf5555
    f553c:	8b 1e 67 02          	mov    bx,WORD PTR ds:0x267
    f5540:	4b                   	dec    bx
-   f5541:	80 bf 69 02 5e       	cmp    BYTE PTR [bx+0x269],0x5e
+   f5541:	80 bf 69 02 5e       	cmp    BYTE PTR [bx+0x269],0x5e "^"
    f5546:	74 0b                	je     0xf5553
    f5548:	c6 06 66 02 01       	mov    BYTE PTR ds:0x266,0x1
    f554d:	c7 06 67 02 00 00    	mov    WORD PTR ds:0x267,0x0
    f5553:	eb 29                	jmp    0xf557e
-   f5555:	80 7e ff 3c          	cmp    BYTE PTR [bp-0x1],0x3c
+
+   f5555:	80 7e ff 3c          	cmp    BYTE PTR [bp-0x1],0x3c "<"
    f5559:	75 23                	jne    0xf557e
    f555b:	8b 1e 67 02          	mov    bx,WORD PTR ds:0x267
    f555f:	4b                   	dec    bx
    f5560:	80 bf 69 02 5e       	cmp    BYTE PTR [bx+0x269],0x5e
    f5565:	74 17                	je     0xf557e
+
    f5567:	8b 1e 67 02          	mov    bx,WORD PTR ds:0x267
    f556b:	c6 87 6a 02 00       	mov    BYTE PTR [bx+0x26a],0x0
    f5570:	c6 06 69 04 01       	mov    BYTE PTR ds:0x469,0x1
    f5575:	c6 06 66 02 00       	mov    BYTE PTR ds:0x266,0x0
    f557a:	0e                   	push   cs
    f557b:	e8 db fc             	call   0xf5259 ; process_cmd
+
    f557e:	8b 1e 67 02          	mov    bx,WORD PTR ds:0x267
    f5582:	8a 46 ff             	mov    al,BYTE PTR [bp-0x1]
    f5585:	88 87 69 02          	mov    BYTE PTR [bx+0x269],al
@@ -34775,7 +34779,9 @@ main:
 ; if init_boot_serial() != -2: return
    f5844:	75 68                	jne    0xf58ae
 
+; 0xf209:0x82b
    f5846:	9a 2b 08 09 f2       	call   0xf209:0x82b
+; init_real_serial()
    f584b:	9a b7 14 1f f4       	call   0xf41f:0x14b7 ; init_real_serial
    f5850:	b8 1f f4             	mov    ax,0xf41f
    f5853:	50                   	push   ax
