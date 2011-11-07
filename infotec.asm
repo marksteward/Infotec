@@ -6948,7 +6948,7 @@ output_something11:
    e421d:	59                   	pop    cx
    e421e:	8d 46 ea             	lea    ax,[bp-0x16]
    e4221:	50                   	push   ax
-   e4222:	9a 20 05 9d f8       	call   0xf89d:0x520 ; read_something2
+   e4222:	9a 20 05 9d f8       	call   0xf89d:0x520 ; read_date
    e4227:	59                   	pop    cx
    e4228:	b8 02 00             	mov    ax,0x2
    e422b:	50                   	push   ax
@@ -7386,7 +7386,7 @@ output_something11:
    e46c0:	59                   	pop    cx
    e46c1:	8d 46 f6             	lea    ax,[bp-0xa]
    e46c4:	50                   	push   ax
-   e46c5:	9a 20 05 9d f8       	call   0xf89d:0x520 ; read_something2
+   e46c5:	9a 20 05 9d f8       	call   0xf89d:0x520 ; read_date
    e46ca:	59                   	pop    cx
    e46cb:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
    e46ce:	8b 56 fc             	mov    dx,WORD PTR [bp-0x4]
@@ -7469,7 +7469,7 @@ output_something11:
    e478d:	75 17                	jne    0xe47a6
    e478f:	8d 46 fa             	lea    ax,[bp-0x6]
    e4792:	50                   	push   ax
-   e4793:	9a 20 05 9d f8       	call   0xf89d:0x520 ; read_something2
+   e4793:	9a 20 05 9d f8       	call   0xf89d:0x520 ; read_date
    e4798:	59                   	pop    cx
    e4799:	8d 46 fa             	lea    ax,[bp-0x6]
    e479c:	50                   	push   ax
@@ -7483,6 +7483,14 @@ output_something11:
    e47a9:	cb                   	retf   
 
 
+struct DATE {
+  short day;
+  short month;
+  int year;
+  short u1;
+}
+
+print_datetime(char * time):
    e47aa:	55                   	push   bp
    e47ab:	8b ec                	mov    bp,sp
    e47ad:	80 3e fd 2d 01       	cmp    BYTE PTR ds:0x2dfd,0x1
@@ -7491,10 +7499,13 @@ output_something11:
    e47b7:	80 3e 05 2e 00       	cmp    BYTE PTR ds:0x2e05,0x0
    e47bc:	74 03                	je     0xe47c1
    e47be:	e9 9b 00             	jmp    0xe485c
+
    e47c1:	b8 fa 29             	mov    ax,0x29fa
    e47c4:	50                   	push   ax
-   e47c5:	9a 20 05 9d f8       	call   0xf89d:0x520 ; read_something2
+; read_date(&g_date)
+   e47c5:	9a 20 05 9d f8       	call   0xf89d:0x520 ; read_date
    e47ca:	59                   	pop    cx
+
    e47cb:	a0 fe 29             	mov    al,ds:0x29fe
    e47ce:	b4 00                	mov    ah,0x0
    e47d0:	50                   	push   ax
@@ -7505,6 +7516,7 @@ output_something11:
    e47db:	a0 fa 29             	mov    al,ds:0x29fa
    e47de:	b4 00                	mov    ah,0x0
    e47e0:	50                   	push   ax
+
    e47e1:	8b 5e 06             	mov    bx,WORD PTR [bp+0x6]
    e47e4:	8a 47 02             	mov    al,BYTE PTR [bx+0x2]
    e47e7:	b4 00                	mov    ah,0x0
@@ -7518,15 +7530,21 @@ output_something11:
    e47f8:	b4 00                	mov    ah,0x0
    e47fa:	50                   	push   ax
    e47fb:	b8 5d 00             	mov    ax,0x5d
-   ; ">PR#0#00#%02d,%02d,%02d#%02d,%02d,%04d,%d#"
    e47fe:	50                   	push   ax
    e47ff:	b8 34 00             	mov    ax,0x34
    e4802:	50                   	push   ax
+; sprintf(
+;   g_datetimebuf,
+;   ">PR#0#00#%02d,%02d,%02d#%02d,%02d,%04d,%d#",
+;   time[0], time[1], time[2],
+;   g_date.day, g_date.month, g_date.year, g_date.u1
+; )
    e4803:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; sprintf
    e4808:	83 c4 12             	add    sp,0x12
    e480b:	c6 06 5c 00 00       	mov    BYTE PTR ds:0x5c,0x0
    e4810:	c7 06 f8 29 00 00    	mov    WORD PTR ds:0x29f8,0x0
    e4816:	eb 10                	jmp    0xe4828
+
    e4818:	8b 1e f8 29          	mov    bx,WORD PTR ds:0x29f8
    e481c:	8a 87 34 00          	mov    al,BYTE PTR [bx+0x34]
    e4820:	30 06 5c 00          	xor    BYTE PTR ds:0x5c,al
@@ -7551,7 +7569,7 @@ output_something11:
    e4850:	50                   	push   ax
    e4851:	b0 00                	mov    al,0x0
    e4853:	50                   	push   ax
-; serial_printf(0, "%s%s", g_34, g_checksumbuf)
+; serial_printf(0, "%s%s", g_datetimebuf, g_checksumbuf)
    e4854:	9a 25 03 84 f6       	call   0xf684:0x325 ; serial_printf
    e4859:	83 c4 08             	add    sp,0x8
    e485c:	5d                   	pop    bp
@@ -7576,7 +7594,7 @@ init_something2:
    e4889:	75 08                	jne    0xe4893
    e488b:	ff 76 06             	push   WORD PTR [bp+0x6]
    e488e:	0e                   	push   cs
-   e488f:	e8 18 ff             	call   0xe47aa
+   e488f:	e8 18 ff             	call   0xe47aa ; print_datetime
    e4892:	59                   	pop    cx
    e4893:	8b 5e 06             	mov    bx,WORD PTR [bp+0x6]
    e4896:	80 7f 02 00          	cmp    BYTE PTR [bx+0x2],0x0
@@ -7796,7 +7814,7 @@ init_something3:
    e4b00:	59                   	pop    cx
    e4b01:	8d 46 f2             	lea    ax,[bp-0xe]
    e4b04:	50                   	push   ax
-   e4b05:	9a 20 05 9d f8       	call   0xf89d:0x520 ; read_something2
+   e4b05:	9a 20 05 9d f8       	call   0xf89d:0x520 ; read_date
    e4b0a:	59                   	pop    cx
    e4b0b:	c7 06 29 2e 00 00    	mov    WORD PTR ds:0x2e29,0x0
    e4b11:	8b 46 f4             	mov    ax,WORD PTR [bp-0xc]
@@ -25056,7 +25074,7 @@ interesting:
    ef90f:	c7 46 ee 00 00       	mov    WORD PTR [bp-0x12],0x0
    ef914:	8d 46 fa             	lea    ax,[bp-0x6]
    ef917:	50                   	push   ax
-   ef918:	9a 20 05 9d f8       	call   0xf89d:0x520 ; read_something2
+   ef918:	9a 20 05 9d f8       	call   0xf89d:0x520 ; read_date
    ef91d:	59                   	pop    cx
    ef91e:	8d 46 f6             	lea    ax,[bp-0xa]
    ef921:	50                   	push   ax
@@ -26262,7 +26280,7 @@ interesting:
    f0557:	59                   	pop    cx
    f0558:	8d 46 f6             	lea    ax,[bp-0xa]
    f055b:	50                   	push   ax
-   f055c:	9a 20 05 9d f8       	call   0xf89d:0x520 ; read_something2
+   f055c:	9a 20 05 9d f8       	call   0xf89d:0x520 ; read_date
    f0561:	59                   	pop    cx
    f0562:	8d 46 f6             	lea    ax,[bp-0xa]
    f0565:	50                   	push   ax
@@ -30248,7 +30266,7 @@ compare_lizz:
    f2dc6:	72 47                	jb     0xf2e0f
    f2dc8:	8d 46 f8             	lea    ax,[bp-0x8]
    f2dcb:	50                   	push   ax
-   f2dcc:	9a 20 05 9d f8       	call   0xf89d:0x520 ; read_something2
+   f2dcc:	9a 20 05 9d f8       	call   0xf89d:0x520 ; read_date
    f2dd1:	59                   	pop    cx
    f2dd2:	a0 4d 64             	mov    al,ds:0x644d
    f2dd5:	88 46 f8             	mov    BYTE PTR [bp-0x8],al
@@ -31673,29 +31691,29 @@ int do_get_something(void):
    f3987:	cb                   	retf   
 
 
-int do_get_something2(void):
+int do_get_date(void):
    f3988:	55                   	push   bp
    f3989:	8b ec                	mov    bp,sp
-; SOMETHING2 u1
+; DATE date
    f398b:	83 ec 06             	sub    sp,0x6
    f398e:	8d 46 fa             	lea    ax,[bp-0x6]
    f3991:	50                   	push   ax
-; read_something2(&u1)
+; read_date(&date)
    f3992:	9a 20 05 9d f8       	call   0xf89d:0x520
    f3997:	59                   	pop    cx
 ; g_coutargs = 3
    f3998:	c6 06 3f 63 03       	mov    BYTE PTR ds:0x633f,0x3
    f399d:	8a 46 fa             	mov    al,BYTE PTR [bp-0x6]
-; g_outargs[0] = u1[0]
+; g_outargs[0] = date.day
    f39a0:	a2 3a 63             	mov    ds:0x633a,al
    f39a3:	8a 46 fb             	mov    al,BYTE PTR [bp-0x5]
-; g_outargs[1] = u1[1]
+; g_outargs[1] = date.month
    f39a6:	a2 3b 63             	mov    ds:0x633b,al
    f39a9:	8b 46 fc             	mov    ax,WORD PTR [bp-0x4]
    f39ac:	bb 64 00             	mov    bx,0x64
    f39af:	33 d2                	xor    dx,dx
    f39b1:	f7 f3                	div    bx
-; g_outargs[2] = u1[2] / 100
+; g_outargs[2] = date.year % 100
    f39b3:	88 16 3c 63          	mov    BYTE PTR ds:0x633c,dl
 ; return -2
    f39b7:	b8 fe ff             	mov    ax,0xfffe
@@ -31708,11 +31726,11 @@ int do_get_something2(void):
 int do_get_version(void):
    f39c0:	55                   	push   bp
    f39c1:	8b ec                	mov    bp,sp
-; SOMETHING2 u1
+; DATE date
    f39c3:	83 ec 06             	sub    sp,0x6
    f39c6:	8d 46 fa             	lea    ax,[bp-0x6]
    f39c9:	50                   	push   ax
-; read_something2(&u1)
+; read_date(&date)
    f39ca:	9a 20 05 9d f8       	call   0xf89d:0x520
    f39cf:	59                   	pop    cx
 ; g_coutargs = 2
@@ -31969,7 +31987,7 @@ int do_get_version(void):
    f3c19:	7d 8f                	jge    0xf3baa
    f3c1b:	8d 46 f8             	lea    ax,[bp-0x8]
    f3c1e:	50                   	push   ax
-   f3c1f:	9a 20 05 9d f8       	call   0xf89d:0x520 ; read_something2
+   f3c1f:	9a 20 05 9d f8       	call   0xf89d:0x520 ; read_date
    f3c24:	59                   	pop    cx
    f3c25:	8d 46 f4             	lea    ax,[bp-0xc]
    f3c28:	50                   	push   ax
@@ -34032,7 +34050,7 @@ int do_cmd(void):
 ;   case 0xf3: result = do_get_something()
    f502d:	9a 58 10 90 f2       	call   0xf290:0x1058
    f5032:	e9 5b fe             	jmp    0xf4e90
-;   case 0xf4: result = do_get_something2()
+;   case 0xf4: result = do_get_date()
    f5035:	9a 88 10 90 f2       	call   0xf290:0x1088
    f503a:	e9 53 fe             	jmp    0xf4e90
 ;   case 0xf5: result = do_get_version()
@@ -34784,7 +34802,7 @@ main:
    f5885:	59                   	pop    cx
    f5886:	8d 46 f2             	lea    ax,[bp-0xe]
    f5889:	50                   	push   ax
-   f588a:	9a 20 05 9d f8       	call   0xf89d:0x520 ; read_something2
+   f588a:	9a 20 05 9d f8       	call   0xf89d:0x520 ; read_date
    f588f:	59                   	pop    cx
    f5890:	8d 46 f2             	lea    ax,[bp-0xe]
    f5893:	50                   	push   ax
@@ -40015,7 +40033,7 @@ test_something:
    f8b5c:	75 0a                	jne    0xf8b68
    f8b5e:	8d 46 fc             	lea    ax,[bp-0x4]
    f8b61:	50                   	push   ax
-   f8b62:	9a 5e 01 70 e4       	call   0xe470:0x15e
+   f8b62:	9a 5e 01 70 e4       	call   0xe470:0x15e ; init_something2
    f8b67:	59                   	pop    cx
    f8b68:	8b e5                	mov    sp,bp
    f8b6a:	5d                   	pop    bp
@@ -40118,7 +40136,7 @@ test_something:
    f8c46:	50                   	push   ax
    f8c47:	90                   	nop
    f8c48:	0e                   	push   cs
-   f8c49:	e8 a4 02             	call   0xf8ef0 ; read_something2
+   f8c49:	e8 a4 02             	call   0xf8ef0 ; read_date
    f8c4c:	59                   	pop    cx
    f8c4d:	8d 46 f2             	lea    ax,[bp-0xe]
    f8c50:	50                   	push   ax
@@ -40415,7 +40433,7 @@ read_something:
    f8eef:	cb                   	retf   
 
 
-read_something2:
+read_date:
    f8ef0:	55                   	push   bp
    f8ef1:	8b ec                	mov    bp,sp
    f8ef3:	83 ec 0e             	sub    sp,0xe
@@ -40429,6 +40447,7 @@ read_something2:
    f8f08:	e9 94 00             	jmp    0xf8f9f
    f8f0b:	0e                   	push   cs
    f8f0c:	e8 a6 fb             	call   0xf8ab5
+
    f8f0f:	c7 46 f4 06 00       	mov    WORD PTR [bp-0xc],0x6
    f8f14:	eb 16                	jmp    0xf8f2c
    f8f16:	8b 16 86 29          	mov    dx,WORD PTR ds:0x2986
@@ -40441,6 +40460,7 @@ read_something2:
    f8f29:	ff 46 f4             	inc    WORD PTR [bp-0xc]
    f8f2c:	83 7e f4 0c          	cmp    WORD PTR [bp-0xc],0xc
    f8f30:	7e e4                	jle    0xf8f16
+
    f8f32:	b0 01                	mov    al,0x1
    f8f34:	50                   	push   ax
    f8f35:	b8 0d 00             	mov    ax,0xd
