@@ -1009,7 +1009,7 @@ far proc _pushstruct(from=dx:ax, cb=cx):
    e080e:	f6 c3 80             	test   bl,0x80
    e0811:	75 08                	jne    0xe081b
    e0813:	bf 07 26             	mov    di,0x2607
-   e0816:	f6 01 01             	test   BYTE PTR [bx+di],0x1
+   e0816:	f6 01 01             	test   BYTE PTR [bx+di],0x1 ; isspace()
    e0819:	75 e3                	jne    0xe07fe
    e081b:	93                   	xchg   bx,ax
    e081c:	ff 4e 0c             	dec    WORD PTR [bp+0xc]
@@ -1158,28 +1158,28 @@ far proc _pushstruct(from=dx:ax, cb=cx):
    e0966:	c3                   	ret    
 
 
-(p1):
+toupper(c):
    e0967:	55                   	push   bp
    e0968:	8b ec                	mov    bp,sp
    e096a:	8b 56 06             	mov    dx,WORD PTR [bp+0x6]
    e096d:	83 fa ff             	cmp    dx,0xffffffff
-; if p1 == 0xffff:
+; if c == EOF:
    e0970:	75 05                	jne    0xe0977
-;   return 0xffff
+;   return EOF
    e0972:	b8 ff ff             	mov    ax,0xffff
    e0975:	eb 1a                	jmp    0xe0991
    e0977:	8a c2                	mov    al,dl
    e0979:	b4 00                	mov    ah,0x0
    e097b:	8b d8                	mov    bx,ax
-   e097d:	f6 87 07 26 08       	test   BYTE PTR [bx+0x2607],0x8
-; if g_2607[(short) p1] & 0x8:
+   e097d:	f6 87 07 26 08       	test   BYTE PTR [bx+0x2607],0x8 ; islower()
+; if g_2607[(short) c] & 0x8:
    e0982:	74 09                	je     0xe098d
    e0984:	8a c2                	mov    al,dl
    e0986:	b4 00                	mov    ah,0x0
    e0988:	05 e0 ff             	add    ax,0xffe0
-;   return (short) p1 - 0x20
+;   return (short) c - 0x20
    e098b:	eb 04                	jmp    0xe0991
-; return (short) p1
+; return (short) c
    e098d:	8a c2                	mov    al,dl
    e098f:	b4 00                	mov    ah,0x0
    e0991:	5d                   	pop    bp
@@ -20597,7 +20597,7 @@ something_font1:
    ecb7e:	8a 07                	mov    al,BYTE PTR [bx]
    ecb80:	b4 00                	mov    ah,0x0
    ecb82:	50                   	push   ax
-   ecb83:	9a 67 09 00 e0       	call   0xe000:0x967
+   ecb83:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    ecb88:	59                   	pop    cx
    ecb89:	89 46 ee             	mov    WORD PTR [bp-0x12],ax
    ecb8c:	b9 0c 00             	mov    cx,0xc
@@ -21476,7 +21476,7 @@ something_font1:
    ed41a:	26 8a 07             	mov    al,BYTE PTR es:[bx]
    ed41d:	b4 00                	mov    ah,0x0
    ed41f:	50                   	push   ax
-   ed420:	9a 67 09 00 e0       	call   0xe000:0x967
+   ed420:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    ed425:	59                   	pop    cx
    ed426:	89 46 f2             	mov    WORD PTR [bp-0xe],ax
    ed429:	b9 0b 00             	mov    cx,0xb
@@ -23173,7 +23173,7 @@ unload_font:
    ee475:	26 8a 47 01          	mov    al,BYTE PTR es:[bx+0x1]
    ee479:	b4 00                	mov    ah,0x0
    ee47b:	50                   	push   ax
-   ee47c:	9a 67 09 00 e0       	call   0xe000:0x967
+   ee47c:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    ee481:	59                   	pop    cx
    ee482:	3d 4b 00             	cmp    ax,0x4b
    ee485:	75 04                	jne    0xee48b
@@ -24923,7 +24923,7 @@ unload_font:
    ef637:	26 8a 07             	mov    al,BYTE PTR es:[bx]
    ef63a:	b4 00                	mov    ah,0x0
    ef63c:	50                   	push   ax
-   ef63d:	9a 67 09 00 e0       	call   0xe000:0x967
+   ef63d:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    ef642:	59                   	pop    cx
    ef643:	3d 39 00             	cmp    ax,0x39
    ef646:	7e 1b                	jle    0xef663
@@ -24934,7 +24934,7 @@ unload_font:
    ef652:	26 8a 07             	mov    al,BYTE PTR es:[bx]
    ef655:	b4 00                	mov    ah,0x0
    ef657:	50                   	push   ax
-   ef658:	9a 67 09 00 e0       	call   0xe000:0x967
+   ef658:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    ef65d:	59                   	pop    cx
    ef65e:	05 c9 ff             	add    ax,0xffc9
    ef661:	eb 19                	jmp    0xef67c
@@ -24945,7 +24945,7 @@ unload_font:
    ef66d:	26 8a 07             	mov    al,BYTE PTR es:[bx]
    ef670:	b4 00                	mov    ah,0x0
    ef672:	50                   	push   ax
-   ef673:	9a 67 09 00 e0       	call   0xe000:0x967
+   ef673:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    ef678:	59                   	pop    cx
    ef679:	05 d0 ff             	add    ax,0xffd0
    ef67c:	8a 56 fc             	mov    dl,BYTE PTR [bp-0x4]
@@ -28066,7 +28066,7 @@ init_boot_serial:
    f1632:	26 8a 47 01          	mov    al,BYTE PTR es:[bx+0x1]
    f1636:	98                   	cbw    
    f1637:	50                   	push   ax
-   f1638:	9a 67 09 00 e0       	call   0xe000:0x967
+   f1638:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    f163d:	59                   	pop    cx
    f163e:	3d 4b 00             	cmp    ax,0x4b
    f1641:	75 04                	jne    0xf1647
@@ -33017,7 +33017,7 @@ parse_cmd_2:
    f4530:	8a 87 69 02          	mov    al,BYTE PTR [bx+0x269]
    f4534:	b4 00                	mov    ah,0x0
    f4536:	50                   	push   ax
-   f4537:	9a 67 09 00 e0       	call   0xe000:0x967
+   f4537:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    f453c:	59                   	pop    cx
    f453d:	3d 39 00             	cmp    ax,0x39
    f4540:	7e 18                	jle    0xf455a
@@ -33026,7 +33026,7 @@ parse_cmd_2:
    f4549:	8a 87 69 02          	mov    al,BYTE PTR [bx+0x269]
    f454d:	b4 00                	mov    ah,0x0
    f454f:	50                   	push   ax
-   f4550:	9a 67 09 00 e0       	call   0xe000:0x967
+   f4550:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    f4555:	59                   	pop    cx
    f4556:	04 c9                	add    al,0xc9
    f4558:	eb 16                	jmp    0xf4570
@@ -33035,7 +33035,7 @@ parse_cmd_2:
    f4561:	8a 87 69 02          	mov    al,BYTE PTR [bx+0x269]
    f4565:	b4 00                	mov    ah,0x0
    f4567:	50                   	push   ax
-   f4568:	9a 67 09 00 e0       	call   0xe000:0x967
+   f4568:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    f456d:	59                   	pop    cx
    f456e:	04 d0                	add    al,0xd0
    f4570:	b1 04                	mov    cl,0x4
@@ -33046,7 +33046,7 @@ parse_cmd_2:
    f457a:	8a 87 69 02          	mov    al,BYTE PTR [bx+0x269]
    f457e:	b4 00                	mov    ah,0x0
    f4580:	50                   	push   ax
-   f4581:	9a 67 09 00 e0       	call   0xe000:0x967
+   f4581:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    f4586:	59                   	pop    cx
    f4587:	3d 39 00             	cmp    ax,0x39
    f458a:	7e 16                	jle    0xf45a2
@@ -33055,7 +33055,7 @@ parse_cmd_2:
    f4591:	8a 87 69 02          	mov    al,BYTE PTR [bx+0x269]
    f4595:	b4 00                	mov    ah,0x0
    f4597:	50                   	push   ax
-   f4598:	9a 67 09 00 e0       	call   0xe000:0x967
+   f4598:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    f459d:	59                   	pop    cx
    f459e:	04 c9                	add    al,0xc9
    f45a0:	eb 14                	jmp    0xf45b6
@@ -33064,7 +33064,7 @@ parse_cmd_2:
    f45a7:	8a 87 69 02          	mov    al,BYTE PTR [bx+0x269]
    f45ab:	b4 00                	mov    ah,0x0
    f45ad:	50                   	push   ax
-   f45ae:	9a 67 09 00 e0       	call   0xe000:0x967
+   f45ae:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    f45b3:	59                   	pop    cx
    f45b4:	04 d0                	add    al,0xd0
    f45b6:	5a                   	pop    dx
@@ -33130,7 +33130,7 @@ parse_cmd_3:
    f4651:	8a 46 ff             	mov    al,BYTE PTR [bp-0x1]
    f4654:	b4 00                	mov    ah,0x0
    f4656:	8b d8                	mov    bx,ax
-   f4658:	f6 87 07 26 12       	test   BYTE PTR [bx+0x2607],0x12
+   f4658:	f6 87 07 26 12       	test   BYTE PTR [bx+0x2607],0x12 ; isxdigit
    f465d:	74 1b                	je     0xf467a
    f465f:	8b 5e fc             	mov    bx,WORD PTR [bp-0x4]
    f4662:	8a 46 ff             	mov    al,BYTE PTR [bp-0x1]
@@ -33146,7 +33146,7 @@ parse_cmd_3:
    f4681:	8a 46 ff             	mov    al,BYTE PTR [bp-0x1]
    f4684:	b4 00                	mov    ah,0x0
    f4686:	8b d8                	mov    bx,ax
-   f4688:	f6 87 07 26 12       	test   BYTE PTR [bx+0x2607],0x12
+   f4688:	f6 87 07 26 12       	test   BYTE PTR [bx+0x2607],0x12 ; isxdigit
    f468d:	74 1b                	je     0xf46aa
    f468f:	8b 5e fc             	mov    bx,WORD PTR [bp-0x4]
    f4692:	8a 46 ff             	mov    al,BYTE PTR [bp-0x1]
@@ -33162,7 +33162,7 @@ parse_cmd_3:
    f46b1:	8a 46 ff             	mov    al,BYTE PTR [bp-0x1]
    f46b4:	b4 00                	mov    ah,0x0
    f46b6:	8b d8                	mov    bx,ax
-   f46b8:	f6 87 07 26 12       	test   BYTE PTR [bx+0x2607],0x12
+   f46b8:	f6 87 07 26 12       	test   BYTE PTR [bx+0x2607],0x12 ; isxdigit
    f46bd:	74 1b                	je     0xf46da
    f46bf:	8b 5e fc             	mov    bx,WORD PTR [bp-0x4]
    f46c2:	8a 46 ff             	mov    al,BYTE PTR [bp-0x1]
@@ -33178,7 +33178,7 @@ parse_cmd_3:
    f46e1:	8a 46 ff             	mov    al,BYTE PTR [bp-0x1]
    f46e4:	b4 00                	mov    ah,0x0
    f46e6:	8b d8                	mov    bx,ax
-   f46e8:	f6 87 07 26 12       	test   BYTE PTR [bx+0x2607],0x12
+   f46e8:	f6 87 07 26 12       	test   BYTE PTR [bx+0x2607],0x12 ; isxdigit
    f46ed:	74 1b                	je     0xf470a
    f46ef:	8b 5e fc             	mov    bx,WORD PTR [bp-0x4]
    f46f2:	8a 46 ff             	mov    al,BYTE PTR [bp-0x1]
@@ -33203,7 +33203,7 @@ parse_cmd_3:
    f472b:	8a 46 ff             	mov    al,BYTE PTR [bp-0x1]
    f472e:	b4 00                	mov    ah,0x0
    f4730:	8b d8                	mov    bx,ax
-   f4732:	f6 87 07 26 12       	test   BYTE PTR [bx+0x2607],0x12
+   f4732:	f6 87 07 26 12       	test   BYTE PTR [bx+0x2607],0x12 ; isxdigit
    f4737:	75 06                	jne    0xf473f
    f4739:	80 7e ff 2c          	cmp    BYTE PTR [bp-0x1],0x2c ; ","
    f473d:	75 1b                	jne    0xf475a
@@ -33279,21 +33279,21 @@ parse_cmd_3:
    f4803:	a0 1a 66             	mov    al,ds:0x661a
    f4806:	b4 00                	mov    ah,0x0
    f4808:	50                   	push   ax
-   f4809:	9a 67 09 00 e0       	call   0xe000:0x967
+   f4809:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    f480e:	59                   	pop    cx
    f480f:	3d 39 00             	cmp    ax,0x39
    f4812:	7e 10                	jle    0xf4824
    f4814:	a0 1a 66             	mov    al,ds:0x661a
    f4817:	b4 00                	mov    ah,0x0
    f4819:	50                   	push   ax
-   f481a:	9a 67 09 00 e0       	call   0xe000:0x967
+   f481a:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    f481f:	59                   	pop    cx
    f4820:	04 c9                	add    al,0xc9
    f4822:	eb 0e                	jmp    0xf4832
    f4824:	a0 1a 66             	mov    al,ds:0x661a
    f4827:	b4 00                	mov    ah,0x0
    f4829:	50                   	push   ax
-   f482a:	9a 67 09 00 e0       	call   0xe000:0x967
+   f482a:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    f482f:	59                   	pop    cx
    f4830:	04 d0                	add    al,0xd0
 ; g_cmdnum = () - 0x30
@@ -33302,21 +33302,21 @@ parse_cmd_3:
    f4837:	a0 1a 66             	mov    al,ds:0x661a
    f483a:	b4 00                	mov    ah,0x0
    f483c:	50                   	push   ax
-   f483d:	9a 67 09 00 e0       	call   0xe000:0x967
+   f483d:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    f4842:	59                   	pop    cx
    f4843:	3d 39 00             	cmp    ax,0x39
    f4846:	7e 10                	jle    0xf4858
    f4848:	a0 1a 66             	mov    al,ds:0x661a
    f484b:	b4 00                	mov    ah,0x0
    f484d:	50                   	push   ax
-   f484e:	9a 67 09 00 e0       	call   0xe000:0x967
+   f484e:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    f4853:	59                   	pop    cx
    f4854:	04 c9                	add    al,0xc9
    f4856:	eb 0e                	jmp    0xf4866
    f4858:	a0 1a 66             	mov    al,ds:0x661a
    f485b:	b4 00                	mov    ah,0x0
    f485d:	50                   	push   ax
-   f485e:	9a 67 09 00 e0       	call   0xe000:0x967
+   f485e:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    f4863:	59                   	pop    cx
    f4864:	04 d0                	add    al,0xd0
    f4866:	b1 04                	mov    cl,0x4
@@ -33325,21 +33325,21 @@ parse_cmd_3:
    f486b:	a0 1b 66             	mov    al,ds:0x661b
    f486e:	b4 00                	mov    ah,0x0
    f4870:	50                   	push   ax
-   f4871:	9a 67 09 00 e0       	call   0xe000:0x967
+   f4871:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    f4876:	59                   	pop    cx
    f4877:	3d 39 00             	cmp    ax,0x39
    f487a:	7e 10                	jle    0xf488c
    f487c:	a0 1b 66             	mov    al,ds:0x661b
    f487f:	b4 00                	mov    ah,0x0
    f4881:	50                   	push   ax
-   f4882:	9a 67 09 00 e0       	call   0xe000:0x967
+   f4882:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    f4887:	59                   	pop    cx
    f4888:	04 c9                	add    al,0xc9
    f488a:	eb 0e                	jmp    0xf489a
    f488c:	a0 1b 66             	mov    al,ds:0x661b
    f488f:	b4 00                	mov    ah,0x0
    f4891:	50                   	push   ax
-   f4892:	9a 67 09 00 e0       	call   0xe000:0x967
+   f4892:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    f4897:	59                   	pop    cx
    f4898:	04 d0                	add    al,0xd0
    f489a:	5a                   	pop    dx
@@ -33393,21 +33393,21 @@ parse_cmd_3:
    f4920:	8a 46 fa             	mov    al,BYTE PTR [bp-0x6]
    f4923:	b4 00                	mov    ah,0x0
    f4925:	50                   	push   ax
-   f4926:	9a 67 09 00 e0       	call   0xe000:0x967
+   f4926:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    f492b:	59                   	pop    cx
    f492c:	3d 39 00             	cmp    ax,0x39
    f492f:	7e 10                	jle    0xf4941
    f4931:	8a 46 fa             	mov    al,BYTE PTR [bp-0x6]
    f4934:	b4 00                	mov    ah,0x0
    f4936:	50                   	push   ax
-   f4937:	9a 67 09 00 e0       	call   0xe000:0x967
+   f4937:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    f493c:	59                   	pop    cx
    f493d:	04 c9                	add    al,0xc9
    f493f:	eb 0e                	jmp    0xf494f
    f4941:	8a 46 fa             	mov    al,BYTE PTR [bp-0x6]
    f4944:	b4 00                	mov    ah,0x0
    f4946:	50                   	push   ax
-   f4947:	9a 67 09 00 e0       	call   0xe000:0x967
+   f4947:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    f494c:	59                   	pop    cx
    f494d:	04 d0                	add    al,0xd0
    f494f:	8a 56 f5             	mov    dl,BYTE PTR [bp-0xb]
@@ -33418,21 +33418,21 @@ parse_cmd_3:
    f495c:	8a 46 fa             	mov    al,BYTE PTR [bp-0x6]
    f495f:	b4 00                	mov    ah,0x0
    f4961:	50                   	push   ax
-   f4962:	9a 67 09 00 e0       	call   0xe000:0x967
+   f4962:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    f4967:	59                   	pop    cx
    f4968:	3d 39 00             	cmp    ax,0x39
    f496b:	7e 10                	jle    0xf497d
    f496d:	8a 46 fa             	mov    al,BYTE PTR [bp-0x6]
    f4970:	b4 00                	mov    ah,0x0
    f4972:	50                   	push   ax
-   f4973:	9a 67 09 00 e0       	call   0xe000:0x967
+   f4973:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    f4978:	59                   	pop    cx
    f4979:	04 c9                	add    al,0xc9
    f497b:	eb 0e                	jmp    0xf498b
    f497d:	8a 46 fa             	mov    al,BYTE PTR [bp-0x6]
    f4980:	b4 00                	mov    ah,0x0
    f4982:	50                   	push   ax
-   f4983:	9a 67 09 00 e0       	call   0xe000:0x967
+   f4983:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    f4988:	59                   	pop    cx
    f4989:	04 d0                	add    al,0xd0
    f498b:	b1 04                	mov    cl,0x4
@@ -33441,21 +33441,21 @@ parse_cmd_3:
    f4990:	8a 46 fb             	mov    al,BYTE PTR [bp-0x5]
    f4993:	b4 00                	mov    ah,0x0
    f4995:	50                   	push   ax
-   f4996:	9a 67 09 00 e0       	call   0xe000:0x967
+   f4996:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    f499b:	59                   	pop    cx
    f499c:	3d 39 00             	cmp    ax,0x39
    f499f:	7e 10                	jle    0xf49b1
    f49a1:	8a 46 fb             	mov    al,BYTE PTR [bp-0x5]
    f49a4:	b4 00                	mov    ah,0x0
    f49a6:	50                   	push   ax
-   f49a7:	9a 67 09 00 e0       	call   0xe000:0x967
+   f49a7:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    f49ac:	59                   	pop    cx
    f49ad:	04 c9                	add    al,0xc9
    f49af:	eb 0e                	jmp    0xf49bf
    f49b1:	8a 46 fb             	mov    al,BYTE PTR [bp-0x5]
    f49b4:	b4 00                	mov    ah,0x0
    f49b6:	50                   	push   ax
-   f49b7:	9a 67 09 00 e0       	call   0xe000:0x967
+   f49b7:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    f49bc:	59                   	pop    cx
    f49bd:	04 d0                	add    al,0xd0
    f49bf:	5a                   	pop    dx
@@ -33537,21 +33537,21 @@ parse_cmd_3:
    f4a8a:	a0 20 66             	mov    al,ds:0x6620
    f4a8d:	b4 00                	mov    ah,0x0
    f4a8f:	50                   	push   ax
-   f4a90:	9a 67 09 00 e0       	call   0xe000:0x967
+   f4a90:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    f4a95:	59                   	pop    cx
    f4a96:	3d 39 00             	cmp    ax,0x39
    f4a99:	7e 10                	jle    0xf4aab
    f4a9b:	a0 20 66             	mov    al,ds:0x6620
    f4a9e:	b4 00                	mov    ah,0x0
    f4aa0:	50                   	push   ax
-   f4aa1:	9a 67 09 00 e0       	call   0xe000:0x967
+   f4aa1:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    f4aa6:	59                   	pop    cx
    f4aa7:	04 c9                	add    al,0xc9
    f4aa9:	eb 0e                	jmp    0xf4ab9
    f4aab:	a0 20 66             	mov    al,ds:0x6620
    f4aae:	b4 00                	mov    ah,0x0
    f4ab0:	50                   	push   ax
-   f4ab1:	9a 67 09 00 e0       	call   0xe000:0x967
+   f4ab1:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    f4ab6:	59                   	pop    cx
    f4ab7:	04 d0                	add    al,0xd0
    f4ab9:	a2 4c 63             	mov    ds:0x634c,al
@@ -33559,21 +33559,21 @@ parse_cmd_3:
    f4abe:	a0 20 66             	mov    al,ds:0x6620
    f4ac1:	b4 00                	mov    ah,0x0
    f4ac3:	50                   	push   ax
-   f4ac4:	9a 67 09 00 e0       	call   0xe000:0x967
+   f4ac4:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    f4ac9:	59                   	pop    cx
    f4aca:	3d 39 00             	cmp    ax,0x39
    f4acd:	7e 10                	jle    0xf4adf
    f4acf:	a0 20 66             	mov    al,ds:0x6620
    f4ad2:	b4 00                	mov    ah,0x0
    f4ad4:	50                   	push   ax
-   f4ad5:	9a 67 09 00 e0       	call   0xe000:0x967
+   f4ad5:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    f4ada:	59                   	pop    cx
    f4adb:	04 c9                	add    al,0xc9
    f4add:	eb 0e                	jmp    0xf4aed
    f4adf:	a0 20 66             	mov    al,ds:0x6620
    f4ae2:	b4 00                	mov    ah,0x0
    f4ae4:	50                   	push   ax
-   f4ae5:	9a 67 09 00 e0       	call   0xe000:0x967
+   f4ae5:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    f4aea:	59                   	pop    cx
    f4aeb:	04 d0                	add    al,0xd0
    f4aed:	b1 04                	mov    cl,0x4
@@ -33582,21 +33582,21 @@ parse_cmd_3:
    f4af2:	a0 21 66             	mov    al,ds:0x6621
    f4af5:	b4 00                	mov    ah,0x0
    f4af7:	50                   	push   ax
-   f4af8:	9a 67 09 00 e0       	call   0xe000:0x967
+   f4af8:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    f4afd:	59                   	pop    cx
    f4afe:	3d 39 00             	cmp    ax,0x39
    f4b01:	7e 10                	jle    0xf4b13
    f4b03:	a0 21 66             	mov    al,ds:0x6621
    f4b06:	b4 00                	mov    ah,0x0
    f4b08:	50                   	push   ax
-   f4b09:	9a 67 09 00 e0       	call   0xe000:0x967
+   f4b09:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    f4b0e:	59                   	pop    cx
    f4b0f:	04 c9                	add    al,0xc9
    f4b11:	eb 0e                	jmp    0xf4b21
    f4b13:	a0 21 66             	mov    al,ds:0x6621
    f4b16:	b4 00                	mov    ah,0x0
    f4b18:	50                   	push   ax
-   f4b19:	9a 67 09 00 e0       	call   0xe000:0x967
+   f4b19:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    f4b1e:	59                   	pop    cx
    f4b1f:	04 d0                	add    al,0xd0
    f4b21:	5a                   	pop    dx
@@ -33656,21 +33656,21 @@ parse_cmd_3:
    f4baf:	a0 14 66             	mov    al,ds:0x6614
    f4bb2:	b4 00                	mov    ah,0x0
    f4bb4:	50                   	push   ax
-   f4bb5:	9a 67 09 00 e0       	call   0xe000:0x967
+   f4bb5:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    f4bba:	59                   	pop    cx
    f4bbb:	3d 39 00             	cmp    ax,0x39
    f4bbe:	7e 10                	jle    0xf4bd0
    f4bc0:	a0 14 66             	mov    al,ds:0x6614
    f4bc3:	b4 00                	mov    ah,0x0
    f4bc5:	50                   	push   ax
-   f4bc6:	9a 67 09 00 e0       	call   0xe000:0x967
+   f4bc6:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    f4bcb:	59                   	pop    cx
    f4bcc:	04 c9                	add    al,0xc9
    f4bce:	eb 0e                	jmp    0xf4bde
    f4bd0:	a0 14 66             	mov    al,ds:0x6614
    f4bd3:	b4 00                	mov    ah,0x0
    f4bd5:	50                   	push   ax
-   f4bd6:	9a 67 09 00 e0       	call   0xe000:0x967
+   f4bd6:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    f4bdb:	59                   	pop    cx
    f4bdc:	04 d0                	add    al,0xd0
    f4bde:	88 46 ff             	mov    BYTE PTR [bp-0x1],al
@@ -33678,21 +33678,21 @@ parse_cmd_3:
    f4be3:	a0 14 66             	mov    al,ds:0x6614
    f4be6:	b4 00                	mov    ah,0x0
    f4be8:	50                   	push   ax
-   f4be9:	9a 67 09 00 e0       	call   0xe000:0x967
+   f4be9:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    f4bee:	59                   	pop    cx
    f4bef:	3d 39 00             	cmp    ax,0x39
    f4bf2:	7e 10                	jle    0xf4c04
    f4bf4:	a0 14 66             	mov    al,ds:0x6614
    f4bf7:	b4 00                	mov    ah,0x0
    f4bf9:	50                   	push   ax
-   f4bfa:	9a 67 09 00 e0       	call   0xe000:0x967
+   f4bfa:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    f4bff:	59                   	pop    cx
    f4c00:	04 c9                	add    al,0xc9
    f4c02:	eb 0e                	jmp    0xf4c12
    f4c04:	a0 14 66             	mov    al,ds:0x6614
    f4c07:	b4 00                	mov    ah,0x0
    f4c09:	50                   	push   ax
-   f4c0a:	9a 67 09 00 e0       	call   0xe000:0x967
+   f4c0a:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    f4c0f:	59                   	pop    cx
    f4c10:	04 d0                	add    al,0xd0
    f4c12:	b1 04                	mov    cl,0x4
@@ -33701,21 +33701,21 @@ parse_cmd_3:
    f4c17:	a0 15 66             	mov    al,ds:0x6615
    f4c1a:	b4 00                	mov    ah,0x0
    f4c1c:	50                   	push   ax
-   f4c1d:	9a 67 09 00 e0       	call   0xe000:0x967
+   f4c1d:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    f4c22:	59                   	pop    cx
    f4c23:	3d 39 00             	cmp    ax,0x39
    f4c26:	7e 10                	jle    0xf4c38
    f4c28:	a0 15 66             	mov    al,ds:0x6615
    f4c2b:	b4 00                	mov    ah,0x0
    f4c2d:	50                   	push   ax
-   f4c2e:	9a 67 09 00 e0       	call   0xe000:0x967
+   f4c2e:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    f4c33:	59                   	pop    cx
    f4c34:	04 c9                	add    al,0xc9
    f4c36:	eb 0e                	jmp    0xf4c46
    f4c38:	a0 15 66             	mov    al,ds:0x6615
    f4c3b:	b4 00                	mov    ah,0x0
    f4c3d:	50                   	push   ax
-   f4c3e:	9a 67 09 00 e0       	call   0xe000:0x967
+   f4c3e:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    f4c43:	59                   	pop    cx
    f4c44:	04 d0                	add    al,0xd0
    f4c46:	5a                   	pop    dx
@@ -34282,31 +34282,32 @@ process_cmd:
    f525a:	8b ec                	mov    bp,sp
    f525c:	83 ec 02             	sub    sp,0x2
    f525f:	c7 46 fe ff ff       	mov    WORD PTR [bp-0x2],0xffff
-   f5264:	80 3e 6b 02 23       	cmp    BYTE PTR ds:0x26b,0x23
+   f5264:	80 3e 6b 02 23       	cmp    BYTE PTR ds:0x26b,0x23 ; #
    f5269:	75 43                	jne    0xf52ae
    f526b:	a0 6a 02             	mov    al,ds:0x26a
    f526e:	b4 00                	mov    ah,0x0
    f5270:	8b d8                	mov    bx,ax
-   f5272:	f6 87 07 26 12       	test   BYTE PTR [bx+0x2607],0x12
+   f5272:	f6 87 07 26 12       	test   BYTE PTR [bx+0x2607],0x12 ; isxdigit
    f5277:	74 32                	je     0xf52ab
    f5279:	a0 6a 02             	mov    al,ds:0x26a
    f527c:	b4 00                	mov    ah,0x0
    f527e:	50                   	push   ax
-   f527f:	9a 67 09 00 e0       	call   0xe000:0x967
+   f527f:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    f5284:	59                   	pop    cx
-   f5285:	3d 39 00             	cmp    ax,0x39
+   f5285:	3d 39 00             	cmp    ax,0x39 ;  '9'
    f5288:	7e 10                	jle    0xf529a
    f528a:	a0 6a 02             	mov    al,ds:0x26a
    f528d:	b4 00                	mov    ah,0x0
    f528f:	50                   	push   ax
-   f5290:	9a 67 09 00 e0       	call   0xe000:0x967
+   f5290:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    f5295:	59                   	pop    cx
    f5296:	04 c9                	add    al,0xc9
    f5298:	eb 0e                	jmp    0xf52a8
+
    f529a:	a0 6a 02             	mov    al,ds:0x26a
    f529d:	b4 00                	mov    ah,0x0
    f529f:	50                   	push   ax
-   f52a0:	9a 67 09 00 e0       	call   0xe000:0x967
+   f52a0:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    f52a5:	59                   	pop    cx
    f52a6:	04 d0                	add    al,0xd0
    f52a8:	a2 48 63             	mov    ds:0x6348,al
@@ -34314,31 +34315,31 @@ process_cmd:
    f52ae:	a0 6a 02             	mov    al,ds:0x26a
    f52b1:	b4 00                	mov    ah,0x0
    f52b3:	8b d8                	mov    bx,ax
-   f52b5:	f6 87 07 26 12       	test   BYTE PTR [bx+0x2607],0x12
+   f52b5:	f6 87 07 26 12       	test   BYTE PTR [bx+0x2607],0x12 ; isxdigit
    f52ba:	74 78                	je     0xf5334
    f52bc:	a0 6b 02             	mov    al,ds:0x26b
    f52bf:	b4 00                	mov    ah,0x0
    f52c1:	8b d8                	mov    bx,ax
-   f52c3:	f6 87 07 26 12       	test   BYTE PTR [bx+0x2607],0x12
+   f52c3:	f6 87 07 26 12       	test   BYTE PTR [bx+0x2607],0x12 ; isxdigit
    f52c8:	74 6a                	je     0xf5334
    f52ca:	a0 6a 02             	mov    al,ds:0x26a
    f52cd:	b4 00                	mov    ah,0x0
    f52cf:	50                   	push   ax
-   f52d0:	9a 67 09 00 e0       	call   0xe000:0x967
+   f52d0:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    f52d5:	59                   	pop    cx
    f52d6:	3d 39 00             	cmp    ax,0x39
    f52d9:	7e 10                	jle    0xf52eb
    f52db:	a0 6a 02             	mov    al,ds:0x26a
    f52de:	b4 00                	mov    ah,0x0
    f52e0:	50                   	push   ax
-   f52e1:	9a 67 09 00 e0       	call   0xe000:0x967
+   f52e1:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    f52e6:	59                   	pop    cx
    f52e7:	04 c9                	add    al,0xc9
    f52e9:	eb 0e                	jmp    0xf52f9
    f52eb:	a0 6a 02             	mov    al,ds:0x26a
    f52ee:	b4 00                	mov    ah,0x0
    f52f0:	50                   	push   ax
-   f52f1:	9a 67 09 00 e0       	call   0xe000:0x967
+   f52f1:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    f52f6:	59                   	pop    cx
    f52f7:	04 d0                	add    al,0xd0
    f52f9:	b1 04                	mov    cl,0x4
@@ -34347,21 +34348,21 @@ process_cmd:
    f52fe:	a0 6b 02             	mov    al,ds:0x26b
    f5301:	b4 00                	mov    ah,0x0
    f5303:	50                   	push   ax
-   f5304:	9a 67 09 00 e0       	call   0xe000:0x967
+   f5304:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    f5309:	59                   	pop    cx
    f530a:	3d 39 00             	cmp    ax,0x39
    f530d:	7e 10                	jle    0xf531f
    f530f:	a0 6b 02             	mov    al,ds:0x26b
    f5312:	b4 00                	mov    ah,0x0
    f5314:	50                   	push   ax
-   f5315:	9a 67 09 00 e0       	call   0xe000:0x967
+   f5315:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    f531a:	59                   	pop    cx
    f531b:	04 c9                	add    al,0xc9
    f531d:	eb 0e                	jmp    0xf532d
    f531f:	a0 6b 02             	mov    al,ds:0x26b
    f5322:	b4 00                	mov    ah,0x0
    f5324:	50                   	push   ax
-   f5325:	9a 67 09 00 e0       	call   0xe000:0x967
+   f5325:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    f532a:	59                   	pop    cx
    f532b:	04 d0                	add    al,0xd0
    f532d:	5a                   	pop    dx
@@ -41833,30 +41834,40 @@ font_big:
 font_huge:
 000fad56  ...
 
-000fbe69  00                                       |.|
-000fbe6a  0000 0000 0000                           |................|
-000fbe70  0000 0000 0000 0000 0000 0000 0000 0000  |................|
-000fbe80  0000 0000 0000 0000 0000 0000 0000 0000  |................|
-000fbe90  0000 0000 0000 0000 0000 0000 0000 0000  |................|
-000fbea0  0101 07d0 0000 2000 2020 2020 2020 2020  |.......         |
-000fbeb0  2121 2121 2021 2020 2020 2020 2020 2020  |!!!!!           |
-000fbec0  2020 2020 2020 0120 4040 4040 4040 4040  |       .@@@@@@@@|
-000fbed0  4040 4040 4040 0240 0202 0202 0202 0202  |@@@@@@@.........|
-000fbee0  4002 4040 4040 4040 1414 1414 1414 0404  |.@@@@@@@........|
-000fbef0  0404 0404 0404 0404 0404 0404 0404 0404  |................|
-000fbf00  0404 4040 4040 4040 1818 1818 1818 0808  |..@@@@@@........|
-000fbf10  0808 0808 0808 0808 0808 0808 0808 0808  |................|
-000fbf20  0808 4040 4040 0020 0000 0000 0000 0000  |..@@@@ .........|
-000fbf30  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+000fbe69  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+000fbe79  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+000fbe89  0000 0000 0000 0000 0000 0000 0000 0000  |................|
+000fbe99  0000 0000 0000 0100 d001 0007 0000       |..............  |
+
+; ds:2607 looks like the ctype table
+;
+; 40 ispunct
+; 20 iscntrl
+; 10 ishex
+; 08 islower
+; 04 isupper
+; 02 isdigit
+; 01 isspace
+
+0001bea7  20 20 20 20 20 20 20 20  20 21 21 21 21 21 20 20  |         !!!!!  |
+0001beb7  20 20 20 20 20 20 20 20  20 20 20 20 20 20 20 20  |                |
+0001bec7  01 40 40 40 40 40 40 40  40 40 40 40 40 40 40 40  |.@@@@@@@@@@@@@@@|
+0001bed7  02 02 02 02 02 02 02 02  02 02 40 40 40 40 40 40  |..........@@@@@@|
+0001bee7  40 14 14 14 14 14 14 04  04 04 04 04 04 04 04 04  |@...............|
+0001bef7  04 04 04 04 04 04 04 04  04 04 04 40 40 40 40 40  |...........@@@@@|
+0001bf07  40 18 18 18 18 18 18 08  08 08 08 08 08 08 08 08  |@...............|
+0001bf17  08 08 08 08 08 08 08 08  08 08 08 40 40 40 40 20  |...........@@@@ |
+0001bf27  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+0001bf37  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+0001bf47  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+0001bf57  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+0001bf67  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+0001bf77  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+0001bf87  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
+0001bf97  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  |................|
 
 
-000fbf40  0000 0000 0000 0000 0000 0000 0000 0000  |................|
-000fbf50  0000 0000 0000 0000 0000 0000 0000 0000  |................|
-000fbf60  0000 0000 0000 0000 0000 0000 0000 0000  |................|
-000fbf70  0000 0000 0000 0000 0000 0000 0000 0000  |................|
-000fbf80  0000 0000 0000 0000 0000 0000 0000 0000  |................|
-000fbf90  0000 0000 0000 0000 0000 0000 0000 0000  |................|
-000fbfa0  0000 0000 0000 0000 0200 0202 0202 0202  |................|
+000fbfa0              00 0000 0200 0202 0202 0202  |       .........|
 000fbfb0  0102 0101 0101 0202 0202 0202 0202 0202  |................|
 000fbfc0  0202 0202 0202 0202 0201 0202 0302 0202  |................|
 000fbfd0  0202 0204 0202 0202 0505 0505 0505 0505  |................|
