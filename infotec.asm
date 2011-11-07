@@ -2419,7 +2419,7 @@ output_something:
    e137f:	83 ec 02             	sub    sp,0x2
    e1382:	c6 46 ff ff          	mov    BYTE PTR [bp-0x1],0xff
    e1386:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
-   e138a:	26 c6 87 9e 00 47    	mov    BYTE PTR es:[bx+0x9e],0x47
+   e138a:	26 c6 87 9e 00 47    	mov    BYTE PTR es:[bx+0x9e],0x47 ; TMIC2 timed interrupt register
    e1390:	80 26 04 00 7f       	and    BYTE PTR ds:0x4,0x7f
    e1395:	a0 04 00             	mov    al,ds:0x4
    e1398:	ba 20 02             	mov    dx,0x220
@@ -2642,7 +2642,7 @@ output_something:
    e15c9:	ba 20 02             	mov    dx,0x220
    e15cc:	ee                   	out    dx,al
    e15cd:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
-   e15d1:	26 8a 87 9e 00       	mov    al,BYTE PTR es:[bx+0x9e]
+   e15d1:	26 8a 87 9e 00       	mov    al,BYTE PTR es:[bx+0x9e] ; TMIC2 timed interrupt register
    e15d6:	b4 00                	mov    ah,0x0
    e15d8:	a9 80 00             	test   ax,0x80
    e15db:	7e 0c                	jle    0xe15e9
@@ -2665,7 +2665,7 @@ output_something2:
    e1608:	55                   	push   bp
    e1609:	8b ec                	mov    bp,sp
    e160b:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
-   e160f:	26 c6 87 9e 00 47    	mov    BYTE PTR es:[bx+0x9e],0x47
+   e160f:	26 c6 87 9e 00 47    	mov    BYTE PTR es:[bx+0x9e],0x47 ; TMIC2 timed interrupt register
    e1615:	80 26 04 00 7f       	and    BYTE PTR ds:0x4,0x7f
    e161a:	a0 04 00             	mov    al,ds:0x4
    e161d:	ba 20 02             	mov    dx,0x220
@@ -2928,7 +2928,7 @@ output_something2:
    e18bd:	9a 21 02 47 f6       	call   0xf647:0x221
    e18c2:	83 c4 06             	add    sp,0x6
    e18c5:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
-   e18c9:	26 8a 87 9e 00       	mov    al,BYTE PTR es:[bx+0x9e]
+   e18c9:	26 8a 87 9e 00       	mov    al,BYTE PTR es:[bx+0x9e] ; TMIC2 timed interrupt register
    e18ce:	b4 00                	mov    ah,0x0
    e18d0:	a9 80 00             	test   ax,0x80
    e18d3:	7e 0c                	jle    0xe18e1
@@ -2963,7 +2963,7 @@ output_something3:
    e1915:	e8 86 10             	call   0xe299e
    e1918:	83 c4 08             	add    sp,0x8
    e191b:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
-   e191f:	26 c6 87 9e 00 47    	mov    BYTE PTR es:[bx+0x9e],0x47
+   e191f:	26 c6 87 9e 00 47    	mov    BYTE PTR es:[bx+0x9e],0x47 ; TMIC2 timed interrupt register
    e1925:	80 26 04 00 7f       	and    BYTE PTR ds:0x4,0x7f
    e192a:	a0 04 00             	mov    al,ds:0x4
    e192d:	ba 20 02             	mov    dx,0x220
@@ -3062,7 +3062,7 @@ output_something3:
    e1a2a:	ba 20 02             	mov    dx,0x220
    e1a2d:	ee                   	out    dx,al
    e1a2e:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
-   e1a32:	26 8a 87 9e 00       	mov    al,BYTE PTR es:[bx+0x9e]
+   e1a32:	26 8a 87 9e 00       	mov    al,BYTE PTR es:[bx+0x9e] ; TMIC2 timed interrupt register
    e1a37:	b4 00                	mov    ah,0x0
    e1a39:	a9 80 00             	test   ax,0x80
    e1a3c:	7e 0c                	jle    0xe1a4a
@@ -4555,7 +4555,7 @@ output_something6:
    e28e3:	83 ec 02             	sub    sp,0x2
    e28e6:	c7 46 fe 00 00       	mov    WORD PTR [bp-0x2],0x0
    e28eb:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
-   e28ef:	26 c6 87 9e 00 47    	mov    BYTE PTR es:[bx+0x9e],0x47
+   e28ef:	26 c6 87 9e 00 47    	mov    BYTE PTR es:[bx+0x9e],0x47 ; TMIC2 timed interrupt register
    e28f5:	a0 04 00             	mov    al,ds:0x4
    e28f8:	24 fc                	and    al,0xfc
    e28fa:	8a 56 06             	mov    dl,BYTE PTR [bp+0x6]
@@ -4603,7 +4603,7 @@ output_something6:
    e295f:	ba 20 02             	mov    dx,0x220
    e2962:	ee                   	out    dx,al
    e2963:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
-   e2967:	26 8a 87 9e 00       	mov    al,BYTE PTR es:[bx+0x9e]
+   e2967:	26 8a 87 9e 00       	mov    al,BYTE PTR es:[bx+0x9e] ; TMIC2 timed interrupt register
    e296c:	b4 00                	mov    ah,0x0
    e296e:	a9 80 00             	test   ax,0x80
    e2971:	7e 0c                	jle    0xe297f
@@ -4635,7 +4635,7 @@ output_something7:
    e29b0:	59                   	pop    cx
    e29b1:	e9 1d 03             	jmp    0xe2cd1
    e29b4:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
-   e29b8:	26 c6 87 9e 00 47    	mov    BYTE PTR es:[bx+0x9e],0x47
+   e29b8:	26 c6 87 9e 00 47    	mov    BYTE PTR es:[bx+0x9e],0x47 ; TMIC2 timed interrupt register
    e29be:	80 0e 04 00 80       	or     BYTE PTR ds:0x4,0x80
    e29c3:	a0 04 00             	mov    al,ds:0x4
    e29c6:	ba 20 02             	mov    dx,0x220
@@ -4925,7 +4925,7 @@ output_something7:
    e2ca3:	9a 21 02 47 f6       	call   0xf647:0x221
    e2ca8:	83 c4 06             	add    sp,0x6
    e2cab:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
-   e2caf:	26 8a 87 9e 00       	mov    al,BYTE PTR es:[bx+0x9e]
+   e2caf:	26 8a 87 9e 00       	mov    al,BYTE PTR es:[bx+0x9e] ; TMIC2 timed interrupt register
    e2cb4:	b4 00                	mov    ah,0x0
    e2cb6:	a9 80 00             	test   ax,0x80
    e2cb9:	7e 0c                	jle    0xe2cc7
@@ -4945,7 +4945,7 @@ output_something8:
    e2cdf:	55                   	push   bp
    e2ce0:	8b ec                	mov    bp,sp
    e2ce2:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
-   e2ce6:	26 c6 87 9e 00 47    	mov    BYTE PTR es:[bx+0x9e],0x47
+   e2ce6:	26 c6 87 9e 00 47    	mov    BYTE PTR es:[bx+0x9e],0x47 ; TMIC2 timed interrupt register
    e2cec:	a0 04 00             	mov    al,ds:0x4
    e2cef:	24 fc                	and    al,0xfc
    e2cf1:	04 02                	add    al,0x2
@@ -5129,7 +5129,7 @@ output_something8:
    e2ebe:	ba 20 02             	mov    dx,0x220
    e2ec1:	ee                   	out    dx,al
    e2ec2:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
-   e2ec6:	26 8a 87 9e 00       	mov    al,BYTE PTR es:[bx+0x9e]
+   e2ec6:	26 8a 87 9e 00       	mov    al,BYTE PTR es:[bx+0x9e] ; TMIC2 timed interrupt register
    e2ecb:	b4 00                	mov    ah,0x0
    e2ecd:	a9 80 00             	test   ax,0x80
    e2ed0:	7e 0c                	jle    0xe2ede
@@ -5158,7 +5158,7 @@ output_something9:
    e2efe:	e8 9d fa             	call   0xe299e
    e2f01:	83 c4 08             	add    sp,0x8
    e2f04:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
-   e2f08:	26 c6 87 9e 00 47    	mov    BYTE PTR es:[bx+0x9e],0x47
+   e2f08:	26 c6 87 9e 00 47    	mov    BYTE PTR es:[bx+0x9e],0x47 ; TMIC2 timed interrupt register
    e2f0e:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    e2f11:	b4 00                	mov    ah,0x0
    e2f13:	ba a6 02             	mov    dx,0x2a6
@@ -5265,7 +5265,7 @@ output_something9:
    e3026:	ba 20 02             	mov    dx,0x220
    e3029:	ee                   	out    dx,al
    e302a:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
-   e302e:	26 8a 87 9e 00       	mov    al,BYTE PTR es:[bx+0x9e]
+   e302e:	26 8a 87 9e 00       	mov    al,BYTE PTR es:[bx+0x9e] ; TMIC2 timed interrupt register
    e3033:	b4 00                	mov    ah,0x0
    e3035:	a9 80 00             	test   ax,0x80
    e3038:	7e 18                	jle    0xe3052
@@ -5765,7 +5765,7 @@ output_something10:
    e34cd:	9a ca 00 6c f8       	call   0xf86c:0xca
    e34d2:	83 c4 06             	add    sp,0x6
    e34d5:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
-   e34d9:	26 c6 87 9e 00 07    	mov    BYTE PTR es:[bx+0x9e],0x7
+   e34d9:	26 c6 87 9e 00 07    	mov    BYTE PTR es:[bx+0x9e],0x7 ; TMIC2 timed interrupt register
    e34df:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
    e34e3:	26 c6 87 9c 00 07    	mov    BYTE PTR es:[bx+0x9c],0x7
    e34e9:	b8 14 00             	mov    ax,0x14
@@ -34971,7 +34971,7 @@ main:
    f5a6e:	9a ca 00 6c f8       	call   0xf86c:0xca
    f5a73:	83 c4 06             	add    sp,0x6
    f5a76:	c4 1e 8c 69          	les    bx,DWORD PTR ds:0x698c
-   f5a7a:	26 c6 87 9e 00 07    	mov    BYTE PTR es:[bx+0x9e],0x7
+   f5a7a:	26 c6 87 9e 00 07    	mov    BYTE PTR es:[bx+0x9e],0x7 ; TMIC2 timed interrupt register
    f5a80:	b0 00                	mov    al,0x0
    f5a82:	50                   	push   ax
    f5a83:	9a e9 11 84 f6       	call   0xf684:0x11e9
