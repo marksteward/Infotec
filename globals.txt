@@ -1,3 +1,6 @@
+0x199 short g_vartype
+0x19a short g_varlen
+0x19c char[160] g_varbuf
 0x266 short ?
 0x267 int g_cmdlen
 0x269 char[512] g_cmdbuf
