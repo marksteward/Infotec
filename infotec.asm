@@ -2000,7 +2000,7 @@ strcmp:
    e105f:	cb                   	retf   
 
 
-strcpy:
+int far strcpy(near char* dest, near char* src):
    e1060:	55                   	push   bp
    e1061:	8b ec                	mov    bp,sp
    e1063:	56                   	push   si
@@ -2169,7 +2169,7 @@ far void * far memset(far void *ptr, int value, short cb):
    e1175:	cb                   	retf   
 
 
-f_strcpy:
+long far strcpy(far char* dest, far char* src):
    e1176:	55                   	push   bp
    e1177:	8b ec                	mov    bp,sp
    e1179:	56                   	push   si
@@ -8562,33 +8562,49 @@ init_something3:
    e515c:	cb                   	retf   
 
 
+e515d(short serialtask):
+; 0xff = all serialtasks
    e515d:	55                   	push   bp
    e515e:	8b ec                	mov    bp,sp
    e5160:	83 ec 08             	sub    sp,0x8
+; int result = -1
+; int l1
+; short to = 0
+; short from = 0
+; short l3 = 0
    e5163:	c7 46 fe ff ff       	mov    WORD PTR [bp-0x2],0xffff
    e5168:	c6 46 fb 00          	mov    BYTE PTR [bp-0x5],0x0
    e516c:	c6 46 fa 00          	mov    BYTE PTR [bp-0x6],0x0
    e5170:	c6 46 f9 00          	mov    BYTE PTR [bp-0x7],0x0
+
    e5174:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    e5177:	b4 00                	mov    ah,0x0
    e5179:	25 80 00             	and    ax,0x80
    e517c:	3d 80 00             	cmp    ax,0x80
+; if serialtask & 0x80 == 0x80:
    e517f:	75 0a                	jne    0xe518b
    e5181:	a0 c7 62             	mov    al,ds:0x62c7 ; g_num_serialtasks
    e5184:	04 ff                	add    al,0xff
+;   to = g_num_serialtasks - 1
    e5186:	88 46 fa             	mov    BYTE PTR [bp-0x6],al
    e5189:	eb 09                	jmp    0xe5194
+; else:
    e518b:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
+;   from = to = serialtask
    e518e:	88 46 fa             	mov    BYTE PTR [bp-0x6],al
    e5191:	88 46 fb             	mov    BYTE PTR [bp-0x5],al
+
+; for serialtask = from; serialtask <= to; serialtask++:
    e5194:	8a 46 fb             	mov    al,BYTE PTR [bp-0x5]
    e5197:	88 46 06             	mov    BYTE PTR [bp+0x6],al
    e519a:	e9 af 03             	jmp    0xe554c
+
    e519d:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    e51a0:	b4 00                	mov    ah,0x0
    e51a2:	b1 03                	mov    cl,0x3
    e51a4:	d3 e0                	shl    ax,cl
    e51a6:	8b d8                	mov    bx,ax
+;   g_6175[serialtask] = 1
    e51a8:	c6 87 75 61 01       	mov    BYTE PTR [bx+0x6175],0x1
    e51ad:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    e51b0:	b4 00                	mov    ah,0x0
@@ -8596,6 +8612,7 @@ init_something3:
    e51b5:	f7 ea                	imul   dx
    e51b7:	8b d8                	mov    bx,ax
    e51b9:	80 bf e3 42 01       	cmp    BYTE PTR [bx+0x42e3],0x1
+;   if (g_42e3[serialtask] == 1 &&
    e51be:	74 03                	je     0xe51c3
    e51c0:	e9 76 03             	jmp    0xe5539
    e51c3:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
@@ -8606,9 +8623,11 @@ init_something3:
    e51cf:	80 bf ea 42 00       	cmp    BYTE PTR [bx+0x42ea],0x0
    e51d4:	74 0a                	je     0xe51e0
    e51d6:	83 3e 8a 61 51       	cmp    WORD PTR ds:0x618a,0x51
+;       (g_42ea[serialtask] == 0 || g_618a == 0x51) &&
    e51db:	74 03                	je     0xe51e0
    e51dd:	e9 59 03             	jmp    0xe5539
    e51e0:	83 3e 8a 61 20       	cmp    WORD PTR ds:0x618a,0x20
+;       g_618a != 0x20):
    e51e5:	75 03                	jne    0xe51ea
    e51e7:	e9 4f 03             	jmp    0xe5539
    e51ea:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
@@ -8617,12 +8636,15 @@ init_something3:
    e51f1:	d3 e0                	shl    ax,cl
    e51f3:	8b d8                	mov    bx,ax
    e51f5:	80 bf 73 61 00       	cmp    BYTE PTR [bx+0x6173],0x0
+;     if (g_6173[serialtask] != 0 &&
    e51fa:	75 03                	jne    0xe51ff
    e51fc:	e9 8b 00             	jmp    0xe528a
    e51ff:	83 3e 8a 61 21       	cmp    WORD PTR ds:0x618a,0x21
+;         g_618a != 0x21):
    e5204:	75 03                	jne    0xe5209
    e5206:	e9 81 00             	jmp    0xe528a
    e5209:	80 3e 8c 61 01       	cmp    BYTE PTR ds:0x618c,0x1
+;       if (g_618c == 1 ||
    e520e:	75 1d                	jne    0xe522d
    e5210:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    e5213:	b4 00                	mov    ah,0x0
@@ -8630,13 +8652,16 @@ init_something3:
    e5217:	d3 e0                	shl    ax,cl
    e5219:	8b d8                	mov    bx,ax
    e521b:	80 bf 79 61 00       	cmp    BYTE PTR [bx+0x6179],0x0
+;         g_6179[serialtask] == 0):
    e5220:	75 0b                	jne    0xe522d
    e5222:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    e5225:	50                   	push   ax
    e5226:	0e                   	push   cs
+;       e4f1e(serialtask)
    e5227:	e8 f4 fc             	call   0xe4f1e
    e522a:	59                   	pop    cx
    e522b:	eb 5d                	jmp    0xe528a
+;     else:
    e522d:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    e5230:	b4 00                	mov    ah,0x0
    e5232:	ba 80 07             	mov    dx,0x780
@@ -8652,6 +8677,7 @@ init_something3:
    e524a:	d3 e2                	shl    dx,cl
    e524c:	03 c2                	add    ax,dx
    e524e:	8b d8                	mov    bx,ax
+;       if g_4aea[serialtask][g_6173[serialtask]] != 0x21:
    e5250:	80 bf ea 4a 21       	cmp    BYTE PTR [bx+0x4aea],0x21
    e5255:	75 0f                	jne    0xe5266
    e5257:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
@@ -8659,6 +8685,7 @@ init_something3:
    e525c:	b1 03                	mov    cl,0x3
    e525e:	d3 e0                	shl    ax,cl
    e5260:	8b d8                	mov    bx,ax
+;         g_6173[serialtask]--
    e5262:	fe 8f 73 61          	dec    BYTE PTR [bx+0x6173]
    e5266:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    e5269:	b4 00                	mov    ah,0x0
@@ -8666,13 +8693,17 @@ init_something3:
    e526e:	f7 ea                	imul   dx
    e5270:	8b d8                	mov    bx,ax
    e5272:	80 bf ce 42 01       	cmp    BYTE PTR [bx+0x42ce],0x1
+;       if g_42ce[serialtask] == 1:
    e5277:	75 11                	jne    0xe528a
    e5279:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    e527c:	b4 00                	mov    ah,0x0
    e527e:	ba 09 00             	mov    dx,0x9
    e5281:	f7 ea                	imul   dx
    e5283:	8b d8                	mov    bx,ax
+;         g_42ce[serialtask] = 0
    e5285:	c6 87 ce 42 00       	mov    BYTE PTR [bx+0x42ce],0x0
+
+;     switch(g_618a):
    e528a:	a1 8a 61             	mov    ax,ds:0x618a
    e528d:	3d 21 00             	cmp    ax,0x21
    e5290:	74 14                	je     0xe52a6
@@ -8681,32 +8712,43 @@ init_something3:
    e5297:	3d 7f 00             	cmp    ax,0x7f
    e529a:	74 03                	je     0xe529f
    e529c:	e9 8e 00             	jmp    0xe532d
+;       case 0x7f
+;         l3 = 1
    e529f:	c6 46 f9 01          	mov    BYTE PTR [bp-0x7],0x1
    e52a3:	e9 89 00             	jmp    0xe532f
+;       case 0x21:
    e52a6:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    e52a9:	b4 00                	mov    ah,0x0
    e52ab:	b1 03                	mov    cl,0x3
    e52ad:	d3 e0                	shl    ax,cl
    e52af:	8b d8                	mov    bx,ax
    e52b1:	80 bf 79 61 00       	cmp    BYTE PTR [bx+0x6179],0x0
+;         if g_6179[serialtask] == 0:
    e52b6:	75 06                	jne    0xe52be
+;           l3 = 1
    e52b8:	c6 46 f9 01          	mov    BYTE PTR [bp-0x7],0x1
    e52bc:	eb 10                	jmp    0xe52ce
+;         else:
    e52be:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    e52c1:	b4 00                	mov    ah,0x0
    e52c3:	b1 03                	mov    cl,0x3
    e52c5:	d3 e0                	shl    ax,cl
    e52c7:	8b d8                	mov    bx,ax
+;           g_6179[serialtask] |= 4
    e52c9:	80 8f 79 61 04       	or     BYTE PTR [bx+0x6179],0x4
    e52ce:	eb 5f                	jmp    0xe532f
+;       case 0x22:
    e52d0:	80 3e 8c 61 01       	cmp    BYTE PTR ds:0x618c,0x1
+;         if g_618c == 1:
    e52d5:	75 0b                	jne    0xe52e2
    e52d7:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    e52da:	50                   	push   ax
    e52db:	0e                   	push   cs
+;           e4f1e(serialtask)
    e52dc:	e8 3f fc             	call   0xe4f1e
    e52df:	59                   	pop    cx
    e52e0:	eb 39                	jmp    0xe531b
+;         else:
    e52e2:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    e52e5:	b4 00                	mov    ah,0x0
    e52e7:	ba 80 07             	mov    dx,0x780
@@ -8723,22 +8765,29 @@ init_something3:
    e5301:	03 c2                	add    ax,dx
    e5303:	8b d8                	mov    bx,ax
    e5305:	80 bf ea 4a 21       	cmp    BYTE PTR [bx+0x4aea],0x21
+;           if g_4aea[serialtask][g_6173[serialtask]] == 0x21:
    e530a:	75 0f                	jne    0xe531b
    e530c:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    e530f:	b4 00                	mov    ah,0x0
    e5311:	b1 03                	mov    cl,0x3
    e5313:	d3 e0                	shl    ax,cl
    e5315:	8b d8                	mov    bx,ax
+;             g_6173--
    e5317:	fe 8f 73 61          	dec    BYTE PTR [bx+0x6173]
+
    e531b:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    e531e:	b4 00                	mov    ah,0x0
    e5320:	b1 03                	mov    cl,0x3
    e5322:	d3 e0                	shl    ax,cl
    e5324:	8b d8                	mov    bx,ax
+;         g_6179[serialtask] |= 3
    e5326:	80 8f 79 61 03       	or     BYTE PTR [bx+0x6179],0x3
    e532b:	eb 02                	jmp    0xe532f
+;       default: break
    e532d:	eb 00                	jmp    0xe532f
+
    e532f:	80 7e f9 00          	cmp    BYTE PTR [bp-0x7],0x0
+;     if l3 == 0:
    e5333:	74 03                	je     0xe5338
    e5335:	e9 01 02             	jmp    0xe5539
    e5338:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
@@ -8757,6 +8806,7 @@ init_something3:
    e5357:	03 c2                	add    ax,dx
    e5359:	8a 16 8a 61          	mov    dl,BYTE PTR ds:0x618a
    e535d:	8b d8                	mov    bx,ax
+;       g_4af2[serialtask][g_6173[serialtask]] = g_618a
    e535f:	88 97 f2 4a          	mov    BYTE PTR [bx+0x4af2],dl
    e5363:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    e5366:	b4 00                	mov    ah,0x0
@@ -8774,6 +8824,7 @@ init_something3:
    e5382:	03 c2                	add    ax,dx
    e5384:	8a 16 8d 61          	mov    dl,BYTE PTR ds:0x618d
    e5388:	8b d8                	mov    bx,ax
+;       g_4af3[serialtask][g_6173[serialtask]] = g_618d
    e538a:	88 97 f3 4a          	mov    BYTE PTR [bx+0x4af3],dl
    e538e:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    e5391:	b4 00                	mov    ah,0x0
@@ -8791,6 +8842,7 @@ init_something3:
    e53ad:	03 c2                	add    ax,dx
    e53af:	8a 16 8e 61          	mov    dl,BYTE PTR ds:0x618e
    e53b3:	8b d8                	mov    bx,ax
+;       g_4af4[serialtask][g_6173[serialtask]] = g_618e
    e53b5:	88 97 f4 4a          	mov    BYTE PTR [bx+0x4af4],dl
    e53b9:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    e53bc:	b4 00                	mov    ah,0x0
@@ -8808,13 +8860,16 @@ init_something3:
    e53d8:	03 c2                	add    ax,dx
    e53da:	8a 16 8f 61          	mov    dl,BYTE PTR ds:0x618f
    e53de:	8b d8                	mov    bx,ax
+;       g_4af5[serialtask][g_6173[serialtask]] = g_618f
    e53e0:	88 97 f5 4a          	mov    BYTE PTR [bx+0x4af5],dl
    e53e4:	b8 92 61             	mov    ax,0x6192
    e53e7:	50                   	push   ax
    e53e8:	9a 82 10 00 e0       	call   0xe000:0x1082 ; near strlen
    e53ed:	59                   	pop    cx
+;       l1 = strlen(g_6192)
    e53ee:	89 46 fc             	mov    WORD PTR [bp-0x4],ax
    e53f1:	83 7e fc 00          	cmp    WORD PTR [bp-0x4],0x0
+;       if l1 != 0:
    e53f5:	75 03                	jne    0xe53fa
    e53f7:	e9 ab 00             	jmp    0xe54a5
    e53fa:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
@@ -8837,10 +8892,11 @@ init_something3:
    e5420:	50                   	push   ax
    e5421:	b0 01                	mov    al,0x1
    e5423:	50                   	push   ax
-   e5424:	9a 6e 01 ac f5       	call   0xf5ac:0x16e
+   e5424:	9a 6e 01 ac f5       	call   0xf5ac:0x16e ; alloc_font
    e5429:	59                   	pop    cx
    e542a:	59                   	pop    cx
    e542b:	5b                   	pop    bx
+;       g_4af8[serialtask][g_6173[serialtask]] = alloc_font(1, l1 + 1)
    e542c:	89 97 f8 4a          	mov    WORD PTR [bx+0x4af8],dx
    e5430:	89 87 f6 4a          	mov    WORD PTR [bx+0x4af6],ax
    e5434:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
@@ -8890,6 +8946,7 @@ init_something3:
    e549b:	9a 9c 10 00 e0       	call   0xe000:0x109c ; memcpy
    e54a0:	83 c4 0a             	add    sp,0xa
    e54a3:	eb 2f                	jmp    0xe54d4
+
    e54a5:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    e54a8:	b4 00                	mov    ah,0x0
    e54aa:	ba 80 07             	mov    dx,0x780
@@ -8907,6 +8964,7 @@ init_something3:
    e54c6:	8b d8                	mov    bx,ax
    e54c8:	c7 87 f8 4a 00 00    	mov    WORD PTR [bx+0x4af8],0x0
    e54ce:	c7 87 f6 4a 00 00    	mov    WORD PTR [bx+0x4af6],0x0
+
    e54d4:	c7 46 fe fe ff       	mov    WORD PTR [bp-0x2],0xfffe
    e54d9:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    e54dc:	b4 00                	mov    ah,0x0
@@ -8950,26 +9008,34 @@ init_something3:
    e5534:	e8 d3 fa             	call   0xe500a
    e5537:	59                   	pop    cx
    e5538:	59                   	pop    cx
+
    e5539:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    e553c:	b4 00                	mov    ah,0x0
    e553e:	b1 03                	mov    cl,0x3
    e5540:	d3 e0                	shl    ax,cl
    e5542:	8b d8                	mov    bx,ax
+;   g_6175[serialtask] = 0
    e5544:	c6 87 75 61 00       	mov    BYTE PTR [bx+0x6175],0x0
+
    e5549:	fe 46 06             	inc    BYTE PTR [bp+0x6]
    e554c:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    e554f:	3a 46 fa             	cmp    al,BYTE PTR [bp-0x6]
    e5552:	77 03                	ja     0xe5557
    e5554:	e9 46 fc             	jmp    0xe519d
+
+; g_618a = 0x20
+; g_618d = 0
    e5557:	c7 06 8a 61 20 00    	mov    WORD PTR ds:0x618a,0x20
    e555d:	c6 06 8d 61 00       	mov    BYTE PTR ds:0x618d,0x0
    e5562:	b8 96 00             	mov    ax,0x96 ; ""
    e5565:	50                   	push   ax
    e5566:	b8 92 61             	mov    ax,0x6192
    e5569:	50                   	push   ax
+; strcpy(g_6182, "")
    e556a:	9a 60 10 00 e0       	call   0xe000:0x1060 ; strcpy
    e556f:	59                   	pop    cx
    e5570:	59                   	pop    cx
+; return result
    e5571:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
    e5574:	eb 00                	jmp    0xe5576
    e5576:	8b e5                	mov    sp,bp
@@ -8977,7 +9043,7 @@ init_something3:
    e5579:	cb                   	retf   
 
 
-e557a(p1, msg, p3, p4, p5, p6, buf):
+int send_msg(short serialtask, msg, p3, p4, p5, p6, buf):
    e557a:	55                   	push   bp
    e557b:	8b ec                	mov    bp,sp
    e557d:	83 ec 02             	sub    sp,0x2
@@ -9016,7 +9082,7 @@ e557a(p1, msg, p3, p4, p5, p6, buf):
    e55c3:	0e                   	push   cs
    e55c4:	e8 96 fb             	call   0xe515d
    e55c7:	59                   	pop    cx
-; result = e515d(p1)
+; result = e515d(serialtask)
    e55c8:	89 46 fe             	mov    WORD PTR [bp-0x2],ax
 ; return result
    e55cb:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
@@ -11630,7 +11696,7 @@ e557a(p1, msg, p3, p4, p5, p6, buf):
    e705a:	50                   	push   ax
    e705b:	b0 01                	mov    al,0x1
    e705d:	50                   	push   ax
-   e705e:	9a 6e 01 ac f5       	call   0xf5ac:0x16e
+   e705e:	9a 6e 01 ac f5       	call   0xf5ac:0x16e ; alloc_font
    e7063:	59                   	pop    cx
    e7064:	59                   	pop    cx
    e7065:	8a 5e ff             	mov    bl,BYTE PTR [bp-0x1]
@@ -11649,7 +11715,7 @@ e557a(p1, msg, p3, p4, p5, p6, buf):
    e7082:	50                   	push   ax
    e7083:	b0 01                	mov    al,0x1
    e7085:	50                   	push   ax
-   e7086:	9a 6e 01 ac f5       	call   0xf5ac:0x16e
+   e7086:	9a 6e 01 ac f5       	call   0xf5ac:0x16e ; alloc_font
    e708b:	59                   	pop    cx
    e708c:	59                   	pop    cx
    e708d:	8a 5e ff             	mov    bl,BYTE PTR [bp-0x1]
@@ -12508,7 +12574,7 @@ e557a(p1, msg, p3, p4, p5, p6, buf):
    e78ef:	8b d8                	mov    bx,ax
    e78f1:	ff b7 54 45          	push   WORD PTR [bx+0x4554]
    e78f5:	ff b7 52 45          	push   WORD PTR [bx+0x4552]
-   e78f9:	9a 76 11 00 e0       	call   0xe000:0x1176
+   e78f9:	9a 76 11 00 e0       	call   0xe000:0x1176 ; strcpy
    e78fe:	83 c4 08             	add    sp,0x8
    e7901:	a0 9a 00             	mov    al,ds:0x9a
    e7904:	3a 46 06             	cmp    al,BYTE PTR [bp+0x6]
@@ -16712,7 +16778,7 @@ e557a(p1, msg, p3, p4, p5, p6, buf):
    ea3f8:	8b d8                	mov    bx,ax
    ea3fa:	ff b7 54 45          	push   WORD PTR [bx+0x4554]
    ea3fe:	ff b7 52 45          	push   WORD PTR [bx+0x4552]
-   ea402:	9a 76 11 00 e0       	call   0xe000:0x1176
+   ea402:	9a 76 11 00 e0       	call   0xe000:0x1176 ; strcpy
    ea407:	83 c4 08             	add    sp,0x8
    ea40a:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    ea40d:	b4 00                	mov    ah,0x0
@@ -21990,7 +22056,7 @@ int create_user_font(short fontnum, short width, short height, short start, shor
    ed8ac:	b0 01                	mov    al,0x1
    ed8ae:	50                   	push   ax
 ; data = alloc_font(1, cb)
-   ed8af:	9a 6e 01 ac f5       	call   0xf5ac:0x16e
+   ed8af:	9a 6e 01 ac f5       	call   0xf5ac:0x16e ; alloc_font
    ed8b4:	59                   	pop    cx
    ed8b5:	59                   	pop    cx
    ed8b6:	89 56 f8             	mov    WORD PTR [bp-0x8],dx
@@ -25231,7 +25297,7 @@ interesting:
    ef957:	ff 76 08             	push   WORD PTR [bp+0x8]
    ef95a:	ff 76 0e             	push   WORD PTR [bp+0xe]
    ef95d:	ff 76 0c             	push   WORD PTR [bp+0xc]
-   ef960:	9a 76 11 00 e0       	call   0xe000:0x1176
+   ef960:	9a 76 11 00 e0       	call   0xe000:0x1176 ; strcpy
    ef965:	83 c4 08             	add    sp,0x8
    ef968:	e9 43 08             	jmp    0xe01ae
    ef96b:	c4 5e 0c             	les    bx,DWORD PTR [bp+0xc]
@@ -26274,7 +26340,7 @@ interesting:
    f03fe:	d3 e0                	shl    ax,cl
    f0400:	05 35 2e             	add    ax,0x2e35
    f0403:	50                   	push   ax
-   f0404:	9a 76 11 00 e0       	call   0xe000:0x1176
+   f0404:	9a 76 11 00 e0       	call   0xe000:0x1176 ; strcpy
    f0409:	83 c4 08             	add    sp,0x8
    f040c:	c7 46 fe fe ff       	mov    WORD PTR [bp-0x2],0xfffe
    f0411:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
@@ -26300,7 +26366,7 @@ interesting:
    f0439:	d3 e0                	shl    ax,cl
    f043b:	05 35 2e             	add    ax,0x2e35
    f043e:	50                   	push   ax
-   f043f:	9a 76 11 00 e0       	call   0xe000:0x1176
+   f043f:	9a 76 11 00 e0       	call   0xe000:0x1176 ; strcpy
    f0444:	83 c4 08             	add    sp,0x8
    f0447:	ff 46 fe             	inc    WORD PTR [bp-0x2]
    f044a:	83 7e fe 20          	cmp    WORD PTR [bp-0x2],0x20
@@ -26968,14 +27034,18 @@ init_boot_serial:
    f0b22:	cb                   	retf   
 
 
+f0b23(p1, serialtask, far char *buf):
    f0b23:	55                   	push   bp
    f0b24:	8b ec                	mov    bp,sp
    f0b26:	83 ec 02             	sub    sp,0x2
+; result = -1
    f0b29:	c7 46 fe ff ff       	mov    WORD PTR [bp-0x2],0xffff
    f0b2e:	80 7e 06 ff          	cmp    BYTE PTR [bp+0x6],0xff
+; if p1 < 255 &&
    f0b32:	72 03                	jb     0xf0b37
    f0b34:	e9 aa 00             	jmp    0xf0be1
    f0b37:	8a 46 08             	mov    al,BYTE PTR [bp+0x8]
+;     serialtask < g_num_serialtasks:
    f0b3a:	3a 06 c7 62          	cmp    al,BYTE PTR ds:0x62c7 ; g_num_serialtasks
    f0b3e:	72 03                	jb     0xf0b43
    f0b40:	e9 9e 00             	jmp    0xf0be1
@@ -26986,6 +27056,7 @@ init_boot_serial:
    f0b4c:	8b d8                	mov    bx,ax
    f0b4e:	8b 87 35 3e          	mov    ax,WORD PTR [bx+0x3e35]
    f0b52:	0b 87 37 3e          	or     ax,WORD PTR [bx+0x3e37]
+;   if g_3e35[p1] == 0:
    f0b56:	75 2e                	jne    0xf0b86
    f0b58:	b8 01 00             	mov    ax,0x1
    f0b5b:	50                   	push   ax
@@ -27003,21 +27074,26 @@ init_boot_serial:
    f0b78:	b7 00                	mov    bh,0x0
    f0b7a:	b1 02                	mov    cl,0x2
    f0b7c:	d3 e3                	shl    bx,cl
+;     g_3e35[p1] = f5e4d(1, g_serialbufsize * g_num_serialtasks, 1)
    f0b7e:	89 97 37 3e          	mov    WORD PTR [bx+0x3e37],dx
    f0b82:	89 87 35 3e          	mov    WORD PTR [bx+0x3e35],ax
+
    f0b86:	ff 76 0c             	push   WORD PTR [bp+0xc]
    f0b89:	ff 76 0a             	push   WORD PTR [bp+0xa]
+;   strlen(buf)
    f0b8c:	9a 9f 11 00 e0       	call   0xe000:0x119f ; far strlen
    f0b91:	59                   	pop    cx
    f0b92:	59                   	pop    cx
    f0b93:	8a 16 ce 62          	mov    dl,BYTE PTR ds:0x62ce
    f0b97:	b6 00                	mov    dh,0x0
    f0b99:	3b c2                	cmp    ax,dx
+;   if strlen(buf) >= g_serialbufsize:
    f0b9b:	72 0e                	jb     0xf0bab
    f0b9d:	a0 ce 62             	mov    al,ds:0x62ce
    f0ba0:	b4 00                	mov    ah,0x0
    f0ba2:	c4 5e 0a             	les    bx,DWORD PTR [bp+0xa]
    f0ba5:	03 d8                	add    bx,ax
+;     buf[g_serialbufsize] = 0
    f0ba7:	26 c6 07 00          	mov    BYTE PTR es:[bx],0x0
    f0bab:	ff 76 0c             	push   WORD PTR [bp+0xc]
    f0bae:	ff 76 0a             	push   WORD PTR [bp+0xa]
@@ -27035,9 +27111,12 @@ init_boot_serial:
    f0bcd:	03 d0                	add    dx,ax
    f0bcf:	ff b7 37 3e          	push   WORD PTR [bx+0x3e37]
    f0bd3:	52                   	push   dx
-   f0bd4:	9a 76 11 00 e0       	call   0xe000:0x1176
+;   strcpy(&g_3e35[p1] + g_serialbufsize * serialtask, buf)
+   f0bd4:	9a 76 11 00 e0       	call   0xe000:0x1176 ; strcpy
    f0bd9:	83 c4 08             	add    sp,0x8
+;   result = -2
    f0bdc:	c7 46 fe fe ff       	mov    WORD PTR [bp-0x2],0xfffe
+; return result
    f0be1:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
    f0be4:	eb 00                	jmp    0xf0be6
    f0be6:	8b e5                	mov    sp,bp
@@ -27081,7 +27160,7 @@ init_boot_serial:
    f0c3b:	5b                   	pop    bx
    f0c3c:	ff b7 37 3e          	push   WORD PTR [bx+0x3e37]
    f0c40:	52                   	push   dx
-   f0c41:	9a 76 11 00 e0       	call   0xe000:0x1176
+   f0c41:	9a 76 11 00 e0       	call   0xe000:0x1176 ; strcpy
    f0c46:	83 c4 08             	add    sp,0x8
    f0c49:	ff 46 fc             	inc    WORD PTR [bp-0x4]
    f0c4c:	a0 c7 62             	mov    al,ds:0x62c7 ; g_num_serialtasks
@@ -27264,7 +27343,7 @@ init_boot_serial:
    f0e1b:	03 d0                	add    dx,ax
    f0e1d:	ff b7 37 3e          	push   WORD PTR [bx+0x3e37]
    f0e21:	52                   	push   dx
-   f0e22:	9a 76 11 00 e0       	call   0xe000:0x1176
+   f0e22:	9a 76 11 00 e0       	call   0xe000:0x1176 ; strcpy
    f0e27:	83 c4 08             	add    sp,0x8
    f0e2a:	80 7e fd 00          	cmp    BYTE PTR [bp-0x3],0x0
    f0e2e:	75 07                	jne    0xf0e37
@@ -30138,7 +30217,7 @@ compare_lizz:
    f2b7d:	50                   	push   ax
    f2b7e:	a0 4c 63             	mov    al,ds:0x634c
    f2b81:	50                   	push   ax
-; send_msg(g_634c, 0x50, g_634a, 0, 0, 0, &g_inbuf)
+; send_msg(g_serialtask, 0x50, g_634a, 0, 0, 0, &g_inbuf)
    f2b82:	9a 6a 06 f1 e4       	call   0xe4f1:0x66a ; send_msg
    f2b87:	83 c4 0e             	add    sp,0xe
    f2b8a:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
@@ -30203,6 +30282,7 @@ compare_lizz:
    f2bfb:	50                   	push   ax
    f2bfc:	b0 ff                	mov    al,0xff
    f2bfe:	50                   	push   ax
+; send_msg(ALL_SERIALTASKS, 0x50, g_634a, 0, 0, 0, &g_inbuf)
    f2bff:	9a 6a 06 f1 e4       	call   0xe4f1:0x66a ; send_msg
    f2c04:	83 c4 0e             	add    sp,0xe
    f2c07:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
@@ -30572,7 +30652,7 @@ compare_lizz:
    f2f2d:	d3 e0                	shl    ax,cl
    f2f2f:	05 35 2e             	add    ax,0x2e35
    f2f32:	50                   	push   ax
-   f2f33:	9a 76 11 00 e0       	call   0xe000:0x1176
+   f2f33:	9a 76 11 00 e0       	call   0xe000:0x1176 ; strcpy
    f2f38:	83 c4 08             	add    sp,0x8
    f2f3b:	ff 46 fe             	inc    WORD PTR [bp-0x2]
    f2f3e:	83 7e fe 15          	cmp    WORD PTR [bp-0x2],0x15
@@ -30602,7 +30682,7 @@ int do_cmd_0(void):
    f2f69:	50                   	push   ax
    f2f6a:	a0 4c 63             	mov    al,ds:0x634c
    f2f6d:	50                   	push   ax
-; result = send_msg(g_634c, 0x2, g_634a, g_inargs[0], g_inargs[1], g_inargs[2], &g_inbuf)
+; result = send_msg(g_serialtask, 0x2, g_634a, g_inargs[0], g_inargs[1], g_inargs[2], &g_inbuf)
    f2f6e:	9a 6a 06 f1 e4       	call   0xe4f1:0x66a ; send_msg
    f2f73:	83 c4 0e             	add    sp,0xe
    f2f76:	89 46 fe             	mov    WORD PTR [bp-0x2],ax
@@ -30683,7 +30763,7 @@ int do_cmd_1(void):
    f3019:	50                   	push   ax
    f301a:	a0 4c 63             	mov    al,ds:0x634c
    f301d:	50                   	push   ax
-; send_msg(g_634c, 0x1, g_634a, u1, 0, 0, &g_inbuf)
+; send_msg(g_serialtask, 0x1, g_634a, u1, 0, 0, &g_inbuf)
    f301e:	9a 6a 06 f1 e4       	call   0xe4f1:0x66a ; send_msg
    f3023:	83 c4 0e             	add    sp,0xe
 ; return result
@@ -31019,6 +31099,7 @@ do_set_some_serialish_flag:
    f32bb:	83 ec 04             	sub    sp,0x4
    f32be:	a0 4d 64             	mov    al,ds:0x644d
    f32c1:	b4 00                	mov    ah,0x0
+; l1 = g_inargs[0]
    f32c3:	89 46 fc             	mov    WORD PTR [bp-0x4],ax
    f32c6:	1e                   	push   ds
    f32c7:	b8 4d 63             	mov    ax,0x634d
@@ -31029,7 +31110,9 @@ do_set_some_serialish_flag:
    f32d2:	50                   	push   ax
    f32d3:	9a 03 00 b2 f0       	call   0xf0b2:0x3
    f32d8:	83 c4 08             	add    sp,0x8
+; result = f0b23(l1, g_serialtask, g_inbuf)
    f32db:	89 46 fe             	mov    WORD PTR [bp-0x2],ax
+; return result
    f32de:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
    f32e1:	eb 00                	jmp    0xf32e3
    f32e3:	8b e5                	mov    sp,bp
@@ -31732,7 +31815,7 @@ int do_get_num_serialtasks(void):
    f388f:	bb ff 00             	mov    bx,0xff
    f3892:	33 d2                	xor    dx,dx
    f3894:	f7 f3                	div    bx
-; g_outargs[0] = LOWORD(g_42e4[g_634c] / 255)
+; g_outargs[0] = LOWORD(g_42e4[g_serialtask] / 255)
    f3896:	a2 3a 63             	mov    ds:0x633a,al
    f3899:	a0 4c 63             	mov    al,ds:0x634c
    f389c:	b4 00                	mov    ah,0x0
@@ -31743,7 +31826,7 @@ int do_get_num_serialtasks(void):
    f38a9:	bb ff 00             	mov    bx,0xff
    f38ac:	33 d2                	xor    dx,dx
    f38ae:	f7 f3                	div    bx
-; g_outargs[1] = HIWORD(g_42e4[g_634c] / 255)
+; g_outargs[1] = HIWORD(g_42e4[g_serialtask] / 255)
    f38b0:	88 16 3b 63          	mov    BYTE PTR ds:0x633b,dl
    f38b4:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
    f38b7:	eb 00                	jmp    0xf38b9
@@ -32594,7 +32677,7 @@ int do_get_version(void):
    f405d:	8b d8                	mov    bx,ax
    f405f:	ff b7 eb 2d          	push   WORD PTR [bx+0x2deb]
    f4063:	ff b7 e9 2d          	push   WORD PTR [bx+0x2de9]
-   f4067:	9a 76 11 00 e0       	call   0xe000:0x1176
+   f4067:	9a 76 11 00 e0       	call   0xe000:0x1176 ; strcpy
    f406c:	83 c4 08             	add    sp,0x8
    f406f:	eb 00                	jmp    0xf4071
    f4071:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
@@ -35626,7 +35709,7 @@ void * _cdecl alloc_font(u1, int size):
    f5e90:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    f5e93:	50                   	push   ax
    f5e94:	0e                   	push   cs
-   f5e95:	e8 96 fd             	call   0xf5c2e
+   f5e95:	e8 96 fd             	call   0xf5c2e ; alloc_font
    f5e98:	59                   	pop    cx
    f5e99:	59                   	pop    cx
    f5e9a:	89 56 fa             	mov    WORD PTR [bp-0x6],dx
@@ -36852,7 +36935,7 @@ short get_port_reg(short port):
    f6aba:	ff 36 fc 27          	push   WORD PTR ds:0x27fc
    f6abe:	b0 00                	mov    al,0x0
    f6ac0:	50                   	push   ax
-   f6ac1:	9a 6e 01 ac f5       	call   0xf5ac:0x16e
+   f6ac1:	9a 6e 01 ac f5       	call   0xf5ac:0x16e ; alloc_font
    f6ac6:	59                   	pop    cx
    f6ac7:	59                   	pop    cx
    f6ac8:	89 16 43 68          	mov    WORD PTR ds:0x6843,dx
@@ -36860,7 +36943,7 @@ short get_port_reg(short port):
    f6acf:	ff 36 fe 27          	push   WORD PTR ds:0x27fe
    f6ad3:	b0 00                	mov    al,0x0
    f6ad5:	50                   	push   ax
-   f6ad6:	9a 6e 01 ac f5       	call   0xf5ac:0x16e
+   f6ad6:	9a 6e 01 ac f5       	call   0xf5ac:0x16e ; alloc_font
    f6adb:	59                   	pop    cx
    f6adc:	59                   	pop    cx
    f6add:	89 16 2a 68          	mov    WORD PTR ds:0x682a,dx
@@ -36868,7 +36951,7 @@ short get_port_reg(short port):
    f6ae4:	ff 36 00 28          	push   WORD PTR ds:0x2800
    f6ae8:	b0 00                	mov    al,0x0
    f6aea:	50                   	push   ax
-   f6aeb:	9a 6e 01 ac f5       	call   0xf5ac:0x16e
+   f6aeb:	9a 6e 01 ac f5       	call   0xf5ac:0x16e ; alloc_font
    f6af0:	59                   	pop    cx
    f6af1:	59                   	pop    cx
    f6af2:	89 16 4e 68          	mov    WORD PTR ds:0x684e,dx
@@ -36876,7 +36959,7 @@ short get_port_reg(short port):
    f6af9:	ff 36 02 28          	push   WORD PTR ds:0x2802
    f6afd:	b0 00                	mov    al,0x0
    f6aff:	50                   	push   ax
-   f6b00:	9a 6e 01 ac f5       	call   0xf5ac:0x16e
+   f6b00:	9a 6e 01 ac f5       	call   0xf5ac:0x16e ; alloc_font
    f6b05:	59                   	pop    cx
    f6b06:	59                   	pop    cx
    f6b07:	89 16 35 68          	mov    WORD PTR ds:0x6835,dx

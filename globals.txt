@@ -13,6 +13,18 @@
 0x2811 int g_saved_sp
 0x2813 short g_runlevel
 
+0x618a int
+0x618c short
+0x618d short
+0x618e short
+0x618f short
+0x6190 
+
+0x6192 char[] g_6192
+
+0x62c7 g_num_serialtasks
+0x62ce g_serialbufsize
+
 0x632c 
 
 0x6332 
@@ -22,10 +34,11 @@
 0x6340 short g_serial
 0x6341 SERIALINFO g_si
 
+0x6348 g_6348
 0x6349 g_6349
 0x634a g_634a
 0x634b short g_cmdnum
-0x634c g_634c
+0x634c short g_serialtask
 0x634d char[256] g_inbuf
 0x644d char[5] g_inargs
 0x6502 
