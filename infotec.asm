@@ -33836,15 +33836,20 @@ parse_cmd_num:
    f4b92:	cb                   	retf   
 
 
+init_response:
    f4b93:	55                   	push   bp
    f4b94:	8b ec                	mov    bp,sp
    f4b96:	83 ec 04             	sub    sp,0x4
 ; result = RESULT_FAILED
+; byte l1
    f4b99:	c7 46 fc ff ff       	mov    WORD PTR [bp-0x4],0xffff
    f4b9e:	80 3e 14 66 00       	cmp    BYTE PTR ds:0x6614,0x0
    f4ba3:	75 03                	jne    0xf4ba8
+; if g_6614[0] != 0:
+;   return result
    f4ba5:	e9 e5 00             	jmp    0xf4c8d
    f4ba8:	80 3e 15 66 00       	cmp    BYTE PTR ds:0x6615,0x0
+; if g_6614[1] == 0:
    f4bad:	75 34                	jne    0xf4be3
    f4baf:	a0 14 66             	mov    al,ds:0x6614
    f4bb2:	b4 00                	mov    ah,0x0
@@ -33866,8 +33871,11 @@ parse_cmd_num:
    f4bd6:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    f4bdb:	59                   	pop    cx
    f4bdc:	04 d0                	add    al,0xd0
+;   l1 = FROMHEX(g_6614[1])
    f4bde:	88 46 ff             	mov    BYTE PTR [bp-0x1],al
    f4be1:	eb 69                	jmp    0xf4c4c
+
+; else:
    f4be3:	a0 14 66             	mov    al,ds:0x6614
    f4be6:	b4 00                	mov    ah,0x0
    f4be8:	50                   	push   ax
@@ -33913,6 +33921,7 @@ parse_cmd_num:
    f4c44:	04 d0                	add    al,0xd0
    f4c46:	5a                   	pop    dx
    f4c47:	02 d0                	add    dl,al
+;   l1 = FROMHEX(g_6614[0]) << 4 + FROMHEX(g_6614[1])
    f4c49:	88 56 ff             	mov    BYTE PTR [bp-0x1],dl
    f4c4c:	8a 46 ff             	mov    al,BYTE PTR [bp-0x1]
    f4c4f:	24 01                	and    al,0x1
@@ -34634,7 +34643,7 @@ process_cmd:
    f53a3:	e8 ed f7             	call   0xf4b93
    f53a6:	89 46 fe             	mov    WORD PTR [bp-0x2],ax
    f53a9:	3d fe ff             	cmp    ax,0xfffe
-;   if result = f4b93() != RESULT_OK:
+;   if result = init_response() != RESULT_OK:
 ;     goto failed
    f53ac:	75 4b                	jne    0xf53f9
    f53ae:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0 ; g_runlevel
