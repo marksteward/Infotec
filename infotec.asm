@@ -33455,12 +33455,16 @@ parse_cmd_3:
 
 
 .code
+parse_cmd_num:
    f47ef:	55                   	push   bp
    f47f0:	8b ec                	mov    bp,sp
    f47f2:	80 3e 1a 66 00       	cmp    BYTE PTR ds:0x661a,0x0
+; if g_661a[0] != 0:
    f47f7:	75 03                	jne    0xf47fc
    f47f9:	e9 a7 00             	jmp    0xf48a3
    f47fc:	80 3e 1b 66 00       	cmp    BYTE PTR ds:0x661b,0x0
+;   if g_661a[1] == 0:
+;     Single digit
    f4801:	75 34                	jne    0xf4837
    f4803:	a0 1a 66             	mov    al,ds:0x661a
    f4806:	b4 00                	mov    ah,0x0
@@ -33482,9 +33486,10 @@ parse_cmd_3:
    f482a:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    f482f:	59                   	pop    cx
    f4830:	04 d0                	add    al,0xd0
-; g_cmdnum = () - 0x30
+;     g_cmdnum = FROMHEX(g_661a[0])
    f4832:	a2 4b 63             	mov    ds:0x634b,al
    f4835:	eb 6a                	jmp    0xf48a1
+;   else:
    f4837:	a0 1a 66             	mov    al,ds:0x661a
    f483a:	b4 00                	mov    ah,0x0
    f483c:	50                   	push   ax
@@ -33530,10 +33535,11 @@ parse_cmd_3:
    f4898:	04 d0                	add    al,0xd0
    f489a:	5a                   	pop    dx
    f489b:	02 d0                	add    dl,al
-; g_cmdnum = g_661b + () - 0x30
+;     g_cmdnum = FROMHEX(g_661a[0]) << 4 + FROMHEX(g_661a[1])
    f489d:	88 16 4b 63          	mov    BYTE PTR ds:0x634b,dl
    f48a1:	eb 05                	jmp    0xf48a8
-; g_cmdnum = 0xff ; Do nothing
+; else:
+;   g_cmdnum = 0xff ; Do nothing
    f48a3:	c6 06 4b 63 ff       	mov    BYTE PTR ds:0x634b,0xff
    f48a8:	5d                   	pop    bp
    f48a9:	cb                   	retf   
@@ -34615,7 +34621,7 @@ process_cmd:
 ;     yield()
    f5386:	9a 1a 00 96 f8       	call   0xf896:0x1a ; yield
    f538b:	0e                   	push   cs
-;   f47ef()
+;   parse_cmd_num()
    f538c:	e8 60 f4             	call   0xf47ef
    f538f:	80 3e 4b 63 91       	cmp    BYTE PTR ds:0x634b,0x91
    f5394:	75 0c                	jne    0xf53a2
