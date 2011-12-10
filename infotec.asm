@@ -33151,7 +33151,7 @@ parse_varbuf:
 
 
 .code
-parse_cmd_2:
+validate_checksum:
    f44f8:	55                   	push   bp
    f44f9:	8b ec                	mov    bp,sp
    f44fb:	83 ec 06             	sub    sp,0x6
@@ -33229,21 +33229,29 @@ parse_cmd_2:
    f45b4:	04 d0                	add    al,0xd0 ; -"0"
    f45b6:	5a                   	pop    dx
    f45b7:	02 d0                	add    dl,al
+; checksum = FROMHEX(g_cmdbuf[g_cmdlen - 2]) << 4 + FROMHEX(g_cmdbuf[g_cmdlen - 1])
    f45b9:	88 56 fd             	mov    BYTE PTR [bp-0x3],dl
+
    f45bc:	c7 46 fa 00 00       	mov    WORD PTR [bp-0x6],0x0
+; for i = 0; i <= g_cmdlen - 2; i++;
    f45c1:	eb 0d                	jmp    0xf45d0
    f45c3:	8b 5e fa             	mov    bx,WORD PTR [bp-0x6]
    f45c6:	8a 87 69 02          	mov    al,BYTE PTR [bx+0x269]
+;   real_checksum ^= g_cmdbuf[i]
    f45ca:	30 46 fc             	xor    BYTE PTR [bp-0x4],al
    f45cd:	ff 46 fa             	inc    WORD PTR [bp-0x6]
    f45d0:	a1 67 02             	mov    ax,ds:0x267
    f45d3:	2d 02 00             	sub    ax,0x2
    f45d6:	3b 46 fa             	cmp    ax,WORD PTR [bp-0x6]
    f45d9:	77 e8                	ja     0xf45c3
+
    f45db:	8a 46 fd             	mov    al,BYTE PTR [bp-0x3]
    f45de:	3a 46 fc             	cmp    al,BYTE PTR [bp-0x4]
+; if checksum == real_checksum:
    f45e1:	75 05                	jne    0xf45e8
+;   result == -2
    f45e3:	c7 46 fe fe ff       	mov    WORD PTR [bp-0x2],0xfffe
+; return result
    f45e8:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
    f45eb:	eb 00                	jmp    0xf45ed
    f45ed:	8b e5                	mov    sp,bp
@@ -34563,9 +34571,9 @@ process_cmd:
 ;   g_sendresponse = 0
    f5359:	c6 06 49 63 00       	mov    BYTE PTR ds:0x6349,0x0
    f535e:	0e                   	push   cs
-   f535f:	e8 96 f1             	call   0xf44f8 ; parse_cmd_2
+   f535f:	e8 96 f1             	call   0xf44f8 ; validate_checksum
    f5362:	3d fe ff             	cmp    ax,0xfffe
-;   if parse_cmd_2() != -2:
+;   if validate_checksum() != -2:
 ;     goto failed
    f5365:	74 03                	je     0xf536a
    f5367:	e9 8f 00             	jmp    0xf53f9
