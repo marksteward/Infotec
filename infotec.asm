@@ -8567,7 +8567,7 @@ e515d(short serialtask):
    e515d:	55                   	push   bp
    e515e:	8b ec                	mov    bp,sp
    e5160:	83 ec 08             	sub    sp,0x8
-; int result = -1
+; int result = RESULT_FAILED
 ; int l1
 ; short to = 0
 ; short from = 0
@@ -9047,7 +9047,7 @@ int send_msg(short serialtask, msg, p3, p4, p5, p6, buf):
    e557a:	55                   	push   bp
    e557b:	8b ec                	mov    bp,sp
    e557d:	83 ec 02             	sub    sp,0x2
-; result = -1
+; result = RESULT_FAILED
    e5580:	c7 46 fe ff ff       	mov    WORD PTR [bp-0x2],0xffff
    e5585:	8a 46 08             	mov    al,BYTE PTR [bp+0x8]
    e5588:	b4 00                	mov    ah,0x0
@@ -21845,28 +21845,28 @@ int _cdecl load_font(short fontnum, FONTHEADER h, near *data):
    ed6ea:	8b ec                	mov    bp,sp
    ed6ec:	83 ec 02             	sub    sp,0x2
    ed6ef:	56                   	push   si
-; result = -1
+; result = RESULT_FAILED
    ed6f0:	c7 46 fe ff ff       	mov    WORD PTR [bp-0x2],0xffff
    ed6f5:	80 7e 06 08          	cmp    BYTE PTR [bp+0x6],0x8
    ed6f9:	72 03                	jb     0xed6fe
-; if fontnum >= 8 return -1
+; if fontnum >= 8 return RESULT_FAILED
    ed6fb:	e9 df 00             	jmp    0xed7dd
    ed6fe:	80 7e 08 30          	cmp    BYTE PTR [bp+0x8],0x30
    ed702:	76 03                	jbe    0xed707
-; if h.width > 48 return -1
+; if h.width > 48 return RESULT_FAILED
    ed704:	e9 d6 00             	jmp    0xed7dd
    ed707:	80 7e 09 18          	cmp    BYTE PTR [bp+0x9],0x18
    ed70b:	76 03                	jbe    0xed710
-; if h.height > 24 return -1
+; if h.height > 24 return RESULT_FAILED
    ed70d:	e9 cd 00             	jmp    0xed7dd
    ed710:	80 7e 09 01          	cmp    BYTE PTR [bp+0x9],0x1
    ed714:	77 03                	ja     0xed719
-; if h.height <= 1 return -1
+; if h.height <= 1 return RESULT_FAILED
    ed716:	e9 c4 00             	jmp    0xed7dd
    ed719:	8a 46 0a             	mov    al,BYTE PTR [bp+0xa]
    ed71c:	3a 46 0b             	cmp    al,BYTE PTR [bp+0xb]
    ed71f:	72 03                	jb     0xed724
-; if h.start >= h.end return -1
+; if h.start >= h.end return RESULT_FAILED
    ed721:	e9 b9 00             	jmp    0xed7dd
    ed724:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    ed727:	b4 00                	mov    ah,0x0
@@ -21949,7 +21949,7 @@ int _cdecl load_font(short fontnum, FONTHEADER h, near *data):
    ed7d3:	58                   	pop    ax
 ; g_fonts[fontnum].charbytes = g_fonts[fontnum].heightbytes * h.width
    ed7d4:	88 87 38 42          	mov    BYTE PTR [bx+0x4238],al
-; result = -2
+; result = RESULT_OK
    ed7d8:	c7 46 fe fe ff       	mov    WORD PTR [bp-0x2],0xfffe
 ; return result
    ed7dd:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
@@ -21968,33 +21968,33 @@ int create_user_font(short fontnum, short width, short height, short start, shor
 ; int cb
 ; short charbytes
    ed7ea:	83 ec 10             	sub    sp,0x10
-; result = -1
+; result = RESULT_FAILED
    ed7ed:	c7 46 fe ff ff       	mov    WORD PTR [bp-0x2],0xffff
    ed7f2:	80 7e 06 08          	cmp    BYTE PTR [bp+0x6],0x8
    ed7f6:	72 03                	jb     0xed7fb
-; if fontnum >= 8 return -1
+; if fontnum >= 8 return RESULT_FAILED
    ed7f8:	e9 1c 01             	jmp    0xed917
    ed7fb:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    ed7fe:	3a 06 88 01          	cmp    al,BYTE PTR ds:0x188
    ed802:	73 03                	jae    0xed807
-; if fontnum < g_builtin_fonts return -1
+; if fontnum < g_builtin_fonts return RESULT_FAILED
    ed804:	e9 10 01             	jmp    0xed917
    ed807:	80 7e 08 30          	cmp    BYTE PTR [bp+0x8],0x30
    ed80b:	76 03                	jbe    0xed810
-; if width > 48 return -1
+; if width > 48 return RESULT_FAILED
    ed80d:	e9 07 01             	jmp    0xed917
    ed810:	80 7e 0a 18          	cmp    BYTE PTR [bp+0xa],0x18
    ed814:	76 03                	jbe    0xed819
-; if height > 24 return -1
+; if height > 24 return RESULT_FAILED
    ed816:	e9 fe 00             	jmp    0xed917
    ed819:	80 7e 0a 01          	cmp    BYTE PTR [bp+0xa],0x1
    ed81d:	77 03                	ja     0xed822
-; if height <= 1 return -1
+; if height <= 1 return RESULT_FAILED
    ed81f:	e9 f5 00             	jmp    0xed917
    ed822:	8a 46 0c             	mov    al,BYTE PTR [bp+0xc]
    ed825:	3a 46 0e             	cmp    al,BYTE PTR [bp+0xe]
    ed828:	76 03                	jbe    0xed82d
-; if start >= end return -1
+; if start >= end return RESULT_FAILED
    ed82a:	e9 ea 00             	jmp    0xed917
    ed82d:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    ed830:	b4 00                	mov    ah,0x0
@@ -22062,7 +22062,7 @@ int create_user_font(short fontnum, short width, short height, short start, shor
    ed8b6:	89 56 f8             	mov    WORD PTR [bp-0x8],dx
    ed8b9:	89 46 f6             	mov    WORD PTR [bp-0xa],ax
    ed8bc:	0b c2                	or     ax,dx
-; if data == 0 return -1
+; if data == 0 return RESULT_FAILED
    ed8be:	74 57                	je     0xed917
    ed8c0:	ff 76 fa             	push   WORD PTR [bp-0x6]
    ed8c3:	33 c0                	xor    ax,ax
@@ -22114,7 +22114,7 @@ int something_font2(short fontnum, ):
    ed920:	55                   	push   bp
    ed921:	8b ec                	mov    bp,sp
    ed923:	83 ec 10             	sub    sp,0x10
-; result = -1
+; result = RESULT_FAILED
    ed926:	c7 46 fe ff ff       	mov    WORD PTR [bp-0x2],0xffff
    ed92b:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    ed92e:	b4 00                	mov    ah,0x0
@@ -22239,7 +22239,7 @@ int something_font2(short fontnum, ):
    eda7c:	f7 ea                	imul   dx
    eda7e:	c4 5e fa             	les    bx,DWORD PTR [bp-0x6]
    eda81:	26 88 07             	mov    BYTE PTR es:[bx],al
-; result = -2
+; result = RESULT_OK
    eda84:	c7 46 fe fe ff       	mov    WORD PTR [bp-0x2],0xfffe
 ; return result
    eda89:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
@@ -27038,7 +27038,7 @@ f0b23(p1, serialtask, far char *buf):
    f0b23:	55                   	push   bp
    f0b24:	8b ec                	mov    bp,sp
    f0b26:	83 ec 02             	sub    sp,0x2
-; result = -1
+; result = RESULT_FAILED
    f0b29:	c7 46 fe ff ff       	mov    WORD PTR [bp-0x2],0xffff
    f0b2e:	80 7e 06 ff          	cmp    BYTE PTR [bp+0x6],0xff
 ; if p1 < 255 &&
@@ -27114,7 +27114,7 @@ f0b23(p1, serialtask, far char *buf):
 ;   strcpy(&g_3e35[p1] + g_serialbufsize * serialtask, buf)
    f0bd4:	9a 76 11 00 e0       	call   0xe000:0x1176 ; strcpy
    f0bd9:	83 c4 08             	add    sp,0x8
-;   result = -2
+;   result = RESULT_OK
    f0bdc:	c7 46 fe fe ff       	mov    WORD PTR [bp-0x2],0xfffe
 ; return result
    f0be1:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
@@ -31060,7 +31060,7 @@ do_set_some_serialish_flag:
    f3275:	24 01                	and    al,0x1
 ; g_62d0 = g_inargs[0] & 1
    f3277:	a2 d0 62             	mov    ds:0x62d0,al
-; return -2
+; return RESULT_OK
    f327a:	b8 fe ff             	mov    ax,0xfffe
    f327d:	eb 00                	jmp    0xf327f
    f327f:	5d                   	pop    bp
@@ -31639,9 +31639,9 @@ int do_create_user_font(void):
    f372f:	55                   	push   bp
    f3730:	8b ec                	mov    bp,sp
    f3732:	83 ec 02             	sub    sp,0x2
-; result = -2
+; result = RESULT_OK
    f3735:	c7 46 fe fe ff       	mov    WORD PTR [bp-0x2],0xfffe
-; if g_cinargs < 5 return -2 ; do nothing
+; if g_cinargs < 5 return RESULT_OK ; do nothing
    f373a:	80 3e 0d 65 05       	cmp    BYTE PTR ds:0x650d,0x5
    f373f:	72 1f                	jb     0xf3760
    f3741:	a0 51 64             	mov    al,ds:0x6451
@@ -31670,7 +31670,7 @@ int do_something_font2(void):
    f3769:	55                   	push   bp
    f376a:	8b ec                	mov    bp,sp
    f376c:	83 ec 02             	sub    sp,0x2
-; result = -2
+; result = RESULT_OK
    f376f:	c7 46 fe fe ff       	mov    WORD PTR [bp-0x2],0xfffe
    f3774:	a0 0d 65             	mov    al,ds:0x650d
    f3777:	04 fe                	add    al,0xfe
@@ -31696,7 +31696,7 @@ int do_something_font2(void):
    f379a:	55                   	push   bp
    f379b:	8b ec                	mov    bp,sp
    f379d:	83 ec 02             	sub    sp,0x2
-; result = -2
+; result = RESULT_OK
    f37a0:	c7 46 fe fe ff       	mov    WORD PTR [bp-0x2],0xfffe
 ; return result
    f37a5:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
@@ -31732,7 +31732,7 @@ int do_something_font4(void):
    f37d4:	55                   	push   bp
    f37d5:	8b ec                	mov    bp,sp
    f37d7:	83 ec 02             	sub    sp,0x2
-; result = -2
+; result = RESULT_OK
    f37da:	c7 46 fe fe ff       	mov    WORD PTR [bp-0x2],0xfffe
    f37df:	a0 4d 64             	mov    al,ds:0x644d
    f37e2:	b4 00                	mov    ah,0x0
@@ -31740,7 +31740,7 @@ int do_something_font4(void):
    f37e7:	f7 ea                	imul   dx
    f37e9:	8b d8                	mov    bx,ax
    f37eb:	80 bf 35 42 01       	cmp    BYTE PTR [bx+0x4235],0x1
-; if g_fonts[g_inargs[0]].loaded != 1: return -1
+; if g_fonts[g_inargs[0]].loaded != 1: return RESULT_FAILED
    f37f0:	75 16                	jne    0xf3808
 ; g_coutargs = 1
    f37f2:	c6 06 3f 63 01       	mov    BYTE PTR ds:0x633f,0x1
@@ -31765,7 +31765,7 @@ int do_get_num_serialtasks(void):
    f3816:	55                   	push   bp
    f3817:	8b ec                	mov    bp,sp
    f3819:	83 ec 02             	sub    sp,0x2
-; result = -2
+; result = RESULT_OK
    f381c:	c7 46 fe fe ff       	mov    WORD PTR [bp-0x2],0xfffe
 ; g_coutargs = 1
    f3821:	c6 06 3f 63 01       	mov    BYTE PTR ds:0x633f,0x1
@@ -31918,7 +31918,7 @@ int do_get_something(void):
    f3979:	8a 46 fe             	mov    al,BYTE PTR [bp-0x2]
 ; g_outargs[2] = u1[2]
    f397c:	a2 3c 63             	mov    ds:0x633c,al
-; return -2
+; return RESULT_OK
    f397f:	b8 fe ff             	mov    ax,0xfffe
    f3982:	eb 00                	jmp    0xf3984
    f3984:	8b e5                	mov    sp,bp
@@ -31950,7 +31950,7 @@ int do_get_date(void):
    f39b1:	f7 f3                	div    bx
 ; g_outargs[2] = date.year % 100
    f39b3:	88 16 3c 63          	mov    BYTE PTR ds:0x633c,dl
-; return -2
+; return RESULT_OK
    f39b7:	b8 fe ff             	mov    ax,0xfffe
    f39ba:	eb 00                	jmp    0xf39bc
    f39bc:	8b e5                	mov    sp,bp
@@ -31975,7 +31975,7 @@ int do_get_version(void):
 ; g_outargs[1] = 7
    f39da:	c6 06 3b 63 07       	mov    BYTE PTR ds:0x633b,0x7
    f39df:	b8 fe ff             	mov    ax,0xfffe
-; result = -2
+; result = RESULT_OK
    f39e2:	eb 00                	jmp    0xf39e4
    f39e4:	8b e5                	mov    sp,bp
    f39e6:	5d                   	pop    bp
@@ -32860,7 +32860,7 @@ parse_varbuf:
    f41fa:	55                   	push   bp
    f41fb:	8b ec                	mov    bp,sp
    f41fd:	83 ec 04             	sub    sp,0x4
-; result = -1
+; result = RESULT_FAILED
    f4200:	c7 46 fe ff ff       	mov    WORD PTR [bp-0x2],0xffff
 ; g_runlevel++
    f4205:	ff 06 13 28          	inc    WORD PTR ds:0x2813 ; g_runlevel
@@ -33155,7 +33155,7 @@ validate_checksum:
    f44f8:	55                   	push   bp
    f44f9:	8b ec                	mov    bp,sp
    f44fb:	83 ec 06             	sub    sp,0x6
-; result = -1
+; result = RESULT_FAILED
    f44fe:	c7 46 fe ff ff       	mov    WORD PTR [bp-0x2],0xffff
    f4503:	c6 46 fc 00          	mov    BYTE PTR [bp-0x4],0x0
    f4507:	8b 1e 67 02          	mov    bx,WORD PTR ds:0x267 ; g_cmdlen
@@ -33168,7 +33168,8 @@ validate_checksum:
    f451a:	80 bf 69 02 63       	cmp    BYTE PTR [bx+0x269],0x63 ; "c"
 ;     && g_cmdbuf[g_cmdlen - 2] == 'c'):
    f451f:	75 08                	jne    0xf4529
-;   result = -2; return
+;   result = RESULT_OK
+;   return result
    f4521:	c7 46 fe fe ff       	mov    WORD PTR [bp-0x2],0xfffe
    f4526:	e9 bf 00             	jmp    0xf45e8
 
@@ -33249,7 +33250,7 @@ validate_checksum:
    f45de:	3a 46 fc             	cmp    al,BYTE PTR [bp-0x4]
 ; if checksum == real_checksum:
    f45e1:	75 05                	jne    0xf45e8
-;   result == -2
+;   result == RESULT_OK
    f45e3:	c7 46 fe fe ff       	mov    WORD PTR [bp-0x2],0xfffe
 ; return result
    f45e8:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
@@ -33515,7 +33516,7 @@ parse_cmd_3:
 ; g_cmdnum = g_661b + () - 0x30
    f489d:	88 16 4b 63          	mov    BYTE PTR ds:0x634b,dl
    f48a1:	eb 05                	jmp    0xf48a8
-; g_cmdnum = -1
+; g_cmdnum = 0xff ; Do nothing
    f48a3:	c6 06 4b 63 ff       	mov    BYTE PTR ds:0x634b,0xff
    f48a8:	5d                   	pop    bp
    f48a9:	cb                   	retf   
@@ -33683,7 +33684,7 @@ parse_cmd_3:
    f4a4e:	b4 00                	mov    ah,0x0
    f4a50:	8b d8                	mov    bx,ax
    f4a52:	80 bf 0e 65 ff       	cmp    BYTE PTR [bx+0x650e],0xff
-; if g_cmd_lookup[g_cmdnum] == 0xff return -2
+; if g_cmd_lookup[g_cmdnum] == 0xff return RESULT_OK
    f4a57:	75 03                	jne    0xf4a5c
    f4a59:	e9 29 01             	jmp    0xf4b85
    f4a5c:	a0 4b 63             	mov    al,ds:0x634b
@@ -33815,6 +33816,7 @@ parse_cmd_3:
    f4b93:	55                   	push   bp
    f4b94:	8b ec                	mov    bp,sp
    f4b96:	83 ec 04             	sub    sp,0x4
+; result = RESULT_FAILED
    f4b99:	c7 46 fc ff ff       	mov    WORD PTR [bp-0x4],0xffff
    f4b9e:	80 3e 14 66 00       	cmp    BYTE PTR ds:0x6614,0x0
    f4ba3:	75 03                	jne    0xf4ba8
@@ -33915,7 +33917,9 @@ parse_cmd_3:
    f4c7e:	c6 06 34 63 fe       	mov    BYTE PTR ds:0x6334,0xfe
 ; g_outargs[2] = -2
    f4c83:	c6 06 35 63 fe       	mov    BYTE PTR ds:0x6335,0xfe
+; result = RESULT_OK
    f4c88:	c7 46 fc fe ff       	mov    WORD PTR [bp-0x4],0xfffe
+; return result
    f4c8d:	8b 46 fc             	mov    ax,WORD PTR [bp-0x4]
    f4c90:	eb 00                	jmp    0xf4c92
    f4c92:	8b e5                	mov    sp,bp
@@ -34164,7 +34168,7 @@ int do_cmd(void):
    f4e7c:	74 08                	je     0xf4e86
    f4e7e:	83 c3 02             	add    bx,0x2
    f4e81:	e2 f3                	loop   0xf4e76
-;   default: return -1
+;   default: return RESULT_FAILED
    f4e83:	e9 7f 02             	jmp    0xf5105
    f4e86:	2e ff a7 a2 00       	jmp    WORD PTR cs:[bx+0xa2]
 ;   case 0x80:
@@ -34413,7 +34417,7 @@ int do_cmd(void):
    f50fd:	9a e6 18 90 f2       	call   0xf290:0x18e6
    f5102:	e9 8b fd             	jmp    0xf4e90
    f5105:	c7 46 fe ff ff       	mov    WORD PTR [bp-0x2],0xffff
-; return -1
+; return RESULT_FAILED
    f510a:	eb 00                	jmp    0xf510c
 ; return result
    f510c:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
@@ -34455,7 +34459,7 @@ process_cmd:
    f525c:	83 ec 02             	sub    sp,0x2
 ; #define FROMHEX(c) toupper(c) > '9' ? toupper(c) - 'A' + 10 : toupper(c) - '0'
 ; #define IGNOREFLAGS (1 << 7)
-; result = -1
+; result = RESULT_FAILED
    f525f:	c7 46 fe ff ff       	mov    WORD PTR [bp-0x2],0xffff
    f5264:	80 3e 6b 02 23       	cmp    BYTE PTR ds:0x26b,0x23 ; '#'
 ; if g_cmdbuf[2] == '#':
@@ -34573,7 +34577,7 @@ process_cmd:
    f535e:	0e                   	push   cs
    f535f:	e8 96 f1             	call   0xf44f8 ; validate_checksum
    f5362:	3d fe ff             	cmp    ax,0xfffe
-;   if validate_checksum() != -2:
+;   if validate_checksum() != RESULT_OK:
 ;     goto failed
    f5365:	74 03                	je     0xf536a
    f5367:	e9 8f 00             	jmp    0xf53f9
@@ -34585,7 +34589,7 @@ process_cmd:
    f5376:	0e                   	push   cs
    f5377:	e8 77 f2             	call   0xf45f1 ; parse_cmd_3
    f537a:	3d fe ff             	cmp    ax,0xfffe
-;   if parse_cmd_3() != -2:
+;   if parse_cmd_3() != RESULT_OK:
 ;     goto failed
    f537d:	75 7a                	jne    0xf53f9
    f537f:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0 ; g_runlevel
@@ -34607,7 +34611,7 @@ process_cmd:
    f53a3:	e8 ed f7             	call   0xf4b93
    f53a6:	89 46 fe             	mov    WORD PTR [bp-0x2],ax
    f53a9:	3d fe ff             	cmp    ax,0xfffe
-;   if result = f4b93() != -2:
+;   if result = f4b93() != RESULT_OK:
 ;     goto failed
    f53ac:	75 4b                	jne    0xf53f9
    f53ae:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0 ; g_runlevel
@@ -34619,7 +34623,7 @@ process_cmd:
    f53bb:	e8 82 f6             	call   0xf4a40
    f53be:	89 46 fe             	mov    WORD PTR [bp-0x2],ax
    f53c1:	3d fe ff             	cmp    ax,0xfffe
-;   if result = f4a40() != -2:
+;   if result = f4a40() != RESULT_OK:
 ;     goto failed
    f53c4:	75 33                	jne    0xf53f9
    f53c6:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0 ; g_runlevel
@@ -34651,7 +34655,7 @@ process_cmd:
 ; failed:
    f53f9:	83 7e fe fe          	cmp    WORD PTR [bp-0x2],0xfffffffe
    f53fd:	75 04                	jne    0xf5403
-;   if result == -2:
+;   if result == RESULT_OK:
 ;     g_cmdseq++
    f53ff:	fe 06 39 63          	inc    BYTE PTR ds:0x6339
    f5403:	80 3e 49 63 01       	cmp    BYTE PTR ds:0x6349,0x1
@@ -34940,7 +34944,7 @@ parse_cmd:
 
    f5625:	9a 1f 05 09 f2       	call   0xf209:0x51f
    f562a:	3d fe ff             	cmp    ax,0xfffe
-;   if f25af() == -2:
+;   if f25af() == RESULT_OK:
    f562d:	75 04                	jne    0xf5633
    f562f:	0e                   	push   cs
 ;     do_cmd()
@@ -35119,7 +35123,7 @@ int load_builtin_fonts():
    f5776:	55                   	push   bp
    f5777:	8b ec                	mov    bp,sp
    f5779:	83 ec 02             	sub    sp,0x2
-; result = -2
+; result = RESULT_OK
    f577c:	c7 46 fe fe ff       	mov    WORD PTR [bp-0x2],0xfffe
    f5781:	80 3e 15 68 01       	cmp    BYTE PTR ds:0x6815,0x1
 ; if g_6815 == 1
@@ -35178,7 +35182,7 @@ int load_builtin_fonts():
    f5801:	9a 88 02 45 f0       	call   0xf045:0x288
    f5806:	89 46 fe             	mov    WORD PTR [bp-0x2],ax
    f5809:	3d ff ff             	cmp    ax,0xffff
-; if result != -1 return result
+; if result != RESULT_FAILED return result
    f580c:	75 00                	jne    0xf580e
    f580e:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
    f5811:	eb 00                	jmp    0xf5813
@@ -35209,7 +35213,7 @@ main:
    f5837:	9a cd 00 00 e0       	call   0xe000:0xcd ; memcpy
    f583c:	9a 8b 05 45 f0       	call   0xf045:0x58b ; init_boot_serial
    f5841:	3d fe ff             	cmp    ax,0xfffe
-; if init_boot_serial() != -2: return
+; if init_boot_serial() != RESULT_OK: return
    f5844:	75 68                	jne    0xf58ae
 
 ; f28bb()
@@ -38293,7 +38297,7 @@ open_serial(short num, int speed, short word, short stop, short p1):
 ; result = _open_serial(num, si)
    f7781:	89 46 fe             	mov    WORD PTR [bp-0x2],ax
    f7784:	83 7e fe fe          	cmp    WORD PTR [bp-0x2],0xfffffffe
-; if result == -2:
+; if result == RESULT_OK:
    f7788:	75 1d                	jne    0xf77a7
    f778a:	80 7e 06 00          	cmp    BYTE PTR [bp+0x6],0x0
    f778e:	75 05                	jne    0xf7795
@@ -38750,7 +38754,7 @@ add_task(task, p2, p3, far void *addr):
    f7bd9:	8b ec                	mov    bp,sp
    f7bdb:	83 ec 02             	sub    sp,0x2
    f7bde:	56                   	push   si
-; result = -1
+; result = RESULT_FAILED
    f7bdf:	c7 46 fe ff ff       	mov    WORD PTR [bp-0x2],0xffff
 
    f7be4:	80 7e 06 0f          	cmp    BYTE PTR [bp+0x6],0xf
@@ -38794,7 +38798,7 @@ add_task(task, p2, p3, far void *addr):
 ;   g_tasks[task].u7 = p3
    f7c35:	88 97 6f 68          	mov    BYTE PTR [bx+0x686f],dl
 
-;   result = -2
+;   result = RESULT_OK
    f7c39:	c7 46 fe fe ff       	mov    WORD PTR [bp-0x2],0xfffe
 ;   g_numtasks++
    f7c3e:	ff 06 0f 28          	inc    WORD PTR ds:0x280f
@@ -38811,7 +38815,7 @@ add_task(task, p2, p3, far void *addr):
    f7c4c:	55                   	push   bp
    f7c4d:	8b ec                	mov    bp,sp
    f7c4f:	83 ec 02             	sub    sp,0x2
-; result = -1
+; result = RESULT_FAILED
    f7c52:	c7 46 fe ff ff       	mov    WORD PTR [bp-0x2],0xffff
    f7c57:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    f7c5a:	b4 00                	mov    ah,0x0
@@ -38825,7 +38829,7 @@ add_task(task, p2, p3, far void *addr):
    f7c6b:	8b d8                	mov    bx,ax
 ;   g_tasks[task].u1 = 1
    f7c6d:	c6 87 68 68 01       	mov    BYTE PTR [bx+0x6868],0x1
-;   result = -2
+;   result = RESULT_OK
    f7c72:	c7 46 fe fe ff       	mov    WORD PTR [bp-0x2],0xfffe
 ; return result
    f7c77:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
@@ -38924,7 +38928,7 @@ add_processor(short task, long addr):
    f7d48:	8b d8                	mov    bx,ax
 ; g_tasks[task].u1 = 1
    f7d4a:	c6 87 68 68 01       	mov    BYTE PTR [bx+0x6868],0x1
-; result = -2
+; result = RESULT_OK
    f7d4f:	c7 46 fa fe ff       	mov    WORD PTR [bp-0x6],0xfffe
    f7d54:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    f7d57:	b4 00                	mov    ah,0x0
@@ -38958,7 +38962,7 @@ add_processor(short task, long addr):
    f7d88:	8b d8                	mov    bx,ax
 ; g_tasks[task].u1 = 2
    f7d8a:	c6 87 68 68 02       	mov    BYTE PTR [bx+0x6868],0x2
-; result = -2
+; result = RESULT_OK
    f7d8f:	c7 46 fe fe ff       	mov    WORD PTR [bp-0x2],0xfffe
    f7d94:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    f7d97:	b4 00                	mov    ah,0x0
