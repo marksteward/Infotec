@@ -29699,6 +29699,7 @@ f0b23(p1, serialtask, far char *buf):
    f260b:	8d 86 b2 fe          	lea    ax,[bp-0x14e]
    f260f:	50                   	push   ax
    f2610:	0e                   	push   cs
+; f24eb(&u1, &g_inflags)
    f2611:	e8 d7 fe             	call   0xf24eb
    f2614:	59                   	pop    cx
    f2615:	59                   	pop    cx
@@ -32861,7 +32862,7 @@ parse_varbuf:
    f41fd:	83 ec 04             	sub    sp,0x4
 ; result = -1
    f4200:	c7 46 fe ff ff       	mov    WORD PTR [bp-0x2],0xffff
-; g_2813++
+; g_runlevel++
    f4205:	ff 06 13 28          	inc    WORD PTR ds:0x2813 ; g_runlevel
    f4209:	8b 1e 9a 01          	mov    bx,WORD PTR ds:0x19a
 ; g_varbuf[g_varlen] = 0
@@ -33882,6 +33883,7 @@ parse_cmd_3:
    f4c49:	88 56 ff             	mov    BYTE PTR [bp-0x1],dl
    f4c4c:	8a 46 ff             	mov    al,BYTE PTR [bp-0x1]
    f4c4f:	24 01                	and    al,0x1
+; g_sendresponse = l1 & 0x1
    f4c51:	a2 49 63             	mov    ds:0x6349,al
    f4c54:	f6 46 ff 02          	test   BYTE PTR [bp-0x1],0x2
    f4c58:	75 05                	jne    0xf4c5f
@@ -33891,7 +33893,7 @@ parse_cmd_3:
 ; g_634a = 0
    f4c61:	a2 4a 63             	mov    ds:0x634a,al
    f4c64:	a0 48 63             	mov    al,ds:0x6348
-; g_6332 = g_6348
+; g_outflags = g_inflags
    f4c67:	a2 32 63             	mov    ds:0x6332,al
 ; g_coutargs = 0
    f4c6a:	c6 06 3f 63 00       	mov    BYTE PTR ds:0x633f,0x0
@@ -34099,7 +34101,7 @@ send_response:
    f4e11:	50                   	push   ax
    f4e12:	8d 46 8c             	lea    ax,[bp-0x74]
    f4e15:	50                   	push   ax
-; sprintf(&buf, ">%02X#%02X#%02X#%s#", g_6332, u1, g_6339, &linebuf)
+; sprintf(&buf, ">%02X#%02X#%02X#%s#", g_outflags, u1, g_cmdseq, &linebuf)
    f4e16:	9a 59 0f 00 e0       	call   0xe000:0xf59 ; sprintf
    f4e1b:	83 c4 0c             	add    sp,0xc
 
@@ -34443,13 +34445,19 @@ process_cmd:
    f5259:	55                   	push   bp
    f525a:	8b ec                	mov    bp,sp
    f525c:	83 ec 02             	sub    sp,0x2
+; #define FROMHEX(c) toupper(c) > '9' ? toupper(c) - 'A' + 10 : toupper(c) - '0'
+; #define IGNOREFLAGS (1 << 7)
+; result = -1
    f525f:	c7 46 fe ff ff       	mov    WORD PTR [bp-0x2],0xffff
-   f5264:	80 3e 6b 02 23       	cmp    BYTE PTR ds:0x26b,0x23 ; #
+   f5264:	80 3e 6b 02 23       	cmp    BYTE PTR ds:0x26b,0x23 ; '#'
+; if g_cmdbuf[2] == '#':
+;   Single digit number
    f5269:	75 43                	jne    0xf52ae
    f526b:	a0 6a 02             	mov    al,ds:0x26a
    f526e:	b4 00                	mov    ah,0x0
    f5270:	8b d8                	mov    bx,ax
    f5272:	f6 87 07 26 12       	test   BYTE PTR [bx+0x2607],0x12 ; isxdigit
+;   if isxdigit(g_cmdbuf[1]):
    f5277:	74 32                	je     0xf52ab
    f5279:	a0 6a 02             	mov    al,ds:0x26a
    f527c:	b4 00                	mov    ah,0x0
@@ -34465,7 +34473,6 @@ process_cmd:
    f5295:	59                   	pop    cx
    f5296:	04 c9                	add    al,0xc9
    f5298:	eb 0e                	jmp    0xf52a8
-
    f529a:	a0 6a 02             	mov    al,ds:0x26a
    f529d:	b4 00                	mov    ah,0x0
    f529f:	50                   	push   ax
@@ -34473,7 +34480,10 @@ process_cmd:
    f52a5:	59                   	pop    cx
    f52a6:	04 d0                	add    al,0xd0
    f52a8:	a2 48 63             	mov    ds:0x6348,al
+;     g_inflags = FROMHEX(g_cmdbuf[1])
    f52ab:	e9 86 00             	jmp    0xf5334
+; else:
+;   Double digit number
    f52ae:	a0 6a 02             	mov    al,ds:0x26a
    f52b1:	b4 00                	mov    ah,0x0
    f52b3:	8b d8                	mov    bx,ax
@@ -34483,6 +34493,7 @@ process_cmd:
    f52bf:	b4 00                	mov    ah,0x0
    f52c1:	8b d8                	mov    bx,ax
    f52c3:	f6 87 07 26 12       	test   BYTE PTR [bx+0x2607],0x12 ; isxdigit
+;   if isxdigit(g_cmdbuf[2]) && isxdigit(g_cmdbuf[1]):
    f52c8:	74 6a                	je     0xf5334
    f52ca:	a0 6a 02             	mov    al,ds:0x26a
    f52cd:	b4 00                	mov    ah,0x0
@@ -34507,6 +34518,7 @@ process_cmd:
    f52f9:	b1 04                	mov    cl,0x4
    f52fb:	d2 e0                	shl    al,cl
    f52fd:	50                   	push   ax
+
    f52fe:	a0 6b 02             	mov    al,ds:0x26b
    f5301:	b4 00                	mov    ah,0x0
    f5303:	50                   	push   ax
@@ -34529,7 +34541,9 @@ process_cmd:
    f532b:	04 d0                	add    al,0xd0
    f532d:	5a                   	pop    dx
    f532e:	02 d0                	add    dl,al
+;     g_inflags = FROMHEX(g_cmdbuf[1]) << 4 + FROMHEX(g_cmdbuf[2])
    f5330:	88 16 48 63          	mov    BYTE PTR ds:0x6348,dl
+
    f5334:	a0 48 63             	mov    al,ds:0x6348
    f5337:	3a 06 c6 62          	cmp    al,BYTE PTR ds:0x62c6
    f533b:	74 10                	je     0xf534d
@@ -34539,86 +34553,126 @@ process_cmd:
    f5345:	3d 80 00             	cmp    ax,0x80
    f5348:	74 03                	je     0xf534d
    f534a:	e9 ea 00             	jmp    0xf5437
+; if g_inflags == g_serialflags or g_inflags & IGNOREFLAGS == IGNOREFLAGS:
+
    f534d:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0 ; g_runlevel
    f5352:	75 05                	jne    0xf5359
+;   if g_runlevel == 0;
+;     yield()
    f5354:	9a 1a 00 96 f8       	call   0xf896:0x1a ; yield
+;   g_sendresponse = 0
    f5359:	c6 06 49 63 00       	mov    BYTE PTR ds:0x6349,0x0
    f535e:	0e                   	push   cs
    f535f:	e8 96 f1             	call   0xf44f8 ; parse_cmd_2
    f5362:	3d fe ff             	cmp    ax,0xfffe
+;   if parse_cmd_2() != -2:
+;     goto failed
    f5365:	74 03                	je     0xf536a
    f5367:	e9 8f 00             	jmp    0xf53f9
    f536a:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0 ; g_runlevel
    f536f:	75 05                	jne    0xf5376
+;   if g_runlevel == 0:
+;     yield()
    f5371:	9a 1a 00 96 f8       	call   0xf896:0x1a ; yield
    f5376:	0e                   	push   cs
    f5377:	e8 77 f2             	call   0xf45f1 ; parse_cmd_3
    f537a:	3d fe ff             	cmp    ax,0xfffe
+;   if parse_cmd_3() != -2:
+;     goto failed
    f537d:	75 7a                	jne    0xf53f9
    f537f:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0 ; g_runlevel
    f5384:	75 05                	jne    0xf538b
+;   if g_runlevel == 0;
+;     yield()
    f5386:	9a 1a 00 96 f8       	call   0xf896:0x1a ; yield
    f538b:	0e                   	push   cs
+;   f47ef()
    f538c:	e8 60 f4             	call   0xf47ef
    f538f:	80 3e 4b 63 91       	cmp    BYTE PTR ds:0x634b,0x91
    f5394:	75 0c                	jne    0xf53a2
    f5396:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0 ; g_runlevel
    f539b:	75 05                	jne    0xf53a2
+;   if g_634b == 0x91 && g_runlevel == 0:
+;     yield()
    f539d:	9a 1a 00 96 f8       	call   0xf896:0x1a ; yield
    f53a2:	0e                   	push   cs
    f53a3:	e8 ed f7             	call   0xf4b93
    f53a6:	89 46 fe             	mov    WORD PTR [bp-0x2],ax
    f53a9:	3d fe ff             	cmp    ax,0xfffe
+;   if result = f4b93() != -2:
+;     goto failed
    f53ac:	75 4b                	jne    0xf53f9
    f53ae:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0 ; g_runlevel
    f53b3:	75 05                	jne    0xf53ba
+;   if g_runlevel == 0:
+;     yield()
    f53b5:	9a 1a 00 96 f8       	call   0xf896:0x1a ; yield
    f53ba:	0e                   	push   cs
    f53bb:	e8 82 f6             	call   0xf4a40
    f53be:	89 46 fe             	mov    WORD PTR [bp-0x2],ax
    f53c1:	3d fe ff             	cmp    ax,0xfffe
+;   if result = f4a40() != -2:
+;     goto failed
    f53c4:	75 33                	jne    0xf53f9
    f53c6:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0 ; g_runlevel
    f53cb:	75 05                	jne    0xf53d2
+;   if g_runlevel == 0:
+;     yield()
    f53cd:	9a 1a 00 96 f8       	call   0xf896:0x1a ; yield
    f53d2:	80 3e 2b 63 01       	cmp    BYTE PTR ds:0x632b,0x1
+;   if g_632b == 1:
    f53d7:	75 0a                	jne    0xf53e3
    f53d9:	b8 48 63             	mov    ax,0x6348
    f53dc:	50                   	push   ax
+;     f20f8(&g_inflags)
    f53dd:	9a 68 00 09 f2       	call   0xf209:0x68
    f53e2:	59                   	pop    cx
+
    f53e3:	0e                   	push   cs
+;   do_cmd()
    f53e4:	e8 7b fa             	call   0xf4e62 ; far do_cmd
    f53e7:	8a 46 fe             	mov    al,BYTE PTR [bp-0x2]
    f53ea:	a2 37 63             	mov    ds:0x6337,al
+;   g_6337 = result
    f53ed:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0 ; g_runlevel
    f53f2:	75 05                	jne    0xf53f9
+;   if g_runlevel == 0:
+;     yield()
    f53f4:	9a 1a 00 96 f8       	call   0xf896:0x1a ; yield
+
+; failed:
    f53f9:	83 7e fe fe          	cmp    WORD PTR [bp-0x2],0xfffffffe
    f53fd:	75 04                	jne    0xf5403
+;   if result == -2:
+;     g_cmdseq++
    f53ff:	fe 06 39 63          	inc    BYTE PTR ds:0x6339
    f5403:	80 3e 49 63 01       	cmp    BYTE PTR ds:0x6349,0x1
-
-; if g_6349 == 1:
    f5408:	75 21                	jne    0xf542b
    f540a:	a0 48 63             	mov    al,ds:0x6348
    f540d:	b4 00                	mov    ah,0x0
    f540f:	25 80 00             	and    ax,0x80
    f5412:	3d 80 00             	cmp    ax,0x80
+;   if g_sendresponse == 1 and g_inflags & IGNOREFLAGS != IGNOREFLAGS:
    f5415:	74 14                	je     0xf542b
    f5417:	8a 46 fe             	mov    al,BYTE PTR [bp-0x2]
+;     g_6333 = result
    f541a:	a2 33 63             	mov    ds:0x6333,al
    f541d:	0e                   	push   cs
+;     send_response()
    f541e:	e8 75 f8             	call   0xf4c96 ; send_response
    f5421:	c6 06 39 63 00       	mov    BYTE PTR ds:0x6339,0x0
    f5426:	c6 06 c8 62 00       	mov    BYTE PTR ds:0x62c8,0x0
+;     g_cmdseq = 0
+;     g_62c8 = 0
 
    f542b:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0 ; g_runlevel
-; if g_runlevel == 0:
+;   if g_runlevel == 0:
    f5430:	75 05                	jne    0xf5437
+;     yield()
    f5432:	9a 1a 00 96 f8       	call   0xf896:0x1a ; yield
 
    f5437:	80 3e bb 62 00       	cmp    BYTE PTR ds:0x62bb,0x0
+; if g_62bb
    f543c:	74 03                	je     0xf5441
    f543e:	fa                   	cli    
    f543f:	eb fe                	jmp    0xf543f
@@ -35012,6 +35066,7 @@ init_real_serial:
    f5714:	ff 46 fe             	inc    WORD PTR [bp-0x2]
    f5717:	83 7e fe 0a          	cmp    WORD PTR [bp-0x2],0xa
    f571b:	7c dc                	jl     0xf56f9
+; g_cmdseq = 0
    f571d:	c6 06 39 63 00       	mov    BYTE PTR ds:0x6339,0x0
    f5722:	b8 00 01             	mov    ax,0x100
    f5725:	50                   	push   ax
@@ -35036,6 +35091,7 @@ init_real_serial:
    f575a:	7c e1                	jl     0xf573d
    f575c:	9a c8 03 3b f9       	call   0xf93b:0x3c8 ; get_serial_flags
    f5761:	24 1f                	and    al,0x1f
+; g_serialflags = get_serial_flags() & 0x1f
    f5763:	a2 c6 62             	mov    ds:0x62c6,al
    f5766:	8b e5                	mov    sp,bp
    f5768:	5d                   	pop    bp

@@ -22,19 +22,20 @@
 
 0x6192 char[] g_6192
 
+0x62c6 g_serialflags
 0x62c7 g_num_serialtasks
 0x62ce g_serialbufsize
 
 0x632c 
 
-0x6332 
-0x6339 
+0x6332 short g_outflags
+0x6339 short g_cmdseq
 0x633a char[5] g_outargs
 0x633f short g_coutargs
 0x6340 short g_serial
 0x6341 SERIALINFO g_si
 
-0x6348 g_6348
+0x6348 g_inflags
 0x6349 g_6349
 0x634a g_634a
 0x634b short g_cmdnum
