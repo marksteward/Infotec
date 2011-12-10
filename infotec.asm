@@ -24991,19 +24991,24 @@ unload_font:
 
 
 .code
+parsehex(len, far char *str, word *digit):
    ef605:	55                   	push   bp
    ef606:	8b ec                	mov    bp,sp
    ef608:	83 ec 04             	sub    sp,0x4
+; val = 0
    ef60b:	c7 46 fe 00 00       	mov    WORD PTR [bp-0x2],0x0
+; for i = 0; i < len; i++:
    ef610:	c7 46 fc 00 00       	mov    WORD PTR [bp-0x4],0x0
    ef615:	e9 8a 00             	jmp    0xef6a2
    ef618:	8b 5e 0c             	mov    bx,WORD PTR [bp+0xc]
    ef61b:	ff 07                	inc    WORD PTR [bx]
+;   *digit++
    ef61d:	8b 5e 0c             	mov    bx,WORD PTR [bp+0xc]
    ef620:	c4 46 08             	les    ax,DWORD PTR [bp+0x8]
    ef623:	03 07                	add    ax,WORD PTR [bx]
    ef625:	8b d8                	mov    bx,ax
    ef627:	26 80 3f 00          	cmp    BYTE PTR es:[bx],0x0
+;   if str[*digit]:
    ef62b:	74 6b                	je     0xef698
    ef62d:	8b 5e 0c             	mov    bx,WORD PTR [bp+0xc]
    ef630:	c4 46 08             	les    ax,DWORD PTR [bp+0x8]
@@ -25037,6 +25042,7 @@ unload_font:
    ef673:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    ef678:	59                   	pop    cx
    ef679:	05 d0 ff             	add    ax,0xffd0
+;     nibble = FROMHEX(str[*digit])
    ef67c:	8a 56 fc             	mov    dl,BYTE PTR [bp-0x4]
    ef67f:	fe c2                	inc    dl
    ef681:	8a 5e 06             	mov    bl,BYTE PTR [bp+0x6]
@@ -25047,16 +25053,23 @@ unload_font:
    ef68d:	8a cb                	mov    cl,bl
    ef68f:	d3 e2                	shl    dx,cl
    ef691:	f7 ea                	imul   dx
+;     val += nibble * 1 << ((len - i) << 2)
    ef693:	01 46 fe             	add    WORD PTR [bp-0x2],ax
    ef696:	eb 07                	jmp    0xef69f
+;   else:
+;     val = -1
+;     break
    ef698:	c7 46 fe ff ff       	mov    WORD PTR [bp-0x2],0xffff
    ef69d:	eb 10                	jmp    0xef6af
+
    ef69f:	ff 46 fc             	inc    WORD PTR [bp-0x4]
    ef6a2:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    ef6a5:	b4 00                	mov    ah,0x0
    ef6a7:	3b 46 fc             	cmp    ax,WORD PTR [bp-0x4]
    ef6aa:	7e 03                	jle    0xef6af
    ef6ac:	e9 69 ff             	jmp    0xef618
+
+; return val
    ef6af:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
    ef6b2:	eb 00                	jmp    0xef6b4
    ef6b4:	8b e5                	mov    sp,bp
@@ -25319,6 +25332,7 @@ interesting:
    ef998:	50                   	push   ax
    ef999:	0e                   	push   cs
    ef99a:	e8 68 fc             	call   0xef605
+; parsehex(2, p3, &l2)
    ef99d:	83 c4 08             	add    sp,0x8
    ef9a0:	89 46 ec             	mov    WORD PTR [bp-0x14],ax
    ef9a3:	3d ff ff             	cmp    ax,0xffff
@@ -25545,6 +25559,7 @@ interesting:
    efbd0:	50                   	push   ax
    efbd1:	0e                   	push   cs
    efbd2:	e8 30 fa             	call   0xef605
+; parsehex(2, p3, &l2)
    efbd5:	83 c4 08             	add    sp,0x8
    efbd8:	89 46 ec             	mov    WORD PTR [bp-0x14],ax
    efbdb:	3d ff ff             	cmp    ax,0xffff
@@ -25695,6 +25710,7 @@ interesting:
    efd4d:	50                   	push   ax
    efd4e:	0e                   	push   cs
    efd4f:	e8 b3 f8             	call   0xef605
+; parsehex(1, p3, &l2)
    efd52:	83 c4 08             	add    sp,0x8
    efd55:	89 46 ec             	mov    WORD PTR [bp-0x14],ax
    efd58:	3d ff ff             	cmp    ax,0xffff
@@ -25838,6 +25854,7 @@ interesting:
    efecb:	50                   	push   ax
    efecc:	0e                   	push   cs
    efecd:	e8 35 f7             	call   0xef605
+; parsehex(2, p3, &l2)
    efed0:	83 c4 08             	add    sp,0x8
    efed3:	89 46 ea             	mov    WORD PTR [bp-0x16],ax
    efed6:	3d ff ff             	cmp    ax,0xffff
