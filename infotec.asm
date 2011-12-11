@@ -33277,14 +33277,31 @@ validate_checksum:
    f45f0:	cb                   	retf   
 
 
-parse_cmd_3:
+struct CMDBUFS {
+  char[2] arg0;
+  long u0;
+  char[2] arg1;
+  long u1;
+  char[2] arg2;
+  long u2;
+  char[2] arg3;
+  long u3;
+  char[470] arg5;
+}
+
+parse_cmdbufs:
    f45f1:	55                   	push   bp
    f45f2:	8b ec                	mov    bp,sp
    f45f4:	83 ec 0a             	sub    sp,0xa
+; bool invalid = 0
+; int bufpos = 0
+; int bufnum = 0
+; int result = RESULT_FAILED
    f45f7:	c6 46 fe 00          	mov    BYTE PTR [bp-0x2],0x0
    f45fb:	c7 46 fc 00 00       	mov    WORD PTR [bp-0x4],0x0
    f4600:	c7 46 fa 00 00       	mov    WORD PTR [bp-0x6],0x0
    f4605:	c7 46 f8 ff ff       	mov    WORD PTR [bp-0x8],0xffff
+; int pos = 1
    f460a:	c7 46 f6 01 00       	mov    WORD PTR [bp-0xa],0x1
    f460f:	b8 ee 01             	mov    ax,0x1ee
    f4612:	50                   	push   ax
@@ -33292,7 +33309,7 @@ parse_cmd_3:
    f4615:	50                   	push   ax
    f4616:	b8 0e 66             	mov    ax,0x660e
    f4619:	50                   	push   ax
-; memset(g_660e, 0, sizeof(g_660e))
+; memset(&g_cmdbufs, 0, sizeof(g_cmdbufs))
    f461a:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; memset
    f461f:	83 c4 06             	add    sp,0x6
    f4622:	b8 00 01             	mov    ax,0x100
@@ -33306,141 +33323,208 @@ parse_cmd_3:
    f4632:	83 c4 06             	add    sp,0x6
    f4635:	8b 5e f6             	mov    bx,WORD PTR [bp-0xa]
    f4638:	8a 87 69 02          	mov    al,BYTE PTR [bx+0x269]
+; char c = g_cmdbuf[pos]
    f463c:	88 46 ff             	mov    BYTE PTR [bp-0x1],al
+
+; do:
    f463f:	8b 5e fa             	mov    bx,WORD PTR [bp-0x6]
    f4642:	83 fb 06             	cmp    bx,0x6
    f4645:	76 03                	jbe    0xf464a
    f4647:	e9 1d 01             	jmp    0xf4767
    f464a:	d1 e3                	shl    bx,1
+;   switch bufnum:
    f464c:	2e ff a7 f1 05       	jmp    WORD PTR cs:[bx+0x5f1]
+;     case 0:
    f4651:	8a 46 ff             	mov    al,BYTE PTR [bp-0x1]
    f4654:	b4 00                	mov    ah,0x0
    f4656:	8b d8                	mov    bx,ax
    f4658:	f6 87 07 26 12       	test   BYTE PTR [bx+0x2607],0x12 ; isxdigit
+;       if isxdigit(c):
    f465d:	74 1b                	je     0xf467a
    f465f:	8b 5e fc             	mov    bx,WORD PTR [bp-0x4]
    f4662:	8a 46 ff             	mov    al,BYTE PTR [bp-0x1]
+;         g_cmdbufs.inflags[bufpos] = c
    f4665:	88 87 0e 66          	mov    BYTE PTR [bx+0x660e],al
    f4669:	ff 46 fc             	inc    WORD PTR [bp-0x4]
    f466c:	8b 46 fc             	mov    ax,WORD PTR [bp-0x4]
    f466f:	3d 02 00             	cmp    ax,0x2
+;         if ++bufpos > sizeof(g_cmdbufs.inflags):
    f4672:	7e 04                	jle    0xf4678
+;           invalid = 1
    f4674:	c6 46 fe 01          	mov    BYTE PTR [bp-0x2],0x1
    f4678:	eb 04                	jmp    0xf467e
    f467a:	c6 46 fe 01          	mov    BYTE PTR [bp-0x2],0x1
+;       else:
+;         invalid = 1
    f467e:	e9 ec 00             	jmp    0xf476d
+;     case 1:
    f4681:	8a 46 ff             	mov    al,BYTE PTR [bp-0x1]
    f4684:	b4 00                	mov    ah,0x0
    f4686:	8b d8                	mov    bx,ax
    f4688:	f6 87 07 26 12       	test   BYTE PTR [bx+0x2607],0x12 ; isxdigit
+;       if isxdigit(c):
    f468d:	74 1b                	je     0xf46aa
    f468f:	8b 5e fc             	mov    bx,WORD PTR [bp-0x4]
    f4692:	8a 46 ff             	mov    al,BYTE PTR [bp-0x1]
+;         g_cmdbufs.sendresponse[bufpos] = c
    f4695:	88 87 14 66          	mov    BYTE PTR [bx+0x6614],al
    f4699:	ff 46 fc             	inc    WORD PTR [bp-0x4]
    f469c:	8b 46 fc             	mov    ax,WORD PTR [bp-0x4]
    f469f:	3d 02 00             	cmp    ax,0x2
+;         if ++bufpos > sizeof(g_cmdbufs.sendresponse):
    f46a2:	7e 04                	jle    0xf46a8
+;           invalid = 1
    f46a4:	c6 46 fe 01          	mov    BYTE PTR [bp-0x2],0x1
    f46a8:	eb 04                	jmp    0xf46ae
+;       else:
+;         invalid = 1
    f46aa:	c6 46 fe 01          	mov    BYTE PTR [bp-0x2],0x1
    f46ae:	e9 bc 00             	jmp    0xf476d
+;     case 2:
    f46b1:	8a 46 ff             	mov    al,BYTE PTR [bp-0x1]
    f46b4:	b4 00                	mov    ah,0x0
    f46b6:	8b d8                	mov    bx,ax
    f46b8:	f6 87 07 26 12       	test   BYTE PTR [bx+0x2607],0x12 ; isxdigit
+;       if isxdigit(c):
    f46bd:	74 1b                	je     0xf46da
    f46bf:	8b 5e fc             	mov    bx,WORD PTR [bp-0x4]
    f46c2:	8a 46 ff             	mov    al,BYTE PTR [bp-0x1]
+;         g_cmdbufs.cmdnum[bufpos] = c
    f46c5:	88 87 1a 66          	mov    BYTE PTR [bx+0x661a],al
    f46c9:	ff 46 fc             	inc    WORD PTR [bp-0x4]
    f46cc:	8b 46 fc             	mov    ax,WORD PTR [bp-0x4]
    f46cf:	3d 02 00             	cmp    ax,0x2
    f46d2:	7e 04                	jle    0xf46d8
+;         if ++bufpos > sizeof(g_cmdbufs.cmdnum):
    f46d4:	c6 46 fe 01          	mov    BYTE PTR [bp-0x2],0x1
+;           invalid = 1
    f46d8:	eb 04                	jmp    0xf46de
+;       else:
+;         invalid = 1
    f46da:	c6 46 fe 01          	mov    BYTE PTR [bp-0x2],0x1
    f46de:	e9 8c 00             	jmp    0xf476d
+;     case 3:
    f46e1:	8a 46 ff             	mov    al,BYTE PTR [bp-0x1]
    f46e4:	b4 00                	mov    ah,0x0
    f46e6:	8b d8                	mov    bx,ax
    f46e8:	f6 87 07 26 12       	test   BYTE PTR [bx+0x2607],0x12 ; isxdigit
+;       if isxdigit(c):
    f46ed:	74 1b                	je     0xf470a
    f46ef:	8b 5e fc             	mov    bx,WORD PTR [bp-0x4]
    f46f2:	8a 46 ff             	mov    al,BYTE PTR [bp-0x1]
+;         g_cmdbufs.serialtask[bufpos] = c
    f46f5:	88 87 20 66          	mov    BYTE PTR [bx+0x6620],al
    f46f9:	ff 46 fc             	inc    WORD PTR [bp-0x4]
    f46fc:	8b 46 fc             	mov    ax,WORD PTR [bp-0x4]
    f46ff:	3d 02 00             	cmp    ax,0x2
+;         if ++bufpos > sizeof(g_cmdbufs.serialtask):
    f4702:	7e 04                	jle    0xf4708
    f4704:	c6 46 fe 01          	mov    BYTE PTR [bp-0x2],0x1
+;           invalid = 1
    f4708:	eb 04                	jmp    0xf470e
+;       else:
+;         invalid = 1
    f470a:	c6 46 fe 01          	mov    BYTE PTR [bp-0x2],0x1
    f470e:	eb 5d                	jmp    0xf476d
+;     case 4:
    f4710:	8b 5e fc             	mov    bx,WORD PTR [bp-0x4]
    f4713:	8a 46 ff             	mov    al,BYTE PTR [bp-0x1]
+;       g_inbuf[bufpos] = c
    f4716:	88 87 4d 63          	mov    BYTE PTR [bx+0x634d],al
    f471a:	ff 46 fc             	inc    WORD PTR [bp-0x4]
    f471d:	8b 46 fc             	mov    ax,WORD PTR [bp-0x4]
    f4720:	3d 00 01             	cmp    ax,0x100
+;       if ++bufpos >= sizeof(g_inbuf):
    f4723:	7c 04                	jl     0xf4729
+;         invalid = 1
    f4725:	c6 46 fe 01          	mov    BYTE PTR [bp-0x2],0x1
    f4729:	eb 42                	jmp    0xf476d
+;     case 5:
    f472b:	8a 46 ff             	mov    al,BYTE PTR [bp-0x1]
    f472e:	b4 00                	mov    ah,0x0
    f4730:	8b d8                	mov    bx,ax
    f4732:	f6 87 07 26 12       	test   BYTE PTR [bx+0x2607],0x12 ; isxdigit
    f4737:	75 06                	jne    0xf473f
    f4739:	80 7e ff 2c          	cmp    BYTE PTR [bp-0x1],0x2c ; ","
+;       if isxdigit(c) or c == ',':
    f473d:	75 1b                	jne    0xf475a
    f473f:	8b 5e fc             	mov    bx,WORD PTR [bp-0x4]
    f4742:	8a 46 ff             	mov    al,BYTE PTR [bp-0x1]
+;         g_cmdbufs.args[bufpos] = c
    f4745:	88 87 26 66          	mov    BYTE PTR [bx+0x6626],al
    f4749:	ff 46 fc             	inc    WORD PTR [bp-0x4]
    f474c:	8b 46 fc             	mov    ax,WORD PTR [bp-0x4]
    f474f:	3d d6 01             	cmp    ax,0x1d6
+;       if ++bufpos > sizeof(g_cmdbufs.args):
    f4752:	7e 04                	jle    0xf4758
+;         invalid = 1
    f4754:	c6 46 fe 01          	mov    BYTE PTR [bp-0x2],0x1
    f4758:	eb 04                	jmp    0xf475e
    f475a:	c6 46 fe 01          	mov    BYTE PTR [bp-0x2],0x1
    f475e:	eb 0d                	jmp    0xf476d
+;     case 6:
    f4760:	c7 46 f8 fe ff       	mov    WORD PTR [bp-0x8],0xfffe
+;       result = RESULT_OK
    f4765:	eb 00                	jmp    0xf4767
+
+;     default:
+;       invalid = 1
    f4767:	c6 46 fe 01          	mov    BYTE PTR [bp-0x2],0x1
    f476b:	eb 00                	jmp    0xf476d
+;   pos++
    f476d:	ff 46 f6             	inc    WORD PTR [bp-0xa]
    f4770:	8b 5e f6             	mov    bx,WORD PTR [bp-0xa]
    f4773:	8a 87 69 02          	mov    al,BYTE PTR [bx+0x269]
+;   c = g_cmdbuf[pos]
    f4777:	88 46 ff             	mov    BYTE PTR [bp-0x1],al
+
    f477a:	eb 40                	jmp    0xf47bc
+;   while(c == '#'):
    f477c:	83 7e fa 04          	cmp    WORD PTR [bp-0x6],0x4
+;     if bufnum == 4:
    f4780:	75 25                	jne    0xf47a7
    f4782:	8b 5e f6             	mov    bx,WORD PTR [bp-0xa]
    f4785:	80 bf 68 02 5e       	cmp    BYTE PTR [bx+0x268],0x5e ; "^"
+;       if g_cmdbuf[pos - 1] == '^':
+;         break
    f478a:	74 17                	je     0xf47a3
+;       bufpos = 0
    f478c:	c7 46 fc 00 00       	mov    WORD PTR [bp-0x4],0x0
+;       bufnum++
    f4791:	ff 46 fa             	inc    WORD PTR [bp-0x6]
+;       pos++
    f4794:	ff 46 f6             	inc    WORD PTR [bp-0xa]
    f4797:	8b 5e f6             	mov    bx,WORD PTR [bp-0xa]
    f479a:	8a 87 69 02          	mov    al,BYTE PTR [bx+0x269]
+;       c = g_cmdbuf[pos]
    f479e:	88 46 ff             	mov    BYTE PTR [bp-0x1],al
    f47a1:	eb 02                	jmp    0xf47a5
    f47a3:	eb 1d                	jmp    0xf47c2
    f47a5:	eb 15                	jmp    0xf47bc
+;     else:
+;       bufnum++
    f47a7:	ff 46 fa             	inc    WORD PTR [bp-0x6]
+;       bufpos = 0
    f47aa:	c7 46 fc 00 00       	mov    WORD PTR [bp-0x4],0x0
+;       pos++
    f47af:	ff 46 f6             	inc    WORD PTR [bp-0xa]
    f47b2:	8b 5e f6             	mov    bx,WORD PTR [bp-0xa]
    f47b5:	8a 87 69 02          	mov    al,BYTE PTR [bx+0x269]
+;       c = g_cmdbuf[pos]
    f47b9:	88 46 ff             	mov    BYTE PTR [bp-0x1],al
+
    f47bc:	80 7e ff 23          	cmp    BYTE PTR [bp-0x1],0x23 ; "#"
    f47c0:	74 ba                	je     0xf477c
+
    f47c2:	80 7e fe 01          	cmp    BYTE PTR [bp-0x2],0x1
    f47c6:	75 02                	jne    0xf47ca
+;   if invalid == 1:
+;     break
    f47c8:	eb 0e                	jmp    0xf47d8
    f47ca:	a1 67 02             	mov    ax,ds:0x267 ; g_cmdlen
    f47cd:	2d 02 00             	sub    ax,0x2
    f47d0:	3b 46 f6             	cmp    ax,WORD PTR [bp-0xa]
+; while pos <= g_cmdlen - 2
    f47d3:	72 03                	jb     0xf47d8
    f47d5:	e9 67 fe             	jmp    0xf463f
    f47d8:	8b 46 f8             	mov    ax,WORD PTR [bp-0x8]
@@ -33455,15 +33539,15 @@ parse_cmd_3:
 
 
 .code
-parse_cmd_num:
+parse_cmdnum:
    f47ef:	55                   	push   bp
    f47f0:	8b ec                	mov    bp,sp
    f47f2:	80 3e 1a 66 00       	cmp    BYTE PTR ds:0x661a,0x0
-; if g_661a[0] != 0:
+; if g_cmdbufs.cmdnum[0] != 0:
    f47f7:	75 03                	jne    0xf47fc
    f47f9:	e9 a7 00             	jmp    0xf48a3
    f47fc:	80 3e 1b 66 00       	cmp    BYTE PTR ds:0x661b,0x0
-;   if g_661a[1] == 0:
+;   if g_cmdbufs.cmdnum[1] == 0:
 ;     Single digit
    f4801:	75 34                	jne    0xf4837
    f4803:	a0 1a 66             	mov    al,ds:0x661a
@@ -33486,7 +33570,7 @@ parse_cmd_num:
    f482a:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    f482f:	59                   	pop    cx
    f4830:	04 d0                	add    al,0xd0
-;     g_cmdnum = FROMHEX(g_661a[0])
+;     g_cmdnum = FROMHEX(g_cmdbufs.cmdnum[0])
    f4832:	a2 4b 63             	mov    ds:0x634b,al
    f4835:	eb 6a                	jmp    0xf48a1
 ;   else:
@@ -33535,7 +33619,7 @@ parse_cmd_num:
    f4898:	04 d0                	add    al,0xd0
    f489a:	5a                   	pop    dx
    f489b:	02 d0                	add    dl,al
-;     g_cmdnum = FROMHEX(g_661a[0]) << 4 + FROMHEX(g_661a[1])
+;     g_cmdnum = FROMHEX(g_cmdbufs.cmdnum[0]) << 4 + FROMHEX(g_cmdbufs.cmdnum[1])
    f489d:	88 16 4b 63          	mov    BYTE PTR ds:0x634b,dl
    f48a1:	eb 05                	jmp    0xf48a8
 ; else:
@@ -33699,15 +33783,17 @@ parse_cmd_num:
    f4a3f:	cb                   	retf   
 
 
+parse_remainder:
    f4a40:	55                   	push   bp
    f4a41:	8b ec                	mov    bp,sp
    f4a43:	83 ec 02             	sub    sp,0x2
+; result = RESULT_OK
    f4a46:	c7 46 fe fe ff       	mov    WORD PTR [bp-0x2],0xfffe
    f4a4b:	a0 4b 63             	mov    al,ds:0x634b
    f4a4e:	b4 00                	mov    ah,0x0
    f4a50:	8b d8                	mov    bx,ax
    f4a52:	80 bf 0e 65 ff       	cmp    BYTE PTR [bx+0x650e],0xff
-; if g_cmd_lookup[g_cmdnum] == 0xff return RESULT_OK
+; if g_cmd_lookup[g_cmdnum] == 0xff: return RESULT_OK
    f4a57:	75 03                	jne    0xf4a5c
    f4a59:	e9 29 01             	jmp    0xf4b85
    f4a5c:	a0 4b 63             	mov    al,ds:0x634b
@@ -33719,12 +33805,16 @@ parse_cmd_num:
    f4a6b:	d3 e0                	shl    ax,cl
    f4a6d:	8b d8                	mov    bx,ax
    f4a6f:	80 bf 6b 04 00       	cmp    BYTE PTR [bx+0x46b],0x0
+; if g_46b[g_cmd_lookup[g_cmd]].u1:
    f4a74:	75 03                	jne    0xf4a79
    f4a76:	e9 e0 00             	jmp    0xf4b59
    f4a79:	80 3e 20 66 00       	cmp    BYTE PTR ds:0x6620,0x0
+;   if g_cmdbufs.serialtask[0] != 0:
    f4a7e:	75 03                	jne    0xf4a83
    f4a80:	e9 a7 00             	jmp    0xf4b2a
    f4a83:	80 3e 21 66 00       	cmp    BYTE PTR ds:0x6621,0x0
+;     if g_cmdbufs.serialtask[1] == 0:
+;       Single digit
    f4a88:	75 34                	jne    0xf4abe
    f4a8a:	a0 20 66             	mov    al,ds:0x6620
    f4a8d:	b4 00                	mov    ah,0x0
@@ -33746,8 +33836,10 @@ parse_cmd_num:
    f4ab1:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    f4ab6:	59                   	pop    cx
    f4ab7:	04 d0                	add    al,0xd0
+;       g_serialtask = FROMHEX(g_cmdbufs.serialtask[0])
    f4ab9:	a2 4c 63             	mov    ds:0x634c,al
    f4abc:	eb 6a                	jmp    0xf4b28
+;     else:
    f4abe:	a0 20 66             	mov    al,ds:0x6620
    f4ac1:	b4 00                	mov    ah,0x0
    f4ac3:	50                   	push   ax
@@ -33793,8 +33885,10 @@ parse_cmd_num:
    f4b1f:	04 d0                	add    al,0xd0
    f4b21:	5a                   	pop    dx
    f4b22:	02 d0                	add    dl,al
+;       g_serialtask = FROMHEX(g_cmdbufs.serialtask[0]) << 4 + FROMHEX(g_cmdbufs.serialtask[1])
    f4b24:	88 16 4c 63          	mov    BYTE PTR ds:0x634c,dl
    f4b28:	eb 2f                	jmp    0xf4b59
+
    f4b2a:	a0 4b 63             	mov    al,ds:0x634b
    f4b2d:	b4 00                	mov    ah,0x0
    f4b2f:	8b d8                	mov    bx,ax
@@ -33804,14 +33898,22 @@ parse_cmd_num:
    f4b39:	d3 e0                	shl    ax,cl
    f4b3b:	8b d8                	mov    bx,ax
    f4b3d:	80 bf 6b 04 02       	cmp    BYTE PTR [bx+0x46b],0x2
+; elif g_46b[g_cmd_lookup[g_cmdnum]].u1 == 2
    f4b42:	75 0c                	jne    0xf4b50
+;   g_serialtask = (byte) RESULT_OK
    f4b44:	c6 06 4c 63 fe       	mov    BYTE PTR ds:0x634c,0xfe
+;   result = RESULT_OK
    f4b49:	c7 46 fe fe ff       	mov    WORD PTR [bp-0x2],0xfffe
    f4b4e:	eb 09                	jmp    0xf4b59
+; else:
    f4b50:	b8 ff ff             	mov    ax,0xffff
+;   result = RESULT_FAILED
    f4b53:	89 46 fe             	mov    WORD PTR [bp-0x2],ax
+;   g_6336 = (byte) RESULT_FAILED
    f4b56:	a2 36 63             	mov    ds:0x6336,al
+
    f4b59:	83 7e fe fe          	cmp    WORD PTR [bp-0x2],0xfffffffe
+; if (result == RESULT_OK and
    f4b5d:	75 24                	jne    0xf4b83
    f4b5f:	a0 4b 63             	mov    al,ds:0x634b
    f4b62:	b4 00                	mov    ah,0x0
@@ -33822,13 +33924,18 @@ parse_cmd_num:
    f4b6e:	d3 e0                	shl    ax,cl
    f4b70:	8b d8                	mov    bx,ax
    f4b72:	80 bf 6d 04 00       	cmp    BYTE PTR [bx+0x46d],0x0
+;     g_46d[g_cmdlookup[g_cmdnum]].u1 > 0):
    f4b77:	76 0a                	jbe    0xf4b83
    f4b79:	0e                   	push   cs
+;   result = f48aa()
    f4b7a:	e8 2d fd             	call   0xf48aa
    f4b7d:	89 46 fe             	mov    WORD PTR [bp-0x2],ax
+;   g_6336 = result
    f4b80:	a2 36 63             	mov    ds:0x6336,al
+
    f4b83:	eb 05                	jmp    0xf4b8a
    f4b85:	c7 46 fe fe ff       	mov    WORD PTR [bp-0x2],0xfffe
+; return result
    f4b8a:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
    f4b8d:	eb 00                	jmp    0xf4b8f
    f4b8f:	8b e5                	mov    sp,bp
@@ -33841,15 +33948,15 @@ init_response:
    f4b94:	8b ec                	mov    bp,sp
    f4b96:	83 ec 04             	sub    sp,0x4
 ; result = RESULT_FAILED
-; byte l1
+; byte arg1
    f4b99:	c7 46 fc ff ff       	mov    WORD PTR [bp-0x4],0xffff
    f4b9e:	80 3e 14 66 00       	cmp    BYTE PTR ds:0x6614,0x0
    f4ba3:	75 03                	jne    0xf4ba8
-; if g_6614[0] != 0:
+; if g_cmdbufs.sendresponse[0] != 0:
 ;   return result
    f4ba5:	e9 e5 00             	jmp    0xf4c8d
    f4ba8:	80 3e 15 66 00       	cmp    BYTE PTR ds:0x6615,0x0
-; if g_6614[1] == 0:
+; if g_cmdbufs.sendresponse[1] == 0:
    f4bad:	75 34                	jne    0xf4be3
    f4baf:	a0 14 66             	mov    al,ds:0x6614
    f4bb2:	b4 00                	mov    ah,0x0
@@ -33871,7 +33978,7 @@ init_response:
    f4bd6:	9a 67 09 00 e0       	call   0xe000:0x967 ; toupper()
    f4bdb:	59                   	pop    cx
    f4bdc:	04 d0                	add    al,0xd0
-;   l1 = FROMHEX(g_6614[1])
+;   sendresponse = FROMHEX(g_cmdbufs.sendresponse[0])
    f4bde:	88 46 ff             	mov    BYTE PTR [bp-0x1],al
    f4be1:	eb 69                	jmp    0xf4c4c
 
@@ -33921,11 +34028,11 @@ init_response:
    f4c44:	04 d0                	add    al,0xd0
    f4c46:	5a                   	pop    dx
    f4c47:	02 d0                	add    dl,al
-;   l1 = FROMHEX(g_6614[0]) << 4 + FROMHEX(g_6614[1])
+;   sendresponse = FROMHEX(g_cmdbufs.sendresponse[0]) << 4 + FROMHEX(g_cmdbufs.sendresponse[1])
    f4c49:	88 56 ff             	mov    BYTE PTR [bp-0x1],dl
    f4c4c:	8a 46 ff             	mov    al,BYTE PTR [bp-0x1]
    f4c4f:	24 01                	and    al,0x1
-; g_sendresponse = l1 & 0x1
+; g_sendresponse = sendresponse & 0x1
    f4c51:	a2 49 63             	mov    ds:0x6349,al
    f4c54:	f6 46 ff 02          	test   BYTE PTR [bp-0x1],0x2
    f4c58:	75 05                	jne    0xf4c5f
@@ -34494,6 +34601,7 @@ process_cmd:
 ; result = RESULT_FAILED
    f525f:	c7 46 fe ff ff       	mov    WORD PTR [bp-0x2],0xffff
    f5264:	80 3e 6b 02 23       	cmp    BYTE PTR ds:0x26b,0x23 ; '#'
+; NB done before parse_cmdbufs
 ; if g_cmdbuf[2] == '#':
 ;   Single digit number
    f5269:	75 43                	jne    0xf52ae
@@ -34619,9 +34727,9 @@ process_cmd:
 ;     yield()
    f5371:	9a 1a 00 96 f8       	call   0xf896:0x1a ; yield
    f5376:	0e                   	push   cs
-   f5377:	e8 77 f2             	call   0xf45f1 ; parse_cmd_3
+   f5377:	e8 77 f2             	call   0xf45f1 ; parse_cmdbufs
    f537a:	3d fe ff             	cmp    ax,0xfffe
-;   if parse_cmd_3() != RESULT_OK:
+;   if parse_cmdbufs() != RESULT_OK:
 ;     goto failed
    f537d:	75 7a                	jne    0xf53f9
    f537f:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0 ; g_runlevel
@@ -34630,7 +34738,7 @@ process_cmd:
 ;     yield()
    f5386:	9a 1a 00 96 f8       	call   0xf896:0x1a ; yield
    f538b:	0e                   	push   cs
-;   parse_cmd_num()
+;   parse_cmdnum()
    f538c:	e8 60 f4             	call   0xf47ef
    f538f:	80 3e 4b 63 91       	cmp    BYTE PTR ds:0x634b,0x91
    f5394:	75 0c                	jne    0xf53a2
@@ -34655,7 +34763,7 @@ process_cmd:
    f53bb:	e8 82 f6             	call   0xf4a40
    f53be:	89 46 fe             	mov    WORD PTR [bp-0x2],ax
    f53c1:	3d fe ff             	cmp    ax,0xfffe
-;   if result = f4a40() != RESULT_OK:
+;   if result = parse_remainder() != RESULT_OK:
 ;     goto failed
    f53c4:	75 33                	jne    0xf53f9
    f53c6:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0 ; g_runlevel

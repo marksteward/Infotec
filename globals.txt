@@ -35,6 +35,7 @@
 0x6340 short g_serial
 0x6341 SERIALINFO g_si
 
+0x6348 ARGPARSED g_inparsed
 0x6348 g_inflags
 0x6349 g_6349
 0x634a g_634a
@@ -46,8 +47,12 @@
 
 0x650d short g_cinargs
 0x650e char[256] g_cmd_lookup
-0x660e 
-
+0x660e CMDBUFS g_cmdbufs
+0x660e char[2] g_cmdbufs.inflags
+0x6614 char[2] g_cmdbufs.sendresponse
+0x661a char[2] g_cmdbufs.cmdnum
+0x6620 char[2] g_cmdbufs.serialtask
+0x6626 char[470] g_cmdbufs.args
 
 0x6868 TASK[16] g_tasks
 0x6968 
