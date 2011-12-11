@@ -26957,7 +26957,7 @@ init_boot_serial:
    f0a55:	eb 08                	jmp    0xf0a5f
    f0a57:	8a 46 fe             	mov    al,BYTE PTR [bp-0x2]
    f0a5a:	fe c0                	inc    al
-;   g_num_serialtasks = i++
+;   g_num_serialtasks = i + 1
    f0a5c:	a2 c7 62             	mov    ds:0x62c7,al
    f0a5f:	ff 46 fe             	inc    WORD PTR [bp-0x2]
    f0a62:	83 7e fe 03          	cmp    WORD PTR [bp-0x2],0x3
