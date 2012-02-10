@@ -7058,7 +7058,7 @@ bit_bash_port_0:
    e4211:	e9 9f 00             	jmp    0xe42b3
    e4214:	8d 46 f0             	lea    ax,[bp-0x10]
    e4217:	50                   	push   ax
-   e4218:	9a b6 02 9d f8       	call   0xf89d:0x2b6 ; read_something
+   e4218:	9a b6 02 9d f8       	call   0xf89d:0x2b6 ; read_time
    e421d:	59                   	pop    cx
    e421e:	8d 46 ea             	lea    ax,[bp-0x16]
    e4221:	50                   	push   ax
@@ -7330,13 +7330,13 @@ bit_bash_port_0:
    e4513:	83 ec 08             	sub    sp,0x8
    e4516:	c7 46 fe 00 00       	mov    WORD PTR [bp-0x2],0x0
    e451b:	ff 76 06             	push   WORD PTR [bp+0x6]
-   e451e:	9a 69 00 9d f8       	call   0xf89d:0x69 ; test_something
+   e451e:	9a 69 00 9d f8       	call   0xf89d:0x69 ; validate_time
    e4523:	59                   	pop    cx
    e4524:	3d fe ff             	cmp    ax,0xfffe
    e4527:	74 03                	je     0xe452c
    e4529:	e9 ec 00             	jmp    0xe4618
    e452c:	ff 76 0a             	push   WORD PTR [bp+0xa]
-   e452f:	9a 69 00 9d f8       	call   0xf89d:0x69 ; test_something
+   e452f:	9a 69 00 9d f8       	call   0xf89d:0x69 ; validate_time
    e4534:	59                   	pop    cx
    e4535:	3d fe ff             	cmp    ax,0xfffe
    e4538:	74 03                	je     0xe453d
@@ -7496,7 +7496,7 @@ bit_bash_port_0:
    e46b4:	83 ec 0a             	sub    sp,0xa
    e46b7:	8d 46 fc             	lea    ax,[bp-0x4]
    e46ba:	50                   	push   ax
-   e46bb:	9a b6 02 9d f8       	call   0xf89d:0x2b6 ; read_something
+   e46bb:	9a b6 02 9d f8       	call   0xf89d:0x2b6 ; read_time
    e46c0:	59                   	pop    cx
    e46c1:	8d 46 f6             	lea    ax,[bp-0xa]
    e46c4:	50                   	push   ax
@@ -7697,7 +7697,7 @@ init_something2:
    e4864:	56                   	push   si
    e4865:	ff 06 13 28          	inc    WORD PTR ds:0x2813 ; g_runlevel
    e4869:	ff 76 06             	push   WORD PTR [bp+0x6]
-   e486c:	9a b6 02 9d f8       	call   0xf89d:0x2b6 ; read_something
+   e486c:	9a b6 02 9d f8       	call   0xf89d:0x2b6 ; read_time
    e4871:	59                   	pop    cx
    e4872:	ff 06 ff 2d          	inc    WORD PTR ds:0x2dff
    e4876:	a1 ff 2d             	mov    ax,ds:0x2dff
@@ -7924,7 +7924,7 @@ init_something3:
    e4af5:	74 f7                	je     0xe4aee
    e4af7:	8d 46 f8             	lea    ax,[bp-0x8]
    e4afa:	50                   	push   ax
-   e4afb:	9a b6 02 9d f8       	call   0xf89d:0x2b6 ; read_something
+   e4afb:	9a b6 02 9d f8       	call   0xf89d:0x2b6 ; read_time
    e4b00:	59                   	pop    cx
    e4b01:	8d 46 f2             	lea    ax,[bp-0xe]
    e4b04:	50                   	push   ax
@@ -16193,7 +16193,7 @@ int send_msg(short serialtask, msg, p3, p4, p5, p6, buf):
    e9e21:	c6 87 4a 45 00       	mov    BYTE PTR [bx+0x454a],0x0
    e9e26:	8d 46 fc             	lea    ax,[bp-0x4]
    e9e29:	50                   	push   ax
-   e9e2a:	9a b6 02 9d f8       	call   0xf89d:0x2b6 ; read_something
+   e9e2a:	9a b6 02 9d f8       	call   0xf89d:0x2b6 ; read_time
    e9e2f:	59                   	pop    cx
    e9e30:	80 7e fe 00          	cmp    BYTE PTR [bp-0x2],0x0
    e9e34:	75 30                	jne    0xe9e66
@@ -25289,7 +25289,7 @@ interesting:
    ef91d:	59                   	pop    cx
    ef91e:	8d 46 f6             	lea    ax,[bp-0xa]
    ef921:	50                   	push   ax
-   ef922:	9a b6 02 9d f8       	call   0xf89d:0x2b6 ; read_something
+   ef922:	9a b6 02 9d f8       	call   0xf89d:0x2b6 ; read_time
    ef927:	59                   	pop    cx
    ef928:	8a 46 06             	mov    al,BYTE PTR [bp+0x6]
    ef92b:	b4 00                	mov    ah,0x0
@@ -26491,7 +26491,7 @@ interesting:
    f054b:	83 ec 0a             	sub    sp,0xa
    f054e:	8d 46 fc             	lea    ax,[bp-0x4]
    f0551:	50                   	push   ax
-   f0552:	9a b6 02 9d f8       	call   0xf89d:0x2b6 ; read_something
+   f0552:	9a b6 02 9d f8       	call   0xf89d:0x2b6 ; read_time
    f0557:	59                   	pop    cx
    f0558:	8d 46 f6             	lea    ax,[bp-0xa]
    f055b:	50                   	push   ax
@@ -30516,7 +30516,7 @@ compare_lizz:
    f2d78:	72 33                	jb     0xf2dad
    f2d7a:	8d 46 fa             	lea    ax,[bp-0x6]
    f2d7d:	50                   	push   ax
-   f2d7e:	9a b6 02 9d f8       	call   0xf89d:0x2b6 ; read_something
+   f2d7e:	9a b6 02 9d f8       	call   0xf89d:0x2b6 ; read_time
    f2d83:	59                   	pop    cx
    f2d84:	a0 4d 64             	mov    al,ds:0x644d
    f2d87:	88 46 fa             	mov    BYTE PTR [bp-0x6],al
@@ -31948,28 +31948,33 @@ int do_get_num_serialtasks(void):
 .data
 000f394a  0fe9 1001 1016 102b 103a 1030 1035       |......+.:.0.5.|
 
+struct TIME {
+  hours int;
+  minutes int;
+  seconds int;
+}
 
 .code
-int do_get_something(void):
+int do_get_time(void):
    f3958:	55                   	push   bp
    f3959:	8b ec                	mov    bp,sp
-; SOMETHING u1
+; TIME t
    f395b:	83 ec 04             	sub    sp,0x4
    f395e:	8d 46 fc             	lea    ax,[bp-0x4]
    f3961:	50                   	push   ax
-; read_something(&u1)
+; read_time(&t)
    f3962:	9a b6 02 9d f8       	call   0xf89d:0x2b6
    f3967:	59                   	pop    cx
 ; g_coutargs = 3
    f3968:	c6 06 3f 63 03       	mov    BYTE PTR ds:0x633f,0x3
    f396d:	8a 46 fc             	mov    al,BYTE PTR [bp-0x4]
-; g_outargs[0] = u1[0]
+; g_outargs[0] = t.hours
    f3970:	a2 3a 63             	mov    ds:0x633a,al
    f3973:	8a 46 fd             	mov    al,BYTE PTR [bp-0x3]
-; g_outargs[1] = u1[1]
+; g_outargs[1] = t.minutes
    f3976:	a2 3b 63             	mov    ds:0x633b,al
    f3979:	8a 46 fe             	mov    al,BYTE PTR [bp-0x2]
-; g_outargs[2] = u1[2]
+; g_outargs[2] = t.seconds
    f397c:	a2 3c 63             	mov    ds:0x633c,al
 ; return RESULT_OK
    f397f:	b8 fe ff             	mov    ax,0xfffe
@@ -32164,7 +32169,7 @@ int do_get_version(void):
    f3b00:	c6 46 fc 00          	mov    BYTE PTR [bp-0x4],0x0
    f3b04:	8d 46 fa             	lea    ax,[bp-0x6]
    f3b07:	50                   	push   ax
-   f3b08:	9a 69 00 9d f8       	call   0xf89d:0x69 ; test_something
+   f3b08:	9a 69 00 9d f8       	call   0xf89d:0x69 ; validate_time
    f3b0d:	59                   	pop    cx
    f3b0e:	89 46 fe             	mov    WORD PTR [bp-0x2],ax
    f3b11:	3d fe ff             	cmp    ax,0xfffe
@@ -32279,7 +32284,7 @@ int do_get_version(void):
    f3c24:	59                   	pop    cx
    f3c25:	8d 46 f4             	lea    ax,[bp-0xc]
    f3c28:	50                   	push   ax
-   f3c29:	9a b6 02 9d f8       	call   0xf89d:0x2b6 ; read_something
+   f3c29:	9a b6 02 9d f8       	call   0xf89d:0x2b6 ; read_time
    f3c2e:	59                   	pop    cx
    f3c2f:	8d 46 f8             	lea    ax,[bp-0x8]
    f3c32:	50                   	push   ax
@@ -33166,7 +33171,7 @@ parse_varbuf:
    f4489:	81 06 3f 02 6c 07    	add    WORD PTR ds:0x23f,0x76c ; 1900
    f448f:	b8 42 02             	mov    ax,0x242
    f4492:	50                   	push   ax
-   f4493:	9a 69 00 9d f8       	call   0xf89d:0x69 ; test_something
+   f4493:	9a 69 00 9d f8       	call   0xf89d:0x69 ; validate_time
    f4498:	59                   	pop    cx
    f4499:	3d fe ff             	cmp    ax,0xfffe
    f449c:	75 3d                	jne    0xf44db
@@ -34514,7 +34519,7 @@ int do_cmd(void):
 ;   case 0xf2:
    f5025:	9a bd 0f 90 f2       	call   0xf290:0xfbd
    f502a:	e9 63 fe             	jmp    0xf4e90
-;   case 0xf3: result = do_get_something()
+;   case 0xf3: result = do_get_time()
    f502d:	9a 58 10 90 f2       	call   0xf290:0x1058
    f5032:	e9 5b fe             	jmp    0xf4e90
 ;   case 0xf4: result = do_get_date()
@@ -35409,19 +35414,23 @@ main:
 ; add_processor(1, &parse_cmd)
    f585b:	9a 60 01 b2 f7       	call   0xf7b2:0x160
    f5860:	83 c4 06             	add    sp,0x6
+; TIME t;
    f5863:	8d 46 fc             	lea    ax,[bp-0x4]
    f5866:	50                   	push   ax
-   f5867:	9a b6 02 9d f8       	call   0xf89d:0x2b6 ; read_something
+; read_time(&t);
+   f5867:	9a b6 02 9d f8       	call   0xf89d:0x2b6 ; read_time
    f586c:	59                   	pop    cx
    f586d:	8d 46 fc             	lea    ax,[bp-0x4]
    f5870:	50                   	push   ax
-   f5871:	9a 69 00 9d f8       	call   0xf89d:0x69 ; test_something
+   f5871:	9a 69 00 9d f8       	call   0xf89d:0x69 ; validate_time
    f5876:	59                   	pop    cx
    f5877:	3d ff ff             	cmp    ax,0xffff
+; if (validate_time(&t) == RESULT_FAILED) {
    f587a:	75 0a                	jne    0xf5886
    f587c:	8d 46 f8             	lea    ax,[bp-0x8]
    f587f:	50                   	push   ax
    f5880:	9a 68 03 9d f8       	call   0xf89d:0x368
+; }
    f5885:	59                   	pop    cx
    f5886:	8d 46 f2             	lea    ax,[bp-0xe]
    f5889:	50                   	push   ax
@@ -40534,18 +40543,22 @@ run_tasks:
    f8a38:	cf                   	iret   
 
 
-test_something:
+int validate_time(TIME* t):
    f8a39:	55                   	push   bp
    f8a3a:	8b ec                	mov    bp,sp
    f8a3c:	8b 5e 06             	mov    bx,WORD PTR [bp+0x6]
    f8a3f:	80 3f 17             	cmp    BYTE PTR [bx],0x17
+; if (t.hours > 23) return RESULT_FAILED;
    f8a42:	77 19                	ja     0xf8a5d
    f8a44:	8b 5e 06             	mov    bx,WORD PTR [bp+0x6]
    f8a47:	80 7f 01 3c          	cmp    BYTE PTR [bx+0x1],0x3c
+; if (t.minutes > 60) return RESULT_FAILED;
    f8a4b:	73 10                	jae    0xf8a5d
    f8a4d:	8b 5e 06             	mov    bx,WORD PTR [bp+0x6]
    f8a50:	80 7f 02 3c          	cmp    BYTE PTR [bx+0x2],0x3c
+; if (t.seconds > 60) return RESULT_FAILED;
    f8a54:	73 07                	jae    0xf8a5d
+; return RESULT_OK;
    f8a56:	b8 fe ff             	mov    ax,0xfffe
    f8a59:	eb 07                	jmp    0xf8a62
    f8a5b:	eb 05                	jmp    0xf8a62
@@ -40765,24 +40778,28 @@ test_something:
    f8c34:	e8 bc fd             	call   0xf89f3
    f8c37:	59                   	pop    cx
    f8c38:	59                   	pop    cx
+; TIME t;
    f8c39:	8d 46 f2             	lea    ax,[bp-0xe]
    f8c3c:	50                   	push   ax
    f8c3d:	90                   	nop
    f8c3e:	0e                   	push   cs
-   f8c3f:	e8 44 00             	call   0xf8c86 ; read_something
+; read_time(&t);
+   f8c3f:	e8 44 00             	call   0xf8c86 ; read_time
    f8c42:	59                   	pop    cx
    f8c43:	8d 46 ec             	lea    ax,[bp-0x14]
    f8c46:	50                   	push   ax
    f8c47:	90                   	nop
    f8c48:	0e                   	push   cs
+; read_date(&d);
    f8c49:	e8 a4 02             	call   0xf8ef0 ; read_date
    f8c4c:	59                   	pop    cx
    f8c4d:	8d 46 f2             	lea    ax,[bp-0xe]
    f8c50:	50                   	push   ax
    f8c51:	0e                   	push   cs
-   f8c52:	e8 e4 fd             	call   0xf8a39 ; test_something
+   f8c52:	e8 e4 fd             	call   0xf8a39 ; validate_time
    f8c55:	59                   	pop    cx
    f8c56:	3d ff ff             	cmp    ax,0xffff
+; if (validate_time(&t) == RESULT_FAILED) {
    f8c59:	75 0a                	jne    0xf8c65
    f8c5b:	8d 46 fc             	lea    ax,[bp-0x4]
    f8c5e:	50                   	push   ax
@@ -40790,6 +40807,7 @@ test_something:
    f8c60:	0e                   	push   cs
    f8c61:	e8 d4 00             	call   0xf8d38
    f8c64:	59                   	pop    cx
+; }
    f8c65:	8d 46 ec             	lea    ax,[bp-0x14]
    f8c68:	50                   	push   ax
    f8c69:	0e                   	push   cs
@@ -40810,7 +40828,7 @@ test_something:
    f8c85:	cb                   	retf   
 
 
-read_something:
+int read_time(TIME* t):
    f8c86:	55                   	push   bp
    f8c87:	8b ec                	mov    bp,sp
    f8c89:	83 ec 0c             	sub    sp,0xc
@@ -40888,7 +40906,7 @@ read_something:
    f8d3b:	83 ec 0c             	sub    sp,0xc
    f8d3e:	ff 76 06             	push   WORD PTR [bp+0x6]
    f8d41:	0e                   	push   cs
-   f8d42:	e8 f4 fc             	call   0xf8a39 ; test_something
+   f8d42:	e8 f4 fc             	call   0xf8a39 ; validate_time
    f8d45:	59                   	pop    cx
    f8d46:	89 46 f4             	mov    WORD PTR [bp-0xc],ax
    f8d49:	3d fe ff             	cmp    ax,0xfffe
@@ -40998,7 +41016,7 @@ read_something:
    f8e38:	83 ec 0c             	sub    sp,0xc
    f8e3b:	ff 76 06             	push   WORD PTR [bp+0x6]
    f8e3e:	0e                   	push   cs
-   f8e3f:	e8 f7 fb             	call   0xf8a39 ; test_something
+   f8e3f:	e8 f7 fb             	call   0xf8a39 ; validate_time
    f8e42:	59                   	pop    cx
    f8e43:	89 46 f4             	mov    WORD PTR [bp-0xc],ax
    f8e46:	3d fe ff             	cmp    ax,0xfffe
