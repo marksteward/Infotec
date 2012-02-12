@@ -1828,7 +1828,7 @@ near void * near bufcat(near void *dest, short n, near void *src):
 ; *dest += n
    e0f4a:	01 3c                	add    WORD PTR [si],di
    e0f4c:	8b 1c                	mov    bx,WORD PTR [si]
-; *dest = 0;
+; *dest = 0
    e0f4e:	c6 07 00             	mov    BYTE PTR [bx],0x0
 ; return n
    e0f51:	8b c7                	mov    ax,di
@@ -33292,7 +33292,7 @@ validate_checksum:
    f45b9:	88 56 fd             	mov    BYTE PTR [bp-0x3],dl
 
    f45bc:	c7 46 fa 00 00       	mov    WORD PTR [bp-0x6],0x0
-; for i = 0; i <= g_cmdlen - 2; i++;
+; for i = 0; i <= g_cmdlen - 2; i++:
    f45c1:	eb 0d                	jmp    0xf45d0
    f45c3:	8b 5e fa             	mov    bx,WORD PTR [bp-0x6]
    f45c6:	8a 87 69 02          	mov    al,BYTE PTR [bx+0x269]
@@ -34754,7 +34754,7 @@ process_cmd:
 
    f534d:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0 ; g_runlevel
    f5352:	75 05                	jne    0xf5359
-;   if g_runlevel == 0;
+;   if g_runlevel == 0:
 ;     yield()
    f5354:	9a 1a 00 96 f8       	call   0xf896:0x1a ; yield
 ;   g_sendresponse = 0
@@ -34779,7 +34779,7 @@ process_cmd:
    f537d:	75 7a                	jne    0xf53f9
    f537f:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0 ; g_runlevel
    f5384:	75 05                	jne    0xf538b
-;   if g_runlevel == 0;
+;   if g_runlevel == 0:
 ;     yield()
    f5386:	9a 1a 00 96 f8       	call   0xf896:0x1a ; yield
    f538b:	0e                   	push   cs
@@ -35414,10 +35414,10 @@ main:
 ; add_processor(1, &parse_cmd)
    f585b:	9a 60 01 b2 f7       	call   0xf7b2:0x160
    f5860:	83 c4 06             	add    sp,0x6
-; TIME t;
+; TIME t
    f5863:	8d 46 fc             	lea    ax,[bp-0x4]
    f5866:	50                   	push   ax
-; read_time(&t);
+; read_time(&t)
    f5867:	9a b6 02 9d f8       	call   0xf89d:0x2b6 ; read_time
    f586c:	59                   	pop    cx
    f586d:	8d 46 fc             	lea    ax,[bp-0x4]
@@ -40548,17 +40548,17 @@ int validate_time(TIME* t):
    f8a3a:	8b ec                	mov    bp,sp
    f8a3c:	8b 5e 06             	mov    bx,WORD PTR [bp+0x6]
    f8a3f:	80 3f 17             	cmp    BYTE PTR [bx],0x17
-; if (t.hours > 23) return RESULT_FAILED;
+; if t.hours > 23: return RESULT_FAILED
    f8a42:	77 19                	ja     0xf8a5d
    f8a44:	8b 5e 06             	mov    bx,WORD PTR [bp+0x6]
    f8a47:	80 7f 01 3c          	cmp    BYTE PTR [bx+0x1],0x3c
-; if (t.minutes > 60) return RESULT_FAILED;
+; if t.minutes > 60: return RESULT_FAILED
    f8a4b:	73 10                	jae    0xf8a5d
    f8a4d:	8b 5e 06             	mov    bx,WORD PTR [bp+0x6]
    f8a50:	80 7f 02 3c          	cmp    BYTE PTR [bx+0x2],0x3c
-; if (t.seconds > 60) return RESULT_FAILED;
+; if t.seconds > 60: return RESULT_FAILED
    f8a54:	73 07                	jae    0xf8a5d
-; return RESULT_OK;
+; return RESULT_OK
    f8a56:	b8 fe ff             	mov    ax,0xfffe
    f8a59:	eb 07                	jmp    0xf8a62
    f8a5b:	eb 05                	jmp    0xf8a62
@@ -40778,19 +40778,19 @@ int validate_time(TIME* t):
    f8c34:	e8 bc fd             	call   0xf89f3
    f8c37:	59                   	pop    cx
    f8c38:	59                   	pop    cx
-; TIME t;
+; TIME t
    f8c39:	8d 46 f2             	lea    ax,[bp-0xe]
    f8c3c:	50                   	push   ax
    f8c3d:	90                   	nop
    f8c3e:	0e                   	push   cs
-; read_time(&t);
+; read_time(&t)
    f8c3f:	e8 44 00             	call   0xf8c86 ; read_time
    f8c42:	59                   	pop    cx
    f8c43:	8d 46 ec             	lea    ax,[bp-0x14]
    f8c46:	50                   	push   ax
    f8c47:	90                   	nop
    f8c48:	0e                   	push   cs
-; read_date(&d);
+; read_date(&d)
    f8c49:	e8 a4 02             	call   0xf8ef0 ; read_date
    f8c4c:	59                   	pop    cx
    f8c4d:	8d 46 f2             	lea    ax,[bp-0xe]
