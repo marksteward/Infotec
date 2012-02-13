@@ -31049,16 +31049,22 @@ int do_cmd_1(void):
    f302e:	cb                   	retf   
 
 
+do_cmd_2:
    f302f:	55                   	push   bp
    f3030:	8b ec                	mov    bp,sp
    f3032:	83 ec 04             	sub    sp,0x4
+; result = RESULT_OK
+; delay = 10
+; repeat = FALSE
    f3035:	c7 46 fe fe ff       	mov    WORD PTR [bp-0x2],0xfffe
    f303a:	c6 46 fd 0a          	mov    BYTE PTR [bp-0x3],0xa
    f303e:	c6 46 fc 00          	mov    BYTE PTR [bp-0x4],0x0
    f3042:	a0 4d 64             	mov    al,ds:0x644d
+; delay = g_inargs[0]
    f3045:	88 46 fd             	mov    BYTE PTR [bp-0x3],al
    f3048:	a0 4e 64             	mov    al,ds:0x644e
    f304b:	24 01                	and    al,0x1
+; repeat = g_inargs[1]
    f304d:	88 46 fc             	mov    BYTE PTR [bp-0x4],al
    f3050:	33 c0                	xor    ax,ax
    f3052:	50                   	push   ax
@@ -31074,6 +31080,7 @@ int do_cmd_1(void):
    f3062:	50                   	push   ax
    f3063:	a0 4c 63             	mov    al,ds:0x634c
    f3066:	50                   	push   ax
+; send_msg(g_serialtask, 0x7f, g_634a, 0, 0, 0, NULL)
    f3067:	9a 6a 06 f1 e4       	call   0xe4f1:0x66a ; send_msg
    f306c:	83 c4 0e             	add    sp,0xe
    f306f:	a0 4c 63             	mov    al,ds:0x634c
@@ -31084,6 +31091,7 @@ int do_cmd_1(void):
    f307a:	80 bf 79 61 00       	cmp    BYTE PTR [bx+0x6179],0x0
    f307f:	75 27                	jne    0xf30a8
    f3081:	80 7e fc 01          	cmp    BYTE PTR [bp-0x4],0x1
+; if g_6179[g_serialtask][0] == 0 and repeat == TRUE:
    f3085:	75 21                	jne    0xf30a8
    f3087:	33 c0                	xor    ax,ax
    f3089:	50                   	push   ax
@@ -31099,9 +31107,11 @@ int do_cmd_1(void):
    f3098:	50                   	push   ax
    f3099:	a0 4c 63             	mov    al,ds:0x634c
    f309c:	50                   	push   ax
+;   result = send_msg(g_serialtask, 0x22, 0, 0, 0, NULL)
    f309d:	9a 6a 06 f1 e4       	call   0xe4f1:0x66a ; send_msg
    f30a2:	83 c4 0e             	add    sp,0xe
    f30a5:	89 46 fe             	mov    WORD PTR [bp-0x2],ax
+; if result == RESULT_OK:
    f30a8:	83 7e fe fe          	cmp    WORD PTR [bp-0x2],0xfffffffe
    f30ac:	75 24                	jne    0xf30d2
    f30ae:	b8 4d 63             	mov    ax,0x634d
@@ -31114,10 +31124,11 @@ int do_cmd_1(void):
    f30bb:	50                   	push   ax
    f30bc:	a0 4a 63             	mov    al,ds:0x634a
    f30bf:	50                   	push   ax
-   f30c0:	b0 05                	mov    al,0x5
+   f30c0:	b0 05                	mov    al,0x5 ; SCROLL_TEXT_UP
    f30c2:	50                   	push   ax
    f30c3:	a0 4c 63             	mov    al,ds:0x634c
    f30c6:	50                   	push   ax
+;   result = send_msg(g_serialtask, 0x5, g_634a, 1, repeat, delay, &g_inbuf)
    f30c7:	9a 6a 06 f1 e4       	call   0xe4f1:0x66a ; send_msg
    f30cc:	83 c4 0e             	add    sp,0xe
    f30cf:	89 46 fe             	mov    WORD PTR [bp-0x2],ax
@@ -31130,6 +31141,7 @@ int do_cmd_1(void):
    f30e2:	74 2d                	je     0xf3111
    f30e4:	80 7e fc 01          	cmp    BYTE PTR [bp-0x4],0x1
    f30e8:	75 27                	jne    0xf3111
+; if g_6179[serialtask][0] != 0 and repeat == TRUE and result == RESULT_OK:
    f30ea:	83 7e fe fe          	cmp    WORD PTR [bp-0x2],0xfffffffe
    f30ee:	75 21                	jne    0xf3111
    f30f0:	33 c0                	xor    ax,ax
@@ -31146,9 +31158,12 @@ int do_cmd_1(void):
    f3101:	50                   	push   ax
    f3102:	a0 4c 63             	mov    al,ds:0x634c
    f3105:	50                   	push   ax
+;   result = send_msg(g_serialtask, 0x21, 0, 0, 0, NULL)
    f3106:	9a 6a 06 f1 e4       	call   0xe4f1:0x66a ; send_msg
    f310b:	83 c4 0e             	add    sp,0xe
    f310e:	89 46 fe             	mov    WORD PTR [bp-0x2],ax
+
+; return result
    f3111:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
    f3114:	eb 00                	jmp    0xf3116
    f3116:	8b e5                	mov    sp,bp
@@ -31169,7 +31184,7 @@ int do_cmd_1(void):
    f312f:	50                   	push   ax
    f3130:	a0 4a 63             	mov    al,ds:0x634a
    f3133:	50                   	push   ax
-   f3134:	b0 05                	mov    al,0x5
+   f3134:	b0 05                	mov    al,0x5 ; SCROLL_TEXT_UP
    f3136:	50                   	push   ax
    f3137:	a0 4c 63             	mov    al,ds:0x634c
    f313a:	50                   	push   ax
@@ -34638,7 +34653,7 @@ int do_cmd(void):
 ;   case 0x1: result = do_cmd_1()
    f4f15:	9a 82 06 90 f2       	call   0xf290:0x682
    f4f1a:	e9 73 ff             	jmp    0xf4e90
-;   case 0x2:
+;   case 0x2: result = do_cmd_2()
    f4f1d:	9a 2f 07 90 f2       	call   0xf290:0x72f
    f4f22:	e9 6b ff             	jmp    0xf4e90
 ;   case 0x3:
