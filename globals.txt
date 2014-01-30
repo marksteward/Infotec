@@ -1,19 +1,27 @@
 0x199 short g_vartype
 0x19a short g_varlen
 0x19c char[160] g_varbuf
+0x23d DATE g_vardate
+0x242 TIME g_vartime
 0x266 short ?
 0x267 int g_cmdlen
 0x269 char[512] g_cmdbuf
 0x469 short ?
 
-0x29fa DATE g_date
+0x25fc TIME g_main_time
 
 0x280d int g_task
 0x280f int g_numtasks
 0x2811 int g_saved_sp
 0x2813 short g_runlevel
 
+0x2984 short g_time_something
+0x2986 PORT *g_clock_port_base
+0x298b TIME g_safe_time
+0x29fa DATE g_date
+
 0x2a0a (0x9b in size)
+0x2abf TIME g_some_time
 
 0x42a9 (0xa in size)
 
@@ -64,18 +72,21 @@
 0x6620 char[2] g_cmdbufs.serialtask
 0x6626 char[470] g_cmdbufs.args
 
+0x6822 short g_last_error
 0x6868 TASK[16] g_tasks
 0x6968 
 
-0x698c far PORT *g_port_regs
+http://serf.clarkson.edu/Publications/JPerezthesis/appendix_f.html
+
+0x698c far REG *g_port_regs
 0x6990 far SERIAL *g_serial2_regs
 0x6992 
 0x6994 far SERIAL *g_serial1_regs
 0x6996 
 0x6998 
 0x699a 
-0x699b far PORT *g_port0_regs
-0x699f far PORT *g_port1_regs
-0x69a3 far PORT *g_port2_regs
+0x699b far REG *g_port0_regs
+0x699f far REG *g_port1_regs
+0x69a3 far REG *g_port2_regs
 
 0x69ae g_serialbuf

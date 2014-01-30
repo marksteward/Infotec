@@ -6932,13 +6932,16 @@ bit_bash_port_0:
    e4066:	50                   	push   ax
    e4067:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; memset
    e406c:	83 c4 06             	add    sp,0x6
+
    e406f:	b8 04 00             	mov    ax,0x4
    e4072:	50                   	push   ax
    e4073:	33 c0                	xor    ax,ax
    e4075:	50                   	push   ax
-   e4076:	b8 bf 2a             	mov    ax,0x2abf
+   e4076:	b8 bf 2a             	mov    ax,0x2abf ; g_some_time
    e4079:	50                   	push   ax
+; memset(g_some_time, 0, sizeof(g_some_time))
    e407a:	9a b3 0e 00 e0       	call   0xe000:0xeb3 ; memset
+
    e407f:	83 c4 06             	add    sp,0x6
    e4082:	b8 06 00             	mov    ax,0x6
    e4085:	50                   	push   ax
@@ -6965,7 +6968,7 @@ bit_bash_port_0:
    e40c2:	eb 15                	jmp    0xe40d9
    e40c4:	c7 46 f8 be 2a       	mov    WORD PTR [bp-0x8],0x2abe
    e40c9:	eb 0e                	jmp    0xe40d9
-   e40cb:	c7 46 f8 bf 2a       	mov    WORD PTR [bp-0x8],0x2abf
+   e40cb:	c7 46 f8 bf 2a       	mov    WORD PTR [bp-0x8],0x2abf ; g_some_time
    e40d0:	eb 07                	jmp    0xe40d9
    e40d2:	c7 46 f8 c0 2a       	mov    WORD PTR [bp-0x8],0x2ac0
    e40d7:	eb 00                	jmp    0xe40d9
@@ -7064,7 +7067,7 @@ bit_bash_port_0:
    e41d2:	50                   	push   ax
    e41d3:	b8 ba 2a             	mov    ax,0x2aba
    e41d6:	50                   	push   ax
-   e41d7:	b8 bf 2a             	mov    ax,0x2abf
+   e41d7:	b8 bf 2a             	mov    ax,0x2abf ; g_some_time
    e41da:	50                   	push   ax
    e41db:	90                   	nop
    e41dc:	0e                   	push   cs
@@ -7073,7 +7076,7 @@ bit_bash_port_0:
    e41e3:	0b c0                	or     ax,ax
    e41e5:	75 26                	jne    0xe420d
    e41e7:	a1 c1 2a             	mov    ax,ds:0x2ac1
-   e41ea:	8b 16 bf 2a          	mov    dx,WORD PTR ds:0x2abf
+   e41ea:	8b 16 bf 2a          	mov    dx,WORD PTR ds:0x2abf ; g_some_time
    e41ee:	a3 68 2a             	mov    ds:0x2a68,ax
    e41f1:	89 16 66 2a          	mov    WORD PTR ds:0x2a66,dx
    e41f5:	b8 6a 2a             	mov    ax,0x2a6a
@@ -7104,7 +7107,7 @@ bit_bash_port_0:
    e4233:	50                   	push   ax
    e4234:	b8 ba 2a             	mov    ax,0x2aba
    e4237:	50                   	push   ax
-   e4238:	b8 bf 2a             	mov    ax,0x2abf
+   e4238:	b8 bf 2a             	mov    ax,0x2abf ; g_some_time
    e423b:	50                   	push   ax
    e423c:	90                   	nop
    e423d:	0e                   	push   cs
@@ -7120,7 +7123,7 @@ bit_bash_port_0:
    e4253:	50                   	push   ax
    e4254:	b8 ba 2a             	mov    ax,0x2aba
    e4257:	50                   	push   ax
-   e4258:	b8 bf 2a             	mov    ax,0x2abf
+   e4258:	b8 bf 2a             	mov    ax,0x2abf ; g_some_time
    e425b:	50                   	push   ax
    e425c:	90                   	nop
    e425d:	0e                   	push   cs
@@ -7129,7 +7132,7 @@ bit_bash_port_0:
    e4264:	0b c0                	or     ax,ax
    e4266:	75 22                	jne    0xe428a
    e4268:	a1 c1 2a             	mov    ax,ds:0x2ac1
-   e426b:	8b 16 bf 2a          	mov    dx,WORD PTR ds:0x2abf
+   e426b:	8b 16 bf 2a          	mov    dx,WORD PTR ds:0x2abf ; g_some_time
    e426f:	a3 68 2a             	mov    ds:0x2a68,ax
    e4272:	89 16 66 2a          	mov    WORD PTR ds:0x2a66,dx
    e4276:	b8 6a 2a             	mov    ax,0x2a6a
@@ -7160,7 +7163,7 @@ bit_bash_port_0:
    e42b7:	75 13                	jne    0xe42cc
    e42b9:	b8 ba 2a             	mov    ax,0x2aba
    e42bc:	50                   	push   ax
-   e42bd:	9a e4 05 9d f8       	call   0xf89d:0x5e4
+   e42bd:	9a e4 05 9d f8       	call   0xf89d:0x5e4 ; set_date
    e42c2:	59                   	pop    cx
    e42c3:	3d ff ff             	cmp    ax,0xffff
    e42c6:	75 04                	jne    0xe42cc
@@ -7206,9 +7209,10 @@ bit_bash_port_0:
    e4331:	b0 00                	mov    al,0x0
    e4333:	a2 c1 2a             	mov    ds:0x2ac1,al
    e4336:	a2 30 00             	mov    ds:0x30,al
-   e4339:	b8 bf 2a             	mov    ax,0x2abf
+   e4339:	b8 bf 2a             	mov    ax,0x2abf ; g_some_time
    e433c:	50                   	push   ax
-   e433d:	9a 68 03 9d f8       	call   0xf89d:0x368
+; set_time(&g_some_time)
+   e433d:	9a 68 03 9d f8       	call   0xf89d:0x368 ; set_time
    e4342:	59                   	pop    cx
    e4343:	3d fe ff             	cmp    ax,0xfffe
    e4346:	75 20                	jne    0xe4368
@@ -7628,13 +7632,6 @@ bit_bash_port_0:
    e47a8:	5d                   	pop    bp
    e47a9:	cb                   	retf   
 
-
-struct DATE {
-  short day;
-  short month;
-  int year;
-  short u1;
-}
 
 print_datetime(char * time):
    e47aa:	55                   	push   bp
@@ -30771,29 +30768,44 @@ compare_lizz:
    f2d67:	cb                   	retf   
 
 
+do_set_time:
    f2d68:	55                   	push   bp
    f2d69:	8b ec                	mov    bp,sp
    f2d6b:	83 ec 06             	sub    sp,0x6
+; result = RESULT_FAILED
    f2d6e:	c7 46 fe ff ff       	mov    WORD PTR [bp-0x2],0xffff
+; if g_cinargs < 3: return result
    f2d73:	80 3e 0d 65 03       	cmp    BYTE PTR ds:0x650d,0x3
    f2d78:	72 33                	jb     0xf2dad
+
+; TIME time
    f2d7a:	8d 46 fa             	lea    ax,[bp-0x6]
    f2d7d:	50                   	push   ax
+; read_time(&time)
    f2d7e:	9a b6 02 9d f8       	call   0xf89d:0x2b6 ; read_time
    f2d83:	59                   	pop    cx
    f2d84:	a0 4d 64             	mov    al,ds:0x644d
+; time.hours = g_inargs[0]
    f2d87:	88 46 fa             	mov    BYTE PTR [bp-0x6],al
    f2d8a:	a0 4e 64             	mov    al,ds:0x644e
+; time.minutes = g_inargs[1]
    f2d8d:	88 46 fb             	mov    BYTE PTR [bp-0x5],al
    f2d90:	a0 4f 64             	mov    al,ds:0x644f
+; time.seconds = g_inargs[2]
    f2d93:	88 46 fc             	mov    BYTE PTR [bp-0x4],al
    f2d96:	8d 46 fa             	lea    ax,[bp-0x6]
    f2d99:	50                   	push   ax
-   f2d9a:	9a 68 03 9d f8       	call   0xf89d:0x368
+   f2d9a:	9a 68 03 9d f8       	call   0xf89d:0x368 ; set_time
    f2d9f:	59                   	pop    cx
+; result = set_time(&time)
    f2da0:	89 46 fe             	mov    WORD PTR [bp-0x2],ax
+
+; g_2e02 = 1
+; g_2dfd = 1
    f2da3:	c6 06 02 2e 01       	mov    BYTE PTR ds:0x2e02,0x1
    f2da8:	c6 06 fd 2d 01       	mov    BYTE PTR ds:0x2dfd,0x1
+
+; return result
    f2dad:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
    f2db0:	eb 00                	jmp    0xf2db2
    f2db2:	8b e5                	mov    sp,bp
@@ -30801,21 +30813,30 @@ compare_lizz:
    f2db5:	cb                   	retf   
 
 
+do_set_date:
    f2db6:	55                   	push   bp
    f2db7:	8b ec                	mov    bp,sp
    f2db9:	83 ec 08             	sub    sp,0x8
+; result = RESULT_FAILED
    f2dbc:	c7 46 fe ff ff       	mov    WORD PTR [bp-0x2],0xffff
    f2dc1:	80 3e 0d 65 03       	cmp    BYTE PTR ds:0x650d,0x3
+; if g_cinargs < 3: return result
    f2dc6:	72 47                	jb     0xf2e0f
+
+; DATE date
    f2dc8:	8d 46 f8             	lea    ax,[bp-0x8]
    f2dcb:	50                   	push   ax
+; read_date(&date)
    f2dcc:	9a 20 05 9d f8       	call   0xf89d:0x520 ; read_date
    f2dd1:	59                   	pop    cx
    f2dd2:	a0 4d 64             	mov    al,ds:0x644d
+; date.day = g_inargs[0]
    f2dd5:	88 46 f8             	mov    BYTE PTR [bp-0x8],al
    f2dd8:	a0 4e 64             	mov    al,ds:0x644e
+; date.month = g_inargs[1]
    f2ddb:	88 46 f9             	mov    BYTE PTR [bp-0x7],al
    f2dde:	a0 4f 64             	mov    al,ds:0x644f
+; date.year = g_inargs[2]
    f2de1:	b4 00                	mov    ah,0x0
    f2de3:	89 46 fa             	mov    WORD PTR [bp-0x6],ax
    f2de6:	83 7e fa 5a          	cmp    WORD PTR [bp-0x6],0x5a ; 90
@@ -30823,13 +30844,20 @@ compare_lizz:
    f2dec:	81 46 fa 6c 07       	add    WORD PTR [bp-0x6],0x76c ; 1900
    f2df1:	eb 05                	jmp    0xf2df8
    f2df3:	81 46 fa d0 07       	add    WORD PTR [bp-0x6],0x7d0 ; 2000
+; date.year += date.year < 90 ? 2000 : 1900
    f2df8:	8d 46 f8             	lea    ax,[bp-0x8]
    f2dfb:	50                   	push   ax
-   f2dfc:	9a e4 05 9d f8       	call   0xf89d:0x5e4
+   f2dfc:	9a e4 05 9d f8       	call   0xf89d:0x5e4 ; set_date
    f2e01:	59                   	pop    cx
+; result = set_date(&date)
    f2e02:	89 46 fe             	mov    WORD PTR [bp-0x2],ax
+
+; g_2e02 = 1
+; g_2dfd = 1
    f2e05:	c6 06 02 2e 01       	mov    BYTE PTR ds:0x2e02,0x1
    f2e0a:	c6 06 fd 2d 01       	mov    BYTE PTR ds:0x2dfd,0x1
+
+; return result
    f2e0f:	8b 46 fe             	mov    ax,WORD PTR [bp-0x2]
    f2e12:	eb 00                	jmp    0xf2e14
    f2e14:	8b e5                	mov    sp,bp
@@ -32228,9 +32256,10 @@ int do_get_num_serialtasks(void):
 000f394a  0fe9 1001 1016 102b 103a 1030 1035       |......+.:.0.5.|
 
 struct TIME {
-  hours int;
-  minutes int;
-  seconds int;
+  hours short;
+  minutes short;
+  seconds short;
+  something short;
 }
 
 .code
@@ -32262,6 +32291,13 @@ int do_get_time(void):
    f3986:	5d                   	pop    bp
    f3987:	cb                   	retf   
 
+struct DATE {
+  day short;
+  month short;
+  year short;
+  short u1;
+  short u2;
+}
 
 int do_get_date(void):
    f3988:	55                   	push   bp
@@ -33447,32 +33483,43 @@ parse_varbuf:
    f447f:	77 08                	ja     0xf4489
    f4481:	81 06 3f 02 d0 07    	add    WORD PTR ds:0x23f,0x7d0 ; 2000
    f4487:	eb 06                	jmp    0xf448f
+;     g_vardate.year += g_vardate.year > 97 ? 1900 : 2000
    f4489:	81 06 3f 02 6c 07    	add    WORD PTR ds:0x23f,0x76c ; 1900
    f448f:	b8 42 02             	mov    ax,0x242
    f4492:	50                   	push   ax
+;     if (validate_time(&g_vartime) &&
    f4493:	9a 69 00 9d f8       	call   0xf89d:0x69 ; validate_time
+
    f4498:	59                   	pop    cx
    f4499:	3d fe ff             	cmp    ax,0xfffe
    f449c:	75 3d                	jne    0xf44db
    f449e:	b8 3d 02             	mov    ax,0x23d
    f44a1:	50                   	push   ax
+;         validate_date(&g_vardate)):
    f44a2:	9a 94 00 9d f8       	call   0xf89d:0x94
    f44a7:	59                   	pop    cx
    f44a8:	3d fe ff             	cmp    ax,0xfffe
    f44ab:	75 2e                	jne    0xf44db
    f44ad:	c7 46 fe fe ff       	mov    WORD PTR [bp-0x2],0xfffe
    f44b2:	c6 06 3c 02 01       	mov    BYTE PTR ds:0x23c,0x1
+
    f44b7:	b8 42 02             	mov    ax,0x242
    f44ba:	50                   	push   ax
-   f44bb:	9a 68 03 9d f8       	call   0xf89d:0x368
+;       set_time(&g_vartime)
+   f44bb:	9a 68 03 9d f8       	call   0xf89d:0x368 ; set_time
    f44c0:	59                   	pop    cx
    f44c1:	b8 3d 02             	mov    ax,0x23d
    f44c4:	50                   	push   ax
-   f44c5:	9a e4 05 9d f8       	call   0xf89d:0x5e4
+;       set_date(&g_vardate)
+   f44c5:	9a e4 05 9d f8       	call   0xf89d:0x5e4 ; set_date
    f44ca:	59                   	pop    cx
+;        g_2e02 = 1
    f44cb:	c6 06 02 2e 01       	mov    BYTE PTR ds:0x2e02,0x1
+;        g_2dff = 0
    f44d0:	c7 06 ff 2d 00 00    	mov    WORD PTR ds:0x2dff,0x0
+;        g_2dfd = 1
    f44d6:	c6 06 fd 2d 01       	mov    BYTE PTR ds:0x2dfd,0x1
+
    f44db:	ff 0e 13 28          	dec    WORD PTR ds:0x2813 ; g_runlevel
    f44df:	7d 06                	jge    0xf44e7
    f44e1:	c7 06 13 28 00 00    	mov    WORD PTR ds:0x2813,0x0 ; g_runlevel
@@ -34668,10 +34715,10 @@ int do_cmd(void):
 ;   case 0x8a:
    f4ed5:	9a 59 04 90 f2       	call   0xf290:0x459
    f4eda:	eb b4                	jmp    0xf4e90
-;   case 0x8b:
+;   case 0x8b: result = do_set_time()
    f4edc:	9a 68 04 90 f2       	call   0xf290:0x468
    f4ee1:	eb ad                	jmp    0xf4e90
-;   case 0x8c:
+;   case 0x8c: result = do_set_date()
    f4ee3:	9a b6 04 90 f2       	call   0xf290:0x4b6
    f4ee8:	eb a6                	jmp    0xf4e90
 ;   case 0x8d:
@@ -35659,7 +35706,7 @@ main:
    f581a:	83 ec 14             	sub    sp,0x14
    f581d:	a1 fe 25             	mov    ax,ds:0x25fe ; fbe9e
    f5820:	8b 16 fc 25          	mov    dx,WORD PTR ds:0x25fc
-; l2 = g_25fc
+; TIME main_time = g_main_time
    f5824:	89 46 fa             	mov    WORD PTR [bp-0x6],ax
    f5827:	89 56 f8             	mov    WORD PTR [bp-0x8],dx
    f582a:	8d 46 ec             	lea    ax,[bp-0x14]
@@ -35704,7 +35751,8 @@ main:
    f587a:	75 0a                	jne    0xf5886
    f587c:	8d 46 f8             	lea    ax,[bp-0x8]
    f587f:	50                   	push   ax
-   f5880:	9a 68 03 9d f8       	call   0xf89d:0x368
+;   set_time(&main_time)
+   f5880:	9a 68 03 9d f8       	call   0xf89d:0x368 ; set_time
 ; }
    f5885:	59                   	pop    cx
    f5886:	8d 46 f2             	lea    ax,[bp-0xe]
@@ -35719,7 +35767,7 @@ main:
    f589d:	75 0a                	jne    0xf58a9
    f589f:	8d 46 ec             	lea    ax,[bp-0x14]
    f58a2:	50                   	push   ax
-   f58a3:	9a e4 05 9d f8       	call   0xf89d:0x5e4
+   f58a3:	9a e4 05 9d f8       	call   0xf89d:0x5e4 ; set_date
    f58a8:	59                   	pop    cx
 ; start_tasks()
    f58a9:	9a 94 02 b2 f7       	call   0xf7b2:0x294 ; start_tasks
@@ -40892,6 +40940,7 @@ int validate_time(TIME* t):
    f8ab4:	cb                   	retf   
 
 
+far int check_clock_something():
    f8ab5:	55                   	push   bp
    f8ab6:	8b ec                	mov    bp,sp
    f8ab8:	83 ec 06             	sub    sp,0x6
@@ -40992,6 +41041,7 @@ int validate_time(TIME* t):
    f8b77:	83 ec 16             	sub    sp,0x16
    f8b7a:	a1 8d 29             	mov    ax,ds:0x298d
    f8b7d:	8b 16 8b 29          	mov    dx,WORD PTR ds:0x298b
+; TIME safe_time = g_safe_time
    f8b81:	89 46 fe             	mov    WORD PTR [bp-0x2],ax
    f8b84:	89 56 fc             	mov    WORD PTR [bp-0x4],dx
    f8b87:	8d 46 f6             	lea    ax,[bp-0xa]
@@ -41022,7 +41072,8 @@ int validate_time(TIME* t):
    f8bcc:	50                   	push   ax
    f8bcd:	90                   	nop
    f8bce:	0e                   	push   cs
-   f8bcf:	e8 66 01             	call   0xf8d38
+; set_time(&safe_time)
+   f8bcf:	e8 66 01             	call   0xf8d38 ; set_time
    f8bd2:	59                   	pop    cx
    f8bd3:	8d 46 f6             	lea    ax,[bp-0xa]
    f8bd6:	50                   	push   ax
@@ -41086,15 +41137,16 @@ int validate_time(TIME* t):
    f8c52:	e8 e4 fd             	call   0xf8a39 ; validate_time
    f8c55:	59                   	pop    cx
    f8c56:	3d ff ff             	cmp    ax,0xffff
-; if (validate_time(&t) == RESULT_FAILED) {
+; if validate_time(&t) == RESULT_FAILED:
    f8c59:	75 0a                	jne    0xf8c65
    f8c5b:	8d 46 fc             	lea    ax,[bp-0x4]
    f8c5e:	50                   	push   ax
    f8c5f:	90                   	nop
    f8c60:	0e                   	push   cs
-   f8c61:	e8 d4 00             	call   0xf8d38
+;   set_time(&safe_time)
+   f8c61:	e8 d4 00             	call   0xf8d38 ; set_time
    f8c64:	59                   	pop    cx
-; }
+
    f8c65:	8d 46 ec             	lea    ax,[bp-0x14]
    f8c68:	50                   	push   ax
    f8c69:	0e                   	push   cs
@@ -41122,7 +41174,7 @@ int read_time(TIME* t):
    f8c8c:	8d 46 fa             	lea    ax,[bp-0x6]
    f8c8f:	89 46 f8             	mov    WORD PTR [bp-0x8],ax
    f8c92:	0e                   	push   cs
-   f8c93:	e8 1f fe             	call   0xf8ab5
+   f8c93:	e8 1f fe             	call   0xf8ab5 ; check_clock_something
    f8c96:	89 46 f4             	mov    WORD PTR [bp-0xc],ax
    f8c99:	3d fe ff             	cmp    ax,0xfffe
    f8c9c:	74 03                	je     0xf8ca1
@@ -41177,6 +41229,7 @@ int read_time(TIME* t):
    f8d19:	eb 02                	jmp    0xf8d1d
    f8d1b:	b0 00                	mov    al,0x0
    f8d1d:	8b 5e 06             	mov    bx,WORD PTR [bp+0x6]
+; t.something = g_time_something ? g_time_something / 10 : 0
    f8d20:	88 47 03             	mov    BYTE PTR [bx+0x3],al
 ; YIELD_IF_IDLE
    f8d23:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0 ; g_runlevel
@@ -41190,6 +41243,7 @@ int read_time(TIME* t):
    f8d37:	cb                   	retf   
 
 
+far void set_time(TIME* new_time):
    f8d38:	55                   	push   bp
    f8d39:	8b ec                	mov    bp,sp
    f8d3b:	83 ec 0c             	sub    sp,0xc
@@ -41197,9 +41251,12 @@ int read_time(TIME* t):
    f8d41:	0e                   	push   cs
    f8d42:	e8 f4 fc             	call   0xf8a39 ; validate_time
    f8d45:	59                   	pop    cx
+; result = validate_time(&new_time)
    f8d46:	89 46 f4             	mov    WORD PTR [bp-0xc],ax
    f8d49:	3d fe ff             	cmp    ax,0xfffe
    f8d4c:	74 03                	je     0xf8d51
+; if result != RESULT_OK:
+;   goto set_time_error
    f8d4e:	e9 c9 00             	jmp    0xf8e1a
    f8d51:	8b 5e 06             	mov    bx,WORD PTR [bp+0x6]
    f8d54:	8a 47 02             	mov    al,BYTE PTR [bx+0x2]
@@ -41207,6 +41264,9 @@ int read_time(TIME* t):
    f8d59:	bb 0a 00             	mov    bx,0xa
    f8d5c:	99                   	cwd    
    f8d5d:	f7 fb                	idiv   bx
+; Convert to BCD. Almost certainly a TIME_TO_TIME_OUT macro
+; TIME_OUT time_out
+; time_out[0] = new_time.seconds % 10
    f8d5f:	88 56 fa             	mov    BYTE PTR [bp-0x6],dl
    f8d62:	8b 5e 06             	mov    bx,WORD PTR [bp+0x6]
    f8d65:	8a 47 02             	mov    al,BYTE PTR [bx+0x2]
@@ -41214,6 +41274,7 @@ int read_time(TIME* t):
    f8d6a:	bb 0a 00             	mov    bx,0xa
    f8d6d:	99                   	cwd    
    f8d6e:	f7 fb                	idiv   bx
+; time_out[1] = new_time.seconds / 10
    f8d70:	88 46 fb             	mov    BYTE PTR [bp-0x5],al
    f8d73:	8b 5e 06             	mov    bx,WORD PTR [bp+0x6]
    f8d76:	8a 47 01             	mov    al,BYTE PTR [bx+0x1]
@@ -41221,6 +41282,7 @@ int read_time(TIME* t):
    f8d7b:	bb 0a 00             	mov    bx,0xa
    f8d7e:	99                   	cwd    
    f8d7f:	f7 fb                	idiv   bx
+; time_out[2] = new_time.minutes % 10
    f8d81:	88 56 fc             	mov    BYTE PTR [bp-0x4],dl
    f8d84:	8b 5e 06             	mov    bx,WORD PTR [bp+0x6]
    f8d87:	8a 47 01             	mov    al,BYTE PTR [bx+0x1]
@@ -41228,6 +41290,7 @@ int read_time(TIME* t):
    f8d8c:	bb 0a 00             	mov    bx,0xa
    f8d8f:	99                   	cwd    
    f8d90:	f7 fb                	idiv   bx
+; time_out[3] = new_time.minutes / 10
    f8d92:	88 46 fd             	mov    BYTE PTR [bp-0x3],al
    f8d95:	8b 5e 06             	mov    bx,WORD PTR [bp+0x6]
    f8d98:	8a 07                	mov    al,BYTE PTR [bx]
@@ -41235,6 +41298,7 @@ int read_time(TIME* t):
    f8d9c:	bb 0a 00             	mov    bx,0xa
    f8d9f:	99                   	cwd    
    f8da0:	f7 fb                	idiv   bx
+; time_out[4] = new_time.hours % 10
    f8da2:	88 56 fe             	mov    BYTE PTR [bp-0x2],dl
    f8da5:	8b 5e 06             	mov    bx,WORD PTR [bp+0x6]
    f8da8:	8a 07                	mov    al,BYTE PTR [bx]
@@ -41242,14 +41306,21 @@ int read_time(TIME* t):
    f8dac:	bb 0a 00             	mov    bx,0xa
    f8daf:	99                   	cwd    
    f8db0:	f7 fb                	idiv   bx
+; time_out[5] = new_time.hours / 10
    f8db2:	88 46 ff             	mov    BYTE PTR [bp-0x1],al
    f8db5:	8d 46 fa             	lea    ax,[bp-0x6]
+; p_time_out = &time_out
    f8db8:	89 46 f8             	mov    WORD PTR [bp-0x8],ax
    f8dbb:	0e                   	push   cs
-   f8dbc:	e8 f6 fc             	call   0xf8ab5
+   f8dbc:	e8 f6 fc             	call   0xf8ab5 ; check_clock_something
+; result = check_clock_something()
    f8dbf:	89 46 f4             	mov    WORD PTR [bp-0xc],ax
    f8dc2:	3d fe ff             	cmp    ax,0xfffe
+; if result != RESULT_OK:
+;   goto set_time_error
    f8dc5:	75 51                	jne    0xf8e18
+
+; for i = 0; i <= 5; i++:
    f8dc7:	c7 46 f6 00 00       	mov    WORD PTR [bp-0xa],0x0
    f8dcc:	eb 17                	jmp    0xf8de5
    f8dce:	8a 46 f6             	mov    al,BYTE PTR [bp-0xa]
@@ -41259,15 +41330,20 @@ int read_time(TIME* t):
    f8dd9:	8b 5e f8             	mov    bx,WORD PTR [bp-0x8]
    f8ddc:	03 5e f6             	add    bx,WORD PTR [bp-0xa]
    f8ddf:	8a 07                	mov    al,BYTE PTR [bx]
+;   out g_clock_port_base + i, p_time_out[i]
    f8de1:	ee                   	out    dx,al
+
    f8de2:	ff 46 f6             	inc    WORD PTR [bp-0xa]
+
    f8de5:	83 7e f6 05          	cmp    WORD PTR [bp-0xa],0x5
    f8de9:	7e e3                	jle    0xf8dce
+
    f8deb:	b0 01                	mov    al,0x1
    f8ded:	50                   	push   ax
    f8dee:	b8 0f 00             	mov    ax,0xf
    f8df1:	50                   	push   ax
    f8df2:	0e                   	push   cs
+; f89d1(15, 1)
    f8df3:	e8 db fb             	call   0xf89d1
    f8df6:	59                   	pop    cx
    f8df7:	59                   	pop    cx
@@ -41276,6 +41352,7 @@ int read_time(TIME* t):
    f8dfb:	b8 0f 00             	mov    ax,0xf
    f8dfe:	50                   	push   ax
    f8dff:	0e                   	push   cs
+; f89f3(15, 1)
    f8e00:	e8 f0 fb             	call   0xf89f3
    f8e03:	59                   	pop    cx
    f8e04:	59                   	pop    cx
@@ -41284,17 +41361,23 @@ int read_time(TIME* t):
    f8e08:	b8 0d 00             	mov    ax,0xd
    f8e0b:	50                   	push   ax
    f8e0c:	0e                   	push   cs
+; f89f3(13, 1)
    f8e0d:	e8 e3 fb             	call   0xf89f3
    f8e10:	59                   	pop    cx
    f8e11:	59                   	pop    cx
+; g_time_something = 0
    f8e12:	c7 06 84 29 00 00    	mov    WORD PTR ds:0x2984,0x0
    f8e18:	eb 06                	jmp    0xf8e20
+
+; set_time_error:
+; g_lasterror = 0xff38
    f8e1a:	c7 06 22 68 38 ff    	mov    WORD PTR ds:0x6822,0xff38
 ; YIELD_IF_IDLE
    f8e20:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0 ; g_runlevel
    f8e25:	75 05                	jne    0xf8e2c
    f8e27:	9a 1a 00 96 f8       	call   0xf896:0x1a ; yield
 
+; return result
    f8e2c:	8b 46 f4             	mov    ax,WORD PTR [bp-0xc]
    f8e2f:	eb 00                	jmp    0xf8e31
    f8e31:	8b e5                	mov    sp,bp
@@ -41302,6 +41385,7 @@ int read_time(TIME* t):
    f8e34:	cb                   	retf   
 
 
+far void set_time_minutes(TIME* new_time):
    f8e35:	55                   	push   bp
    f8e36:	8b ec                	mov    bp,sp
    f8e38:	83 ec 0c             	sub    sp,0xc
@@ -41309,16 +41393,22 @@ int read_time(TIME* t):
    f8e3e:	0e                   	push   cs
    f8e3f:	e8 f7 fb             	call   0xf8a39 ; validate_time
    f8e42:	59                   	pop    cx
+; result = validate_time(&new_time)
    f8e43:	89 46 f4             	mov    WORD PTR [bp-0xc],ax
    f8e46:	3d fe ff             	cmp    ax,0xfffe
+; if result != RESULT_OK:
+;   goto set_time_minutes_error
    f8e49:	74 03                	je     0xf8e4e
    f8e4b:	e9 87 00             	jmp    0xf8ed5
+
    f8e4e:	8b 5e 06             	mov    bx,WORD PTR [bp+0x6]
    f8e51:	8a 47 01             	mov    al,BYTE PTR [bx+0x1]
    f8e54:	b4 00                	mov    ah,0x0
    f8e56:	bb 0a 00             	mov    bx,0xa
    f8e59:	99                   	cwd    
    f8e5a:	f7 fb                	idiv   bx
+; TIME_OUT time_out
+; time_out[0] = new_time.minutes % 10
    f8e5c:	88 56 fc             	mov    BYTE PTR [bp-0x4],dl
    f8e5f:	8b 5e 06             	mov    bx,WORD PTR [bp+0x6]
    f8e62:	8a 47 01             	mov    al,BYTE PTR [bx+0x1]
@@ -41326,6 +41416,7 @@ int read_time(TIME* t):
    f8e67:	bb 0a 00             	mov    bx,0xa
    f8e6a:	99                   	cwd    
    f8e6b:	f7 fb                	idiv   bx
+; time_out[1] = new_time.minutes / 10
    f8e6d:	88 46 fd             	mov    BYTE PTR [bp-0x3],al
    f8e70:	8b 5e 06             	mov    bx,WORD PTR [bp+0x6]
    f8e73:	8a 07                	mov    al,BYTE PTR [bx]
@@ -41333,6 +41424,7 @@ int read_time(TIME* t):
    f8e77:	bb 0a 00             	mov    bx,0xa
    f8e7a:	99                   	cwd    
    f8e7b:	f7 fb                	idiv   bx
+; time_out[2] = new_time.hours % 10
    f8e7d:	88 56 fe             	mov    BYTE PTR [bp-0x2],dl
    f8e80:	8b 5e 06             	mov    bx,WORD PTR [bp+0x6]
    f8e83:	8a 07                	mov    al,BYTE PTR [bx]
@@ -41340,14 +41432,21 @@ int read_time(TIME* t):
    f8e87:	bb 0a 00             	mov    bx,0xa
    f8e8a:	99                   	cwd    
    f8e8b:	f7 fb                	idiv   bx
+; time_out[3] = new_time.hours / 10
    f8e8d:	88 46 ff             	mov    BYTE PTR [bp-0x1],al
    f8e90:	8d 46 fa             	lea    ax,[bp-0x6]
+; p_time_out = &time_out
    f8e93:	89 46 f8             	mov    WORD PTR [bp-0x8],ax
    f8e96:	0e                   	push   cs
-   f8e97:	e8 1b fc             	call   0xf8ab5
+   f8e97:	e8 1b fc             	call   0xf8ab5 ; check_clock_something
+; result = check_clock_something()
    f8e9a:	89 46 f4             	mov    WORD PTR [bp-0xc],ax
    f8e9d:	3d fe ff             	cmp    ax,0xfffe
+; if result != RESULT_OK:
+;   goto set_time_minutes_error
    f8ea0:	75 31                	jne    0xf8ed3
+
+; for i = 2; i <= 5; i++:
    f8ea2:	c7 46 f6 02 00       	mov    WORD PTR [bp-0xa],0x2
    f8ea7:	eb 17                	jmp    0xf8ec0
    f8ea9:	8a 46 f6             	mov    al,BYTE PTR [bp-0xa]
@@ -41357,25 +41456,35 @@ int read_time(TIME* t):
    f8eb4:	8b 5e f8             	mov    bx,WORD PTR [bp-0x8]
    f8eb7:	03 5e f6             	add    bx,WORD PTR [bp-0xa]
    f8eba:	8a 07                	mov    al,BYTE PTR [bx]
+;   out g_clock_port_base + i, p_time_out[i]
    f8ebc:	ee                   	out    dx,al
+
    f8ebd:	ff 46 f6             	inc    WORD PTR [bp-0xa]
+
    f8ec0:	83 7e f6 05          	cmp    WORD PTR [bp-0xa],0x5
    f8ec4:	7e e3                	jle    0xf8ea9
+
    f8ec6:	b0 01                	mov    al,0x1
    f8ec8:	50                   	push   ax
    f8ec9:	b8 0d 00             	mov    ax,0xd
    f8ecc:	50                   	push   ax
    f8ecd:	0e                   	push   cs
+; f89f3(13, 1)
    f8ece:	e8 22 fb             	call   0xf89f3
    f8ed1:	59                   	pop    cx
    f8ed2:	59                   	pop    cx
    f8ed3:	eb 06                	jmp    0xf8edb
+
+; set_time_minutes_error:
+; g_lasterror = 0xff38
    f8ed5:	c7 06 22 68 38 ff    	mov    WORD PTR ds:0x6822,0xff38
+
 ; YIELD_IF_IDLE
    f8edb:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0 ; g_runlevel
    f8ee0:	75 05                	jne    0xf8ee7
    f8ee2:	9a 1a 00 96 f8       	call   0xf896:0x1a ; yield
 
+; return result
    f8ee7:	8b 46 f4             	mov    ax,WORD PTR [bp-0xc]
    f8eea:	eb 00                	jmp    0xf8eec
    f8eec:	8b e5                	mov    sp,bp
@@ -41387,16 +41496,19 @@ read_date:
    f8ef0:	55                   	push   bp
    f8ef1:	8b ec                	mov    bp,sp
    f8ef3:	83 ec 0e             	sub    sp,0xe
+
+; int l1
    f8ef6:	8d 46 f8             	lea    ax,[bp-0x8]
    f8ef9:	89 46 f6             	mov    WORD PTR [bp-0xa],ax
    f8efc:	0e                   	push   cs
-   f8efd:	e8 b5 fb             	call   0xf8ab5
+   f8efd:	e8 b5 fb             	call   0xf8ab5 ; check_clock_something
+; int l2 = check_clock_something()
    f8f00:	89 46 f2             	mov    WORD PTR [bp-0xe],ax
    f8f03:	3d fe ff             	cmp    ax,0xfffe
    f8f06:	74 03                	je     0xf8f0b
    f8f08:	e9 94 00             	jmp    0xf8f9f
    f8f0b:	0e                   	push   cs
-   f8f0c:	e8 a6 fb             	call   0xf8ab5
+   f8f0c:	e8 a6 fb             	call   0xf8ab5 ; check_clock_something
 
    f8f0f:	c7 46 f4 06 00       	mov    WORD PTR [bp-0xc],0x6
    f8f14:	eb 16                	jmp    0xf8f2c
@@ -41465,7 +41577,7 @@ read_date:
    f8fb3:	cb                   	retf   
 
 
-date_calc_something:
+set_date(DATE* new_date):
    f8fb4:	55                   	push   bp
    f8fb5:	8b ec                	mov    bp,sp
    f8fb7:	83 ec 10             	sub    sp,0x10
@@ -41475,27 +41587,35 @@ date_calc_something:
    f8fc3:	0e                   	push   cs
    f8fc4:	e8 21 03             	call   0xf92e8
    f8fc7:	59                   	pop    cx
+; result = f92e8(new_date)
    f8fc8:	89 46 f2             	mov    WORD PTR [bp-0xe],ax
+
    f8fcb:	8b 5e 06             	mov    bx,WORD PTR [bp+0x6]
    f8fce:	81 7f 02 d0 07       	cmp    WORD PTR [bx+0x2],0x7d0 ; 2000
    f8fd3:	72 0a                	jb     0xf8fdf
    f8fd5:	8b 5e 06             	mov    bx,WORD PTR [bp+0x6]
    f8fd8:	8a 47 02             	mov    al,BYTE PTR [bx+0x2]
-   f8fdb:	2c d0                	sub    al,0xd0 ; 208
+   f8fdb:	2c d0                	sub    al,0xd0 ; 2000 & 0xff
    f8fdd:	eb 08                	jmp    0xf8fe7
    f8fdf:	8b 5e 06             	mov    bx,WORD PTR [bp+0x6]
    f8fe2:	8a 47 02             	mov    al,BYTE PTR [bx+0x2]
-   f8fe5:	2c 6c                	sub    al,0x6c ; 108
+   f8fe5:	2c 6c                	sub    al,0x6c ; 1900 & 0xff
    f8fe7:	88 46 f1             	mov    BYTE PTR [bp-0xf],al
+; year = new_date.year < 2000 ? new_date.year - 1900 : new_date.year - 2000
    f8fea:	83 7e f2 fe          	cmp    WORD PTR [bp-0xe],0xfffffffe
    f8fee:	74 03                	je     0xf8ff3
+; if result != RESULT_OK:
+;   goto g_set_date_error
    f8ff0:	e9 ad 00             	jmp    0xf90a0
+
+; DATE_OUT date_out;
    f8ff3:	8b 5e 06             	mov    bx,WORD PTR [bp+0x6]
    f8ff6:	8a 07                	mov    al,BYTE PTR [bx]
    f8ff8:	b4 00                	mov    ah,0x0
    f8ffa:	bb 0a 00             	mov    bx,0xa
    f8ffd:	99                   	cwd    
    f8ffe:	f7 fb                	idiv   bx
+; date_out[0] = new_date.day % 10
    f9000:	88 56 f8             	mov    BYTE PTR [bp-0x8],dl
    f9003:	8b 5e 06             	mov    bx,WORD PTR [bp+0x6]
    f9006:	8a 07                	mov    al,BYTE PTR [bx]
@@ -41503,6 +41623,7 @@ date_calc_something:
    f900a:	bb 0a 00             	mov    bx,0xa
    f900d:	99                   	cwd    
    f900e:	f7 fb                	idiv   bx
+; date_out[1] = new_date.day / 10
    f9010:	88 46 f9             	mov    BYTE PTR [bp-0x7],al
    f9013:	8b 5e 06             	mov    bx,WORD PTR [bp+0x6]
    f9016:	8a 47 01             	mov    al,BYTE PTR [bx+0x1]
@@ -41510,6 +41631,7 @@ date_calc_something:
    f901b:	bb 0a 00             	mov    bx,0xa
    f901e:	99                   	cwd    
    f901f:	f7 fb                	idiv   bx
+; date_out[2] = new_date.month % 10
    f9021:	88 56 fa             	mov    BYTE PTR [bp-0x6],dl
    f9024:	8b 5e 06             	mov    bx,WORD PTR [bp+0x6]
    f9027:	8a 47 01             	mov    al,BYTE PTR [bx+0x1]
@@ -41517,31 +41639,45 @@ date_calc_something:
    f902c:	bb 0a 00             	mov    bx,0xa
    f902f:	99                   	cwd    
    f9030:	f7 fb                	idiv   bx
+; date_out[3] = new_date.month / 10
    f9032:	88 46 fb             	mov    BYTE PTR [bp-0x5],al
    f9035:	8a 46 f1             	mov    al,BYTE PTR [bp-0xf]
    f9038:	b4 00                	mov    ah,0x0
    f903a:	bb 0a 00             	mov    bx,0xa
    f903d:	99                   	cwd    
    f903e:	f7 fb                	idiv   bx
+; date_out[4] = year % 10
    f9040:	88 56 fc             	mov    BYTE PTR [bp-0x4],dl
    f9043:	8a 46 f1             	mov    al,BYTE PTR [bp-0xf]
    f9046:	b4 00                	mov    ah,0x0
    f9048:	bb 0a 00             	mov    bx,0xa
    f904b:	99                   	cwd    
    f904c:	f7 fb                	idiv   bx
+; date_out[5] = year / 10
    f904e:	88 46 fd             	mov    BYTE PTR [bp-0x3],al
+
    f9051:	8b 5e 06             	mov    bx,WORD PTR [bp+0x6]
    f9054:	8a 47 04             	mov    al,BYTE PTR [bx+0x4]
    f9057:	88 46 fe             	mov    BYTE PTR [bp-0x2],al
+; l1 = new_date.u2
+
    f905a:	8d 46 f8             	lea    ax,[bp-0x8]
    f905d:	89 46 f6             	mov    WORD PTR [bp-0xa],ax
+; p_date_out = &date_out
+
    f9060:	0e                   	push   cs
-   f9061:	e8 51 fa             	call   0xf8ab5
+   f9061:	e8 51 fa             	call   0xf8ab5 ; check_clock_something
+; result = check_clock_something()
    f9064:	89 46 f2             	mov    WORD PTR [bp-0xe],ax
    f9067:	3d fe ff             	cmp    ax,0xfffe
+; if result != RESULT_OK:
+;   goto set_date_error
    f906a:	75 32                	jne    0xf909e
+
+; for i = 6; i <= 12; i++:
    f906c:	c7 46 f4 06 00       	mov    WORD PTR [bp-0xc],0x6
    f9071:	eb 18                	jmp    0xf908b
+
    f9073:	8a 46 f4             	mov    al,BYTE PTR [bp-0xc]
    f9076:	b4 00                	mov    ah,0x0
    f9078:	8b 16 86 29          	mov    dx,WORD PTR ds:0x2986
@@ -41549,25 +41685,33 @@ date_calc_something:
    f907e:	8b 5e f4             	mov    bx,WORD PTR [bp-0xc]
    f9081:	03 5e f6             	add    bx,WORD PTR [bp-0xa]
    f9084:	8a 47 fa             	mov    al,BYTE PTR [bx-0x6]
+;   out g_clock_port_base + i, p_date_out[i - 6]
    f9087:	ee                   	out    dx,al
+
    f9088:	ff 46 f4             	inc    WORD PTR [bp-0xc]
+
    f908b:	83 7e f4 0c          	cmp    WORD PTR [bp-0xc],0xc
    f908f:	7e e2                	jle    0xf9073
+
    f9091:	b0 01                	mov    al,0x1
    f9093:	50                   	push   ax
    f9094:	b8 0d 00             	mov    ax,0xd
    f9097:	50                   	push   ax
    f9098:	0e                   	push   cs
+; f89f3(13, 1)
    f9099:	e8 57 f9             	call   0xf89f3
    f909c:	59                   	pop    cx
    f909d:	59                   	pop    cx
    f909e:	eb 06                	jmp    0xf90a6
+; set_date_error:
+;   g_last_error = 0xff37
    f90a0:	c7 06 22 68 37 ff    	mov    WORD PTR ds:0x6822,0xff37
 ; YIELD_IF_IDLE
    f90a6:	83 3e 13 28 00       	cmp    WORD PTR ds:0x2813,0x0 ; g_runlevel
    f90ab:	75 05                	jne    0xf90b2
    f90ad:	9a 1a 00 96 f8       	call   0xf896:0x1a ; yield
 
+; return result
    f90b2:	8b 46 f2             	mov    ax,WORD PTR [bp-0xe]
    f90b5:	eb 00                	jmp    0xf90b7
    f90b7:	8b e5                	mov    sp,bp
@@ -41580,7 +41724,7 @@ date_calc_something:
    f90be:	83 ec 04             	sub    sp,0x4
    f90c1:	c6 46 ff 00          	mov    BYTE PTR [bp-0x1],0x0
    f90c5:	0e                   	push   cs
-   f90c6:	e8 ec f9             	call   0xf8ab5
+   f90c6:	e8 ec f9             	call   0xf8ab5 ; check_clock_something
    f90c9:	89 46 fc             	mov    WORD PTR [bp-0x4],ax
    f90cc:	3d fe ff             	cmp    ax,0xfffe
    f90cf:	75 5b                	jne    0xf912c
